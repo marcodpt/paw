@@ -11,9 +11,9 @@ loading as quickly as possible.
 understand and modify without messing with JavaScript) and be located in
 template tags in the index.html file.
  - It is not allowed to use inline style in the index.html file (nor in
-templates). All styling must come from a set of classes (as minimal as
-possible) defined for the application, thus maintaining consistency in the
-layout.
+templates). All styling must come from a set of CSS rules (like an opinated CSS
+reset) and classes (as fewer classes names as possible) defined for the
+application, thus maintaining consistency in the layout.
  - The application's views are accessed by routing the page's hash, and any
 change in the page's state must result in a different hash to be able to share
 links with a well-defined state.
