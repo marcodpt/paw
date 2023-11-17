@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" integrity="sha512-P9pgMgcSNlLb4Z2WAB2sH5KBKGnBfyJnq+bhcfLCFusrRc4XdXrhfDluBl/usq75NF5gTDIMcwI1GaG5gju+Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>App</title>
+  </head>
+  <body>
+    <div id="nav">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <ul if:="menu" class="navbar-nav">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            data-bs-toggle="offcanvas"
+            href="#sidebar"
+            role="button"
+            aria-controls="sidebar"
+          >
+            <i class:="menu"></i>
+          </a>
+        </li>
+      </ul>
+      <a class="navbar-brand" href="#/">
+        App
+      </a>
+      <span class="navbar-text" text:="current"></span>
+      <button
+        class="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target=".navbar-collapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <template each:="links">
+            <li if:="children" class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                class:="css"
+                data-bs-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                <i if:="icon" class:="icon"></i>
+                <template text:="title"></template>
+              </a>
+              <ul class="dropdown-menu">
+                <li each:="children">
+                  <a
+                    class="dropdown-item"
+                    class:="css"
+                    href:="href"
+                    onclick:="click"
+                  >
+                    <i if:="icon" class:="icon"></i>
+                    <template text:="title"></template>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li not:="children" class="nav-item">
+              <a class="nav-link" class:="css" href:="href" onclick:="click">
+                <i if:="icon" class:="icon"></i>
+                <template text:="title"></template>
+              </a>
+            </li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    id="sidebar"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">
+        App
+        <small class="text-secondary" text:="current"></small>
+      </h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <bs-list children:="sidebar"></bs-list>
+    </div>
+  </div>
+</div>
+<template id="bs-list">
+  <ul each:="children" class="list-group">
+    <li if:="children" class="list-group-item border-0" class:="css">
+      <a
+        class="text-decoration-none text-reset"
+        href="javascript:;"
+        onclick:="click"
+      >
+        <i if:="icon" class:="icon"></i>
+        <template text:="title"></template>
+        <i if:="indicator" class:="indicator"></i>
+      </a>
+    </li>
+    <li if:="children" show:="open" class="list-group-item border-0 py-0">
+      <bs-list children:="children"></bs-list>
+    </li>
+    <li not:="children" class="list-group-item border-0" class:="css">
+      <a
+        class="text-decoration-none text-reset"
+        href:="href"
+        onclick:="click"
+      >
+        <i if:="icon" class:="icon"></i>
+        <template text:="title"></template>
+      </a>
+    </li>
+  </ul>
+</template>
+    <main>
+      <h1>App</h1>
+<p class="lead">A dashboard application</p>
+    </main>
+  </body>
+</html>

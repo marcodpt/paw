@@ -42,3 +42,8 @@ to evolve along with this project.
  - [JSON Schema](https://github.com/json-schema-org/json-schema-spec): A level
 of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
+
+## Build
+```
+minijinja-cli templates/index.html src/build.toml > docs/index.html
+```
