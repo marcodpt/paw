@@ -1,76 +1,47 @@
 import merlin from "https://cdn.jsdelivr.net/gh/marcodpt/merlin@0.1.0/index.js"
+import navbar from './js/navbar.js'
 
 merlin({
   components: {
-    navbar: {
-      root: document.body.querySelector('nav'),
-      init: () => ({
-        value: "",
-        todos: []
-      }),
-      AddTodo: ({todos, value}) => ({
-        todos: todos.concat(value),
-        value: ''
-      }),
-      NewValue: ({todos, value}, ev) => ({
-        todos,
-        value: ev.target.value
-      })
-    }
+    navbar: navbar
   },
   navbar: {
+    icons: {
+      isClosed: 'fa-solid fa-angle-down',
+      isOpen: 'fa-solid fa-angle-up',
+      menu: 'fa-solid fa-bars'
+    },
     links: [
       {
-        title: lang.tools,
+        title: 'Tools',
         icon: 'fa-solid fa-tools',
-        groups_id: [3],
         children: [
           {
-            title: lang.graphClient,
+            title: 'Flowchart',
             icon: 'fa-solid fa-project-diagram',
-            href: '#/graph/db'
+            href: '#/graph/sample'
           }, {
-            title: lang.graphCore,
-            icon: 'fa-solid fa-database',
-            href: '#/graph/core'
-          }, {
-            title: lang.chart,
+            title: 'Chart',
             icon: 'fa-solid fa-chart-line',
-            href: '#/chart/tables'
+            href: '#/chart/sample'
           }, {
-            title: lang.upload,
+            title: 'Import Files',
             icon: 'fa-solid fa-file',
-            href: '#/upload/files'
-          }, {
-            title: lang.request,
-            icon: 'fa-solid fa-paper-plane',
-            href: '@request'
-          }, {
-            title: lang.response,
-            icon: 'fa-solid fa-inbox',
-            href: '@response'
-          }, {
-            title: lang.rawData,
-            icon: 'fa-solid fa-table',
-            href: '@data'
-          }, {
-            title: lang.backup,
-            icon: 'fa-solid fa-camera',
-            href: '@backup'
+            href: '#/upload'
           }
         ]
       }
     ],
     sidebar: [
       {
-        title: 'Cadastro',
+        title: 'Data',
         children: [
           {
-            title: 'Pessoas',
-            href: '#/api/get/pessoas'
+            title: 'Users',
+            href: '#/table/users'
           }
         ]
       }
     ]
-  },
+  }
 })

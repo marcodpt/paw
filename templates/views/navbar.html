@@ -1,4 +1,4 @@
-<div id="nav">
+<div id="navbar">
   <nav class="navbar navbar-expand-lg {{NAVBAR}}">
     <div class="container-fluid">
       <ul if:="menu" class="navbar-nav">
@@ -45,7 +45,8 @@
                     class="dropdown-item"
                     class:="css"
                     href:="href"
-                    onclick:="click"
+                    data-index:="index"
+                    onclick="toggle"
                   >
                     <i if:="icon" class:="icon"></i>
                     <template text:="title"></template>
@@ -54,7 +55,7 @@
               </ul>
             </li>
             <li not:="children" class="nav-item">
-              <a class="nav-link" class:="css" href:="href" onclick:="click">
+              <a class="nav-link" class:="css" href:="href">
                 <i if:="icon" class:="icon"></i>
                 <template text:="title"></template>
               </a>
@@ -92,7 +93,8 @@
       <a
         class="text-decoration-none text-reset"
         href="javascript:;"
-        onclick:="click"
+        data-index:="index"
+        onclick="toggle"
       >
         <i if:="icon" class:="icon"></i>
         <template text:="title"></template>
@@ -106,7 +108,7 @@
       <a
         class="text-decoration-none text-reset"
         href:="href"
-        onclick:="click"
+        onclick="hide"
       >
         <i if:="icon" class:="icon"></i>
         <template text:="title"></template>
