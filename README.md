@@ -47,3 +47,12 @@ minimum effort and maximum customization.
 ```
 minijinja-cli templates/index.html src/build.toml > docs/index.html
 ```
+
+## TODO
+ - [X] navbar
+ - [ ] table
+ - [ ] row
+ - [ ] form
+ - [ ] graph
+ - [ ] chart
+ - [ ] build with user defined settings
