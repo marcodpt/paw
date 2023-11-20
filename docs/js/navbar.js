@@ -31,7 +31,7 @@ export default {
       l.css = ''
       l.open = false
       l.indicator = state.isClosed
-      l.children = l.children || null
+      l.children = l.children || false
       const H = (l.href || '').split('?')
       if (path === H.shift() && query.indexOf(H.join('?')) == 0) {
         R.push([l])

@@ -1,0 +1,45 @@
+<table class="
+  table
+  table-bordered
+  table-center
+  table-striped
+  table-hover
+">
+  <thead>
+    <tr if:="title">
+      <th
+        class="text-center"
+        colspan="100%"
+        title:="description"
+        text:="title"
+      ></th>
+    </tr>
+    <tr>
+      <th
+        class="text-center align-middle"
+        each:="columns"
+      >
+        <span
+          text:="title"
+          title:="description"
+        ></span>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr each:="rows" title:="description">
+      <td
+        each:="fields"
+        class="align-middle "
+        text:=""
+      ></td>
+    </tr>
+    <tr not:="rows">
+      <td colspan="100%">
+        <div class="text-center p-5 m-5">
+          <i class:="loading"></i>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

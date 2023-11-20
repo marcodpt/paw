@@ -1,9 +1,12 @@
 import merlin from "https://cdn.jsdelivr.net/gh/marcodpt/merlin@0.1.0/index.js"
 import navbar from './js/navbar.js'
+import table from './js/table.js'
+import data from './samples/data.js'
 
 merlin({
   components: {
-    navbar: navbar
+    navbar: navbar,
+    table: table
   },
   navbar: {
     icons: {
@@ -43,5 +46,8 @@ merlin({
         ]
       }
     ]
+  },
+  table: {
+    rows: () => data
   }
 })
