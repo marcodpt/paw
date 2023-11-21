@@ -1,5 +1,0 @@
-LANGUAGE = "en"
-THEME = ""
-TITLE = "App"
-DESCRIPTION = "A dashboard application"
-NAVBAR = "bg-dark navbar-dark"

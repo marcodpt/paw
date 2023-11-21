@@ -16,11 +16,6 @@ merlin({
     }
   ],
   navbar: {
-    icons: {
-      isClosed: 'fa-solid fa-angle-down',
-      isOpen: 'fa-solid fa-angle-up',
-      menu: 'fa-solid fa-bars'
-    },
     links: [
       {
         title: 'Tools',

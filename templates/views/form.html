@@ -1,0 +1,55 @@
+<div class="container my-5" style:="style">
+  <form onsubmit:="run" novalidate>
+    <fieldset>
+      <legend if:="title">
+        <span text:="title"></span>
+      </legend>
+      <div
+        if:="description"
+        class="alert alert-info"
+        role="alert"
+        style="white-space: pre-wrap;"
+        text:="description"
+      ></div>
+      <div class="row my-3" each:="fields">
+        <div class="col-md-3">
+          <label
+            class="form-label"
+            title:="description"
+            text:="title"
+          ></label>
+        </div>
+        <div class="col-md-9">
+          <input
+            class="form-control"
+            class:="feedback"
+            name:="name"
+            placeholder:="placeholder"
+            min:="min"
+            max:="max"
+            step:="step"
+            type:="type"
+            value:="value"
+            disabled:="disabled"
+            multiple:="multiple"
+            oninput:="change"
+          />
+        </div>
+      </div>
+      <div class="row g-2 align-items-center">
+        <div class="col-auto">
+          <a class="{{link.back}}" href:="target">
+            <i class="{{icon.back}}"></i>
+            <template>{{text[lang].back}}</template>
+          </a>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="{{link.submit}}" href:="target">
+            <i class="{{icon.submit}}"></i>
+            <template>{{text[lang].submit}}</template>
+          </button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>

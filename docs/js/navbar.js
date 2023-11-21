@@ -14,23 +14,15 @@ export default {
   },
   update: (state, data) => {
     if (data && typeof data == 'object') {
-      const {icons, links, sidebar} = data
-      const {menu, isClosed, isOpen} = icons || {}
+      const {links, sidebar} = data
       state.links = links instanceof Array ? links : []
       state.sidebar = sidebar instanceof Array ? sidebar : []
       state.parents = []
-      state.isClosed = typeof isClosed == 'string' ?
-        isClosed : 'fa-solid fa-angle-down' 
-      state.isOpen = typeof isOpen == 'string' ?
-        isOpen : 'fa-solid fa-angle-up' 
-      state.menu = !state.sidebar.length ? '' :
-        typeof menu == 'string' ? menu : 'fa-solid fa-bars'
     }
 
     const getRoute = (path, query, links) => links.reduce((R, l) => {
       l.css = ''
       l.open = false
-      l.indicator = state.isClosed
       l.children = l.children || null 
       const H = (l.href || '').split('?')
       if (path === H.shift() && query.indexOf(H.join('?')) == 0) {
@@ -60,26 +52,26 @@ export default {
     R.forEach(l => {
       l.css = ' active'
       l.open = true
-      l.indicator = state.isOpen
     })
     state.current = R.map(({title}) => title).reverse().join(' / ')
 
     return state
   },
-  toggle: ({parents, isOpen, isClosed}, ev) => {
+  toggle: ({parents}, ev) => {
     const index = parseInt(ev.target.getAttribute('data-index'))
     parents.forEach((l, i) => {
       if (i == index) {
         l.open = !l.open
-        l.indicator = l.open ? isOpen : isClosed
       }
     })
   },
   hide: ({offcanvas}) => {
     offcanvas.hide()
   },
-  format: ({menu, current, links, sidebar}) => ({
-    menu, current, links, sidebar
+  format: ({current, links, sidebar}) => ({
+    current,
+    links,
+    sidebar: sidebar && sidebar.length ? sidebar : null
   }),
   done: ({hashchange, navbarchange}) => {
     window.removeEventListener('hashchange', hashchange)

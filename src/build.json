@@ -1,0 +1,28 @@
+{
+  "lang": "en",
+  "theme": "",
+  "title": "App",
+  "description": "A dashboard application",
+  "navbar": "bg-dark navbar-dark",
+  "icon": {
+    "menu": "fa-solid fa-bars",
+    "isOpen": "fa-solid fa-angle-up",
+    "isClosed": "fa-solid fa-angle-down",
+    "back": "fa-solid fa-arrow-left",
+    "submit": "fa-solid fa-check"
+  },
+  "link": {
+    "back": "btn btn-secondary",
+    "submit": "btn btn-primary"
+  },
+  "text": {
+    "en": {
+      "back": "Back",
+      "submit": "Submit"
+    },
+    "pt": {
+      "back": "Voltar",
+      "submit": "Enviar"
+    }
+  }
+}
