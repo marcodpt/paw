@@ -62,6 +62,7 @@ export default {
       l.open = true
       l.indicator = state.isOpen
     })
+    state.current = R.map(({title}) => title).reverse().join(' / ')
 
     return state
   },
@@ -77,8 +78,8 @@ export default {
   hide: ({offcanvas}) => {
     offcanvas.hide()
   },
-  format: ({menu, links, sidebar}) => ({
-    menu, links, sidebar
+  format: ({menu, current, links, sidebar}) => ({
+    menu, current, links, sidebar
   }),
   done: ({hashchange, navbarchange}) => {
     window.removeEventListener('hashchange', hashchange)
