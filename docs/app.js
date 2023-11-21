@@ -5,9 +5,16 @@ import data from './samples/data.js'
 
 merlin({
   components: {
-    navbar: navbar,
-    table: table
+    table,
+    navbar
   },
+  routes: [
+    {},
+    {
+      route: '#/table/:name',
+      component: 'table'
+    }
+  ],
   navbar: {
     icons: {
       isClosed: 'fa-solid fa-angle-down',

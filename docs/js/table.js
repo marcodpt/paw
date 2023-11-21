@@ -1,9 +1,10 @@
 export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
-  init: ({rows}, call) => {
+  init: ({data, ...route}, call) => {
+    const {rows} = data
     call('set', {})
-    Promise.resolve().then(() => rows()).then(data => {
+    Promise.resolve().then(() => rows(route)).then(data => {
       const columns = data instanceof Array ? data.reduce((C, row) => {
         if (row && typeof row == 'object') {
           Object.keys(row).forEach(key => {

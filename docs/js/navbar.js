@@ -31,7 +31,7 @@ export default {
       l.css = ''
       l.open = false
       l.indicator = state.isClosed
-      l.children = l.children || false
+      l.children = l.children || null 
       const H = (l.href || '').split('?')
       if (path === H.shift() && query.indexOf(H.join('?')) == 0) {
         R.push([l])
@@ -55,7 +55,7 @@ export default {
     const H = location.hash.split('?')
     state.parents = []
     const R = getRoute(
-      H.shift(), H.join('?'), [].concat(state.links, state.sidebar)
+      H.shift() || '#', H.join('?'), [].concat(state.links, state.sidebar)
     )
     R.forEach(l => {
       l.css = ' active'
