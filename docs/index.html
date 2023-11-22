@@ -191,7 +191,7 @@
     </template>
     <template id="view-form">
       <div class="container my-5" style:="style">
-  <form onsubmit:="run" novalidate>
+  <form onsubmit="submit" novalidate>
     <fieldset>
       <legend if:="title">
         <span text:="title"></span>
@@ -224,26 +224,49 @@
             value:="value"
             disabled:="disabled"
             multiple:="multiple"
-            oninput:="change"
+            oninput="change"
           />
         </div>
       </div>
       <div class="row g-2 align-items-center">
         <div class="col-auto">
-          <a class="btn btn-secondary" href:="target">
+          <a class="btn btn-secondary" href="javascript:history.back()">
             <i class="fa-solid fa-arrow-left"></i>
-            Back
+            <template>Back</template>
           </a>
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary" href:="target">
+          <button type="submit" class="btn btn-primary">
             <i class="fa-solid fa-check"></i>
-            Submit
+            <template>Submit</template>
           </button>
         </div>
       </div>
     </fieldset>
   </form>
+</div>
+    </template>
+    <template id="view-row">
+      <div class="container my-5">
+  <legend title:="description" text:="title"></legend>
+  <div each:="fields" class="row my-3">
+    <div class="col-md-3">
+      <label class="form-label" title:="description" text:="title"></label>
+    </div>
+    <div
+      class="col-md-9"
+      style:="style"
+      text:="value"
+    ></div>
+  </div>
+  <div class="row g-2 align-items-center">
+    <div class="col-auto">
+      <a class="btn btn-secondary" href="javascript:history.back()">
+        <i class="fa-solid fa-arrow-left"></i>
+        <template>Back</template>
+      </a>
+    </div>
+  </div>
 </div>
     </template>
     <script type="module" src="app.js"></script>

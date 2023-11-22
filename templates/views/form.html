@@ -1,5 +1,5 @@
 <div class="container my-5" style:="style">
-  <form onsubmit:="run" novalidate>
+  <form onsubmit="submit" novalidate>
     <fieldset>
       <legend if:="title">
         <span text:="title"></span>
@@ -32,19 +32,19 @@
             value:="value"
             disabled:="disabled"
             multiple:="multiple"
-            oninput:="change"
+            oninput="change"
           />
         </div>
       </div>
       <div class="row g-2 align-items-center">
         <div class="col-auto">
-          <a class="{{link.back}}" href:="target">
+          <a class="{{link.back}}" href="javascript:history.back()">
             <i class="{{icon.back}}"></i>
             <template>{{text[lang].back}}</template>
           </a>
         </div>
         <div class="col-auto">
-          <button type="submit" class="{{link.submit}}" href:="target">
+          <button type="submit" class="{{link.submit}}">
             <i class="{{icon.submit}}"></i>
             <template>{{text[lang].submit}}</template>
           </button>

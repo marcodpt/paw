@@ -1,0 +1,21 @@
+<div class="container my-5">
+  <legend title:="description" text:="title"></legend>
+  <div each:="fields" class="row my-3">
+    <div class="col-md-3">
+      <label class="form-label" title:="description" text:="title"></label>
+    </div>
+    <div
+      class="col-md-9"
+      style:="style"
+      text:="value"
+    ></div>
+  </div>
+  <div class="row g-2 align-items-center">
+    <div class="col-auto">
+      <a class="{{link.back}}" href="javascript:history.back()">
+        <i class="{{icon.back}}"></i>
+        <template>{{text[lang].back}}</template>
+      </a>
+    </div>
+  </div>
+</div>
