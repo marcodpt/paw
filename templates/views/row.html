@@ -17,5 +17,11 @@
         <template>{{text[lang].back}}</template>
       </a>
     </div>
+    <div class="col-auto" each:="links">
+      <a class:="link" href:="href" title:="description">
+        <i class:="icon"></i>
+        <template text:="title"></template>
+      </a>
+    </div>
   </div>
 </div>

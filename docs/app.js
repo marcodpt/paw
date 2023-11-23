@@ -3,7 +3,9 @@ import navbar from './js/navbar.js'
 import table from './js/table.js'
 import form from './js/form.js'
 import row from './js/row.js'
-import data from './samples/data.js'
+import users from './data/users.js'
+import schema_users from './schema/users.js'
+import {copy} from './js/lib.js'
 
 merlin({
   components: {
@@ -15,14 +17,17 @@ merlin({
   routes: [
     {},
     {
-      route: '#/table/:name',
+      route: '#/:name',
       component: 'table'
     }, {
-      route: '#/form/:name',
+      route: '#/:name/:id',
+      component: 'row'
+    }, {
+      route: '#/insert/:name',
       component: 'form'
     }, {
-      route: '#/table/:name/:id',
-      component: 'row'
+      route: '#/:service/:name/:id',
+      component: 'form'
     }
   ],
   navbar: {
@@ -49,37 +54,56 @@ merlin({
     ],
     sidebar: [
       {
-        title: 'Users',
+        title: 'Data',
         children: [
           {
-            title: 'All',
-            href: '#/table/users'
-          }, {
-            title: 'New',
-            href: '#/form/users'
-          }, {
-            title: 'First',
-            href: '#/table/users/0'
+            title: 'Users',
+            href: '#/users'
           }
         ]
       }
     ]
   },
   table: {
-    rows: () => data
+    schema: () => schema_users,
+    data: () => users
   },
   form: {
-    dflt: () => ({
-      name: '',
-      age: 0,
-      balance: 0.0
-    }),
-    submit: row => {
-      data.push(row)
-      history.back()
+    schema: ({Params}) => {
+      const s = Params.service
+      const submit = copy(schema.users.items)
+      submit.title = s.substr(0, 1).toUpperCase()+s.substr(1)
+      if (s == 'delete') {
+        submit.properties = {}
+      } else {
+        delete submit.properties.id
+      }
+      submit.links = [{
+        title: submit.title,
+        description: s == 'insert' ? 'New row inserted!' :
+          s == 'edit' ? 'Row was edited!' :
+          s == 'delete' ? 'Row was removed!' : '',
+        href: location.hash
+      }]
+
+      return submit
+    },
+    data: ({Params}) => copy(users.filter(({id}) => id == Params.id)[0]),
+    submit: ({Params}, user) => {
+      if (Params.service == 'delete') {
+        users = users.filter(({id}) => id != Params.id)
+      } else if (Params.service == 'edit') {
+        Object.assign(users.filter(({id}) => id == Params.id)[0], user)
+      } else {
+        users.push({
+          ...user,
+          id: users.reduce((rowid, id) => id >= rowid ? id + 1 : rowid, 0)
+        })
+      }
     }
   },
   row: {
-    dflt: ({Params}) => data[Params.id]
+    schema: () => schema_users.items,
+    data: ({Params}) => users.filter(({id}) => id == Params.id)[0]
   }
 })

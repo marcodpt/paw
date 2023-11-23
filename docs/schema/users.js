@@ -38,8 +38,24 @@ export default {
     },
     links: [
       {
-
+        link: 'danger',
+        icon: 'trash',
+        title: 'Delete',
+        href: '#/delete/users/{id}'
+      }, {
+        link: 'warning',
+        icon: 'edit',
+        title: 'Edit',
+        href: '#/edit/users/{id}'
       }
     ]
-  }
+  },
+  links: [
+    {
+      link: 'success',
+      icon: 'pencil',
+      title: 'Insert',
+      href: '#/insert/users'
+    }
+  ]
 }
