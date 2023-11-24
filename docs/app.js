@@ -66,7 +66,7 @@ merlin({
   },
   table: {
     schema: () => schema_users,
-    data: () => users
+    rows: () => users
   },
   form: {
     schema: ({Params}) => {
@@ -88,7 +88,7 @@ merlin({
 
       return submit
     },
-    data: ({Params}) => copy(users.filter(({id}) => id == Params.id)[0]),
+    row: ({Params}) => copy(users.filter(({id}) => id == Params.id)[0]),
     submit: ({Params}, user) => {
       if (Params.service == 'delete') {
         users = users.filter(({id}) => id != Params.id)
@@ -104,6 +104,6 @@ merlin({
   },
   row: {
     schema: () => schema_users.items,
-    data: ({Params}) => users.filter(({id}) => id == Params.id)[0]
+    row: ({Params}) => users.filter(({id}) => id == Params.id)[0]
   }
 })

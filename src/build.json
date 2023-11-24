@@ -18,11 +18,25 @@
   "text": {
     "en": {
       "back": "Back",
-      "submit": "Submit"
+      "submit": "Submit",
+      "type": "Must be of the specified type.",
+      "minLength": "Must be a minimum of {$} character(s).",
+      "maxLength": "Must be a maximum of {$} character(s).",
+      "pattern": "Must have the specified pattern.",
+      "minimum": "Must be at least: {$}",
+      "maximum": "Must be at most: {$}",
+      "enum": "Must be one of the possible options."
     },
     "pt": {
       "back": "Voltar",
-      "submit": "Enviar"
+      "submit": "Enviar",
+      "type": "Deve ser do tipo específicado.",
+      "minLength": "Deve ter no mínimo {$} caractere(s).",
+      "maxLength": "Deve ter no máximo {$} caractere(s).",
+      "pattern": "Deve possuir o padrão específicado.",
+      "minimum": "Deve ser no mínimo: {$}",
+      "maximum": "Deve ser no máximo: {$}",
+      "enum": "Deve ser uma das opções possíveis."
     }
   }
 }

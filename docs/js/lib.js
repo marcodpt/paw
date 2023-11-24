@@ -15,4 +15,4 @@ const interpolate = (str, X) => {
   return str
 }
 
-export default {copy, interpolate}
+export {copy, interpolate}
