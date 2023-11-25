@@ -15,6 +15,50 @@
       ></th>
     </tr>
     <tr>
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <a class="{{link.back}}" href="javascript:history.back()">
+              <i class="{{icon.back}}"></i>
+              <template>{{text[lang].back}}</template>
+            </a>
+          </div>
+          <div each:="links" class="col-auto">
+            <a href:="href" class="btn btn-" class:="link">
+              <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+              <span text:="title"></span>
+            </a>
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <button class="{{link.close}}" onclick="search">
+              <i class="{{icon.close}}"></i>
+            </button>
+          </div>
+          <div class="col-auto">
+            <input
+              class="form-control"
+              placeholder="{{text[lang].search}}"
+              value:="search"
+              oninput="search"
+            />
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th
+        class="text-center align-middle"
+        each:="actions"
+      >
+        <i if:="icon" class="fa-solid fa-"class:="icon" title:="title"></i>
+        <span not:="icon" text:="title"></span>
+      </th>
       <th
         class="text-center align-middle"
         each:="columns"
@@ -28,6 +72,12 @@
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
+      <td class="text-center align-middle" each:="links">
+        <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
+          <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+          <span not:="icon" text:="title"></span>
+        </a>
+      </td>
       <td
         each:="fields"
         class="align-middle "

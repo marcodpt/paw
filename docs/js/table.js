@@ -6,8 +6,7 @@ export default {
   init: ({data, ...route}, call) => {
     const {schema, rows} = data
     const state = {
-      schema: null,
-      rows: null
+      search: route.Params._search || ''
     }
     call('set', state)
     Promise.resolve().then(() => {
@@ -39,12 +38,24 @@ export default {
       const P = state.schema.items.properties
       const C = Object.keys(P)
       call('set', {
+        ...state,
+        title: state.schema.title,
+        description: state.schema.description,
         links: state.schema.links,
         columns: C.map(k => P[k]),
+        actions: state.schema.items.links,
         rows: rows.map(row => ({
-          fields: C.map(k => row[k])
+          fields: C.map(k => row[k]),
+          links: (state.schema.items.links || []).map(({href, ...link}) => ({
+            ...link,
+            href: interpolate(href, row)
+          }))
         }))
       })
     })
+  },
+  search: (state, ev) => {
+    console.log('search: '+ev.target.value)
+    state.search = ev.target.value || ''
   }
 }

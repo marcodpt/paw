@@ -4,6 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="error_type" content="Must be of the specified type.">
+    <meta name="error_minLength" content="Must be a minimum of {$} character(s).">
+    <meta name="error_maxLength" content="Must be a maximum of {$} character(s).">
+    <meta name="error_pattern" content="Must have the specified pattern.">
+    <meta name="error_minimum" content="Must be at least: {$}">
+    <meta name="error_maximum" content="Must be at most: {$}">
+    <meta name="error_enum" content="Must be one of the possible options.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" integrity="sha512-P9pgMgcSNlLb4Z2WAB2sH5KBKGnBfyJnq+bhcfLCFusrRc4XdXrhfDluBl/usq75NF5gTDIMcwI1GaG5gju+Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
@@ -160,6 +167,50 @@
       ></th>
     </tr>
     <tr>
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <a class="btn btn-secondary" href="javascript:history.back()">
+              <i class="fa-solid fa-arrow-left"></i>
+              <template>Back</template>
+            </a>
+          </div>
+          <div each:="links" class="col-auto">
+            <a href:="href" class="btn btn-" class:="link">
+              <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+              <span text:="title"></span>
+            </a>
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto" with:="search">
+            <button class="btn btn-secondary" onclick:="run">
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+          <div class="col-auto" with:="search">
+            <input
+              class="form-control"
+              placeholder="Search"
+              value:="value"
+              oninput:="run"
+            />
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr>
+      <th
+        class="text-center align-middle"
+        each:="actions"
+      >
+        <i if:="icon" class="fa-solid fa-"class:="icon" title:="title"></i>
+        <span not:="icon" text:="title"></span>
+      </th>
       <th
         class="text-center align-middle"
         each:="columns"
@@ -173,6 +224,12 @@
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
+      <td class="text-center align-middle" each:="links">
+        <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
+          <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+          <span not:="icon" text:="title"></span>
+        </a>
+      </td>
       <td
         each:="fields"
         class="align-middle "
@@ -264,6 +321,12 @@
       <a class="btn btn-secondary" href="javascript:history.back()">
         <i class="fa-solid fa-arrow-left"></i>
         <template>Back</template>
+      </a>
+    </div>
+    <div class="col-auto" each:="links">
+      <a class:="link" href:="href" title:="description">
+        <i class:="icon"></i>
+        <template text:="title"></template>
       </a>
     </div>
   </div>
