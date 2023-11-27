@@ -8,14 +8,23 @@
     "menu": "fa-solid fa-bars",
     "isOpen": "fa-solid fa-angle-up",
     "isClosed": "fa-solid fa-angle-down",
+    "loading": "fa-solid fa-spinner fa-spin fa-5x",
     "back": "fa-solid fa-arrow-left",
     "submit": "fa-solid fa-check",
-    "close": "fa-solid fa-times"
+    "close": "fa-solid fa-times",
+    "first": "fa-solid fa-fast-backward",
+    "previous": "fa-solid fa-step-backward",
+    "next": "fa-solid fa-step-forward",
+    "last": "fa-solid fa-fast-forward",
+    "sort": "fa-solid fa-sort",
+    "sortAsc": "fa-solid fa-sort-down",
+    "sortDesc": "fa-solid fa-sort-up"
   },
   "link": {
     "back": "btn btn-secondary",
     "submit": "btn btn-primary",
-    "close": "btn btn-secondary"
+    "close": "btn btn-secondary",
+    "pagination": "btn btn-secondary"
   },
   "text": {
     "en": {
@@ -28,7 +37,9 @@
       "minimum": "Must be at least: {$}",
       "maximum": "Must be at most: {$}",
       "enum": "Must be one of the possible options.",
-      "search": "Search"
+      "pagination": "Page {page} of {pages}",
+      "search": "Search",
+      "sort": "Sort by this field.\nDouble-click to sort in descending order."
     },
     "pt": {
       "back": "Voltar",
@@ -40,7 +51,9 @@
       "minimum": "Deve ser no mínimo: {$}",
       "maximum": "Deve ser no máximo: {$}",
       "enum": "Deve ser uma das opções possíveis.",
-      "search": "Buscar"
+      "pagination": "Página {page} de {pages}",
+      "search": "Buscar",
+      "sort": "Ordenar por este campo.\nClique duas vezes para ordenar descendente."
     }
   }
 }

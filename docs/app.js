@@ -7,6 +7,10 @@ import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
 
+const search = match => row => Object.keys(row).reduce((pass, k) =>
+  pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
+, !match)
+
 merlin({
   components: {
     table,
@@ -66,7 +70,19 @@ merlin({
   },
   table: {
     schema: () => schema_users,
-    rows: () => users
+    rows: ({Query}) => {
+      const sort = Query._sort || 'id'
+      const x = sort.substr(0, 1) == '-' ? -1 : 1
+      const s = x == -1 ? sort.substr(1) : sort
+      users.sort((a, b) => x * (a[s] > b[s] ? 1 : a[s] < b[s] ? -1 : 0))
+
+      const page = Query._page
+      const p = !page || isNaN(page) ? 1 : parseInt(page)
+      return users.filter(search(Query._search)).slice((p - 1) * 10, p * 10)
+    },
+    pages: ({Query}) => Math.floor(
+      users.filter(search(Query._search)).length / 10
+    ) || 1
   },
   form: {
     schema: ({Params}) => {

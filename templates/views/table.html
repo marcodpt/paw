@@ -6,7 +6,7 @@
   table-hover
 ">
   <thead>
-    <tr if:="title">
+    <tr show:="title">
       <th
         class="text-center"
         colspan="100%"
@@ -33,18 +33,66 @@
       </th>
     </tr>
     <tr>
-      <th class="text-center" colspan="100%">
+      <td class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
-            <button class="{{link.close}}" onclick="search">
-              <i class="{{icon.close}}"></i>
+            <button
+              class="{{link.pagination}}"
+              class:="cssFirst"
+              onclick="first"
+            >
+              <i class="{{icon.first}}"></i>
             </button>
           </div>
           <div class="col-auto">
+            <button
+              class="{{link.pagination}}"
+              class:="cssFirst"
+              onclick="previous"
+            >
+              <i class="{{icon.previous}}"></i>
+            </button>
+          </div>
+          <div class="col-auto my-auto" text:="pagination">
+          </div>
+          <div class="col-auto">
+            <button
+              class="{{link.pagination}}"
+              class:="cssLast"
+              onclick="next"
+            >
+              <i class="{{icon.next}}"></i>
+            </button>
+          </div>
+          <div class="col-auto">
+            <button
+              class="{{link.pagination}}"
+              class:="cssLast"
+              onclick="last"
+            >
+              <i class="{{icon.last}}"></i>
+            </button>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <button
+              class="{{link.close}}"
+              class:="cssSearch"
+              onclick="search"
+            >
+              <i class="{{icon.close}}"></i>
+            </button>
+          </div>
+          <div class="col-auto" with:="Query">
             <input
               class="form-control"
               placeholder="{{text[lang].search}}"
-              value:="search"
+              value:="_search"
               oninput="search"
             />
           </div>
@@ -67,6 +115,17 @@
           text:="title"
           title:="description"
         ></span>
+        <a
+          title="{{text[lang].sort}}"
+          href="javascript:;"
+          data-sort:="name"
+          onclick="sort"
+          switch:="sort"
+        >
+          <i case="none" class="{{icon.sort}}"></i>
+          <i case="asc" class="{{icon.sortAsc}}"></i>
+          <i case="desc" class="{{icon.sortDesc}}"></i>
+        </a>
       </th>
     </tr>
   </thead>
@@ -87,7 +146,7 @@
     <tr not:="rows">
       <td colspan="100%">
         <div class="text-center p-5 m-5">
-          <i class:="loading"></i>
+          <i class="{{loading}}"></i>
         </div>
       </td>
     </tr>

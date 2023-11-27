@@ -15,4 +15,20 @@ const interpolate = (str, X) => {
   return str
 }
 
-export {copy, interpolate}
+const meta = (name, data) => {
+  const e = document.head.querySelector(`meta[name='${name}']`)
+  const text = (e ? e.getAttribute('content') : '') || name
+  return data && typeof data == 'object' ? interpolate(text, data) : text
+}
+
+const queryString = Params => Object.keys(Params)
+  .reduce((P, key) => P.concat(Params[key] instanceof Array ?
+    Params[key].map(value => ({key: `${key}[]`, value})) :
+    {key, value: Params[key]}
+  ), [])
+  .filter(({value}) => typeof value == "number" || typeof value == "string")
+  .map(({key, value}) =>
+    encodeURIComponent(key)+'='+encodeURIComponent(value)
+  ).join("&")
+
+export {copy, interpolate, meta, queryString}

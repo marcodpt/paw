@@ -1,4 +1,4 @@
-import {interpolate} from './lib.js'
+import {meta} from './lib.js'
 
 export default {
   template: document.getElementById('view-form'),
@@ -63,11 +63,7 @@ export default {
     })
   },
   validate: (state) => {
-    const getErr = (err, v) => {
-      const meta = document.head.querySelector(`meta[error_${err}]`)
-      const text = (meta ? meta.getAttribute('content') : '') || err
-      return interpolate(text, {$: v})
-    } 
+    const getErr = (err, v) => meta('error_'+err, {$: v}) 
     state.valid = true
     state.model = state.fields.reduce((model, field) => {
       const v = field.value

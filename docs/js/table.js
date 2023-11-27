@@ -1,18 +1,48 @@
-import {interpolate} from './lib.js'
+import {interpolate, meta, queryString} from './lib.js'
 
 export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
   init: ({data, ...route}, call) => {
-    const {schema, rows} = data
+    const {schema, pages, rows} = data
     const state = {
-      search: route.Params._search || ''
+      ...route,
+      cssSearch: !route.Query._search ? ' disabled' : '',
+      cssFirst: ' disabled',
+      cssLast: ' disabled'
     }
     call('set', state)
+    const p = route.Query._page
+    if (!p || isNaN(p)) {
+      call('goto', {
+        _page: 1
+      })
+      return
+    }
+    state.page = parseInt(p)
+    if (p > 1) {
+      state.cssFirst = ''
+    }
+    state.pages = state.page
+    state.pagination = meta('pagination', state)
     Promise.resolve().then(() => {
       return typeof schema == 'function' ? schema(route) : null
     }).then(schema => {
       state.schema = schema
+      return typeof pages == 'function' ? pages(route) : null
+    }).then(pages => {
+      if (pages) {
+        state.pages = pages
+        state.pagination = meta('pagination', state)
+        if (state.page < state.pages) {
+          state.cssLast = ''
+        } else if (state.page > state.pages) {
+          call('goto', {
+            _page: state.pages
+          })
+          throw 'redirect'
+        }
+      }
       return typeof rows == 'function' ? rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
@@ -42,7 +72,12 @@ export default {
         title: state.schema.title,
         description: state.schema.description,
         links: state.schema.links,
-        columns: C.map(k => P[k]),
+        columns: C.map(k => ({
+          ...P[k],
+          name: k,
+          sort: state.Query._sort == k ? 'asc' : 
+            state.Query._sort == `-${k}` ? 'desc' : 'none'
+        })),
         actions: state.schema.items.links,
         rows: rows.map(row => ({
           fields: C.map(k => row[k]),
@@ -52,10 +87,59 @@ export default {
           }))
         }))
       })
+    }).catch(err => {
+      if (err != 'redirect') {
+        throw err
+      }
     })
   },
-  search: (state, ev) => {
-    console.log('search: '+ev.target.value)
-    state.search = ev.target.value || ''
+  first: (state, ev, call) => {
+    call('goto', {
+      _page: 1
+    })
+  },
+  previous: ({page}, ev, call) => {
+    if (page > 1) {
+      call('goto', {
+        _page: page - 1
+      })
+    }
+  },
+  next: ({page, pages}, ev, call) => {
+    if (page < pages) {
+      call('goto', {
+        _page: page + 1
+      })
+    }
+  },
+  last: ({pages}, ev, call) => {
+    call('goto', {
+      _page: pages
+    })
+  },
+  search: (state, ev, call) => {
+    const search = ev.target.value || ''
+    state.Query._search = search
+    setTimeout(() => {
+      const actual = ev.target.value || ''
+      if (actual == search) {
+        call('goto')
+      }
+    }, 500)
+  },
+  sort: ({Query}, ev, call) => {
+    const k = ev.target.closest('a').getAttribute('data-sort')
+    call('goto', {
+      _sort: (Query._sort == k ? '-' : '')+k
+    })
+  },
+  goto: ({url, path, Query}, Q) => {
+    if (location.hash == url) {
+      const q = queryString({
+        ...Query,
+        ...(Q || {})
+      })
+      location.replace(path+(q.length?'?'+q:''))
+    }
   }
 }
