@@ -80,7 +80,10 @@ export default {
         })),
         actions: state.schema.items.links,
         rows: rows.map(row => ({
-          fields: C.map(k => row[k]),
+          fields: C.map(k => ({
+            value: row[k],
+            href: interpolate(P[k].href, row)
+          })),
           links: (state.schema.items.links || []).map(({href, ...link}) => ({
             ...link,
             href: interpolate(href, row)

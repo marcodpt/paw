@@ -1,3 +1,5 @@
+import {interpolate} from './lib.js'
+
 export default {
   template: document.getElementById('view-row'),
   set: (_, state) => state,
@@ -29,6 +31,7 @@ export default {
       const P = state.schema.properties || {}
       state.fields = Object.keys(P).map(k => ({
         ...P[k],
+        href: interpolate(P[k].href, row),
         name: k,
         value: row[k] != null ? row[k] : P[k].default
       }))

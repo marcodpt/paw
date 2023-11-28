@@ -140,8 +140,10 @@
       <td
         each:="fields"
         class="align-middle "
-        text:=""
-      ></td>
+      >
+        <a if:="href" href:="href" text:="value"></a>
+        <span not:="href" text:="value"></span>
+      </td>
     </tr>
     <tr not:="rows">
       <td colspan="100%">

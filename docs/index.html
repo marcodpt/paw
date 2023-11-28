@@ -294,8 +294,10 @@ Double-click to sort in descending order."
       <td
         each:="fields"
         class="align-middle "
-        text:=""
-      ></td>
+      >
+        <a if:="href" href:="href" text:="value"></a>
+        <span not:="href" text:="value"></span>
+      </td>
     </tr>
     <tr not:="rows">
       <td colspan="100%">
@@ -309,7 +311,7 @@ Double-click to sort in descending order."
     </template>
     <template id="view-form">
       <div class="container my-5" style:="style">
-  <form onsubmit="submit" novalidate>
+  <form not:="result" onsubmit="submit" novalidate>
     <fieldset>
       <legend if:="title">
         <span text:="title"></span>
@@ -334,16 +336,13 @@ Double-click to sort in descending order."
             class="form-control"
             class:="feedback"
             name:="name"
-            placeholder:="placeholder"
-            min:="min"
-            max:="max"
-            step:="step"
-            type:="type"
             value:="value"
-            disabled:="disabled"
-            multiple:="multiple"
             oninput="change"
           />
+          <div
+            class="invalid-feedback"
+            text:="error"
+          ></div>
         </div>
       </div>
       <div class="row g-2 align-items-center">
@@ -354,7 +353,7 @@ Double-click to sort in descending order."
           </a>
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" class:="invalid">
             <i class="fa-solid fa-check"></i>
             <template>Submit</template>
           </button>
@@ -362,6 +361,26 @@ Double-click to sort in descending order."
       </div>
     </fieldset>
   </form>
+  <fieldset if:="result">
+    <legend if:="title">
+      <span text:="title"></span>
+    </legend>
+    <div
+      class="alert alert-"
+      class:="alert"
+      role="alert"
+      style="white-space: pre-wrap;"
+      text:="result"
+    ></div>
+    <div class="row g-2 align-items-center">
+      <div class="col-auto">
+        <a class="btn btn-secondary" href="javascript:history.back()">
+          <i class="fa-solid fa-arrow-left"></i>
+          <template>Back</template>
+        </a>
+      </div>
+    </div>
+  </fieldset>
 </div>
     </template>
     <template id="view-row">
@@ -374,8 +393,10 @@ Double-click to sort in descending order."
     <div
       class="col-md-9"
       style:="style"
-      text:="value"
-    ></div>
+    >
+      <a if:="href" href:="href" text:="value"></a>
+      <span not:="href" text:="value"></span>
+    </div>
   </div>
   <div class="row g-2 align-items-center">
     <div class="col-auto">
@@ -385,8 +406,8 @@ Double-click to sort in descending order."
       </a>
     </div>
     <div class="col-auto" each:="links">
-      <a class:="link" href:="href" title:="description">
-        <i class:="icon"></i>
+      <a class="btn btn-" class:="link" href:="href" title:="description">
+        <i class="fa-solid fa-" class:="icon"></i>
         <template text:="title"></template>
       </a>
     </div>

@@ -11,13 +11,16 @@ export default {
         type: 'integer',
         title: 'Id',
         description: 'User id',
-        default: 0
+        default: 0,
+        href: '#/users/{id}'
       },
       name: {
         type: 'string',
         title: 'Name',
         description: 'User name',
-        default: ''
+        default: '',
+        minLength: 1,
+        maxLength: 255
       }, 
       age: {
         type: 'integer',
@@ -30,7 +33,6 @@ export default {
       balance: {
         type: 'number',
         title: 'Balance ($)',
-        multipleOf: 0.01,
         default: 0,
         minimum: 1000,
         maximum: 4000

@@ -1,5 +1,5 @@
 <div class="container my-5" style:="style">
-  <form onsubmit="submit" novalidate>
+  <form not:="result" onsubmit="submit" novalidate>
     <fieldset>
       <legend if:="title">
         <span text:="title"></span>
@@ -24,16 +24,13 @@
             class="form-control"
             class:="feedback"
             name:="name"
-            placeholder:="placeholder"
-            min:="min"
-            max:="max"
-            step:="step"
-            type:="type"
             value:="value"
-            disabled:="disabled"
-            multiple:="multiple"
             oninput="change"
           />
+          <div
+            class="invalid-feedback"
+            text:="error"
+          ></div>
         </div>
       </div>
       <div class="row g-2 align-items-center">
@@ -44,7 +41,7 @@
           </a>
         </div>
         <div class="col-auto">
-          <button type="submit" class="{{link.submit}}">
+          <button type="submit" class="{{link.submit}}" class:="invalid">
             <i class="{{icon.submit}}"></i>
             <template>{{text[lang].submit}}</template>
           </button>
@@ -52,4 +49,24 @@
       </div>
     </fieldset>
   </form>
+  <fieldset if:="result">
+    <legend if:="title">
+      <span text:="title"></span>
+    </legend>
+    <div
+      class="alert alert-"
+      class:="alert"
+      role="alert"
+      style="white-space: pre-wrap;"
+      text:="result"
+    ></div>
+    <div class="row g-2 align-items-center">
+      <div class="col-auto">
+        <a class="{{link.back}}" href="javascript:history.back()">
+          <i class="{{icon.back}}"></i>
+          <template>{{text[lang].back}}</template>
+        </a>
+      </div>
+    </div>
+  </fieldset>
 </div>

@@ -6,10 +6,12 @@ export default {
   init: ({data, ...route}, call) => {
     const {schema, row, submit} = data
     const state = {
+      route,
+      alert: 'danger',
       schema: null,
       row: null,
       fields: null,
-      valid: false,
+      invalid: ' disabled',
       submit
     }
     call('set', state)
@@ -17,6 +19,10 @@ export default {
       return typeof schema == 'function' ? schema(route) : null
     }).then(schema => {
       state.schema = schema
+      if (schema) {
+        state.title = schema.title
+        state.description = schema.description
+      }
       return typeof row == 'function' ? row(route) : null
     }).then(row => {
       row = row && typeof row == 'object' ? row : {}
@@ -55,19 +61,29 @@ export default {
         name: k,
         value: row[k] != null ? row[k] : P[k].default,
         feedback: '',
-        error: ''
+        error: '' 
       }))
       state.links = state.schema.links
       call('set', state)
       call('validate')
+    }).catch(err => {
+      state.result = err.toString()
+      call('set', state)
+      throw err
     })
   },
-  validate: (state) => {
+  validate: state => {
     const getErr = (err, v) => meta('error_'+err, {$: v}) 
-    state.valid = true
+    state.invalid = '' 
     state.model = state.fields.reduce((model, field) => {
-      const v = field.value
+      field.error = ''
+      var v = field.value
       const {type, minLength, maxLength, pattern, minimum, maximum} = field 
+      if (type == 'integer' && !isNaN(v)) {
+        v = parseInt(v)
+      } else if (type == 'number' && !isNaN(v)) {
+        v = parseFloat(v)
+      }
       if (
         (type == 'null' && v !== null) ||
         (type == 'boolean' && v !== false && v !== true) ||
@@ -101,7 +117,7 @@ export default {
       }
       if (field.error) {
         field.feedback = ' is-invalid'
-        state.valid = false
+        state.invalid = ' disabled'
       } else {
         field.feedback = ' is-valid'
       }
@@ -120,16 +136,27 @@ export default {
       return model
     }, {})
   },
-  submit: (state, ev) => {
-    console.log('submit')
+  submit: (state, ev, call) => {
     ev.preventDefault()
     ev.stopPropagation()
 
-    if (state.valid) {
-      state.submit(state.model)
+    if (!state.invalid) {
+      state.invalid = ' disabled'
+      Promise.resolve().then(() => {
+        return state.submit(state.route, state.model)
+      }).then(() => {
+        state.result = state.schema.links[0].description
+        state.alert = 'success'
+        call('set', state)
+      }).catch(err => {
+        state.result = err.toString()
+        state.alert = 'danger'
+        call('set', state)
+        throw err
+      })
     }
   },
-  change: (state, ev) => {
+  change: (state, ev, call) => {
     const name = ev.target.getAttribute('name')
     state.model[name] = ev.target.value
     state.fields.forEach(f => {

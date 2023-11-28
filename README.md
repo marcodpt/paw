@@ -50,8 +50,8 @@ minijinja-cli templates/index.html src/build.json > docs/index.html
 
 ## TODO
  - [X] navbar
- - [ ] table
- - [ ] row
+ - [X] table
+ - [X] row
  - [ ] form
  - [ ] graph
  - [ ] chart
