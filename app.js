@@ -1,8 +1,4 @@
-import merlin from "https://cdn.jsdelivr.net/gh/marcodpt/merlin@0.1.0/index.js"
-import navbar from './js/navbar.js'
-import table from './js/table.js'
-import form from './js/form.js'
-import row from './js/row.js'
+import app from './index.js'
 import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
@@ -11,39 +7,7 @@ const search = match => row => Object.keys(row).reduce((pass, k) =>
   pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
 , !match)
 
-merlin({
-  components: {
-    table,
-    form,
-    row,
-    navbar
-  },
-  routes: [
-    {}, {
-      route: '#'
-    }, {
-      route: '#/'
-    },
-    {
-      route: '#/:name',
-      component: 'table'
-    }, {
-      route: '#/:name/:id',
-      component: 'row'
-    }, {
-      route: '#/insert/:name',
-      component: 'form'
-    }, {
-      route: '#/:service/:name/:id',
-      component: 'form'
-    }, {
-      route: '#/graph/:name'
-    }, {
-      route: '#/chart/:name'
-    }, {
-      route: '#/upload'
-    }
-  ],
+app({
   navbar: {
     links: [
       {

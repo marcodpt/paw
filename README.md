@@ -45,14 +45,5 @@ minimum effort and maximum customization.
 
 ## Build
 ```
-minijinja-cli templates/index.html src/build.json > docs/index.html
+minijinja-cli templates/index.html build.json > index.html
 ```
-
-## TODO
- - [X] navbar
- - [X] table
- - [X] row
- - [ ] form
- - [ ] graph
- - [ ] chart
- - [ ] build with user defined settings
