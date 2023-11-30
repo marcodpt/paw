@@ -4,7 +4,7 @@ import table from './js/table.js'
 import form from './js/form.js'
 import row from './js/row.js'
 
-export default ({components, routes, ...extra}) => merlin({
+export default ({components, ...extra}) => merlin({
   components: {
     ...(components || {}),
     table,
@@ -12,31 +12,5 @@ export default ({components, routes, ...extra}) => merlin({
     row,
     navbar
   },
-  routes: [
-    {}, {
-      route: '#'
-    }, {
-      route: '#/'
-    },
-    {
-      route: '#/:name',
-      component: 'table'
-    }, {
-      route: '#/:name/:id',
-      component: 'row'
-    }, {
-      route: '#/insert/:name',
-      component: 'form'
-    }, {
-      route: '#/:service/:name/:id',
-      component: 'form'
-    }, {
-      route: '#/graph/:name'
-    }, {
-      route: '#/chart/:name'
-    }, {
-      route: '#/upload'
-    }
-  ].concat(routes || []),
   ...(extra || {})
 })

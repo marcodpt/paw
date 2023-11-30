@@ -8,6 +8,32 @@ const search = match => row => Object.keys(row).reduce((pass, k) =>
 , !match)
 
 app({
+  routes: [
+    {}, {
+      route: '#'
+    }, {
+      route: '#/'
+    },
+    {
+      route: '#/:name',
+      component: 'table'
+    }, {
+      route: '#/:name/:id',
+      component: 'row'
+    }, {
+      route: '#/insert/:name',
+      component: 'form'
+    }, {
+      route: '#/:service/:name/:id',
+      component: 'form'
+    }, {
+      route: '#/graph/:name'
+    }, {
+      route: '#/chart/:name'
+    }, {
+      route: '#/upload'
+    }
+  ],
   navbar: {
     links: [
       {
