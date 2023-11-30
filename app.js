@@ -1,4 +1,4 @@
-import app from './index.js'
+import app from './index.min.js'
 import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
