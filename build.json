@@ -12,6 +12,7 @@
     "back": "fa-solid fa-arrow-left",
     "submit": "fa-solid fa-check",
     "close": "fa-solid fa-times",
+    "check": "fa-solid fa-check",
     "first": "fa-solid fa-fast-backward",
     "previous": "fa-solid fa-step-backward",
     "next": "fa-solid fa-step-forward",
@@ -24,7 +25,8 @@
     "back": "btn btn-secondary",
     "submit": "btn btn-primary",
     "close": "btn btn-secondary",
-    "pagination": "btn btn-secondary"
+    "pagination": "btn btn-secondary",
+    "check": "btn btn-success"
   },
   "text": {
     "en": {
@@ -39,6 +41,7 @@
       "enum": "Must be one of the possible options.",
       "pagination": "Page {page} of {pages}",
       "search": "Search",
+      "check": "Select",
       "sort": "Sort by this field.\nDouble-click to sort in descending order."
     },
     "pt": {
@@ -53,6 +56,7 @@
       "enum": "Deve ser uma das opções possíveis.",
       "pagination": "Página {page} de {pages}",
       "search": "Buscar",
+      "check": "Selecionar",
       "sort": "Ordenar por este campo.\nClique duas vezes para ordenar descendente."
     }
   }

@@ -4,7 +4,7 @@ export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
   init: ({data, ...route}, call) => {
-    const {schema, pages, rows} = data
+    const {schema, pages, rows, totals} = data
     const state = {
       ...route,
       cssSearch: !route.Query._search ? ' disabled' : '',
@@ -43,6 +43,10 @@ export default {
           throw 'redirect'
         }
       }
+      return typeof totals == 'function' ? totals(route, []) : null
+    }).then(totals => {
+      state.totals = totals
+      console.log(totals)
       return typeof rows == 'function' ? rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
@@ -67,10 +71,12 @@ export default {
 
       const P = state.schema.items.properties
       const C = Object.keys(P)
+      const L = state.schema.items.links || []
       call('set', {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
+        check: true,
         links: state.schema.links,
         columns: C.map(k => ({
           ...P[k],
@@ -78,13 +84,15 @@ export default {
           sort: state.Query._sort == k ? 'asc' : 
             state.Query._sort == `-${k}` ? 'desc' : 'none'
         })),
-        actions: state.schema.items.links,
+        aggregates: !state.totals ? null : L.map(() => '')
+          .concat(C.map(k => state.totals[k])),
+        actions: L,
         rows: rows.map(row => ({
           fields: C.map(k => ({
             value: row[k],
             href: interpolate(P[k].href, row)
           })),
-          links: (state.schema.items.links || []).map(({href, ...link}) => ({
+          links: L.map(({href, ...link}) => ({
             ...link,
             href: interpolate(href, row)
           }))

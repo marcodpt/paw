@@ -99,7 +99,24 @@
         </div>
       </th>
     </tr>
+    <tr if:="aggregates">
+      <td if:="check"></td>
+      <td
+        class="text-center align-middle"
+        each:="aggregates"
+        text:=""
+      ></td>
+    </tr>
     <tr>
+      <th if:="check" class="text-center align-middle">
+        <button
+          class="btn-sm {{link.check}}"
+          title="{{text[lang].check}}"
+          onclick="check"
+        >
+          <i class="{{icon.check}}"></i>
+        </button>
+      </th>
       <th
         class="text-center align-middle"
         each:="actions"
@@ -131,6 +148,15 @@
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
+      <td if:="check" class="text-center align-middle">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          value:="id"
+          checked:="checked"
+          onclick="check"
+        />
+      </td>
       <td class="text-center align-middle" each:="links">
         <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
           <i if:="icon" class="fa-solid fa-" class:="icon"></i>

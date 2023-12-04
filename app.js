@@ -1,4 +1,4 @@
-import app from './index.min.js'
+import app from './index.js'
 import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
@@ -13,8 +13,7 @@ app({
       route: '#'
     }, {
       route: '#/'
-    },
-    {
+    }, {
       route: '#/:name',
       component: 'table'
     }, {
@@ -82,7 +81,39 @@ app({
     },
     pages: ({Query}) => Math.ceil(
       users.filter(search(Query._search)).length / 10
-    ) || 1
+    ) || 1,
+    totals: ({Query}, Fields) => {
+      const cmp = (a, b) => Fields.reduce(
+        (r, s) => r || (a[s] > b[s] ? 1 : a[s] < b[s] ? -1 : 0)
+      , 0)
+      const T = users.filter(search(Query._search))
+      T.sort(cmp)
+      return T.reduce((T, row) => {
+        const X = T[T.length - 1]
+        if (X == null || cmp(row, X)) {
+          T.push(Object.keys(row).reduce((R, k) => ({
+            ...R,
+            [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
+          }), {}))
+        } else {
+          Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
+            X[k].push(row[k])
+          })
+        }
+        return T
+      }, []).map(row => Object.keys(row)
+        .filter(k => Fields.indexOf(k) < 0)
+        .reduce((R, k) => ({
+          ...R,
+          [k]: Fields.indexOf(k) >= 0 ? row[k] : 
+            k == 'id' ? row[k].length :
+            k == 'age' ? Math.round(
+              10 * row[k].reduce((s, v) => s += v, 0) / row[k].length
+            ) / 10 :
+            k == 'balance' ? row[k].reduce((s, v) => s += v, 0).toFixed(2) : ''
+        }), row)
+      )[0]
+    }
   },
   form: {
     schema: ({Params}) => {
