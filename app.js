@@ -86,7 +86,9 @@ app({
       const cmp = (a, b) => Fields.reduce(
         (r, s) => r || (a[s] > b[s] ? 1 : a[s] < b[s] ? -1 : 0)
       , 0)
+      const Id = Query._id instanceof Array ? Query._id : []
       const T = users.filter(search(Query._search))
+        .filter(row => !Id.length || Id.indexOf(String(row.id)) >= 0)
       T.sort(cmp)
       return T.reduce((T, row) => {
         const X = T[T.length - 1]

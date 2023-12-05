@@ -46,7 +46,6 @@ export default {
       return typeof totals == 'function' ? totals(route, []) : null
     }).then(totals => {
       state.totals = totals
-      console.log(totals)
       return typeof rows == 'function' ? rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
@@ -76,7 +75,7 @@ export default {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
-        check: true,
+        check: P.id != null && typeof totals == 'function',
         links: state.schema.links,
         columns: C.map(k => ({
           ...P[k],
@@ -88,6 +87,8 @@ export default {
           .concat(C.map(k => state.totals[k])),
         actions: L,
         rows: rows.map(row => ({
+          id: row.id,
+          checked: (state.Query._id || []).indexOf(String(row.id)) >= 0,
           fields: C.map(k => ({
             value: row[k],
             href: interpolate(P[k].href, row)
@@ -102,6 +103,23 @@ export default {
       if (err != 'redirect') {
         throw err
       }
+    })
+  },
+  check: (state, ev, call) => {
+    const v = ev.target.getAttribute('value')
+    const Id = state.Query._id || []
+    state.rows.forEach(row => {
+      if (v == row.id || v == null) {
+        const i = Id.indexOf(String(row.id))
+        if (i < 0) {
+          Id.push(row.id)
+        } else {
+          Id.splice(i, 1)
+        }
+      }
+    })
+    call('goto', {
+      _id: Id
     })
   },
   first: (state, ev, call) => {
