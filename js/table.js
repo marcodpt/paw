@@ -75,7 +75,7 @@ export default {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
-        check: P.id != null && typeof totals == 'function',
+        check: P.id != null && state.totals,
         links: state.schema.links,
         columns: C.map(k => ({
           ...P[k],

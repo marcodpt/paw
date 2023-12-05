@@ -57,7 +57,7 @@
                 role="button"
                 aria-expanded="false"
               >
-                <i if:="icon" class:="icon"></i>
+                <i if:="icon" class="fa-solid fa-" class:="icon"></i>
                 <template text:="title"></template>
               </a>
               <ul class="dropdown-menu">
@@ -69,7 +69,7 @@
                     data-index:="index"
                     onclick="toggle"
                   >
-                    <i if:="icon" class:="icon"></i>
+                    <i if:="icon" class="fa-solid fa-" class:="icon"></i>
                     <template text:="title"></template>
                   </a>
                 </li>
@@ -77,7 +77,7 @@
             </li>
             <li not:="children" class="nav-item">
               <a class="nav-link" class:="css" href:="href">
-                <i if:="icon" class:="icon"></i>
+                <i if:="icon" class="fa-solid fa-" class:="icon"></i>
                 <template text:="title"></template>
               </a>
             </li>
@@ -108,11 +108,11 @@
       ></button>
     </div>
     <div class="offcanvas-body">
-      <bs-list children:="sidebar"></bs-list>
+      <tag-list children:="sidebar"></tag-list>
     </div>
   </div>
 </div>
-<template id="bs-list">
+<template id="tag-list">
   <ul each:="children" class="list-group">
     <li if:="children" class="list-group-item border-0" class:="css">
       <a
@@ -121,14 +121,14 @@
         data-index:="index"
         onclick="toggle"
       >
-        <i if:="icon" class:="icon"></i>
+        <i if:="icon" class="fa-solid fa-" class:="icon"></i>
         <template text:="title"></template>
         <i show:="open" class="fa-solid fa-angle-up"></i>
         <i hide:="open" class="fa-solid fa-angle-down"></i>
       </a>
     </li>
     <li if:="children" show:="open" class="list-group-item border-0 py-0">
-      <bs-list children:="children"></bs-list>
+      <tag-list children:="children"></tag-list>
     </li>
     <li not:="children" class="list-group-item border-0" class:="css">
       <a
@@ -136,7 +136,7 @@
         href:="href"
         onclick="hide"
       >
-        <i if:="icon" class:="icon"></i>
+        <i if:="icon" class="fa-solid fa-" class:="icon"></i>
         <template text:="title"></template>
       </a>
     </li>
@@ -169,10 +169,7 @@
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
-            <a class="btn btn-secondary" href="javascript:history.back()">
-              <i class="fa-solid fa-arrow-left"></i>
-              <template>Back</template>
-            </a>
+            <tag-back></tag-back>
           </div>
           <div each:="links" class="col-auto">
             <a href:="href" class="btn btn-" class:="link">
@@ -261,7 +258,7 @@
     <tr>
       <th if:="check" class="text-center align-middle">
         <button
-          class="btn-sm btn btn-success"
+          class="btn btn-sm btn-success"
           title="Select"
           onclick="check"
         >
@@ -272,7 +269,7 @@
         class="text-center align-middle"
         each:="actions"
       >
-        <i if:="icon" class="fa-solid fa-"class:="icon" title:="title"></i>
+        <i if:="icon" class="fa-solid fa-" class:="icon" title:="title"></i>
         <span not:="icon" text:="title"></span>
       </th>
       <th
@@ -326,7 +323,7 @@ Double-click to sort in descending order."
     <tr not:="rows">
       <td colspan="100%">
         <div class="text-center p-5 m-5">
-          <i class=""></i>
+          <i class="fa-solid fa-spinner fa-spin fa-5x"></i>
         </div>
       </td>
     </tr>
@@ -371,13 +368,14 @@ Double-click to sort in descending order."
       </div>
       <div class="row g-2 align-items-center">
         <div class="col-auto">
-          <a class="btn btn-secondary" href="javascript:history.back()">
-            <i class="fa-solid fa-arrow-left"></i>
-            <template>Back</template>
-          </a>
+          <tag-back></tag-back>
         </div>
         <div class="col-auto">
-          <button type="submit" class="btn btn-primary" class:="invalid">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            class:="invalid"
+          >
             <i class="fa-solid fa-check"></i>
             <template>Submit</template>
           </button>
@@ -398,10 +396,7 @@ Double-click to sort in descending order."
     ></div>
     <div class="row g-2 align-items-center">
       <div class="col-auto">
-        <a class="btn btn-secondary" href="javascript:history.back()">
-          <i class="fa-solid fa-arrow-left"></i>
-          <template>Back</template>
-        </a>
+        <tag-back></tag-back>
       </div>
     </div>
   </fieldset>
@@ -424,10 +419,7 @@ Double-click to sort in descending order."
   </div>
   <div class="row g-2 align-items-center">
     <div class="col-auto">
-      <a class="btn btn-secondary" href="javascript:history.back()">
-        <i class="fa-solid fa-arrow-left"></i>
-        <template>Back</template>
-      </a>
+      <tag-back></tag-back>
     </div>
     <div class="col-auto" each:="links">
       <a class="btn btn-" class:="link" href:="href" title:="description">
@@ -437,6 +429,12 @@ Double-click to sort in descending order."
     </div>
   </div>
 </div>
+    </template>
+    <template id="tag-back">
+      <a class="btn btn-secondary" href="javascript:history.back()">
+  <i class="fa-solid fa-arrow-left"></i>
+  <template>Back</template>
+</a>
     </template>
     <script type="module" src="app.js"></script>
   </body>

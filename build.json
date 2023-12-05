@@ -4,29 +4,35 @@
   "title": "App",
   "description": "A dashboard application",
   "navbar": "bg-dark navbar-dark",
+  "css": {
+    "icon": "fa-solid fa-",
+    "link": "btn btn-",
+    "rowlink": "btn btn-sm btn-"
+  },
   "icon": {
-    "menu": "fa-solid fa-bars",
-    "isOpen": "fa-solid fa-angle-up",
-    "isClosed": "fa-solid fa-angle-down",
-    "loading": "fa-solid fa-spinner fa-spin fa-5x",
-    "back": "fa-solid fa-arrow-left",
-    "submit": "fa-solid fa-check",
-    "close": "fa-solid fa-times",
-    "check": "fa-solid fa-check",
-    "first": "fa-solid fa-fast-backward",
-    "previous": "fa-solid fa-step-backward",
-    "next": "fa-solid fa-step-forward",
-    "last": "fa-solid fa-fast-forward",
-    "sort": "fa-solid fa-sort",
-    "sortAsc": "fa-solid fa-sort-down",
-    "sortDesc": "fa-solid fa-sort-up"
+    "menu": "bars",
+    "isOpen": "angle-up",
+    "isClosed": "angle-down",
+    "loading": "spinner fa-spin fa-5x",
+    "back": "arrow-left",
+    "submit": "check",
+    "close": "times",
+    "check": "check",
+    "first": "fast-backward",
+    "previous": "step-backward",
+    "next": "step-forward",
+    "last": "fast-forward",
+    "sort": "sort",
+    "sortAsc": "sort-down",
+    "sortDesc": "sort-up"
   },
   "link": {
-    "back": "btn btn-secondary",
-    "submit": "btn btn-primary",
-    "close": "btn btn-secondary",
-    "pagination": "btn btn-secondary",
-    "check": "btn btn-success"
+    "back": "secondary",
+    "submit": "primary",
+    "close": "secondary",
+    "pagination": "secondary",
+    "check": "success",
+    "group": "warning"
   },
   "text": {
     "en": {

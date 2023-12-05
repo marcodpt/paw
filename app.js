@@ -37,22 +37,26 @@ app({
     links: [
       {
         title: 'Tools',
-        icon: 'fa-solid fa-tools',
+        icon: 'tools',
         children: [
           {
             title: 'Flowchart',
-            icon: 'fa-solid fa-project-diagram',
+            icon: 'project-diagram',
             href: '#/graph/sample'
           }, {
             title: 'Chart',
-            icon: 'fa-solid fa-chart-line',
+            icon: 'chart-line',
             href: '#/chart/sample'
           }, {
             title: 'Import Files',
-            icon: 'fa-solid fa-file',
+            icon: 'file',
             href: '#/upload'
           }
         ]
+      }, {
+        title: 'Repository',
+        icon: 'code-fork',
+        href: 'https://github.com/marcodpt/app'
       }
     ],
     sidebar: [

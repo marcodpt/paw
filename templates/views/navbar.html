@@ -10,7 +10,7 @@
             role="button"
             aria-controls="sidebar"
           >
-            <i class="{{icon.menu}}"></i>
+            <i class="{{css.icon}}{{icon.menu}}"></i>
           </a>
         </li>
       </ul>
@@ -36,7 +36,7 @@
                 role="button"
                 aria-expanded="false"
               >
-                <i if:="icon" class:="icon"></i>
+                <i if:="icon" class="{{css.icon}}" class:="icon"></i>
                 <template text:="title"></template>
               </a>
               <ul class="dropdown-menu">
@@ -48,7 +48,7 @@
                     data-index:="index"
                     onclick="toggle"
                   >
-                    <i if:="icon" class:="icon"></i>
+                    <i if:="icon" class="{{css.icon}}" class:="icon"></i>
                     <template text:="title"></template>
                   </a>
                 </li>
@@ -56,7 +56,7 @@
             </li>
             <li not:="children" class="nav-item">
               <a class="nav-link" class:="css" href:="href">
-                <i if:="icon" class:="icon"></i>
+                <i if:="icon" class="{{css.icon}}" class:="icon"></i>
                 <template text:="title"></template>
               </a>
             </li>
@@ -87,11 +87,11 @@
       ></button>
     </div>
     <div class="offcanvas-body">
-      <bs-list children:="sidebar"></bs-list>
+      <tag-list children:="sidebar"></tag-list>
     </div>
   </div>
 </div>
-<template id="bs-list">
+<template id="tag-list">
   <ul each:="children" class="list-group">
     <li if:="children" class="list-group-item border-0" class:="css">
       <a
@@ -100,14 +100,14 @@
         data-index:="index"
         onclick="toggle"
       >
-        <i if:="icon" class:="icon"></i>
+        <i if:="icon" class="{{css.icon}}" class:="icon"></i>
         <template text:="title"></template>
-        <i show:="open" class="{{icon.isOpen}}"></i>
-        <i hide:="open" class="{{icon.isClosed}}"></i>
+        <i show:="open" class="{{css.icon}}{{icon.isOpen}}"></i>
+        <i hide:="open" class="{{css.icon}}{{icon.isClosed}}"></i>
       </a>
     </li>
     <li if:="children" show:="open" class="list-group-item border-0 py-0">
-      <bs-list children:="children"></bs-list>
+      <tag-list children:="children"></tag-list>
     </li>
     <li not:="children" class="list-group-item border-0" class:="css">
       <a
@@ -115,7 +115,7 @@
         href:="href"
         onclick="hide"
       >
-        <i if:="icon" class:="icon"></i>
+        <i if:="icon" class="{{css.icon}}" class:="icon"></i>
         <template text:="title"></template>
       </a>
     </li>

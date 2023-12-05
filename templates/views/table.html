@@ -18,14 +18,11 @@
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
-            <a class="{{link.back}}" href="javascript:history.back()">
-              <i class="{{icon.back}}"></i>
-              <template>{{text[lang].back}}</template>
-            </a>
+            <tag-back></tag-back>
           </div>
           <div each:="links" class="col-auto">
-            <a href:="href" class="btn btn-" class:="link">
-              <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+            <a href:="href" class="{{css.link}}" class:="link">
+              <i if:="icon" class="{{css.icon}}" class:="icon"></i>
               <span text:="title"></span>
             </a>
           </div>
@@ -37,40 +34,40 @@
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
             <button
-              class="{{link.pagination}}"
+              class="{{css.link}}{{link.pagination}}"
               class:="cssFirst"
               onclick="first"
             >
-              <i class="{{icon.first}}"></i>
+              <i class="{{css.icon}}{{icon.first}}"></i>
             </button>
           </div>
           <div class="col-auto">
             <button
-              class="{{link.pagination}}"
+              class="{{css.link}}{{link.pagination}}"
               class:="cssFirst"
               onclick="previous"
             >
-              <i class="{{icon.previous}}"></i>
+              <i class="{{css.icon}}{{icon.previous}}"></i>
             </button>
           </div>
           <div class="col-auto my-auto" text:="pagination">
           </div>
           <div class="col-auto">
             <button
-              class="{{link.pagination}}"
+              class="{{css.link}}{{link.pagination}}"
               class:="cssLast"
               onclick="next"
             >
-              <i class="{{icon.next}}"></i>
+              <i class="{{css.icon}}{{icon.next}}"></i>
             </button>
           </div>
           <div class="col-auto">
             <button
-              class="{{link.pagination}}"
+              class="{{css.link}}{{link.pagination}}"
               class:="cssLast"
               onclick="last"
             >
-              <i class="{{icon.last}}"></i>
+              <i class="{{css.icon}}{{icon.last}}"></i>
             </button>
           </div>
         </div>
@@ -81,11 +78,11 @@
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
             <button
-              class="{{link.close}}"
+              class="{{css.link}}{{link.close}}"
               class:="cssSearch"
               onclick="search"
             >
-              <i class="{{icon.close}}"></i>
+              <i class="{{css.icon}}{{icon.close}}"></i>
             </button>
           </div>
           <div class="col-auto" with:="Query">
@@ -110,18 +107,18 @@
     <tr>
       <th if:="check" class="text-center align-middle">
         <button
-          class="btn-sm {{link.check}}"
+          class="{{css.rowlink}}{{link.check}}"
           title="{{text[lang].check}}"
           onclick="check"
         >
-          <i class="{{icon.check}}"></i>
+          <i class="{{css.icon}}{{icon.check}}"></i>
         </button>
       </th>
       <th
         class="text-center align-middle"
         each:="actions"
       >
-        <i if:="icon" class="fa-solid fa-"class:="icon" title:="title"></i>
+        <i if:="icon" class="{{css.icon}}" class:="icon" title:="title"></i>
         <span not:="icon" text:="title"></span>
       </th>
       <th
@@ -139,9 +136,9 @@
           onclick="sort"
           switch:="sort"
         >
-          <i case="none" class="{{icon.sort}}"></i>
-          <i case="asc" class="{{icon.sortAsc}}"></i>
-          <i case="desc" class="{{icon.sortDesc}}"></i>
+          <i case="none" class="{{css.icon}}{{icon.sort}}"></i>
+          <i case="asc" class="{{css.icon}}{{icon.sortAsc}}"></i>
+          <i case="desc" class="{{css.icon}}{{icon.sortDesc}}"></i>
         </a>
       </th>
     </tr>
@@ -158,8 +155,8 @@
         />
       </td>
       <td class="text-center align-middle" each:="links">
-        <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
-          <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+        <a class="{{css.rowlink}}" class:="link" href:="href" title:="title">
+          <i if:="icon" class="{{css.icon}}" class:="icon"></i>
           <span not:="icon" text:="title"></span>
         </a>
       </td>
@@ -174,7 +171,7 @@
     <tr not:="rows">
       <td colspan="100%">
         <div class="text-center p-5 m-5">
-          <i class="{{loading}}"></i>
+          <i class="{{css.icon}}{{icon.loading}}"></i>
         </div>
       </td>
     </tr>
