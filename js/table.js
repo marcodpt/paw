@@ -25,8 +25,12 @@ export default {
     if (p > 1) {
       state.cssFirst = ''
     }
-    state.pages = state.page
-    state.pagination = meta('pagination', state)
+    state.pages = 0
+    state.pagination = [{
+      value: state.page,
+      label: meta('pagination', state),
+      selected: true
+    }]
     Promise.resolve().then(() => {
       return typeof schema == 'function' ? schema(route) : null
     }).then(schema => {
@@ -35,7 +39,6 @@ export default {
     }).then(pages => {
       if (pages) {
         state.pages = pages
-        state.pagination = meta('pagination', state)
         if (state.page < state.pages) {
           state.cssLast = ''
         } else if (state.page > state.pages) {
@@ -44,6 +47,11 @@ export default {
           })
           throw 'redirect'
         }
+        state.pagination = Array(pages).fill().map((v, i) => ({
+          value: i + 1,
+          label: meta('pagination', {pages, page: i + 1}),
+          selected: i + 1 == state.page
+        }))
       }
       return typeof totals == 'function' ? totals(route, []) : null
     }).then(totals => {
@@ -142,6 +150,11 @@ export default {
         _page: page - 1
       })
     }
+  },
+  pager: (_, ev, call) => {
+    call('goto', {
+      _page: ev.target.value
+    })
   },
   next: ({page, pages}, ev, call) => {
     if (page < pages) {

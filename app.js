@@ -16,6 +16,64 @@ const search = match => data => {
   return data
 }
 
+const lang = document.documentElement.lang.split('-')[0]
+const operators = lang == 'pt' ? {
+  "~ct~": "Contém",
+  "~nc~": "Não contém",
+  "~eq~": "É igual a",
+  "~ne~": "Não é igual a",
+  "~gt~": "Maior que",
+  "~ge~": "Maior ou igual a",
+  "~lt~": "Menor que",
+  "~le~": "Menor ou igual a"
+} : {
+  "~ct~": "Contains",
+  "~nc~": "Not contains",
+  "~eq~": "Equals",
+  "~ne~": "Not equals",
+  "~gt~": "Greater than",
+  "~ge~": "Greater than or equals",
+  "~lt~": "Less than",
+  "~le~": "Less than or equals"
+}
+
+const getFilter = filter => {
+  const op = Object.keys(operators).reduce((Match, op) => 
+    Match || filter.indexOf(op) < 0 ? Match : op
+  , null)
+  if (!op) {
+    return null
+  }
+
+  const L = filter.label.split(op)
+  const field = L.shift()
+  const value = L.join(op)
+  const P = schema_users.items.properties[field]
+
+  return !P ? null : {
+    value,
+    field,
+    op,
+    operator: operators[op],
+    title: P.title
+  }
+}
+
+const filter = Filters => data => (Filters || []).map(getFilter).filter(
+  f => f
+).reduce((data, {field, op, value}) => data.filter(row => {
+  const v = row[field]
+  return v == null ? false :
+    op == '~ct~' ? String(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
+    op == '~nc~' ? String(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 
+    op == '~eq~' ? v == value : 
+    op == '~ne~' ? v != value : 
+    op == '~gt~' ? v > value : 
+    op == '~ge~' ? v >= value : 
+    op == '~lt~' ? v < value : 
+    op == '~le~' ? v <= value : true
+}), data)
+
 const cmp = Fields => {
   const F = Fields.filter(f => f && typeof f == 'string').map(f => {
     const x = f.substr(0, 1) == '-' ? -1 : 1
@@ -160,6 +218,7 @@ app({
     schema: () => schema_users,
     rows: ({Query}) => run(
       search(Query._search),
+      filter(Query._filter),
       Query._group && Query._group.length ?
         totals(Query._group, Methods) : identity,
       sort([Query._sort]), 
@@ -172,6 +231,7 @@ app({
     exporter: ({Query}) => {
       const Data = run(
         search(Query._search),
+        filter(Query._filter),
         Query._group && Query._group.length ?
           totals(Query._group, Methods) : identity,
         sort([Query._sort]), 
@@ -196,18 +256,37 @@ app({
     },
     pages: ({Query}) => Math.ceil(run(
       search(Query._search),
+      filter(Query._filter),
       Query._group && Query._group.length ?
         totals(Query._group, Methods) : identity
     )(users).length / 10) || 1,
     totals: ({Query}, Fields) => run(
       select(Query._id),
       search(Query._search),
+      filter(Query._filter),
       totals(Fields, Methods),
       formatter({
         age: 'num1',
         balance: 'num2'
       })
-    )(users)[0]
+    )(users)[0],
+    operators: () => Object.keys(operators).map(k => ({
+      value: k,
+      label: operators[k]
+    })),
+    values: ({field, operator}) => [
+      '~ct~',
+      '~nc~'
+    ].indexOf(operator) < 0 ? users.map(row => ({
+      value: row[field],
+      label: row[field]
+    })) : null,
+    filters: ({Query}) => {
+      return (Query._filter || []).map(filter => {
+        const X = getFilter(filter)
+        return !X ? filter : `${X.title} ${X.operator} ${X.value}`
+      })
+    }
   },
   form: {
     schema: ({Params}) => {

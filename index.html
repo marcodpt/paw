@@ -202,7 +202,10 @@
               <i class="fa-solid fa-step-backward"></i>
             </button>
           </div>
-          <div class="col-auto my-auto" text:="pagination">
+          <div class="col-auto my-auto">
+            <select class="form-control" onchange="pager">
+              <option each:="pagination" bind:></option>
+            </select>
           </div>
           <div class="col-auto">
             <button
