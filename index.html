@@ -12,6 +12,7 @@
     <meta name="error_maximum" content="Must be at most: {$}">
     <meta name="error_enum" content="Must be one of the possible options.">
     <meta name="pagination" content="Page {page} of {pages}">
+    <meta name="link_group" content="warning">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" integrity="sha512-P9pgMgcSNlLb4Z2WAB2sH5KBKGnBfyJnq+bhcfLCFusrRc4XdXrhfDluBl/usq75NF5gTDIMcwI1GaG5gju+Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -244,11 +245,71 @@
               oninput="search"
             />
           </div>
+          <div class="col-auto">
+            <button
+              not:="filters"
+              class="btn btn-info"
+              onclick="filter"
+            >
+              <i class="fa-solid fa-filter"></i>
+              <template text="Filter"></template>
+            </button>
+            <div if:="filters" class="btn-group">
+              <button
+                type="button"
+                class="btn btn-info"
+                onclick="toggle"
+              >
+                <i class="fa-solid fa-filter"></i>
+                <template text="Filter"></template>
+                <template text:="count"></template>
+              </button>
+              <button
+                type="button"
+                class="dropdown-toggle dropdown-toggle-split "
+                class:="btn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              ></button>
+              <ul class="dropdown-menu">
+                <li each:="filters">
+                  <a
+                    class="dropdown-item"
+                    href="javascript:;"
+                    onclick:="drop"
+                    text:="label"
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div if:="aggregates" class="col-auto">
+            <button
+              class="btn btn-warning"
+              class:="groupStatus"
+              onclick="group"
+            >
+              <i not:="grouped" class="fa-solid fa-th"></i>
+              <i if:="grouped" class="fa-solid fa-times"></i>
+              <template text="Group"></template>
+            </button>
+          </div>
+          <div class="col-auto">
+            <button
+              class="btn btn-secondary"
+              class:="cssExporter"
+              onclick="exporter"
+            >
+              <i class="fa-solid fa-file"></i>
+              <template text="Export"></template>
+            </button>
+          </div>
         </div>
       </th>
     </tr>
     <tr if:="aggregates">
-      <td if:="check"></td>
+      <td not:="grouped" if:="check"></td>
+      <td not:="grouped" each:="actions"></td>
       <td
         class="text-center align-middle"
         each:="aggregates"
@@ -256,7 +317,7 @@
       ></td>
     </tr>
     <tr>
-      <th if:="check" class="text-center align-middle">
+      <th not:="grouped" if:="check" class="text-center align-middle">
         <button
           class="btn btn-sm btn-success"
           title="Select"
@@ -266,6 +327,7 @@
         </button>
       </th>
       <th
+        not:="grouped"
         class="text-center align-middle"
         each:="actions"
       >
@@ -276,10 +338,15 @@
         class="text-center align-middle"
         each:="columns"
       >
-        <span
+        <a
           text:="title"
           title:="description"
-        ></span>
+          data-name:="name"
+          class="text-decoration-none text-"
+          class:="group"
+          href="javascript:;"
+          onclick="group"
+        ></a>
         <a
           title="Sort by this field.
 Double-click to sort in descending order."
@@ -297,7 +364,7 @@ Double-click to sort in descending order."
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
-      <td if:="check" class="text-center align-middle">
+      <td not:="grouped" if:="check" class="text-center align-middle">
         <input
           class="form-check-input"
           type="checkbox"
@@ -306,7 +373,7 @@ Double-click to sort in descending order."
           onclick="check"
         />
       </td>
-      <td class="text-center align-middle" each:="links">
+      <td not:="grouped" each:="links" class="text-center align-middle">
         <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
           <i if:="icon" class="fa-solid fa-" class:="icon"></i>
           <span not:="icon" text:="title"></span>

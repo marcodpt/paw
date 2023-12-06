@@ -3,9 +3,94 @@ import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
 
-const search = match => row => Object.keys(row).reduce((pass, k) =>
-  pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
-, !match)
+const run = (...F) => data => F.reduce((data, F) => F(data), data)
+
+const identity = data => data
+
+const search = match => data => {
+  if (match) {
+    data = data.filter(row => Object.keys(row).reduce((pass, k) =>
+      pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
+    , false))
+  }
+  return data
+}
+
+const cmp = Fields => {
+  const F = Fields.filter(f => f && typeof f == 'string').map(f => {
+    const x = f.substr(0, 1) == '-' ? -1 : 1
+    return {x, k: x == -1 ? f.substr(1) : f}
+  })
+
+  return (a, b) =>  F.reduce(
+    (r, {x, k}) => r || x * (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0)
+  , 0)
+}
+
+const sort = Fields => data => {
+  data.sort(cmp(Fields))
+  return data
+}
+
+const pager = page => data => {
+  const p = !page || isNaN(page) ? 1 : parseInt(page)
+  return data.slice((p - 1) * 10, p * 10)
+}
+
+const select = Id => data => (Id instanceof Array) && Id.length ?
+  data.filter(row => Id.indexOf(String(row.id)) >= 0) : data
+
+const Aggregates = {
+  count: X => X.length,
+  avg: X => X.reduce((s, v) => s += v, 0) / X.length,
+  sum: X => X.reduce((s, v) => s += v, 0),
+  none: X => ''
+}
+
+const totals = (Fields, Methods) => data => {
+  const notEqual = cmp(Fields)
+  const T = sort(Fields)(data)
+  return T.reduce((T, row) => {
+    const X = T[T.length - 1]
+    if (X == null || notEqual(row, X)) {
+      T.push(Object.keys(row).reduce((R, k) => ({
+        ...R,
+        [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
+      }), {}))
+    } else {
+      Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
+        X[k].push(row[k])
+      })
+    }
+    return T
+  }, []).map(row => Object.keys(row)
+    .filter(k => Fields.indexOf(k) < 0)
+    .reduce((R, k) => ({
+      ...R,
+      [k]: Fields.indexOf(k) >= 0 ? row[k] :
+        (Aggregates[Methods[k]] || Aggregates.none)(row[k])
+    }), row)
+  )
+}
+
+const Methods = {
+  id: 'count',
+  age: 'avg',
+  balance: 'sum'
+}
+
+const Formatters = {
+  num1: v => v.toFixed(1),
+  num2: v => v.toFixed(2),
+  none: v => String(v)
+}
+
+const formatter = F => data => data.map(
+  row => Object.keys(row).reduce((R, k) => ({
+    ...R,
+    [k]: (Formatters[F[k]] || Formatters.none)(row[k])
+  }), {})
+)
 
 app({
   routes: [
@@ -73,53 +158,56 @@ app({
   },
   table: {
     schema: () => schema_users,
-    rows: ({Query}) => {
-      const sort = Query._sort || 'id'
-      const x = sort.substr(0, 1) == '-' ? -1 : 1
-      const s = x == -1 ? sort.substr(1) : sort
-      users.sort((a, b) => x * (a[s] > b[s] ? 1 : a[s] < b[s] ? -1 : 0))
+    rows: ({Query}) => run(
+      search(Query._search),
+      Query._group && Query._group.length ?
+        totals(Query._group, Methods) : identity,
+      sort([Query._sort]), 
+      pager(Query._page),
+      formatter({
+        age: Query._group && Query._group.length ? 'num1' : null,
+        balance: 'num2'
+      })
+    )(users),
+    exporter: ({Query}) => {
+      const Data = run(
+        search(Query._search),
+        Query._group && Query._group.length ?
+          totals(Query._group, Methods) : identity,
+        sort([Query._sort]), 
+        formatter({
+          age: Query._group && Query._group.length ? 'num1' : null,
+          balance: 'num2'
+        })
+      )(users)
 
-      const page = Query._page
-      const p = !page || isNaN(page) ? 1 : parseInt(page)
-      return users.filter(search(Query._search)).slice((p - 1) * 10, p * 10)
+      const name = 'users.csv'
+      const nl = '\n'
+      const sep = '\t'
+      const K = Object.keys(schema_users.items.properties)
+      
+      var data = ''
+      data += K.join(sep)+nl
+      data += Data
+        .map(row => K.map(field => String(row[field])).join(sep))
+        .join(nl)
+
+      return {name, data}
     },
-    pages: ({Query}) => Math.ceil(
-      users.filter(search(Query._search)).length / 10
-    ) || 1,
-    totals: ({Query}, Fields) => {
-      const cmp = (a, b) => Fields.reduce(
-        (r, s) => r || (a[s] > b[s] ? 1 : a[s] < b[s] ? -1 : 0)
-      , 0)
-      const Id = Query._id instanceof Array ? Query._id : []
-      const T = users.filter(search(Query._search))
-        .filter(row => !Id.length || Id.indexOf(String(row.id)) >= 0)
-      T.sort(cmp)
-      return T.reduce((T, row) => {
-        const X = T[T.length - 1]
-        if (X == null || cmp(row, X)) {
-          T.push(Object.keys(row).reduce((R, k) => ({
-            ...R,
-            [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
-          }), {}))
-        } else {
-          Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
-            X[k].push(row[k])
-          })
-        }
-        return T
-      }, []).map(row => Object.keys(row)
-        .filter(k => Fields.indexOf(k) < 0)
-        .reduce((R, k) => ({
-          ...R,
-          [k]: Fields.indexOf(k) >= 0 ? row[k] : 
-            k == 'id' ? row[k].length :
-            k == 'age' ? Math.round(
-              10 * row[k].reduce((s, v) => s += v, 0) / row[k].length
-            ) / 10 :
-            k == 'balance' ? row[k].reduce((s, v) => s += v, 0).toFixed(2) : ''
-        }), row)
-      )[0]
-    }
+    pages: ({Query}) => Math.ceil(run(
+      search(Query._search),
+      Query._group && Query._group.length ?
+        totals(Query._group, Methods) : identity
+    )(users).length / 10) || 1,
+    totals: ({Query}, Fields) => run(
+      select(Query._id),
+      search(Query._search),
+      totals(Fields, Methods),
+      formatter({
+        age: 'num1',
+        balance: 'num2'
+      })
+    )(users)[0]
   },
   form: {
     schema: ({Params}) => {

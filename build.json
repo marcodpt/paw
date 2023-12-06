@@ -2,7 +2,6 @@
   "lang": "en",
   "theme": "",
   "title": "App",
-  "description": "A dashboard application",
   "navbar": "bg-dark navbar-dark",
   "css": {
     "icon": "fa-solid fa-",
@@ -16,12 +15,15 @@
     "loading": "spinner fa-spin fa-5x",
     "back": "arrow-left",
     "submit": "check",
-    "close": "times",
-    "check": "check",
     "first": "fast-backward",
     "previous": "step-backward",
     "next": "step-forward",
     "last": "fast-forward",
+    "close": "times",
+    "filter": "filter",
+    "group": "th",
+    "exporter": "file",
+    "check": "check",
     "sort": "sort",
     "sortAsc": "sort-down",
     "sortDesc": "sort-up"
@@ -31,11 +33,14 @@
     "submit": "primary",
     "close": "secondary",
     "pagination": "secondary",
-    "check": "success",
-    "group": "warning"
+    "filter": "info",
+    "group": "warning",
+    "exporter": "secondary",
+    "check": "success"
   },
   "text": {
     "en": {
+      "description": "A dashboard application",
       "back": "Back",
       "submit": "Submit",
       "type": "Must be of the specified type.",
@@ -47,10 +52,14 @@
       "enum": "Must be one of the possible options.",
       "pagination": "Page {page} of {pages}",
       "search": "Search",
+      "filter": "Filter",
+      "group": "Group",
+      "exporter": "Export",
       "check": "Select",
       "sort": "Sort by this field.\nDouble-click to sort in descending order."
     },
     "pt": {
+      "description": "Um aplicativo de gerenciamento",
       "back": "Voltar",
       "submit": "Enviar",
       "type": "Deve ser do tipo específicado.",
@@ -62,6 +71,9 @@
       "enum": "Deve ser uma das opções possíveis.",
       "pagination": "Página {page} de {pages}",
       "search": "Buscar",
+      "filter": "Filtrar",
+      "group": "Agrupar",
+      "exporter": "Exportar",
       "check": "Selecionar",
       "sort": "Ordenar por este campo.\nClique duas vezes para ordenar descendente."
     }

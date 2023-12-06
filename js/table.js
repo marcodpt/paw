@@ -4,12 +4,14 @@ export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
   init: ({data, ...route}, call) => {
-    const {schema, pages, rows, totals} = data
+    const {schema, pages, rows, totals, exporter} = data
     const state = {
       ...route,
       cssSearch: !route.Query._search ? ' disabled' : '',
       cssFirst: ' disabled',
-      cssLast: ' disabled'
+      cssLast: ' disabled',
+      cssExporter: '',
+      exporter
     }
     call('set', state)
     const p = route.Query._page
@@ -71,27 +73,34 @@ export default {
       const P = state.schema.items.properties
       const C = Object.keys(P)
       const L = state.schema.items.links || []
+      const G = (state.Query._group || [])
+        .filter(k => C.indexOf(k) >= 0)
+      const grouped = G.length > 0
+      const textGroup = meta('link_group')
       call('set', {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
         check: P.id != null && state.totals,
         links: state.schema.links,
+        grouped,
+        textGroup,
+        groupStatus: grouped ? '' : ' disabled',
         columns: C.map(k => ({
           ...P[k],
           name: k,
+          group: G.indexOf(k) >= 0 ? textGroup : 'reset',
           sort: state.Query._sort == k ? 'asc' : 
             state.Query._sort == `-${k}` ? 'desc' : 'none'
         })),
-        aggregates: !state.totals ? null : L.map(() => '')
-          .concat(C.map(k => state.totals[k])),
+        aggregates: !state.totals ? null : C.map(k => state.totals[k]),
         actions: L,
         rows: rows.map(row => ({
           id: row.id,
           checked: (state.Query._id || []).indexOf(String(row.id)) >= 0,
           fields: C.map(k => ({
             value: row[k],
-            href: interpolate(P[k].href, row)
+            href: grouped ? null : interpolate(P[k].href, row)
           })),
           links: L.map(({href, ...link}) => ({
             ...link,
@@ -160,6 +169,61 @@ export default {
     const k = ev.target.closest('a').getAttribute('data-sort')
     call('goto', {
       _sort: (Query._sort == k ? '-' : '')+k
+    })
+  },
+  group: (state, ev, call) => {
+    const name = ev.target.getAttribute('data-name')
+    const {grouped, columns, textGroup} = state
+    if (grouped) {
+      if (name == null) {
+        call('goto', {
+          _group: null
+        })
+      }
+    } else if (name) {
+      state.groupStatus = columns.reduce((pass, c) => {
+        if (c.name == name) {
+          c.group = c.group == textGroup ? 'reset' : textGroup
+        }
+        return pass || c.group == textGroup
+      }, false) ? '' : ' disabled'
+    } else {
+      const G = columns.reduce((G, {group, name}) => {
+        if (group == textGroup) {
+          G.push(name)
+        }
+        return G
+      }, [])
+      if (G.length) {
+        call('goto', {
+          _group: G
+        })
+      }
+    }
+  },
+  exporter: (state, ev, call) => {
+    state.cssExporter = ' disabled'
+    Promise.resolve().then(() => {
+      return state.exporter({Query: state.Query})
+    }).then(({data, name}) => {
+      data = 'data:text/plain;charset=utf-8,'+encodeURIComponent(data)
+      const link = document.createElement("a")
+      link.setAttribute('href', data) 
+      link.setAttribute('download', name)
+
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      call('set', {
+        ...state,
+        cssExporter: ''
+      })
+    }).catch(err => {
+      call('set', {
+        ...state,
+        cssExporter: ''
+      })
+      throw err
     })
   },
   goto: ({url, path, Query}, Q) => {
