@@ -58,7 +58,7 @@ export default {
     return state
   },
   toggle: ({parents}, ev) => {
-    const index = parseInt(ev.target.getAttribute('data-index'))
+    const index = parseInt(ev.target.closest('a').getAttribute('data-index'))
     parents.forEach((l, i) => {
       if (i == index) {
         l.open = !l.open

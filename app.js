@@ -45,7 +45,7 @@ const getFilter = filter => {
     return null
   }
 
-  const L = filter.label.split(op)
+  const L = filter.split(op)
   const field = L.shift()
   const value = L.join(op)
   const P = schema_users.items.properties[field]
@@ -272,15 +272,16 @@ app({
     )(users)[0],
     operators: () => Object.keys(operators).map(k => ({
       value: k,
-      label: operators[k]
+      label: operators[k],
+      any: [
+        '~ct~',
+        '~nc~'
+      ].indexOf(k) >= 0
     })),
-    values: ({field, operator}) => [
-      '~ct~',
-      '~nc~'
-    ].indexOf(operator) < 0 ? users.map(row => ({
+    values: ({field, operator}) => users.map(row => ({
       value: row[field],
       label: row[field]
-    })) : null,
+    })),
     filters: ({Query}) => {
       return (Query._filter || []).map(filter => {
         const X = getFilter(filter)

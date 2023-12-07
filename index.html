@@ -115,7 +115,7 @@
 </div>
 <template id="tag-list">
   <ul each:="children" class="list-group">
-    <li if:="children" class="list-group-item border-0" class:="css">
+    <li if:="children" class="list-group-item" class:="css">
       <a
         class="text-decoration-none text-reset"
         href="javascript:;"
@@ -128,10 +128,10 @@
         <i hide:="open" class="fa-solid fa-angle-down"></i>
       </a>
     </li>
-    <li if:="children" show:="open" class="list-group-item border-0 py-0">
+    <li if:="children" show:="open" class="list-group-item">
       <tag-list children:="children"></tag-list>
     </li>
-    <li not:="children" class="list-group-item border-0" class:="css">
+    <li not:="children" class="list-group-item" class:="css">
       <a
         class="text-decoration-none text-reset"
         href:="href"
@@ -248,29 +248,33 @@
               oninput="search"
             />
           </div>
-          <div class="col-auto">
+          <div with:="filter" class="col-auto">
             <button
-              not:="filters"
+              not:="count"
               class="btn btn-info"
+              data-run="open"
               onclick="filter"
             >
               <i class="fa-solid fa-filter"></i>
-              <template text="Filter"></template>
+              Filter
             </button>
-            <div if:="filters" class="btn-group">
+            <div if:="count" class="btn-group">
               <button
                 type="button"
                 class="btn btn-info"
-                onclick="toggle"
+                onclick="filter"
               >
                 <i class="fa-solid fa-filter"></i>
-                <template text="Filter"></template>
-                <template text:="count"></template>
+                Filter
+                (<template text:="count"></template>)
               </button>
               <button
                 type="button"
-                class="dropdown-toggle dropdown-toggle-split "
-                class:="btn"
+                class="
+                  dropdown-toggle
+                  dropdown-toggle-split
+                  btn btn-info
+                "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
@@ -279,9 +283,12 @@
                   <a
                     class="dropdown-item"
                     href="javascript:;"
-                    onclick:="drop"
-                    text:="label"
-                  ></a>
+                    onclick="filter"
+                    data-index:="value"
+                  >
+                    <i class="fa-solid fa-times"></i>
+                    <template text:="label"></template>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -294,7 +301,7 @@
             >
               <i not:="grouped" class="fa-solid fa-th"></i>
               <i if:="grouped" class="fa-solid fa-times"></i>
-              <template text="Group"></template>
+              Group
             </button>
           </div>
           <div class="col-auto">
@@ -304,7 +311,61 @@
               onclick="exporter"
             >
               <i class="fa-solid fa-file"></i>
-              <template text="Export"></template>
+              Export
+            </button>
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr with:="filter" show:="isOpen">
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <button
+              class="btn btn-secondary"
+              data-run="close"
+              onclick="filter"
+            >
+              <i class="fa-solid fa-times"></i>
+            </button>
+          </div>
+          <div class="col-auto">
+            <select class="form-control" name="field" onchange="filter">
+              <option each:="fields" bind:></option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <select class="form-control" name="operator" onchange="filter">
+              <option each:="operators" bind:></option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <select
+              hide:="any"
+              class="form-control"
+              class:="pending"
+              name="value"
+              onchange="filter"
+            >
+              <option each:="values" bind:></option>
+            </select>
+            <input
+              show:="any"
+              class="form-control"
+              name="value"
+              value:="value"
+              onchange="filter"
+            />
+          </div>
+          <div class="col-auto">
+            <button
+              class="btn btn-info"
+              class:="status"
+              data-run="submit"
+              onclick="filter"
+            >
+              <i class="fa-solid fa-filter"></i>
+              Filter
             </button>
           </div>
         </div>

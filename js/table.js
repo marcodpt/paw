@@ -4,13 +4,41 @@ export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
   init: ({data, ...route}, call) => {
-    const {schema, pages, rows, totals, exporter} = data
+    const {
+      schema,
+      pages,
+      rows,
+      totals,
+      exporter,
+      operators,
+      values,
+      filters
+    } = data
     const state = {
       ...route,
       cssSearch: !route.Query._search ? ' disabled' : '',
       cssFirst: ' disabled',
       cssLast: ' disabled',
       cssExporter: '',
+      operators,
+      values,
+      filter: {
+        isOpen: false,
+        fields: null,
+        operators: null,
+        values: null,
+        field: null,
+        operator: null,
+        value: null,
+        any: true,
+        filters: (route.Query._filter || []).map((f, i) => ({
+          value: i,
+          label: f
+        })),
+        count: (route.Query._filter || []).length,
+        status: ' disabled',
+        pending: ' disabled'
+      },
       exporter
     }
     call('set', state)
@@ -56,6 +84,14 @@ export default {
       return typeof totals == 'function' ? totals(route, []) : null
     }).then(totals => {
       state.totals = totals
+      return typeof filters == 'function' ? filters(route) : null
+    }).then(filters => {
+      if (filters instanceof Array) {
+        state.filter.filters = filters.map((f, i) => ({
+          value: i,
+          label: f
+        }))
+      }
       return typeof rows == 'function' ? rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
@@ -80,6 +116,10 @@ export default {
 
       const P = state.schema.items.properties
       const C = Object.keys(P)
+      state.filter.fields = C.map(k => ({
+        value: k,
+        label: P[k].title || k
+      }))
       const L = state.schema.items.links || []
       const G = (state.Query._group || [])
         .filter(k => C.indexOf(k) >= 0)
@@ -238,6 +278,104 @@ export default {
       })
       throw err
     })
+  },
+  filter: ({filter, operators, values, Query}, ev, call) => {
+    const v = !ev ? null : ev.target.value
+    const name = !ev ? null : ev.target.getAttribute('name')
+    const btn = ev ? ev.target.closest('button[data-run]') : null
+    const run = !ev || !btn ? null : btn.getAttribute('data-run')
+    const link = ev ? ev.target.closest('a[data-index]') : null
+    const index = !ev || !link ? null : link.getAttribute('data-index')
+
+    if (typeof index == 'string' && !isNaN(index)) {
+      const i = parseInt(index)
+      const F = Query._filter
+      if ((F instanceof Array) && i < F.length && i >= 0) {
+        F.splice(i, 1)
+        call('goto', {
+          _filter: F
+        })
+        return
+      }
+    }
+
+    if (name) {
+      filter[name] = v
+      if (name == 'field') {
+        filter.values = null
+        filter.value = null
+      }
+    }
+
+    const setFirst = name => {
+      const X = filter[name+'s']
+      if (filter[name] == null && X instanceof Array && X.length) {
+        filter[name] = X[0].value
+      }
+    }
+
+    setFirst('field')
+    setFirst('operator')
+
+    if (filter.operators == null) {
+      Promise.resolve().then(() => operators()).then(operators => {
+        if (operators instanceof Array && operators.length) {
+          filter.operators = operators
+          setFirst('operator')
+          call('set')
+        }
+      })
+    }
+
+    if (filter.operators instanceof Array && filter.operator) {
+      const any = filter.any
+      filter.any = filter.operators.reduce(
+        (r, {value, any}) => r != null || value != filter.operator ? r : any
+      , null) || false
+      if (filter.any != any) {
+        filter.value = null
+      }
+    }
+
+    if (!filter.any && filter.values == null) {
+      const f = filter.field
+      const o = filter.operator
+      filter.pending = ' disabled'
+      Promise.resolve().then(() => values({
+        field: f,
+        operator: o
+      })).then(values => {
+        if (filter.field == f && filter.operator == o) {
+          filter.pending = ''
+          filter.values = values
+          call('set')
+        }
+      })
+    }
+
+    if (run == 'open') {
+      filter.isOpen = true
+    } else if (run == 'close') {
+      filter.field = null
+      filter.operator = null
+      filter.value = null
+      filter.isOpen = false
+    }
+
+    const {field, operator, value} = filter
+    if (field == null || operator == null || value == null) {
+      filter.status = ' disabled'
+    } else {
+      filter.status = ''
+      if (run == 'submit') {
+        const Q = Query._filter
+        const F = Q instanceof Array ? Q : []
+        F.push(`${field}${operator}${value}`)
+        call('goto', {
+          _filter: F
+        })
+      }
+    }
   },
   goto: ({url, path, Query}, Q) => {
     if (location.hash == url) {

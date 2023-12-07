@@ -96,29 +96,33 @@
               oninput="search"
             />
           </div>
-          <div class="col-auto">
+          <div with:="filter" class="col-auto">
             <button
-              not:="filters"
+              not:="count"
               class="{{css.link}}{{link.filter}}"
+              data-run="open"
               onclick="filter"
             >
               <i class="{{css.icon}}{{icon.filter}}"></i>
-              <template text="{{text[lang].filter}}"></template>
+              {{text[lang].filter}}
             </button>
-            <div if:="filters" class="btn-group">
+            <div if:="count" class="btn-group">
               <button
                 type="button"
                 class="{{css.link}}{{link.filter}}"
-                onclick="toggle"
+                onclick="filter"
               >
                 <i class="{{css.icon}}{{icon.filter}}"></i>
-                <template text="{{text[lang].filter}}"></template>
-                <template text:="count"></template>
+                {{text[lang].filter}}
+                (<template text:="count"></template>)
               </button>
               <button
                 type="button"
-                class="dropdown-toggle dropdown-toggle-split "
-                class:="btn"
+                class="
+                  dropdown-toggle
+                  dropdown-toggle-split
+                  {{css.link}}{{link.filter}}
+                "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
@@ -127,9 +131,12 @@
                   <a
                     class="dropdown-item"
                     href="javascript:;"
-                    onclick:="drop"
-                    text:="label"
-                  ></a>
+                    onclick="filter"
+                    data-index:="value"
+                  >
+                    <i class="{{css.icon}}{{icon.close}}"></i>
+                    <template text:="label"></template>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -142,7 +149,7 @@
             >
               <i not:="grouped" class="{{css.icon}}{{icon.group}}"></i>
               <i if:="grouped" class="{{css.icon}}{{icon.close}}"></i>
-              <template text="{{text[lang].group}}"></template>
+              {{text[lang].group}}
             </button>
           </div>
           <div class="col-auto">
@@ -152,7 +159,61 @@
               onclick="exporter"
             >
               <i class="{{css.icon}}{{icon.exporter}}"></i>
-              <template text="{{text[lang].exporter}}"></template>
+              {{text[lang].exporter}}
+            </button>
+          </div>
+        </div>
+      </th>
+    </tr>
+    <tr with:="filter" show:="isOpen">
+      <th class="text-center" colspan="100%">
+        <div class="row gx-1 justify-content-center">
+          <div class="col-auto">
+            <button
+              class="{{css.link}}{{link.close}}"
+              data-run="close"
+              onclick="filter"
+            >
+              <i class="{{css.icon}}{{icon.close}}"></i>
+            </button>
+          </div>
+          <div class="col-auto">
+            <select class="form-control" name="field" onchange="filter">
+              <option each:="fields" bind:></option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <select class="form-control" name="operator" onchange="filter">
+              <option each:="operators" bind:></option>
+            </select>
+          </div>
+          <div class="col-auto">
+            <select
+              hide:="any"
+              class="form-control"
+              class:="pending"
+              name="value"
+              onchange="filter"
+            >
+              <option each:="values" bind:></option>
+            </select>
+            <input
+              show:="any"
+              class="form-control"
+              name="value"
+              value:="value"
+              onchange="filter"
+            />
+          </div>
+          <div class="col-auto">
+            <button
+              class="{{css.link}}{{link.filter}}"
+              class:="status"
+              data-run="submit"
+              onclick="filter"
+            >
+              <i class="{{css.icon}}{{icon.filter}}"></i>
+              {{text[lang].filter}}
             </button>
           </div>
         </div>

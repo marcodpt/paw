@@ -93,7 +93,7 @@
 </div>
 <template id="tag-list">
   <ul each:="children" class="list-group">
-    <li if:="children" class="list-group-item border-0" class:="css">
+    <li if:="children" class="list-group-item" class:="css">
       <a
         class="text-decoration-none text-reset"
         href="javascript:;"
@@ -106,10 +106,10 @@
         <i hide:="open" class="{{css.icon}}{{icon.isClosed}}"></i>
       </a>
     </li>
-    <li if:="children" show:="open" class="list-group-item border-0 py-0">
+    <li if:="children" show:="open" class="list-group-item">
       <tag-list children:="children"></tag-list>
     </li>
-    <li not:="children" class="list-group-item border-0" class:="css">
+    <li not:="children" class="list-group-item" class:="css">
       <a
         class="text-decoration-none text-reset"
         href:="href"
