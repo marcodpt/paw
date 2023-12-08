@@ -221,7 +221,7 @@ app({
       filter(Query._filter),
       Query._group && Query._group.length ?
         totals(Query._group, Methods) : identity,
-      sort([Query._sort]), 
+      sort([Query._sort || 'id']), 
       pager(Query._page),
       formatter({
         age: Query._group && Query._group.length ? 'num1' : null,
@@ -234,7 +234,7 @@ app({
         filter(Query._filter),
         Query._group && Query._group.length ?
           totals(Query._group, Methods) : identity,
-        sort([Query._sort]), 
+        sort([Query._sort || 'id']), 
         formatter({
           age: Query._group && Query._group.length ? 'num1' : null,
           balance: 'num2'

@@ -4,95 +4,103 @@ export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
   init: ({data, ...route}, call) => {
-    const {
-      schema,
-      pages,
-      rows,
-      totals,
-      exporter,
-      operators,
-      values,
-      filters
-    } = data
+    const api = data
+    const Q = route.Query
+    const filter = {
+      isOpen: false,
+      fields: null,
+      operators: null,
+      values: null,
+      field: null,
+      operator: null,
+      value: null,
+      any: true,
+      filters: (Q._filter || []).map((f, i) => ({
+        value: i,
+        label: f
+      })),
+      count: (Q._filter || []).length,
+      status: ' disabled',
+      pending: ' disabled'
+    }
+    const group = {
+      textOff: 'reset',
+      textOn: meta('link_group'),
+      active: false,
+      status: ' disabled'
+    }
+    const pager = {
+      first: ' disabled',
+      last: ' disabled',
+      page: 0,
+      pages: 0,
+      pagination: []
+    }
     const state = {
-      ...route,
-      cssSearch: !route.Query._search ? ' disabled' : '',
-      cssFirst: ' disabled',
-      cssLast: ' disabled',
-      cssExporter: '',
-      operators,
-      values,
-      filter: {
-        isOpen: false,
-        fields: null,
-        operators: null,
-        values: null,
-        field: null,
-        operator: null,
-        value: null,
-        any: true,
-        filters: (route.Query._filter || []).map((f, i) => ({
-          value: i,
-          label: f
-        })),
-        count: (route.Query._filter || []).length,
-        status: ' disabled',
-        pending: ' disabled'
+      route,
+      api,
+      pager,
+      filter,
+      group,
+      search: {
+        value: Q._search,
+        status: !Q._search ? ' disabled' : ''
       },
-      exporter
+      exporter: {
+        status: ''
+      }
     }
     call('set', state)
-    const p = route.Query._page
+    const p = Q._page
     if (!p || isNaN(p)) {
       call('goto', {
         _page: 1
       })
       return
     }
-    state.page = parseInt(p)
+    pager.page = parseInt(p)
     if (p > 1) {
-      state.cssFirst = ''
+      pager.first = ''
     }
-    state.pages = 0
-    state.pagination = [{
-      value: state.page,
-      label: meta('pagination', state),
+    pager.pagination = [{
+      value: pager.page,
+      label: meta('pagination', pager),
       selected: true
     }]
     Promise.resolve().then(() => {
-      return typeof schema == 'function' ? schema(route) : null
+      return typeof api.schema == 'function' ? api.schema(route) : null
     }).then(schema => {
       state.schema = schema
-      return typeof pages == 'function' ? pages(route) : null
+      return typeof api.pages == 'function' ? api.pages(route) : null
     }).then(pages => {
       if (pages) {
-        state.pages = pages
-        if (state.page < state.pages) {
-          state.cssLast = ''
-        } else if (state.page > state.pages) {
+        pager.pages = pages
+        if (pager.page < pager.pages) {
+          pager.last = ''
+        } else if (pager.page > pager.pages) {
           call('goto', {
-            _page: state.pages
+            _page: pager.pages
           })
           throw 'redirect'
         }
-        state.pagination = Array(pages).fill().map((v, i) => ({
+        pager.pagination = Array(pages).fill().map((v, i) => ({
           value: i + 1,
           label: meta('pagination', {pages, page: i + 1}),
-          selected: i + 1 == state.page
+          selected: i + 1 == pager.page
         }))
       }
-      return typeof totals == 'function' ? totals(route, []) : null
+      return typeof api.totals == 'function' ? api.totals(route, []) : null
     }).then(totals => {
       state.totals = totals
-      return typeof filters == 'function' ? filters(route) : null
+      return typeof api.filters == 'function' ? api.filters(route) : null
     }).then(filters => {
       if (filters instanceof Array) {
-        state.filter.filters = filters.map((f, i) => ({
+        filter.filters = filters.map((f, i) => ({
           value: i,
           label: f
         }))
       }
-      return typeof rows == 'function' ? rows(route) : null
+      return typeof api.rows == 'function' ? api.rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
       state.schema = state.schema || {
@@ -116,39 +124,37 @@ export default {
 
       const P = state.schema.items.properties
       const C = Object.keys(P)
-      state.filter.fields = C.map(k => ({
+      filter.fields = C.map(k => ({
         value: k,
         label: P[k].title || k
       }))
       const L = state.schema.items.links || []
-      const G = (state.Query._group || [])
-        .filter(k => C.indexOf(k) >= 0)
-      const grouped = G.length > 0
-      const textGroup = meta('link_group')
+      const G = (Q._group || []).filter(k => C.indexOf(k) >= 0)
+      group.active = G.length > 0
+      if (group.active) {
+        group.status = ''
+      }
       call('set', {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
         check: P.id != null && state.totals,
         links: state.schema.links,
-        grouped,
-        textGroup,
-        groupStatus: grouped ? '' : ' disabled',
         columns: C.map(k => ({
           ...P[k],
           name: k,
-          group: G.indexOf(k) >= 0 ? textGroup : 'reset',
-          sort: state.Query._sort == k ? 'asc' : 
-            state.Query._sort == `-${k}` ? 'desc' : 'none'
+          group: G.indexOf(k) >= 0 ? group.textOn : group.textOff,
+          sort: Q._sort == k ? 'asc' : 
+            Q._sort == `-${k}` ? 'desc' : 'none'
         })),
         aggregates: !state.totals ? null : C.map(k => state.totals[k]),
         actions: L,
         rows: rows.map(row => ({
           id: row.id,
-          checked: (state.Query._id || []).indexOf(String(row.id)) >= 0,
+          checked: (Q._id || []).indexOf(String(row.id)) >= 0,
           fields: C.map(k => ({
             value: row[k],
-            href: grouped ? null : interpolate(P[k].href, row)
+            href: group.active ? null : interpolate(P[k].href, row)
           })),
           links: L.map(({href, ...link}) => ({
             ...link,
@@ -162,10 +168,10 @@ export default {
       }
     })
   },
-  check: (state, ev, call) => {
+  check: ({rows, route}, ev, call) => {
     const v = ev.target.getAttribute('value')
-    const Id = state.Query._id || []
-    state.rows.forEach(row => {
+    const Id = route.Query._id || []
+    rows.forEach(row => {
       if (v == row.id || v == null) {
         const i = Id.indexOf(String(row.id))
         if (i < 0) {
@@ -179,15 +185,16 @@ export default {
       _id: Id
     })
   },
-  first: (state, ev, call) => {
+  first: ({}, ev, call) => {
     call('goto', {
       _page: 1
     })
   },
-  previous: ({page}, ev, call) => {
-    if (page > 1) {
+  previous: ({pager}, ev, call) => {
+    const p = pager.page
+    if (p > 1) {
       call('goto', {
-        _page: page - 1
+        _page: p - 1
       })
     }
   },
@@ -196,53 +203,54 @@ export default {
       _page: ev.target.value
     })
   },
-  next: ({page, pages}, ev, call) => {
+  next: ({pager}, ev, call) => {
+    const {page, pages} = pager
     if (page < pages) {
       call('goto', {
         _page: page + 1
       })
     }
   },
-  last: ({pages}, ev, call) => {
+  last: ({pager}, ev, call) => {
     call('goto', {
-      _page: pages
+      _page: pager.pages
     })
   },
-  search: (state, ev, call) => {
-    const search = ev.target.value || ''
-    state.Query._search = search
+  search: ({route, search}, ev, call) => {
+    const _search = ev.target.value || ''
+    search.value = ev.target.value
     setTimeout(() => {
       const actual = ev.target.value || ''
-      if (actual == search) {
-        call('goto')
+      if (actual == _search) {
+        call('goto', {_search})
       }
     }, 500)
   },
-  sort: ({Query}, ev, call) => {
+  sort: ({route}, ev, call) => {
     const k = ev.target.closest('a').getAttribute('data-sort')
     call('goto', {
-      _sort: (Query._sort == k ? '-' : '')+k
+      _sort: (route.Query._sort == k ? '-' : '')+k
     })
   },
-  group: (state, ev, call) => {
+  group: ({group, columns}, ev, call) => {
     const name = ev.target.getAttribute('data-name')
-    const {grouped, columns, textGroup} = state
-    if (grouped) {
+    const {textOn, textOff, active} = group
+    if (active) {
       if (name == null) {
         call('goto', {
           _group: null
         })
       }
     } else if (name) {
-      state.groupStatus = columns.reduce((pass, c) => {
+      group.status = columns.reduce((pass, c) => {
         if (c.name == name) {
-          c.group = c.group == textGroup ? 'reset' : textGroup
+          c.group = c.group == textOn ? textOff : textOn
         }
-        return pass || c.group == textGroup
+        return pass || c.group == textOn
       }, false) ? '' : ' disabled'
     } else {
       const G = columns.reduce((G, {group, name}) => {
-        if (group == textGroup) {
+        if (group == textOn) {
           G.push(name)
         }
         return G
@@ -254,10 +262,10 @@ export default {
       }
     }
   },
-  exporter: (state, ev, call) => {
-    state.cssExporter = ' disabled'
+  exporter: ({exporter, api, route}, ev, call) => {
+    exporter.status = ' disabled'
     Promise.resolve().then(() => {
-      return state.exporter({Query: state.Query})
+      return api.exporter(route)
     }).then(({data, name}) => {
       data = 'data:text/plain;charset=utf-8,'+encodeURIComponent(data)
       const link = document.createElement("a")
@@ -267,29 +275,25 @@ export default {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      call('set', {
-        ...state,
-        cssExporter: ''
-      })
+      exporter.status = ''
+      call('set')
     }).catch(err => {
-      call('set', {
-        ...state,
-        cssExporter: ''
-      })
+      exporter.status = ''
+      call('set')
       throw err
     })
   },
-  filter: ({filter, operators, values, Query}, ev, call) => {
+  filter: ({filter, api, route}, ev, call) => {
     const v = !ev ? null : ev.target.value
     const name = !ev ? null : ev.target.getAttribute('name')
     const btn = ev ? ev.target.closest('button[data-run]') : null
     const run = !ev || !btn ? null : btn.getAttribute('data-run')
     const link = ev ? ev.target.closest('a[data-index]') : null
     const index = !ev || !link ? null : link.getAttribute('data-index')
+    const F = route.Query._filter
 
     if (typeof index == 'string' && !isNaN(index)) {
       const i = parseInt(index)
-      const F = Query._filter
       if ((F instanceof Array) && i < F.length && i >= 0) {
         F.splice(i, 1)
         call('goto', {
@@ -318,7 +322,7 @@ export default {
     setFirst('operator')
 
     if (filter.operators == null) {
-      Promise.resolve().then(() => operators()).then(operators => {
+      Promise.resolve().then(() => api.operators(route)).then(operators => {
         if (operators instanceof Array && operators.length) {
           filter.operators = operators
           setFirst('operator')
@@ -341,7 +345,7 @@ export default {
       const f = filter.field
       const o = filter.operator
       filter.pending = ' disabled'
-      Promise.resolve().then(() => values({
+      Promise.resolve().then(() => api.values({
         field: f,
         operator: o
       })).then(values => {
@@ -368,16 +372,14 @@ export default {
     } else {
       filter.status = ''
       if (run == 'submit') {
-        const Q = Query._filter
-        const F = Q instanceof Array ? Q : []
-        F.push(`${field}${operator}${value}`)
-        call('goto', {
-          _filter: F
-        })
+        const _filter = F instanceof Array ? F : []
+        _filter.push(`${field}${operator}${value}`)
+        call('goto', {_filter})
       }
     }
   },
-  goto: ({url, path, Query}, Q) => {
+  goto: ({route}, Q) => {
+    const {url, path, Query} = route
     if (location.hash == url) {
       const q = queryString({
         ...Query,

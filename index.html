@@ -181,13 +181,13 @@
         </div>
       </th>
     </tr>
-    <tr>
+    <tr with:="pager">
       <td class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssFirst"
+              class:="first"
               onclick="first"
             >
               <i class="fa-solid fa-fast-backward"></i>
@@ -196,7 +196,7 @@
           <div class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssFirst"
+              class:="first"
               onclick="previous"
             >
               <i class="fa-solid fa-step-backward"></i>
@@ -210,7 +210,7 @@
           <div class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssLast"
+              class:="last"
               onclick="next"
             >
               <i class="fa-solid fa-step-forward"></i>
@@ -219,7 +219,7 @@
           <div class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssLast"
+              class:="last"
               onclick="last"
             >
               <i class="fa-solid fa-fast-forward"></i>
@@ -231,20 +231,20 @@
     <tr>
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
-          <div class="col-auto">
+          <div with:="search" class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssSearch"
+              class:="status"
               onclick="search"
             >
               <i class="fa-solid fa-times"></i>
             </button>
           </div>
-          <div class="col-auto" with:="Query">
+          <div with:="search" class="col-auto">
             <input
               class="form-control"
               placeholder="Search"
-              value:="_search"
+              value:="value"
               oninput="search"
             />
           </div>
@@ -293,21 +293,21 @@
               </ul>
             </div>
           </div>
-          <div if:="aggregates" class="col-auto">
+          <div if:="aggregates" with:="group" class="col-auto">
             <button
               class="btn btn-warning"
-              class:="groupStatus"
+              class:="status"
               onclick="group"
             >
-              <i not:="grouped" class="fa-solid fa-th"></i>
-              <i if:="grouped" class="fa-solid fa-times"></i>
+              <i not:="active" class="fa-solid fa-th"></i>
+              <i if:="active" class="fa-solid fa-times"></i>
               Group
             </button>
           </div>
-          <div class="col-auto">
+          <div with:="exporter" class="col-auto">
             <button
               class="btn btn-secondary"
-              class:="cssExporter"
+              class:="status"
               onclick="exporter"
             >
               <i class="fa-solid fa-file"></i>
@@ -372,8 +372,8 @@
       </th>
     </tr>
     <tr if:="aggregates">
-      <td not:="grouped" if:="check"></td>
-      <td not:="grouped" each:="actions"></td>
+      <td with:="group" not:="active" if:="check"></td>
+      <td with:="group" not:="active" each:="actions"></td>
       <td
         class="text-center align-middle"
         each:="aggregates"
@@ -381,7 +381,12 @@
       ></td>
     </tr>
     <tr>
-      <th not:="grouped" if:="check" class="text-center align-middle">
+      <th
+        with:="group"
+        not:="active"
+        if:="check"
+        class="text-center align-middle"
+      >
         <button
           class="btn btn-sm btn-success"
           title="Select"
@@ -391,7 +396,8 @@
         </button>
       </th>
       <th
-        not:="grouped"
+        with:="group"
+        not:="active"
         class="text-center align-middle"
         each:="actions"
       >
@@ -428,7 +434,12 @@ Double-click to sort in descending order."
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
-      <td not:="grouped" if:="check" class="text-center align-middle">
+      <td
+        with:="group"
+        not:="active"
+        if:="check"
+        class="text-center align-middle"
+      >
         <input
           class="form-check-input"
           type="checkbox"
@@ -437,7 +448,12 @@ Double-click to sort in descending order."
           onclick="check"
         />
       </td>
-      <td not:="grouped" each:="links" class="text-center align-middle">
+      <td
+        with:="group"
+        not:="active"
+        each:="links"
+        class="text-center align-middle"
+      >
         <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
           <i if:="icon" class="fa-solid fa-" class:="icon"></i>
           <span not:="icon" text:="title"></span>
