@@ -37,7 +37,7 @@ const operators = lang == 'pt' ? {
   "~le~": "Less than or equals"
 }
 
-const getFilter = filter => {
+const filter = Filters => data => (Filters || []).map(filter => {
   const op = Object.keys(operators).reduce((Match, op) => 
     Match || filter.indexOf(op) < 0 ? Match : op
   , null)
@@ -48,20 +48,9 @@ const getFilter = filter => {
   const L = filter.split(op)
   const field = L.shift()
   const value = L.join(op)
-  const P = schema_users.items.properties[field]
 
-  return !P ? null : {
-    value,
-    field,
-    op,
-    operator: operators[op],
-    title: P.title
-  }
-}
-
-const filter = Filters => data => (Filters || []).map(getFilter).filter(
-  f => f
-).reduce((data, {field, op, value}) => data.filter(row => {
+  return {value, field, op}
+}).filter(f => f).reduce((data, {field, op, value}) => data.filter(row => {
   const v = row[field]
   return v == null ? false :
     op == '~ct~' ? String(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
@@ -273,21 +262,12 @@ app({
     operators: () => Object.keys(operators).map(k => ({
       value: k,
       label: operators[k],
-      any: [
-        '~ct~',
-        '~nc~'
-      ].indexOf(k) >= 0
+      exact: ['~ct~', '~nc~'].indexOf(k) < 0
     })),
-    values: ({field, operator}) => users.map(row => ({
+    values: (route, field) => users.map(row => ({
       value: row[field],
       label: row[field]
-    })),
-    filters: ({Query}) => {
-      return (Query._filter || []).map(filter => {
-        const X = getFilter(filter)
-        return !X ? filter : `${X.title} ${X.operator} ${X.value}`
-      })
-    }
+    }))
   },
   form: {
     schema: ({Params}) => {

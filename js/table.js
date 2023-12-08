@@ -14,7 +14,7 @@ export default {
       field: null,
       operator: null,
       value: null,
-      any: true,
+      exact: false,
       filters: (Q._filter || []).map((f, i) => ({
         value: i,
         label: f
@@ -92,14 +92,6 @@ export default {
       return typeof api.totals == 'function' ? api.totals(route, []) : null
     }).then(totals => {
       state.totals = totals
-      return typeof api.filters == 'function' ? api.filters(route) : null
-    }).then(filters => {
-      if (filters instanceof Array) {
-        filter.filters = filters.map((f, i) => ({
-          value: i,
-          label: f
-        }))
-      }
       return typeof api.rows == 'function' ? api.rows(route) : null
     }).then(rows => {
       rows = rows instanceof Array ? rows : []
@@ -162,6 +154,48 @@ export default {
           }))
         }))
       })
+      return typeof api.operators == 'function' ? api.operators(route) : null
+    }).then(operators => {
+      if (operators instanceof Array) {
+        filter.operators = operators
+        filter.filters.forEach(f => {
+          const op = operators.reduce((Match, op) => 
+            Match || f.label.indexOf(op.value) < 0 ? Match : op
+          , null)
+          if (!op) {
+            return null
+          }
+
+          const L = f.label.split(op.value)
+          const field = L.shift()
+          const value = L.join(op.value)
+          const P = state.schema.items.properties[field]
+          const base = `${P.title} ${op.label} `
+
+          if (!op.exact) {
+            f.label = base+value
+            call('set')
+          } else {
+            Promise.resolve().then(() => {
+              return typeof api.values == 'function' ?
+                api.values(route, field) : null
+            }).then(values => {
+              var l = null
+              if (values instanceof Array) {
+                l = values.reduce(
+                  (l, V) => l == null && V.value == value ? V.label : l 
+                , l)
+              }
+              f.label = base+(l == null ? value : l)
+              call('set')
+            }).catch(err => {
+              f.label = base+value
+              call('set')
+              throw err
+            })
+          }
+        })
+      }
     }).catch(err => {
       if (err != 'redirect') {
         throw err
@@ -321,34 +355,21 @@ export default {
     setFirst('field')
     setFirst('operator')
 
-    if (filter.operators == null) {
-      Promise.resolve().then(() => api.operators(route)).then(operators => {
-        if (operators instanceof Array && operators.length) {
-          filter.operators = operators
-          setFirst('operator')
-          call('set')
-        }
-      })
-    }
-
     if (filter.operators instanceof Array && filter.operator) {
-      const any = filter.any
-      filter.any = filter.operators.reduce(
-        (r, {value, any}) => r != null || value != filter.operator ? r : any
-      , null) || false
-      if (filter.any != any) {
+      const exact = filter.exact
+      filter.exact = filter.operators.reduce((r, {
+        value, exact
+      }) => r != null || value != filter.operator ? r : exact, null) || false
+      if (filter.exact != exact) {
         filter.value = null
       }
     }
 
-    if (!filter.any && filter.values == null) {
+    if (filter.exact && filter.values == null) {
       const f = filter.field
       const o = filter.operator
       filter.pending = ' disabled'
-      Promise.resolve().then(() => api.values({
-        field: f,
-        operator: o
-      })).then(values => {
+      Promise.resolve().then(() => api.values(route, f)).then(values => {
         if (filter.field == f && filter.operator == o) {
           filter.pending = ''
           filter.values = values

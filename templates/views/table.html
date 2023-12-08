@@ -110,6 +110,7 @@
               <button
                 type="button"
                 class="{{css.link}}{{link.filter}}"
+                data-run="open"
                 onclick="filter"
               >
                 <i class="{{css.icon}}{{icon.filter}}"></i>
@@ -189,7 +190,7 @@
           </div>
           <div class="col-auto">
             <select
-              hide:="any"
+              show:="exact"
               class="form-control"
               class:="pending"
               name="value"
@@ -198,11 +199,11 @@
               <option each:="values" bind:></option>
             </select>
             <input
-              show:="any"
+              hide:="exact"
               class="form-control"
               name="value"
               value:="value"
-              onchange="filter"
+              oninput="filter"
             />
           </div>
           <div class="col-auto">
