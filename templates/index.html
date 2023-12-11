@@ -15,21 +15,28 @@
     <title>{{title}}</title>
   </head>
   <body>
-    {% include "views/navbar.html" %}
+    {% macro view(navbar, title) %}{% include "views/navbar.html" %}{% endmacro -%}
+    {{ view(navbar, title) | indent(4) | safe }}
     <main>
-      {% include "views/home.html" %}
+      <div class="container">
+        <h1>{{title}}</h1>
+      </div>
     </main>
     <template id="view-table">
-      {% include "views/table.html" %}
+      {% macro view() %}{% include "views/table.html" %}{% endmacro -%}
+      {{ view() | indent(6) | safe }}
     </template>
     <template id="view-form">
-      {% include "views/form.html" %}
+      {% macro view() %}{% include "views/form.html" %}{% endmacro -%}
+      {{ view() | indent(6) | safe }}
     </template>
     <template id="view-row">
-      {% include "views/row.html" %}
+      {% macro view() %}{% include "views/row.html" %}{% endmacro -%}
+      {{ view() | indent(6) | safe }}
     </template>
     <template id="tag-back">
-      {% include "tags/back.html" %}
+      {% macro view() %}{% include "tags/back.html" %}{% endmacro -%}
+      {{ view() | indent(6) | safe }}
     </template>
     <script type="module" src="app.js"></script>
   </body>

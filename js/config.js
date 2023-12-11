@@ -7,9 +7,8 @@ const lang = l == 'pt' ? pt : en
 export default {
   lang,
   tools: {
-    icon: x => x ? 'fa-solid fa-'+x : '',
-    link: x => x ? 'btn btn-'+x : '',
-    rowlink: x => x ? 'btn btn-sm btn-'+x : ''
+    icon: x => x ? `fa-solid fa-${x}` : '',
+    link: (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : '',
   },
   icon: {
     menu: 'bars',

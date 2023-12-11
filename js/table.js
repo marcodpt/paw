@@ -151,7 +151,7 @@ export default {
       }))
       const L = (state.schema.items.links || []).map(({link, icon, ...l}) => ({
         ...l,
-        link: tools.rowlink(link),
+        link: tools.link(link, true),
         icon: tools.icon(icon)
       }))
       const G = (Q._group || []).filter(k => C.indexOf(k) >= 0)
@@ -167,7 +167,7 @@ export default {
           disabled: P.id == null || !state.totals || group.active,
           label: lang.check,
           icon: tools.icon(icon.check),
-          link: tools.rowlink(link.check)
+          link: tools.link(link.check, true)
         },
         links: state.schema.links.map(({link, icon, ...l}) => ({
           ...l,
