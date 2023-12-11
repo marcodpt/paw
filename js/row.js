@@ -1,4 +1,6 @@
 import {interpolate} from './lib.js'
+import config from './config.js'
+const {tools, lang, icon, link} = config
 
 export default {
   template: document.getElementById('view-row'),
@@ -8,7 +10,12 @@ export default {
     const state = {
       schema: null,
       row: null,
-      fields: null
+      fields: null,
+      back: {
+        label: lang.back,
+        icon: tools.icon(icon.back),
+        link: tools.link(link.back)
+      }
     }
 
     call('set', state)
@@ -35,7 +42,12 @@ export default {
         name: k,
         value: row[k] != null ? row[k] : P[k].default
       }))
-      state.links = state.schema.links
+      state.links = state.schema.links.map(({href, link, icon, ...l}) => ({
+        ...l,
+        href: interpolate(href, row),
+        link: tools.link(link),
+        icon: tools.icon(icon)
+      }))
       call('set', state)
     })
   }

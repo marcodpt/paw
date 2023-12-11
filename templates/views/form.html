@@ -34,17 +34,17 @@
         </div>
       </div>
       <div class="row g-2 align-items-center">
-        <div class="col-auto">
-          <tag-back></tag-back>
+        <div with:="back" class="col-auto">
+          <tag-back bind:></tag-back>
         </div>
-        <div class="col-auto">
+        <div with:="submit" class="col-auto">
           <button
             type="submit"
-            class="{{css.link}}{{link.submit}}"
-            class:="invalid"
+            class:="link"
+            disabled:="disabled"
           >
-            <i class="{{css.icon}}{{icon.submit}}"></i>
-            <template>{{text[lang].submit}}</template>
+            <i class:="icon"></i>
+            <template text:="label"></template>
           </button>
         </div>
       </div>

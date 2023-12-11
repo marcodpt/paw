@@ -17,12 +17,12 @@
     <tr>
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
-          <div class="col-auto">
-            <tag-back></tag-back>
+          <div with:="back" class="col-auto">
+            <tag-back bind:></tag-back>
           </div>
           <div each:="links" class="col-auto">
-            <a href:="href" class="{{css.link}}" class:="link">
-              <i if:="icon" class="{{css.icon}}" class:="icon"></i>
+            <a href:="href" class:="link">
+              <i if:="icon" class:="icon"></i>
               <span text:="title"></span>
             </a>
           </div>
@@ -33,44 +33,32 @@
       <td class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
-            <button
-              class="{{css.link}}{{link.pagination}}"
-              class:="first"
-              onclick="first"
-            >
-              <i class="{{css.icon}}{{icon.first}}"></i>
+            <button class:="link" disabled:="isFirst" onclick="first">
+              <i class:="first"></i>
             </button>
           </div>
           <div class="col-auto">
-            <button
-              class="{{css.link}}{{link.pagination}}"
-              class:="first"
-              onclick="previous"
-            >
-              <i class="{{css.icon}}{{icon.previous}}"></i>
+            <button class:="link" disabled:="isFirst" onclick="previous">
+              <i class:="previous"></i>
             </button>
           </div>
           <div class="col-auto my-auto">
             <select class="form-control" onchange="pager">
-              <option each:="pagination" bind:></option>
+              <option
+                each:="pagination"
+                value:="value"
+                label:="label"
+              ></option>
             </select>
           </div>
           <div class="col-auto">
-            <button
-              class="{{css.link}}{{link.pagination}}"
-              class:="last"
-              onclick="next"
-            >
-              <i class="{{css.icon}}{{icon.next}}"></i>
+            <button class:="link" disabled:="isLast" onclick="next">
+              <i class:="next"></i>
             </button>
           </div>
           <div class="col-auto">
-            <button
-              class="{{css.link}}{{link.pagination}}"
-              class:="last"
-              onclick="last"
-            >
-              <i class="{{css.icon}}{{icon.last}}"></i>
+            <button class:="link" disabled:="isLast" onclick="last">
+              <i class:="last"></i>
             </button>
           </div>
         </div>
@@ -81,17 +69,18 @@
         <div class="row gx-1 justify-content-center">
           <div with:="search" class="col-auto">
             <button
-              class="{{css.link}}{{link.close}}"
-              class:="status"
+              with:="close"
+              class:="link"
+              disabled:="disabled"
               onclick="search"
             >
-              <i class="{{css.icon}}{{icon.close}}"></i>
+              <i class:="icon"></i>
             </button>
           </div>
           <div with:="search" class="col-auto">
             <input
               class="form-control"
-              placeholder="{{text[lang].search}}"
+              placeholder:="label"
               value:="value"
               oninput="search"
             />
@@ -99,31 +88,28 @@
           <div with:="filter" class="col-auto">
             <button
               not:="count"
-              class="{{css.link}}{{link.filter}}"
+              class:="link"
               data-run="open"
               onclick="filter"
             >
-              <i class="{{css.icon}}{{icon.filter}}"></i>
-              {{text[lang].filter}}
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
             <div if:="count" class="btn-group">
               <button
                 type="button"
-                class="{{css.link}}{{link.filter}}"
+                class:="link"
                 data-run="open"
                 onclick="filter"
               >
-                <i class="{{css.icon}}{{icon.filter}}"></i>
-                {{text[lang].filter}}
+                <i class:="icon"></i>
+                <template text:="label"></template>
                 (<template text:="count"></template>)
               </button>
               <button
                 type="button"
-                class="
-                  dropdown-toggle
-                  dropdown-toggle-split
-                  {{css.link}}{{link.filter}}
-                "
+                class="dropdown-toggle dropdown-toggle-split "
+                class:="link"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
@@ -135,7 +121,7 @@
                     onclick="filter"
                     data-index:="value"
                   >
-                    <i class="{{css.icon}}{{icon.close}}"></i>
+                    <i with:="close" class:="icon"></i>
                     <template text:="label"></template>
                   </a>
                 </li>
@@ -144,23 +130,23 @@
           </div>
           <div if:="aggregates" with:="group" class="col-auto">
             <button
-              class="{{css.link}}{{link.group}}"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               onclick="group"
             >
-              <i not:="active" class="{{css.icon}}{{icon.group}}"></i>
-              <i if:="active" class="{{css.icon}}{{icon.close}}"></i>
-              {{text[lang].group}}
+              <i not:="active" class:="icon"></i>
+              <i if:="active" with:="close" class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
           <div with:="exporter" class="col-auto">
             <button
-              class="{{css.link}}{{link.exporter}}"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               onclick="exporter"
             >
-              <i class="{{css.icon}}{{icon.exporter}}"></i>
-              {{text[lang].exporter}}
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
         </div>
@@ -169,34 +155,34 @@
     <tr with:="filter" show:="isOpen">
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
-          <div class="col-auto">
+          <div with:="close" class="col-auto">
             <button
-              class="{{css.link}}{{link.close}}"
+              class:="link"
               data-run="close"
               onclick="filter"
             >
-              <i class="{{css.icon}}{{icon.close}}"></i>
+              <i class:="icon"></i>
             </button>
           </div>
           <div class="col-auto">
             <select class="form-control" name="field" onchange="filter">
-              <option each:="fields" bind:></option>
+              <option each:="fields" value:="value" label:="label"></option>
             </select>
           </div>
           <div class="col-auto">
             <select class="form-control" name="operator" onchange="filter">
-              <option each:="operators" bind:></option>
+              <option each:="operators" value:="value" label:="label"></option>
             </select>
           </div>
           <div class="col-auto">
             <select
               show:="exact"
               class="form-control"
-              class:="pending"
+              disabled:="pending"
               name="value"
               onchange="filter"
             >
-              <option each:="values" bind:></option>
+              <option each:="values" value:="value" label:="label"></option>
             </select>
             <input
               hide:="exact"
@@ -208,20 +194,20 @@
           </div>
           <div class="col-auto">
             <button
-              class="{{css.link}}{{link.filter}}"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               data-run="submit"
               onclick="filter"
             >
-              <i class="{{css.icon}}{{icon.filter}}"></i>
-              {{text[lang].filter}}
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
         </div>
       </th>
     </tr>
     <tr if:="aggregates">
-      <td with:="group" not:="active" if:="check"></td>
+      <td with:="check" not:="disabled"></td>
       <td with:="group" not:="active" each:="actions"></td>
       <td
         class="text-center align-middle"
@@ -231,17 +217,16 @@
     </tr>
     <tr>
       <th
-        with:="group"
-        not:="active"
-        if:="check"
+        with:="check"
+        not:="disabled"
         class="text-center align-middle"
       >
         <button
-          class="{{css.rowlink}}{{link.check}}"
-          title="{{text[lang].check}}"
+          class:="link"
+          title:="label"
           onclick="check"
         >
-          <i class="{{css.icon}}{{icon.check}}"></i>
+          <i class:="icon"></i>
         </button>
       </th>
       <th
@@ -250,7 +235,7 @@
         class="text-center align-middle"
         each:="actions"
       >
-        <i if:="icon" class="{{css.icon}}" class:="icon" title:="title"></i>
+        <i if:="icon" class:="icon" title:="title"></i>
         <span not:="icon" text:="title"></span>
       </th>
       <th
@@ -267,25 +252,19 @@
           onclick="group"
         ></a>
         <a
-          title="{{text[lang].sort}}"
+          title:="label"
           href="javascript:;"
           data-sort:="name"
           onclick="sort"
-          switch:="sort"
-        >
-          <i case="none" class="{{css.icon}}{{icon.sort}}"></i>
-          <i case="asc" class="{{css.icon}}{{icon.sortAsc}}"></i>
-          <i case="desc" class="{{css.icon}}{{icon.sortDesc}}"></i>
-        </a>
+        ><i class:="sort"></i></a>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
       <td
-        with:="group"
-        not:="active"
-        if:="check"
+        with:="check"
+        not:="disabled"
         class="text-center align-middle"
       >
         <input
@@ -302,8 +281,8 @@
         each:="links"
         class="text-center align-middle"
       >
-        <a class="{{css.rowlink}}" class:="link" href:="href" title:="title">
-          <i if:="icon" class="{{css.icon}}" class:="icon"></i>
+        <a class:="link" href:="href" title:="title">
+          <i if:="icon" class:="icon"></i>
           <span not:="icon" text:="title"></span>
         </a>
       </td>
@@ -317,8 +296,8 @@
     </tr>
     <tr not:="rows">
       <td colspan="100%">
-        <div class="text-center p-5 m-5">
-          <i class="{{css.icon}}{{icon.loading}}"></i>
+        <div with:="loading" class="text-center p-5 m-5">
+          <i class:="icon"></i>
         </div>
       </td>
     </tr>

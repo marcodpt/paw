@@ -1,4 +1,5 @@
-import {meta} from './lib.js'
+import config from './config.js'
+const {tools, lang, icon, link} = config
 
 export default {
   template: document.getElementById('view-form'),
@@ -11,8 +12,18 @@ export default {
       schema: null,
       row: null,
       fields: null,
-      invalid: ' disabled',
-      submit
+      back: {
+        label: lang.back,
+        icon: tools.icon(icon.back),
+        link: tools.link(link.back)
+      },
+      submit: {
+        run: submit,
+        disabled: true,
+        label: lang.submit,
+        icon: tools.icon(icon.submit),
+        link: tools.link(link.submit)
+      }
     }
     call('set', state)
     Promise.resolve().then(() => {
@@ -73,8 +84,7 @@ export default {
     })
   },
   validate: state => {
-    const getErr = (err, v) => meta('error_'+err, {$: v}) 
-    state.invalid = '' 
+    state.submit.disabled = false
     state.model = state.fields.reduce((model, field) => {
       field.error = ''
       var v = field.value
@@ -95,29 +105,29 @@ export default {
         (type == 'number' && typeof v != 'number') ||
         (type == 'integer' && (typeof v != 'number' || v % 1 !== 0))
       ) {
-        field.error = getErr('type', type)
+        field.error = lang.type(type)
       } else if (
         field.enum instanceof Array && field.enum.indexOf(v) < 0
       ) {
-        field.error = getErr('enum', field.enum)
+        field.error = lang.enum(field.enum)
       } else if (typeof v == 'string') {
         if (minLength != null && v.length < minLength) {
-          field.error = getErr('minLength', minLength)
+          field.error = lang.minLength(minLength)
         } else if (maxLength != null && v.length > maxLength) {
-          field.error = getErr('maxLength', maxLength)
+          field.error = lang.maxLength(maxLength)
         } else if (pattern != null && !(new RegExp(pattern)).test(v)) {
-          field.error = getErr('pattern', pattern)
+          field.error = lang.pattern(pattern)
         }
       } else if (typeof v == 'number') {
         if (minimum != null && v < minimum) {
-          field.error = getErr('minimum', minimum)
+          field.error = lang.minimum(minimum)
         } else if (maximum != null && v > maximum) {
-          field.error = getErr('maximum', maximum)
+          field.error = lang.maximum(maximum)
         }
       }
       if (field.error) {
         field.feedback = ' is-invalid'
-        state.invalid = ' disabled'
+        state.submit.disabled = true
       } else {
         field.feedback = ' is-valid'
       }
@@ -140,10 +150,10 @@ export default {
     ev.preventDefault()
     ev.stopPropagation()
 
-    if (!state.invalid) {
-      state.invalid = ' disabled'
+    if (!state.submit.disabled) {
+      state.submit.disabled = true
       Promise.resolve().then(() => {
-        return state.submit(state.route, state.model)
+        return state.submit.run(state.route, state.model)
       }).then(() => {
         state.result = state.schema.links[0].description
         state.alert = 'success'

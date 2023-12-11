@@ -1,4 +1,6 @@
-import {interpolate, meta, queryString} from './lib.js'
+import {interpolate, queryString} from './lib.js'
+import config from './config.js'
+const {tools, lang, icon, link} = config
 
 export default {
   template: document.getElementById('view-table'),
@@ -7,6 +9,9 @@ export default {
     const api = data
     const Q = route.Query
     const filter = {
+      label: lang.filter,
+      icon: tools.icon(icon.filter),
+      link: tools.link(link.filter),
       isOpen: false,
       fields: null,
       operators: null,
@@ -20,18 +25,26 @@ export default {
         label: f
       })),
       count: (Q._filter || []).length,
-      status: ' disabled',
-      pending: ' disabled'
+      disabled: true,
+      pending: true
     }
     const group = {
+      label: lang.group,
+      icon: tools.icon(icon.group),
+      link: tools.link(link.group),
       textOff: 'reset',
-      textOn: meta('link_group'),
+      textOn: link.group,
       active: false,
-      status: ' disabled'
+      disabled: true
     }
     const pager = {
-      first: ' disabled',
-      last: ' disabled',
+      link: tools.link(link.pagination),
+      first: tools.icon(icon.first),
+      previous: tools.icon(icon.previous),
+      next: tools.icon(icon.next),
+      last: tools.icon(icon.last),
+      isFirst: true,
+      isLast: true,
       page: 0,
       pages: 0,
       pagination: []
@@ -43,11 +56,27 @@ export default {
       filter,
       group,
       search: {
+        label: lang.search,
         value: Q._search,
-        status: !Q._search ? ' disabled' : ''
+        disabled: !Q._search
       },
       exporter: {
-        status: ''
+        label: lang.exporter,
+        icon: tools.icon(icon.exporter),
+        link: tools.link(link.exporter),
+        disabled: false
+      },
+      back: {
+        label: lang.back,
+        icon: tools.icon(icon.back),
+        link: tools.link(link.back)
+      },
+      close: {
+        icon: tools.icon(icon.close),
+        link: tools.link(link.close)
+      },
+      loading: {
+        icon: tools.icon(icon.loading)
       }
     }
     call('set', state)
@@ -60,11 +89,11 @@ export default {
     }
     pager.page = parseInt(p)
     if (p > 1) {
-      pager.first = ''
+      pager.isFirst = false
     }
     pager.pagination = [{
       value: pager.page,
-      label: meta('pagination', pager),
+      label: lang.pagination(pager.page, pager.pages),
       selected: true
     }]
     Promise.resolve().then(() => {
@@ -76,7 +105,7 @@ export default {
       if (pages) {
         pager.pages = pages
         if (pager.page < pager.pages) {
-          pager.last = ''
+          pager.isLast = false
         } else if (pager.page > pager.pages) {
           call('goto', {
             _page: pager.pages
@@ -85,7 +114,7 @@ export default {
         }
         pager.pagination = Array(pages).fill().map((v, i) => ({
           value: i + 1,
-          label: meta('pagination', {pages, page: i + 1}),
+          label: lang.pagination(i + 1, pages),
           selected: i + 1 == pager.page
         }))
       }
@@ -120,24 +149,39 @@ export default {
         value: k,
         label: P[k].title || k
       }))
-      const L = state.schema.items.links || []
+      const L = (state.schema.items.links || []).map(({link, icon, ...l}) => ({
+        ...l,
+        link: tools.rowlink(link),
+        icon: tools.icon(icon)
+      }))
       const G = (Q._group || []).filter(k => C.indexOf(k) >= 0)
       group.active = G.length > 0
       if (group.active) {
-        group.status = ''
+        group.disabled = false
       }
       call('set', {
         ...state,
         title: state.schema.title,
         description: state.schema.description,
-        check: P.id != null && state.totals,
-        links: state.schema.links,
+        check: {
+          disabled: P.id == null || !state.totals || group.active,
+          label: lang.check,
+          icon: tools.icon(icon.check),
+          link: tools.rowlink(link.check)
+        },
+        links: state.schema.links.map(({link, icon, ...l}) => ({
+          ...l,
+          link: tools.link(link),
+          icon: tools.icon(icon)
+        })),
         columns: C.map(k => ({
           ...P[k],
           name: k,
           group: G.indexOf(k) >= 0 ? group.textOn : group.textOff,
-          sort: Q._sort == k ? 'asc' : 
-            Q._sort == `-${k}` ? 'desc' : 'none'
+          label: lang.sort,
+          sort: Q._sort == k ? tools.icon(icon.sortAsc) : 
+            Q._sort == `-${k}` ? tools.icon(icon.sortDesc) :
+              tools.icon(icon.sort)
         })),
         aggregates: !state.totals ? null : C.map(k => state.totals[k]),
         actions: L,
@@ -148,8 +192,8 @@ export default {
             value: row[k],
             href: group.active ? null : interpolate(P[k].href, row)
           })),
-          links: L.map(({href, ...link}) => ({
-            ...link,
+          links: L.map(({href, ...l}) => ({
+            ...l,
             href: interpolate(href, row)
           }))
         }))
@@ -276,12 +320,12 @@ export default {
         })
       }
     } else if (name) {
-      group.status = columns.reduce((pass, c) => {
+      group.disabled = !columns.reduce((pass, c) => {
         if (c.name == name) {
           c.group = c.group == textOn ? textOff : textOn
         }
         return pass || c.group == textOn
-      }, false) ? '' : ' disabled'
+      }, false)
     } else {
       const G = columns.reduce((G, {group, name}) => {
         if (group == textOn) {
@@ -297,7 +341,7 @@ export default {
     }
   },
   exporter: ({exporter, api, route}, ev, call) => {
-    exporter.status = ' disabled'
+    exporter.disabled = true
     Promise.resolve().then(() => {
       return api.exporter(route)
     }).then(({data, name}) => {
@@ -309,10 +353,10 @@ export default {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      exporter.status = ''
+      exporter.disabled = false
       call('set')
     }).catch(err => {
-      exporter.status = ''
+      exporter.disabled = false
       call('set')
       throw err
     })
@@ -368,10 +412,10 @@ export default {
     if (filter.exact && filter.values == null) {
       const f = filter.field
       const o = filter.operator
-      filter.pending = ' disabled'
+      filter.pending = true
       Promise.resolve().then(() => api.values(route, f)).then(values => {
         if (filter.field == f && filter.operator == o) {
-          filter.pending = ''
+          filter.pending = false
           filter.values = values
           call('set')
         }
@@ -389,9 +433,9 @@ export default {
 
     const {field, operator, value} = filter
     if (field == null || operator == null || value == null) {
-      filter.status = ' disabled'
+      filter.disabled = true
     } else {
-      filter.status = ''
+      filter.disabled = false
       if (run == 'submit') {
         const _filter = F instanceof Array ? F : []
         _filter.push(`${field}${operator}${value}`)

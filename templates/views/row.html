@@ -4,21 +4,18 @@
     <div class="col-md-3">
       <label class="form-label" title:="description" text:="title"></label>
     </div>
-    <div
-      class="col-md-9"
-      style:="style"
-    >
+    <div class="col-md-9" style:="style">
       <a if:="href" href:="href" text:="value"></a>
       <span not:="href" text:="value"></span>
     </div>
   </div>
   <div class="row g-2 align-items-center">
-    <div class="col-auto">
-      <tag-back></tag-back>
+    <div with:="back" class="col-auto">
+      <tag-back bind:></tag-back>
     </div>
     <div class="col-auto" each:="links">
-      <a class="{{css.link}}" class:="link" href:="href" title:="description">
-        <i class="{{css.icon}}" class:="icon"></i>
+      <a class:="link" href:="href" title:="description">
+        <i class:="icon"></i>
         <template text:="title"></template>
       </a>
     </div>

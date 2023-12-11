@@ -4,15 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="error_type" content="Must be of the specified type.">
-    <meta name="error_minLength" content="Must be a minimum of {$} character(s).">
-    <meta name="error_maxLength" content="Must be a maximum of {$} character(s).">
-    <meta name="error_pattern" content="Must have the specified pattern.">
-    <meta name="error_minimum" content="Must be at least: {$}">
-    <meta name="error_maximum" content="Must be at most: {$}">
-    <meta name="error_enum" content="Must be one of the possible options.">
-    <meta name="pagination" content="Page {page} of {pages}">
-    <meta name="link_group" content="warning">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" integrity="sha512-P9pgMgcSNlLb4Z2WAB2sH5KBKGnBfyJnq+bhcfLCFusrRc4XdXrhfDluBl/usq75NF5gTDIMcwI1GaG5gju+Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -32,7 +23,7 @@
             role="button"
             aria-controls="sidebar"
           >
-            <i class="fa-solid fa-bars"></i>
+            <i class:="menu"></i>
           </a>
         </li>
       </ul>
@@ -58,7 +49,7 @@
                 role="button"
                 aria-expanded="false"
               >
-                <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+                <i if:="icon" class:="icon"></i>
                 <template text:="title"></template>
               </a>
               <ul class="dropdown-menu">
@@ -70,7 +61,7 @@
                     data-index:="index"
                     onclick="toggle"
                   >
-                    <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+                    <i if:="icon" class:="icon"></i>
                     <template text:="title"></template>
                   </a>
                 </li>
@@ -78,7 +69,7 @@
             </li>
             <li not:="children" class="nav-item">
               <a class="nav-link" class:="css" href:="href">
-                <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+                <i if:="icon" class:="icon"></i>
                 <template text:="title"></template>
               </a>
             </li>
@@ -109,7 +100,7 @@
       ></button>
     </div>
     <div class="offcanvas-body">
-      <tag-list children:="sidebar"></tag-list>
+      <tag-list bind: children:="sidebar"></tag-list>
     </div>
   </div>
 </div>
@@ -122,14 +113,14 @@
         data-index:="index"
         onclick="toggle"
       >
-        <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+        <i if:="icon" class:="icon"></i>
         <template text:="title"></template>
-        <i show:="open" class="fa-solid fa-angle-up"></i>
-        <i hide:="open" class="fa-solid fa-angle-down"></i>
+        <i show:="open" class:="isOpen"></i>
+        <i hide:="open" class:="isClosed"></i>
       </a>
     </li>
     <li if:="children" show:="open" class="list-group-item">
-      <tag-list children:="children"></tag-list>
+      <tag-list bind: children:="children"></tag-list>
     </li>
     <li not:="children" class="list-group-item" class:="css">
       <a
@@ -137,7 +128,7 @@
         href:="href"
         onclick="hide"
       >
-        <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+        <i if:="icon" class:="icon"></i>
         <template text:="title"></template>
       </a>
     </li>
@@ -146,7 +137,6 @@
     <main>
       <div class="container">
   <h1>App</h1>
-  <p class="lead">A dashboard application</p>
 </div>
     </main>
     <template id="view-table">
@@ -169,12 +159,12 @@
     <tr>
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
-          <div class="col-auto">
-            <tag-back></tag-back>
+          <div with:="back" class="col-auto">
+            <tag-back bind:></tag-back>
           </div>
           <div each:="links" class="col-auto">
-            <a href:="href" class="btn btn-" class:="link">
-              <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+            <a href:="href" class:="link">
+              <i if:="icon" class:="icon"></i>
               <span text:="title"></span>
             </a>
           </div>
@@ -185,44 +175,32 @@
       <td class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
           <div class="col-auto">
-            <button
-              class="btn btn-secondary"
-              class:="first"
-              onclick="first"
-            >
-              <i class="fa-solid fa-fast-backward"></i>
+            <button class:="link" disabled:="isFirst" onclick="first">
+              <i class:="first"></i>
             </button>
           </div>
           <div class="col-auto">
-            <button
-              class="btn btn-secondary"
-              class:="first"
-              onclick="previous"
-            >
-              <i class="fa-solid fa-step-backward"></i>
+            <button class:="link" disabled:="isFirst" onclick="previous">
+              <i class:="previous"></i>
             </button>
           </div>
           <div class="col-auto my-auto">
             <select class="form-control" onchange="pager">
-              <option each:="pagination" bind:></option>
+              <option
+                each:="pagination"
+                value:="value"
+                label:="label"
+              ></option>
             </select>
           </div>
           <div class="col-auto">
-            <button
-              class="btn btn-secondary"
-              class:="last"
-              onclick="next"
-            >
-              <i class="fa-solid fa-step-forward"></i>
+            <button class:="link" disabled:="isLast" onclick="next">
+              <i class:="next"></i>
             </button>
           </div>
           <div class="col-auto">
-            <button
-              class="btn btn-secondary"
-              class:="last"
-              onclick="last"
-            >
-              <i class="fa-solid fa-fast-forward"></i>
+            <button class:="link" disabled:="isLast" onclick="last">
+              <i class:="last"></i>
             </button>
           </div>
         </div>
@@ -233,17 +211,18 @@
         <div class="row gx-1 justify-content-center">
           <div with:="search" class="col-auto">
             <button
-              class="btn btn-secondary"
-              class:="status"
+              with:="close"
+              class:="link"
+              disabled:="disabled"
               onclick="search"
             >
-              <i class="fa-solid fa-times"></i>
+              <i class:="icon"></i>
             </button>
           </div>
           <div with:="search" class="col-auto">
             <input
               class="form-control"
-              placeholder="Search"
+              placeholder:="label"
               value:="value"
               oninput="search"
             />
@@ -251,31 +230,28 @@
           <div with:="filter" class="col-auto">
             <button
               not:="count"
-              class="btn btn-info"
+              class:="link"
               data-run="open"
               onclick="filter"
             >
-              <i class="fa-solid fa-filter"></i>
-              Filter
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
             <div if:="count" class="btn-group">
               <button
                 type="button"
-                class="btn btn-info"
+                class:="link"
                 data-run="open"
                 onclick="filter"
               >
-                <i class="fa-solid fa-filter"></i>
-                Filter
+                <i class:="icon"></i>
+                <template text:="label"></template>
                 (<template text:="count"></template>)
               </button>
               <button
                 type="button"
-                class="
-                  dropdown-toggle
-                  dropdown-toggle-split
-                  btn btn-info
-                "
+                class="dropdown-toggle dropdown-toggle-split "
+                class:="link"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               ></button>
@@ -287,7 +263,7 @@
                     onclick="filter"
                     data-index:="value"
                   >
-                    <i class="fa-solid fa-times"></i>
+                    <i with:="close" class:="icon"></i>
                     <template text:="label"></template>
                   </a>
                 </li>
@@ -296,23 +272,23 @@
           </div>
           <div if:="aggregates" with:="group" class="col-auto">
             <button
-              class="btn btn-warning"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               onclick="group"
             >
-              <i not:="active" class="fa-solid fa-th"></i>
-              <i if:="active" class="fa-solid fa-times"></i>
-              Group
+              <i not:="active" class:="icon"></i>
+              <i if:="active" with:="close" class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
           <div with:="exporter" class="col-auto">
             <button
-              class="btn btn-secondary"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               onclick="exporter"
             >
-              <i class="fa-solid fa-file"></i>
-              Export
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
         </div>
@@ -321,34 +297,34 @@
     <tr with:="filter" show:="isOpen">
       <th class="text-center" colspan="100%">
         <div class="row gx-1 justify-content-center">
-          <div class="col-auto">
+          <div with:="close" class="col-auto">
             <button
-              class="btn btn-secondary"
+              class:="link"
               data-run="close"
               onclick="filter"
             >
-              <i class="fa-solid fa-times"></i>
+              <i class:="icon"></i>
             </button>
           </div>
           <div class="col-auto">
             <select class="form-control" name="field" onchange="filter">
-              <option each:="fields" bind:></option>
+              <option each:="fields" value:="value" label:="label"></option>
             </select>
           </div>
           <div class="col-auto">
             <select class="form-control" name="operator" onchange="filter">
-              <option each:="operators" bind:></option>
+              <option each:="operators" value:="value" label:="label"></option>
             </select>
           </div>
           <div class="col-auto">
             <select
               show:="exact"
               class="form-control"
-              class:="pending"
+              disabled:="pending"
               name="value"
               onchange="filter"
             >
-              <option each:="values" bind:></option>
+              <option each:="values" value:="value" label:="label"></option>
             </select>
             <input
               hide:="exact"
@@ -360,20 +336,20 @@
           </div>
           <div class="col-auto">
             <button
-              class="btn btn-info"
-              class:="status"
+              class:="link"
+              disabled:="disabled"
               data-run="submit"
               onclick="filter"
             >
-              <i class="fa-solid fa-filter"></i>
-              Filter
+              <i class:="icon"></i>
+              <template text:="label"></template>
             </button>
           </div>
         </div>
       </th>
     </tr>
     <tr if:="aggregates">
-      <td with:="group" not:="active" if:="check"></td>
+      <td with:="check" not:="disabled"></td>
       <td with:="group" not:="active" each:="actions"></td>
       <td
         class="text-center align-middle"
@@ -383,17 +359,16 @@
     </tr>
     <tr>
       <th
-        with:="group"
-        not:="active"
-        if:="check"
+        with:="check"
+        not:="disabled"
         class="text-center align-middle"
       >
         <button
-          class="btn btn-sm btn-success"
-          title="Select"
+          class:="link"
+          title:="label"
           onclick="check"
         >
-          <i class="fa-solid fa-check"></i>
+          <i class:="icon"></i>
         </button>
       </th>
       <th
@@ -402,7 +377,7 @@
         class="text-center align-middle"
         each:="actions"
       >
-        <i if:="icon" class="fa-solid fa-" class:="icon" title:="title"></i>
+        <i if:="icon" class:="icon" title:="title"></i>
         <span not:="icon" text:="title"></span>
       </th>
       <th
@@ -419,26 +394,19 @@
           onclick="group"
         ></a>
         <a
-          title="Sort by this field.
-Double-click to sort in descending order."
+          title:="label"
           href="javascript:;"
           data-sort:="name"
           onclick="sort"
-          switch:="sort"
-        >
-          <i case="none" class="fa-solid fa-sort"></i>
-          <i case="asc" class="fa-solid fa-sort-down"></i>
-          <i case="desc" class="fa-solid fa-sort-up"></i>
-        </a>
+        ><i class:="sort"></i></a>
       </th>
     </tr>
   </thead>
   <tbody>
     <tr each:="rows" title:="description">
       <td
-        with:="group"
-        not:="active"
-        if:="check"
+        with:="check"
+        not:="disabled"
         class="text-center align-middle"
       >
         <input
@@ -455,8 +423,8 @@ Double-click to sort in descending order."
         each:="links"
         class="text-center align-middle"
       >
-        <a class="btn btn-sm btn-" class:="link" href:="href" title:="title">
-          <i if:="icon" class="fa-solid fa-" class:="icon"></i>
+        <a class:="link" href:="href" title:="title">
+          <i if:="icon" class:="icon"></i>
           <span not:="icon" text:="title"></span>
         </a>
       </td>
@@ -470,8 +438,8 @@ Double-click to sort in descending order."
     </tr>
     <tr not:="rows">
       <td colspan="100%">
-        <div class="text-center p-5 m-5">
-          <i class="fa-solid fa-spinner fa-spin fa-5x"></i>
+        <div with:="loading" class="text-center p-5 m-5">
+          <i class:="icon"></i>
         </div>
       </td>
     </tr>
@@ -515,17 +483,17 @@ Double-click to sort in descending order."
         </div>
       </div>
       <div class="row g-2 align-items-center">
-        <div class="col-auto">
-          <tag-back></tag-back>
+        <div with:="back" class="col-auto">
+          <tag-back bind:></tag-back>
         </div>
-        <div class="col-auto">
+        <div with:="submit" class="col-auto">
           <button
             type="submit"
-            class="btn btn-primary"
-            class:="invalid"
+            class:="link"
+            disabled:="disabled"
           >
-            <i class="fa-solid fa-check"></i>
-            <template>Submit</template>
+            <i class:="icon"></i>
+            <template text:="label"></template>
           </button>
         </div>
       </div>
@@ -557,21 +525,18 @@ Double-click to sort in descending order."
     <div class="col-md-3">
       <label class="form-label" title:="description" text:="title"></label>
     </div>
-    <div
-      class="col-md-9"
-      style:="style"
-    >
+    <div class="col-md-9" style:="style">
       <a if:="href" href:="href" text:="value"></a>
       <span not:="href" text:="value"></span>
     </div>
   </div>
   <div class="row g-2 align-items-center">
-    <div class="col-auto">
-      <tag-back></tag-back>
+    <div with:="back" class="col-auto">
+      <tag-back bind:></tag-back>
     </div>
     <div class="col-auto" each:="links">
-      <a class="btn btn-" class:="link" href:="href" title:="description">
-        <i class="fa-solid fa-" class:="icon"></i>
+      <a class:="link" href:="href" title:="description">
+        <i class:="icon"></i>
         <template text:="title"></template>
       </a>
     </div>
@@ -579,9 +544,9 @@ Double-click to sort in descending order."
 </div>
     </template>
     <template id="tag-back">
-      <a class="btn btn-secondary" href="javascript:history.back()">
-  <i class="fa-solid fa-arrow-left"></i>
-  <template>Back</template>
+      <a class:="link" href="javascript:history.back()">
+  <i class:="icon"></i>
+  <template text:="label"></template>
 </a>
     </template>
     <script type="module" src="app.js"></script>
