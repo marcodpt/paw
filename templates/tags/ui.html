@@ -1,0 +1,14 @@
+<template switch:="ui">
+  {%- include "outputs/default.html" -%}
+  {%- include "outputs/link.html" -%}
+  {%- include "outputs/icon.html" -%}
+  {%- include "inputs/default.html" -%}
+  {%- include "inputs/textarea.html" -%}
+  {%- include "inputs/typeahead.html" -%}
+  {%- include "inputs/link.html" -%}
+  {%- include "inputs/icon.html" -%}
+<div
+  if:="name"
+  class="invalid-feedback"
+  text:="error"
+></div></template>

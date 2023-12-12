@@ -1,5 +1,7 @@
 const copy = X => JSON.parse(JSON.stringify(X))
 
+const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
+
 const interpolate = (str, X) => {
   if (typeof str != 'string') {
     return str
@@ -48,4 +50,38 @@ const readFiles = Files => {
   return Promise.all(P)
 }
 
-export {copy, interpolate, queryString, readFiles}
+const parser = ev => {
+  const method = ev.target.getAttribute('data-parser')
+  const k = ev.target.getAttribute('type') == 'file' ? 'files' : 'value'
+  const x = ev.target[k] 
+
+  if (method == 'date:int' || method == 'date:num') {
+    if (!x) {
+      return 0
+    } else {
+      var d = new Date(x+'T12:00').getTime() / 1000
+      d = d <= 0 ? d-1 : d
+      if (method == 'date:int') {
+        d = Math.round(d)
+      }
+      return d
+    }
+  } else if (method == 'file' || method == 'files') {
+    return readFiles(x)
+      .then(files => method == 'files' ? files : files[0])
+  } else if (method.substr(0, 4) == 'pow:') {
+    return Math.round(parseFloat(x) * parseInt(method.substr(4)))
+  } else if (method == 'integer') {
+    return parseInt(x)
+  } else if (method == 'number') {
+    return parseFloat(x)
+  } else if (method == 'boolean') {
+    return x ? true : false
+  } else if (method == 'json') {
+    return JSON.parse(x)
+  } else {
+    return x
+  }
+}
+
+export {copy, setOptions, interpolate, queryString, parser}

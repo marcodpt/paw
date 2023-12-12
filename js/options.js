@@ -1,4 +1,4 @@
-const setOptions = V => V.map(v => ({value: v, label: v}))
+import {setOptions} from './js/lib.js'
 const bootswatch = Themes => Themes.map(theme => ({
   value: 'https://cdn.jsdelivr.net/npm/'+(theme == 'Default' ?
     'bootstrap@5.3.2/dist/css' :
@@ -12,13 +12,16 @@ export default {
     '',
     'date',
     'bool',
+    'text',
+    'info',
     'num.1',
     'num.2',
     'num.3',
-    'percentage',
+    'progress',
     'file',
     'password',
     'link',
+    'icon',
     'navbar',
     'theme',
     'lang',

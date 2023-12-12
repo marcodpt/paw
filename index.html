@@ -558,6 +558,105 @@
         <template text:="label"></template>
       </a>
     </template>
+    <template id="tag-ui">
+      <template switch:="ui"><template
+        case="output:default" text:="text"
+      ></template><a case="output:link" href:="href" text:="text" class:="link"></a><a
+        case="output:btn" class="btn btn-sm btn-" class:="text" text:="text"
+      ></a><a case="output:icon">
+        <i class="fa-solid fa-" class:="text"></i>
+        <span text:="text"></span>
+      </a><input
+        case="input:default"
+        class="form-control"
+        class:="feedback"
+        name:="name"
+        placeholder:="placeholder"
+        min:="min"
+        max:="max"
+        step:="step"
+        type:="type"
+        value:="value"
+        disabled:="disabled"
+        multiple:="multiple"
+        oninput:="change"
+      /><textarea
+        case="input:textarea"
+        rows="6"
+        class="form-control"
+        class:="feedback"
+        name:="name"
+        placeholder:="placeholder"
+        text:="value"
+        disabled:="disabled"
+        oninput:="change"
+      ></textarea><div class="dropdown" case="input:typeahead">
+        <input
+          class="dropdown-toggle form-control"
+          class:="feedback"
+          name:="name"
+          placeholder:="placeholder"
+          value:="value"
+          data-label:="value"
+          disabled:="disabled"
+          data-bs-toggle="dropdown"
+          onfocus:="typeahead"
+          oninput:="typeahead"
+          onblur:="typeahead"
+        />
+        <ul class="dropdown-menu w-100">
+          <li class="d-none">
+            <a
+              class="dropdown-item disabled"
+              href="javascript:;"
+              text:="noMatch"
+            ></a>
+          </li>
+          <li each:="options">
+            <a
+              class="dropdown-item"
+              class:="css"
+              href="javascript:;"
+              onclick:="setValue"
+              text:="label"
+            ></a>
+          </li>
+        </ul>
+      </div><template case="input:btn" each:="options">
+        <input
+          type="radio"
+          class="btn-check"
+          name:="name"
+          id:="value"
+          autocomplete="off"
+          value:="value"
+          onchange:="change"
+          checked:="css"
+        />
+        <label
+          class="btn btn-"
+          class:="value"
+          for:="value"
+          text:="label"
+        ></label>
+      </template><div case="input:icon" class="input-group">
+        <span class="input-group-text">
+          <i class="fa-solid fa-" class:="value"></i>
+        </span>
+        <input
+          class="form-control"
+          class:="feedback"
+          name:="name"
+          value:="value"
+          oninput:="change"
+          disabled:="disabled"
+        />
+      </div><div
+        if:="change"
+        class="invalid-feedback"
+        text:="error"
+      ></div></template>
+    </template>
     <script type="module" src="app.js"></script>
   </body>
 </html>

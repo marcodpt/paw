@@ -1,0 +1,16 @@
+<select
+  case="input:typeahead"
+  class="form-control"
+  class:="feedback"
+  name:="name"
+  disabled:="disabled"
+  data-parser:="parser"
+  onchange="change"
+>
+  <option
+    each:="options"
+    value:="value"
+    label:="label"
+    selected:="selected"
+  ></option>
+</select>
