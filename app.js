@@ -2,6 +2,14 @@ import app from './index.js'
 import users from './data/users.js'
 import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
+import options from './js/options.js'
+
+window.setTheme = theme => document.getElementById('theme')
+  .setAttribute('href', theme)
+
+window.setNavbar = css => document.getElementById('navbar')
+  .querySelector('nav')
+  .setAttribute('class', `navbar navbar-expand-lg ${css}`)
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
 
@@ -168,6 +176,35 @@ app({
   navbar: {
     links: [
       {
+        title: 'Set Theme',
+        icon: 'palette',
+        children: options.theme.map(({value, label}) => ({
+          title: label,
+          href: `javascript:setTheme('${value}')`
+        }))
+      }, {
+        title: 'Set Navbar',
+        icon: 'droplet',
+        children: options.navbar.map(({value, label}) => ({
+          title: label,
+          href: `javascript:setNavbar('${value}')`
+        }))
+      }, {
+        title: 'Repository',
+        icon: 'code-fork',
+        href: 'https://github.com/marcodpt/app'
+      }
+    ],
+    sidebar: [
+      {
+        title: 'Data',
+        children: [
+          {
+            title: 'Users',
+            href: '#/users'
+          }
+        ]
+      }, {
         title: 'Tools',
         icon: 'tools',
         children: [
@@ -183,21 +220,6 @@ app({
             title: 'Import Files',
             icon: 'file',
             href: '#/upload'
-          }
-        ]
-      }, {
-        title: 'Repository',
-        icon: 'code-fork',
-        href: 'https://github.com/marcodpt/app'
-      }
-    ],
-    sidebar: [
-      {
-        title: 'Data',
-        children: [
-          {
-            title: 'Users',
-            href: '#/users'
           }
         ]
       }

@@ -1,75 +1,6 @@
-export default {
-  serverino: [
-    "string",
-    "unsigned",
-    "now",
-    "uid",
-    "pointer",
-    "bool",
-    "paragraph",
-    "code",
-    "const",
-    "label",
-    "strict",
-    "url",
-    "password",
-    "char",
-    "blob"
-  ],
-  frontend: [
-    "date",
-    "hidden",
-    "bool",
-    "info",
-    "text",
-    "password",
-    "ui",
-    "btn",
-    "icon"
-  ],
-  redelinux: [
-    "boolean",
-    "cnpj",
-    "cpf",
-    "date",
-    "file",
-    "files",
-    "hex",
-    "integer",
-    "number",
-    "numString",
-    "pantone",
-    "password",
-    "safeString",
-    "string",
-    "text",
-    "webString",
-    "rgb",
-    "json",
-    "pgb",
-  ],
-  jsonschema: [
-    "string"
-    "number"
-    "integer"
-    "object"
-    "array"
-    "boolean"
-    "null"
-  ],
-  definitive: [
-    'password',
-    'date',
-    'num.1',
-    'num.2',
-    'num.3',
-    'percentage',
-    'bool',
-    'file'
-  ]
-}
-
-import {meta, readFiles} from './lib.js'
+import {readFiles} from './lib.js'
+import opt from './options.js'
+import config from './config.js'
 
 export default ({
   type,
@@ -82,6 +13,7 @@ export default ({
   options,
   change
 }) => {
+  const {lang} = config
   const R = {}
   const lang = document.documentElement.lang.split('-')[0]
   var isNum = false
@@ -92,6 +24,11 @@ export default ({
     isNum = true
     precision = parseInt(ui.substr(4))
     pow = 10 ** precision
+  }
+
+  /*prop: options*/
+  if (type == 'string' && opt[ui] != null) {
+    options = opt[ui]
   }
 
   /*prop: format*/
@@ -105,7 +42,7 @@ export default ({
       return r == null ? '' : r
     }
   } else if (type == 'boolean' || ui == 'bool') {
-    R.format = x => x ? meta('bool_true') : meta('bool_false')
+    R.format = x => x ? lang.boolTrue : lang.boolFalse
   } else if (ui == 'date') {
     R.format = x => {
       if (typeof x == 'number' && x) {
