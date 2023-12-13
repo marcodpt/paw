@@ -27,6 +27,12 @@ export default {
     'lang',
     'ui'
   ]),
+  parser: setOptions([
+    'int',
+    'num',
+    'bool',
+    'json'
+  ]),
   link: setOptions([
     '',
     'primary',

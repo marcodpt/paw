@@ -1,3 +1,5 @@
+import config from './config.js'
+
 const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
@@ -50,38 +52,135 @@ const readFiles = Files => {
   return Promise.all(P)
 }
 
-const parser = ev => {
-  const method = ev.target.getAttribute('data-parser')
-  const k = ev.target.getAttribute('type') == 'file' ? 'files' : 'value'
-  const x = ev.target[k] 
+const isNum = x =>
+  x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
-  if (method == 'date:int' || method == 'date:num') {
-    if (!x) {
-      return 0
+const parser = ev => {
+  const e = ev.target.closest('[name]')
+  const name = e.getAttribute('name')
+  const method = e.getAttribute('data-parser')
+  const type = e.getAttribute('type')
+  const data = type == 'file' ? e.files : e.value 
+  var value = null
+
+  if (type == 'file') {
+    return readFiles(data)
+      .then(files => e.getAttribute('multiple') != null ? files : files[0])
+  } else if (type == 'date' && (method == 'int' || method == 'num')) {
+    if (!data) {
+      value = 0
     } else {
-      var d = new Date(x+'T12:00').getTime() / 1000
+      var d = new Date(data+'T12:00').getTime() / 1000
       d = d <= 0 ? d-1 : d
-      if (method == 'date:int') {
+      if (method == 'int') {
         d = Math.round(d)
       }
-      return d
+      value = d
     }
-  } else if (method == 'file' || method == 'files') {
-    return readFiles(x)
-      .then(files => method == 'files' ? files : files[0])
-  } else if (method.substr(0, 4) == 'pow:') {
-    return Math.round(parseFloat(x) * parseInt(method.substr(4)))
-  } else if (method == 'integer') {
-    return parseInt(x)
-  } else if (method == 'number') {
-    return parseFloat(x)
-  } else if (method == 'boolean') {
-    return x ? true : false
+  } else if (type == 'number' || type == 'range') {
+    const step = parseFloat(e.getAttribute('step') || '1') || 1
+    if (isNum(data)) {
+      value = step % 1 == 0 ? parseInt(data) : parseFloat(data)
+    }
+    if (method == 'int' && value && step) {
+      value = Math.round(value / step)
+    }
+  } else if (method == 'int' && isNum(data)) {
+    value = parseInt(data)
+  } else if (method == 'num' && isNum(data)) {
+    value = parseFloat(data)
+  } else if (method == 'bool') {
+    value = !!(isNum(data) ? parseInt(data) : data)
   } else if (method == 'json') {
-    return JSON.parse(x)
+    try {
+      value = JSON.parse(data)
+    } catch (err) {}
   } else {
-    return x
+    value = data
   }
+
+  return {name, data: value}
 }
 
-export {copy, setOptions, interpolate, queryString, parser}
+const validate = schema => data => {
+  const {text} = config
+  var error = ''
+  const {
+    type,
+    minLength,
+    maxLength,
+    pattern,
+    minimum,
+    maximum,
+    min,
+    max
+  } = schema 
+  if (
+    (type == 'null' && data !== null) ||
+    (type == 'boolean' && data !== false && data !== true) ||
+    (type == 'object' && (
+      typeof data != 'object' || data == null || data instanceof Array
+    )) ||
+    (type == 'array' && !(data instanceof Array)) ||
+    (type == 'string' && typeof data != 'string') ||
+    (type == 'number' && typeof data != 'number') ||
+    (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
+  ) {
+    error = text.type(type)
+  } else if (
+    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
+  ) {
+    error = text.enum(schema.enum)
+  } else if (typeof data == 'string') {
+    if (minLength != null && data.length < minLength) {
+      error = text.minLength(minLength)
+    } else if (maxLength != null && data.length > maxLength) {
+      error = text.maxLength(maxLength)
+    } else if (pattern != null && !(new RegExp(pattern)).test(data)) {
+      error = text.pattern(pattern)
+    }
+  } else if (typeof data == 'number') {
+    if (minimum != null && data < minimum) {
+      error = text.minimum(min == null ? minimum : min)
+    } else if (maximum != null && data > maximum) {
+      error = text.maximum(max == null ? maximum : max)
+    }
+  }
+  return error
+}
+
+const getDefault = ({type, ...schema}, data) => {
+  data = data == null ? schema.default == null ? null : schema.default : data
+
+  if (type == 'integer' && typeof data == 'string' && isNum(data)) {
+    data = parseInt(data)
+  } else if (type == 'number' && typeof data == 'string' && isNum(data)) {
+    data = parseFloat(data)
+  }
+
+  if (data == null) {
+    if (type == 'number' || type == 'integer') {
+      return 0
+    } else if (type == 'string') {
+      return ""
+    } else if (type == 'boolean') {
+      return false
+    } else if (type == 'object') {
+      data = {}
+      Object.keys(schema.properties || {}).forEach(k => {
+        const p = getDefault(schema.properties[k])
+        if (p != null) {
+          data[k] = p
+        }
+      })
+    } else if (type == 'array') {
+      return []
+    }
+  }
+
+  return data
+}
+
+export {
+  copy, setOptions, interpolate, queryString, parser, validate, getDefault
+}
