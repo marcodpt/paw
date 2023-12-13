@@ -1,11 +1,13 @@
 import en from './lang/en.js'
 import pt from './lang/pt.js'
 
-const l = document.documentElement.lang.split('-')[0]
-const lang = l == 'pt' ? pt : en
+const lang = document.documentElement.lang
+const l = lang.split('-')[0]
+const text = l == 'pt' ? pt : en
 
 export default {
   lang,
+  text,
   tools: {
     icon: x => x ? `fa-solid fa-${x}` : '',
     link: (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : '',

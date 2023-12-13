@@ -1,6 +1,6 @@
 import {interpolate} from './lib.js'
 import config from './config.js'
-const {tools, lang, icon, link} = config
+const {tools, text, icon, link} = config
 
 export default {
   template: document.getElementById('view-row'),
@@ -12,7 +12,7 @@ export default {
       row: null,
       fields: null,
       back: {
-        label: lang.back,
+        label: text.back,
         icon: tools.icon(icon.back),
         link: tools.link(link.back)
       }

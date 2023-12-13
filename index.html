@@ -560,12 +560,19 @@
     </template>
     <template id="tag-ui">
       <template switch:="ui"><template
-        case="output:default" text:="text"
-      ></template><a case="output:link" href:="href" text:="text" class:="link"></a><a
-        case="output:btn" class="btn btn-sm btn-" class:="text" text:="text"
-      ></a><a case="output:icon">
-        <i class="fa-solid fa-" class:="text"></i>
-        <span text:="text"></span>
+        case="output:default"
+      ><template
+        not:="href"
+        text:="text"
+      ></template><a
+        if:="href"
+        href:="href"
+        text:="text"
+        class:="link"
+      ></a></template>
+      <a case="output:link" class:="text" text:="raw"></a><a case="output:icon">
+        <i class:="text"></i>
+        <span text:="raw"></span>
       </a><input
         case="input:default"
         class="form-control"
@@ -579,7 +586,8 @@
         value:="value"
         disabled:="disabled"
         multiple:="multiple"
-        oninput:="change"
+        data-parser:="parser"
+        oninput="change"
       /><textarea
         case="input:textarea"
         rows="6"
@@ -589,70 +597,53 @@
         placeholder:="placeholder"
         text:="value"
         disabled:="disabled"
-        oninput:="change"
-      ></textarea><div class="dropdown" case="input:typeahead">
-        <input
-          class="dropdown-toggle form-control"
-          class:="feedback"
-          name:="name"
-          placeholder:="placeholder"
+        data-parser:="parser"
+        oninput="change"
+      ></textarea><select
+        case="input:typeahead"
+        class="form-control"
+        class:="feedback"
+        name:="name"
+        disabled:="disabled"
+        data-parser:="parser"
+        onchange="change"
+      >
+        <option
+          each:="options"
           value:="value"
-          data-label:="value"
-          disabled:="disabled"
-          data-bs-toggle="dropdown"
-          onfocus:="typeahead"
-          oninput:="typeahead"
-          onblur:="typeahead"
-        />
-        <ul class="dropdown-menu w-100">
-          <li class="d-none">
-            <a
-              class="dropdown-item disabled"
-              href="javascript:;"
-              text:="noMatch"
-            ></a>
-          </li>
-          <li each:="options">
-            <a
-              class="dropdown-item"
-              class:="css"
-              href="javascript:;"
-              onclick:="setValue"
-              text:="label"
-            ></a>
-          </li>
-        </ul>
-      </div><template case="input:btn" each:="options">
+          label:="label"
+          selected:="selected"
+        ></option>
+      </select><template case="input:link" each:="options">
         <input
           type="radio"
           class="btn-check"
           name:="name"
-          id:="value"
+          id:="raw"
           autocomplete="off"
-          value:="value"
-          onchange:="change"
-          checked:="css"
+          value:="raw"
+          checked:="selected"
+          onchange="change"
         />
         <label
-          class="btn btn-"
           class:="value"
-          for:="value"
+          for:="raw"
           text:="label"
         ></label>
       </template><div case="input:icon" class="input-group">
         <span class="input-group-text">
-          <i class="fa-solid fa-" class:="value"></i>
+          <i class:="value"></i>
         </span>
         <input
           class="form-control"
           class:="feedback"
           name:="name"
-          value:="value"
-          oninput:="change"
+          value:="raw"
           disabled:="disabled"
+          oninput="change"
         />
       </div><div
-        if:="change"
+        if:="name"
         class="invalid-feedback"
         text:="error"
       ></div></template>

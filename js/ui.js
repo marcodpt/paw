@@ -3,7 +3,7 @@ import opt from './options.js'
 import config from './config.js'
 
 export default (schema, {name, model, error, options, label}) => {
-  const {lang, tools} = config
+  const {lang, text, tools} = config
   const {
     type,
     ui,
@@ -35,8 +35,8 @@ export default (schema, {name, model, error, options, label}) => {
     options = opt[ui]
   } else if (type == 'boolean' || ui == 'bool') {
     options = [
-      {value: 0, label: lang.boolFalse},
-      {value: 1, label: lang.boolTrue}
+      {value: 0, label: text.boolFalse},
+      {value: 1, label: text.boolTrue}
     ]
   }
 
@@ -51,7 +51,7 @@ export default (schema, {name, model, error, options, label}) => {
       return r == null ? '' : r
     }
   } else if (type == 'boolean' || ui == 'bool') {
-    format = x => x ? lang.boolTrue : lang.boolFalse
+    format = x => x ? text.boolTrue : text.boolFalse
   } else if (ui == 'date') {
     format = x => {
       if (typeof x == 'number' && x) {

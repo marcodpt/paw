@@ -1,6 +1,6 @@
 import {interpolate, queryString} from './lib.js'
 import config from './config.js'
-const {tools, lang, icon, link} = config
+const {tools, text, icon, link} = config
 
 export default {
   template: document.getElementById('view-table'),
@@ -9,7 +9,7 @@ export default {
     const api = data
     const Q = route.Query
     const filter = {
-      label: lang.filter,
+      label: text.filter,
       icon: tools.icon(icon.filter),
       link: tools.link(link.filter),
       isOpen: false,
@@ -29,7 +29,7 @@ export default {
       pending: true
     }
     const group = {
-      label: lang.group,
+      label: text.group,
       icon: tools.icon(icon.group),
       link: tools.link(link.group),
       textOff: 'reset',
@@ -56,18 +56,18 @@ export default {
       filter,
       group,
       search: {
-        label: lang.search,
+        label: text.search,
         value: Q._search,
         disabled: !Q._search
       },
       exporter: {
-        label: lang.exporter,
+        label: text.exporter,
         icon: tools.icon(icon.exporter),
         link: tools.link(link.exporter),
         disabled: false
       },
       back: {
-        label: lang.back,
+        label: text.back,
         icon: tools.icon(icon.back),
         link: tools.link(link.back)
       },
@@ -93,7 +93,7 @@ export default {
     }
     pager.pagination = [{
       value: pager.page,
-      label: lang.pagination(pager.page, pager.pages),
+      label: text.pagination(pager.page, pager.pages),
       selected: true
     }]
     Promise.resolve().then(() => {
@@ -114,7 +114,7 @@ export default {
         }
         pager.pagination = Array(pages).fill().map((v, i) => ({
           value: i + 1,
-          label: lang.pagination(i + 1, pages),
+          label: text.pagination(i + 1, pages),
           selected: i + 1 == pager.page
         }))
       }
@@ -165,7 +165,7 @@ export default {
         description: state.schema.description,
         check: {
           disabled: P.id == null || !state.totals || group.active,
-          label: lang.check,
+          label: text.check,
           icon: tools.icon(icon.check),
           link: tools.link(link.check, true)
         },
@@ -178,7 +178,7 @@ export default {
           ...P[k],
           name: k,
           group: G.indexOf(k) >= 0 ? group.textOn : group.textOff,
-          label: lang.sort,
+          label: text.sort,
           sort: Q._sort == k ? tools.icon(icon.sortAsc) : 
             Q._sort == `-${k}` ? tools.icon(icon.sortDesc) :
               tools.icon(icon.sort)

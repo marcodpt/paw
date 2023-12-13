@@ -1,5 +1,5 @@
 import config from './config.js'
-const {tools, lang, icon, link} = config
+const {tools, text, icon, link} = config
 
 export default {
   template: document.getElementById('view-form'),
@@ -13,14 +13,14 @@ export default {
       row: null,
       fields: null,
       back: {
-        label: lang.back,
+        label: text.back,
         icon: tools.icon(icon.back),
         link: tools.link(link.back)
       },
       submit: {
         run: submit,
         disabled: true,
-        label: lang.submit,
+        label: text.submit,
         icon: tools.icon(icon.submit),
         link: tools.link(link.submit)
       }
@@ -105,24 +105,24 @@ export default {
         (type == 'number' && typeof v != 'number') ||
         (type == 'integer' && (typeof v != 'number' || v % 1 !== 0))
       ) {
-        field.error = lang.type(type)
+        field.error = text.type(type)
       } else if (
         field.enum instanceof Array && field.enum.indexOf(v) < 0
       ) {
-        field.error = lang.enum(field.enum)
+        field.error = text.enum(field.enum)
       } else if (typeof v == 'string') {
         if (minLength != null && v.length < minLength) {
-          field.error = lang.minLength(minLength)
+          field.error = text.minLength(minLength)
         } else if (maxLength != null && v.length > maxLength) {
-          field.error = lang.maxLength(maxLength)
+          field.error = text.maxLength(maxLength)
         } else if (pattern != null && !(new RegExp(pattern)).test(v)) {
-          field.error = lang.pattern(pattern)
+          field.error = text.pattern(pattern)
         }
       } else if (typeof v == 'number') {
         if (minimum != null && v < minimum) {
-          field.error = lang.minimum(minimum)
+          field.error = text.minimum(minimum)
         } else if (maximum != null && v > maximum) {
-          field.error = lang.maximum(maximum)
+          field.error = text.maximum(maximum)
         }
       }
       if (field.error) {

@@ -1,4 +1,4 @@
-import {setOptions} from './js/lib.js'
+import {setOptions} from './lib.js'
 const bootswatch = Themes => Themes.map(theme => ({
   value: 'https://cdn.jsdelivr.net/npm/'+(theme == 'Default' ?
     'bootstrap@5.3.2/dist/css' :
