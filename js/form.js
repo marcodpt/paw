@@ -1,5 +1,6 @@
-import {getDefault, parser, validate} from './lib.js'
+import {getDefault, parser} from './lib.js'
 import config from './config.js'
+import ui from './ui.js'
 const {tools, text, icon, link} = config
 
 export default {
@@ -52,36 +53,26 @@ export default {
       }
 
       const P = state.schema.properties || {}
-      state.fields = Object.keys(P).map(k => ({
-        title: P[k].title || '',
-        description: P[k].description || '',
+      state.fields = Object.keys(P).map(k => ui(P[k], {
         name: k,
-        parser: P[k].type == 'integer' ? 'int' :
-          P[k].type == 'number' ? 'num' : null,
-        validate: validate(P[k]),
-        feedback: '',
-        error: '' 
+        model: state.model,
+        showValid: true
       }))
       state.links = state.schema.links
-      call('set', state)
+      call('set')
       call('validate')
     }).catch(err => {
       state.result = err.toString()
-      call('set', state)
+      call('set')
       throw err
     })
   },
   validate: ({submit, fields, model}) => {
     submit.disabled = false
     fields.forEach(field => {
-      const {name} = field
-      field.value = model[name]
-      field.error = field.validate(model[name])
+      field.validate()
       if (field.error) {
-        field.feedback = ' is-invalid'
         submit.disabled = true
-      } else {
-        field.feedback = ' is-valid'
       }
     }, {})
   },

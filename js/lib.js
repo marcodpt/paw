@@ -60,13 +60,10 @@ const parser = ev => {
   const name = e.getAttribute('name')
   const method = e.getAttribute('data-parser')
   const type = e.getAttribute('type')
-  const data = type == 'file' ? e.files : e.value 
+  const data = e.value 
   var value = null
 
-  if (type == 'file') {
-    return readFiles(data)
-      .then(files => e.getAttribute('multiple') != null ? files : files[0])
-  } else if (type == 'date' && (method == 'int' || method == 'num')) {
+  if (type == 'date' && (method == 'int' || method == 'num')) {
     if (!data) {
       value = 0
     } else {

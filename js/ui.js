@@ -1,23 +1,31 @@
-import {setOptions} from './lib.js'
+import {setOptions, validate} from './lib.js'
 import opt from './options.js'
 import config from './config.js'
 
-export default (schema, {name, model, error, options, label}) => {
+const ui = (schema, settings) => {
   const {lang, text, tools} = config
+  const {name, model, options, label, showValid} = (settings || {})
   const {
+    title,
+    description,
     type,
     ui,
     minimum,
     maximum,
     readOnly,
     href,
-    link
+    link,
+    properties
   } = schema
+
   var isNum = false
   var precision = 0
   var pow = 0
   var step = type == 'integer' ? 1 : null
-  const value = schema.default == null && model ? model[name] : schema.default
+  const value = model && model[name] != null ? model[name] : schema.default
+  if (model && model[name] == null) {
+    model[name] = value
+  }
 
   if (/^num\.[1-9][0-9]*$/.test(ui)) {
     isNum = true
@@ -38,6 +46,10 @@ export default (schema, {name, model, error, options, label}) => {
       {value: 0, label: text.boolFalse},
       {value: 1, label: text.boolTrue}
     ]
+  }
+
+  if (options && !schema.enum) {
+    schema.enum = options.map(({value}) => value)
   }
 
   var format =  x => x
@@ -90,7 +102,7 @@ export default (schema, {name, model, error, options, label}) => {
     format = tools.icon
   } else if (type == 'integer' || type == 'number') {
     format = x => typeof x != 'number' ? x : x.toLocaleString(lang)
-  } else if (typeof x != 'string') {
+  } else if (typeof value != 'string') {
     format = x => JSON.stringify(x, undefined, 2)
   }
 
@@ -120,39 +132,59 @@ export default (schema, {name, model, error, options, label}) => {
   }
 
   var output = 'default'
-  if (href) {
-    output = 'href'
-  } else if (ui == 'link' || ui == 'icon') {
+  if (ui == 'link' || ui == 'icon') {
     output = ui
   }
 
-  name != null ? {
-    ui: `input:${input}`,
-    type: ui != 'default' ? null :
-      ui == 'date' || ui == 'file' ? ui :
-      type == 'integer' || type == 'number' ? 'number' : 'text',
-    name,
-    placeholder: label,
-    value: readOnly && label ? label : loader(value),
-    raw: value,
-    min: minimum == null ? null : loader(minimum),
-    max: maximum == null ? null : loader(maximum),
-    step: step,
-    multiple: ui == 'file' && type == 'array' ? '' : null,
-    disabled: readOnly || (options && options.length <= 1),
-    feedback: error == null ? '' : error ? ' is-invalid' : ' is-valid',
-    error,
-    parser: ui == 'date' && type == 'integer' ? 'date:int' :
-      ui == 'date' && type == 'number' ? 'date:num' :
-      ui == 'file' && type == 'array' ? 'files' :
-      ui == 'file' ? 'file' :
-      isNum && type == 'integer' ? 'pow:'+pow :
-      type == 'array' || type == 'object' || type == 'null' ? 'json' : type
-  } : {
-    ui: `output:${output}`,
-    text: format(value),
-    raw: value,
-    href,
-    link
+  if (showValid != null) {
+    const test = validate(schema)
+    const F = {
+      ui: `input:${input}`,
+      type: ui == 'date' ? 'date' :
+        type == 'integer' || type == 'number' ? 'number' :
+        ui != 'default' ? null : 'text',
+      name,
+      options,
+      title: title || '',
+      description: description || '',
+      placeholder: label,
+      min: minimum == null ? null : loader(minimum),
+      max: maximum == null ? null : loader(maximum),
+      step: step,
+      disabled: readOnly || (options && options.length <= 1),
+      parser: ui == 'date' && type == 'integer' ? 'int' :
+        ui == 'date' && type == 'number' ? 'num' :
+        type == 'integer' ? 'int' :
+        type == 'array' || type == 'object' || type == 'null' ? 'json' : type,
+      validate: () => {
+        const x = model == null ? value : model[name]
+        F.value = readOnly && label ? label : loader(x)
+        F.raw = x
+        if (readOnly) {
+          return
+        }
+        F.error = test(x)
+        if (F.error) {
+          F.feedback = ' is-invalid'
+        } else if (showValid) {
+          F.feedback = ' is-valid'
+        } else {
+          F.feedback = ''
+        }
+      }
+    }
+
+    F.validate()
+    return F
+  } else {
+    return {
+      ui: `output:${output}`,
+      text: format(value),
+      raw: value,
+      href,
+      link
+    }
   }
 }
+
+export default ui

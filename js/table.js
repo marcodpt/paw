@@ -1,5 +1,6 @@
-import {interpolate, queryString} from './lib.js'
+import {interpolate, queryString, parser} from './lib.js'
 import config from './config.js'
+import ui from './ui.js'
 const {tools, text, icon, link} = config
 
 export default {
@@ -8,6 +9,9 @@ export default {
   init: ({data, ...route}, call) => {
     const api = data
     const Q = route.Query
+    const model = {
+      search: Q._search || ''
+    }
     const filter = {
       label: text.filter,
       icon: tools.icon(icon.filter),
@@ -46,19 +50,39 @@ export default {
       isFirst: true,
       isLast: true,
       page: 0,
-      pages: 0,
-      pagination: []
+      pages: 0
     }
+    const pageInput = options => {
+      pager.input = ui({
+        type: 'integer',
+        minimum: 1,
+        default: pager.page
+      }, {
+        name: 'page',
+        options: options.map(({value, label}) => ({
+          value,
+          label,
+          selected: pager.page == value
+        })),
+        showValid: false
+      })
+    }
+    pageInput([])
     const state = {
       route,
       api,
+      model,
       pager,
       filter,
       group,
       search: {
-        label: text.search,
-        value: Q._search,
-        disabled: !Q._search
+        disabled: !model.search,
+        input: ui({type: 'string'}, {
+          name: 'search',
+          label: text.search, 
+          showValid: false,
+          model
+        })
       },
       exporter: {
         label: text.exporter,
@@ -91,11 +115,10 @@ export default {
     if (p > 1) {
       pager.isFirst = false
     }
-    pager.pagination = [{
+    pageInput([{
       value: pager.page,
-      label: text.pagination(pager.page, pager.pages),
-      selected: true
-    }]
+      label: text.pagination(pager.page, pager.pages)
+    }])
     Promise.resolve().then(() => {
       return typeof api.schema == 'function' ? api.schema(route) : null
     }).then(schema => {
@@ -112,11 +135,10 @@ export default {
           })
           throw 'redirect'
         }
-        pager.pagination = Array(pages).fill().map((v, i) => ({
+        pageInput(Array(pages).fill().map((v, i) => ({
           value: i + 1,
-          label: text.pagination(i + 1, pages),
-          selected: i + 1 == pager.page
-        }))
+          label: text.pagination(i + 1, pages)
+        })))
       }
       return typeof api.totals == 'function' ? api.totals(route, []) : null
     }).then(totals => {
@@ -188,10 +210,10 @@ export default {
         rows: rows.map(row => ({
           id: row.id,
           checked: (Q._id || []).indexOf(String(row.id)) >= 0,
-          fields: C.map(k => ({
-            value: row[k],
+          fields: C.map(k => ui({
+            ...P[k],
             href: group.active ? null : interpolate(P[k].href, row)
-          })),
+          }, {name: k, model: row})),
           links: L.map(({href, ...l}) => ({
             ...l,
             href: interpolate(href, row)
@@ -246,6 +268,25 @@ export default {
       }
     })
   },
+  change: ({model, search, route}, ev, call) => {
+    const {name, data} = parser(ev)
+    console.log(`change (${name}): ${data}`)
+    if (name == 'page') {
+      call('goto', {
+        _page: data
+      })
+    } else if (name == 'search') {
+      model.search = data
+      search.disabled = !data
+      search.input.validate()
+      setTimeout(() => {
+        const actual = ev.target.value || ''
+        if (actual == data) {
+          call('goto', {_search: data})
+        }
+      }, 500)
+    }
+  },
   check: ({rows, route}, ev, call) => {
     const v = ev.target.getAttribute('value')
     const Id = route.Query._id || []
@@ -293,16 +334,6 @@ export default {
     call('goto', {
       _page: pager.pages
     })
-  },
-  search: ({route, search}, ev, call) => {
-    const _search = ev.target.value || ''
-    search.value = ev.target.value
-    setTimeout(() => {
-      const actual = ev.target.value || ''
-      if (actual == _search) {
-        call('goto', {_search})
-      }
-    }, 500)
   },
   sort: ({route}, ev, call) => {
     const k = ev.target.closest('a').getAttribute('data-sort')

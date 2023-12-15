@@ -18,7 +18,6 @@ export default {
     'num.2',
     'num.3',
     'progress',
-    'file',
     'password',
     'link',
     'icon',

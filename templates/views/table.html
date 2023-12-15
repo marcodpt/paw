@@ -43,14 +43,7 @@
             </button>
           </div>
           <div class="col-auto my-auto">
-            <select class="form-control" onchange="pager">
-              <option
-                each:="pagination"
-                value:="value"
-                label:="label"
-                selected:="selected"
-              ></option>
-            </select>
+            <tag-ui bind:="input"></tag-ui>
           </div>
           <div class="col-auto">
             <button class:="link" disabled:="isLast" onclick="next">
@@ -73,18 +66,15 @@
               with:="close"
               class:="link"
               disabled:="disabled"
-              onclick="search"
+              value=""
+              name="search"
+              onclick="change"
             >
               <i class:="icon"></i>
             </button>
           </div>
           <div with:="search" class="col-auto">
-            <input
-              class="form-control"
-              placeholder:="label"
-              value:="value"
-              oninput="search"
-            />
+            <tag-ui bind:="input"></tag-ui>
           </div>
           <div with:="filter" class="col-auto">
             <button
@@ -287,12 +277,8 @@
           <span not:="icon" text:="title"></span>
         </a>
       </td>
-      <td
-        each:="fields"
-        class="align-middle "
-      >
-        <a if:="href" href:="href" text:="value"></a>
-        <span not:="href" text:="value"></span>
+      <td each:="fields" class="align-middle">
+        <tag-ui bind:></tag-ui>
       </td>
     </tr>
     <tr not:="rows">
