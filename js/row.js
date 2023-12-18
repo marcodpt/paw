@@ -1,5 +1,6 @@
 import {interpolate} from './lib.js'
 import config from './config.js'
+import {output} from './ui.js'
 const {tools, text, icon, link} = config
 
 export default {
@@ -36,12 +37,10 @@ export default {
       }
 
       const P = state.schema.properties || {}
-      state.fields = Object.keys(P).map(k => ({
+      state.fields = Object.keys(P).map(k => output({
         ...P[k],
-        href: interpolate(P[k].href, row),
-        name: k,
-        value: row[k] != null ? row[k] : P[k].default
-      }))
+        href: interpolate(P[k].href, row)
+      }, {name: k, model: row}))
       state.links = state.schema.links.map(({href, link, icon, ...l}) => ({
         ...l,
         href: interpolate(href, row),

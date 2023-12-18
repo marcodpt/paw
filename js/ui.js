@@ -2,66 +2,32 @@ import {setOptions, validate} from './lib.js'
 import opt from './options.js'
 import config from './config.js'
 
-const ui = (schema, settings) => {
+const output = (schema, settings) => {
   const {lang, text, tools} = config
-  const {name, model, options, label, showValid} = (settings || {})
+  const {name, model} = (settings || {})
   const {
     title,
     description,
     type,
     ui,
-    minimum,
-    maximum,
-    readOnly,
     href,
-    link,
-    properties
+    link
   } = schema
 
   var isNum = false
   var precision = 0
   var pow = 0
-  var step = type == 'integer' ? 1 : null
   const value = model && model[name] != null ? model[name] : schema.default
-  if (model && model[name] == null) {
-    model[name] = value
-  }
 
   if (/^num\.[1-9][0-9]*$/.test(ui)) {
     isNum = true
     precision = parseInt(ui.substr(4))
     pow = 10 ** precision
-    step = (1 / pow).toFixed(precision)
-  } else if (ui == 'progress') {
-    minimum = minimum == null ? 0 : minimum
-    maximum = maximum != null ? maximum : type == 'integer' ? 100 : 1
-  }
-
-  if (schema.enum) {
-    options = setOptions(schema.enum)
-  } else if (type == 'string' && opt[ui] != null && options == null) {
-    options = opt[ui]
-  } else if (type == 'boolean' || ui == 'bool') {
-    options = [
-      {value: 0, label: text.boolFalse},
-      {value: 1, label: text.boolTrue}
-    ]
-  }
-
-  if (options && !schema.enum) {
-    schema.enum = options.map(({value}) => value)
   }
 
   var format =  x => x
   if (ui == 'password') {
     format = () => '********'
-  } else if (options instanceof Array) {
-    format = x => {
-      const r = options.reduce(
-        (r, {value, label}) => r == null && value == x ? label : r
-      , null)
-      return r == null ? '' : r
-    }
   } else if (type == 'boolean' || ui == 'bool') {
     format = x => x ? text.boolTrue : text.boolFalse
   } else if (ui == 'date') {
@@ -106,6 +72,69 @@ const ui = (schema, settings) => {
     format = x => JSON.stringify(x, undefined, 2)
   }
 
+  var output = 'default'
+  if (ui == 'link' || ui == 'icon') {
+    output = ui
+  }
+
+  return {
+    ui: `output:${output}`,
+    title: title || '',
+    description: description || '',
+    text: format(value),
+    raw: value,
+    href,
+    link
+  }
+}
+
+const input = (schema, settings) => {
+  const {text, tools} = config
+  const {name, model, options, label, showValid} = (settings || {})
+  const {
+    title,
+    description,
+    type,
+    ui,
+    minimum,
+    maximum,
+    readOnly
+  } = schema
+
+  var isNum = false
+  var precision = 0
+  var pow = 0
+  var step = type == 'integer' ? 1 : null
+  const value = model && model[name] != null ? model[name] : schema.default
+  if (model && model[name] == null) {
+    model[name] = value
+  }
+
+  if (/^num\.[1-9][0-9]*$/.test(ui)) {
+    isNum = true
+    precision = parseInt(ui.substr(4))
+    pow = 10 ** precision
+    step = (1 / pow).toFixed(precision)
+  } else if (ui == 'progress') {
+    minimum = minimum == null ? 0 : minimum
+    maximum = maximum != null ? maximum : type == 'integer' ? 100 : 1
+  }
+
+  if (schema.enum) {
+    options = setOptions(schema.enum)
+  } else if (type == 'string' && opt[ui] != null && options == null) {
+    options = opt[ui]
+  } else if (type == 'boolean' || ui == 'bool') {
+    options = [
+      {value: 0, label: text.boolFalse},
+      {value: 1, label: text.boolTrue}
+    ]
+  }
+
+  if (options && !schema.enum) {
+    schema.enum = options.map(({value}) => value)
+  }
+
   var loader = x => x
   if (ui == 'date' && (type == 'integer' || type == 'number')) {
     loader = x => new Date((x < 0 ? x+1 : x) * 1000)
@@ -131,60 +160,53 @@ const ui = (schema, settings) => {
     input = 'textarea'
   }
 
-  var output = 'default'
-  if (ui == 'link' || ui == 'icon') {
-    output = ui
-  }
-
-  if (showValid != null) {
-    const test = validate(schema)
-    const F = {
-      ui: `input:${input}`,
-      type: ui == 'date' ? 'date' :
-        type == 'integer' || type == 'number' ? 'number' :
-        ui != 'default' ? null : 'text',
-      name,
-      options,
-      title: title || '',
-      description: description || '',
-      placeholder: label,
-      min: minimum == null ? null : loader(minimum),
-      max: maximum == null ? null : loader(maximum),
-      step: step,
-      disabled: readOnly || (options && options.length <= 1),
-      parser: ui == 'date' && type == 'integer' ? 'int' :
-        ui == 'date' && type == 'number' ? 'num' :
-        type == 'integer' ? 'int' :
-        type == 'array' || type == 'object' || type == 'null' ? 'json' : type,
-      validate: () => {
-        const x = model == null ? value : model[name]
-        F.value = readOnly && label ? label : loader(x)
-        F.raw = x
-        if (readOnly) {
-          return
-        }
-        F.error = test(x)
-        if (F.error) {
-          F.feedback = ' is-invalid'
-        } else if (showValid) {
-          F.feedback = ' is-valid'
-        } else {
-          F.feedback = ''
-        }
+  const test = validate(schema)
+  const F = {
+    ui: `input:${input}`,
+    type: ui == 'date' ? 'date' :
+      type == 'integer' || type == 'number' ? 'number' :
+      ui != 'default' ? null : 'text',
+    name,
+    options,
+    title: title || '',
+    description: description || '',
+    placeholder: label,
+    min: minimum == null ? null : loader(minimum),
+    max: maximum == null ? null : loader(maximum),
+    step: step,
+    disabled: readOnly || (options && options.length <= 1),
+    parser: type == 'integer' ? 'int' :
+      type == 'number' ? 'num' :
+      type == 'array' || type == 'object' || type == 'null' ? 'json' : null,
+    validate: () => {
+      const x = model == null ? value : model[name]
+      F.value = readOnly && label ? label : loader(x)
+      F.noOpt = F.options && schema.enum.indexOf(F.value) < 0
+      if (F.noOpt) {
+        F.value = '_'
+      }
+      F.raw = x
+      if (readOnly) {
+        return
+      }
+      F.error = test(x)
+      if (F.options instanceof Array) {
+        F.options.forEach(o => {
+          o.selected = o.value == F.value
+        })
+      }
+      if (F.error) {
+        F.feedback = ' is-invalid'
+      } else if (showValid) {
+        F.feedback = ' is-valid'
+      } else {
+        F.feedback = ''
       }
     }
-
-    F.validate()
-    return F
-  } else {
-    return {
-      ui: `output:${output}`,
-      text: format(value),
-      raw: value,
-      href,
-      link
-    }
   }
+
+  F.validate()
+  return F
 }
 
-export default ui
+export {input, output}

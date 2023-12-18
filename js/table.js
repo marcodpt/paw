@@ -1,6 +1,6 @@
 import {interpolate, queryString, parser} from './lib.js'
 import config from './config.js'
-import ui from './ui.js'
+import {input, output} from './ui.js'
 const {tools, text, icon, link} = config
 
 export default {
@@ -10,27 +10,28 @@ export default {
     const api = data
     const Q = route.Query
     const model = {
-      search: Q._search || ''
+      search: Q._search || '',
+      field: null,
+      operator: null,
+      value: null
     }
     const filter = {
       label: text.filter,
       icon: tools.icon(icon.filter),
       link: tools.link(link.filter),
-      isOpen: false,
       fields: null,
       operators: null,
       values: null,
-      field: null,
-      operator: null,
-      value: null,
       exact: false,
+      isOpen: false,
       filters: (Q._filter || []).map((f, i) => ({
         value: i,
         label: f
       })),
       count: (Q._filter || []).length,
       disabled: true,
-      pending: true
+      pending: true,
+      inputs: []
     }
     const group = {
       label: text.group,
@@ -53,19 +54,11 @@ export default {
       pages: 0
     }
     const pageInput = options => {
-      pager.input = ui({
+      pager.input = input({
         type: 'integer',
         minimum: 1,
         default: pager.page
-      }, {
-        name: 'page',
-        options: options.map(({value, label}) => ({
-          value,
-          label,
-          selected: pager.page == value
-        })),
-        showValid: false
-      })
+      }, {name: 'page', options})
     }
     pageInput([])
     const state = {
@@ -77,10 +70,9 @@ export default {
       group,
       search: {
         disabled: !model.search,
-        input: ui({type: 'string'}, {
+        input: input({type: 'string'}, {
           name: 'search',
           label: text.search, 
-          showValid: false,
           model
         })
       },
@@ -171,6 +163,9 @@ export default {
         value: k,
         label: P[k].title || k
       }))
+      filter.inputs[0] = input({
+        type: 'string'
+      }, {name: 'field', model, options: filter.fields})
       const L = (state.schema.items.links || []).map(({link, icon, ...l}) => ({
         ...l,
         link: tools.link(link, true),
@@ -210,7 +205,7 @@ export default {
         rows: rows.map(row => ({
           id: row.id,
           checked: (Q._id || []).indexOf(String(row.id)) >= 0,
-          fields: C.map(k => ui({
+          fields: C.map(k => output({
             ...P[k],
             href: group.active ? null : interpolate(P[k].href, row)
           }, {name: k, model: row})),
@@ -224,6 +219,13 @@ export default {
     }).then(operators => {
       if (operators instanceof Array) {
         filter.operators = operators
+        filter.inputs[1] = input({
+          type: 'string'
+        }, {
+          name: 'operator',
+          model,
+          options: filter.operators
+        })
         filter.filters.forEach(f => {
           const op = operators.reduce((Match, op) => 
             Match || f.label.indexOf(op.value) < 0 ? Match : op
@@ -268,9 +270,8 @@ export default {
       }
     })
   },
-  change: ({model, search, route}, ev, call) => {
+  change: ({model, search, filter, schema, route, api}, ev, call) => {
     const {name, data} = parser(ev)
-    console.log(`change (${name}): ${data}`)
     if (name == 'page') {
       call('goto', {
         _page: data
@@ -285,6 +286,83 @@ export default {
           call('goto', {_search: data})
         }
       }, 500)
+    } else {
+      if (['toggle', 'filter'].indexOf(name) < 0) {
+        model[name] = data
+      } else if (name == 'toggle' && filter.isOpen) {
+        model.field = null
+        model.operator = null
+        model.value = null
+        filter.exact = null
+        filter.isOpen = false
+      } else if (name == 'toggle') {
+        filter.isOpen = true
+      }
+      if (name == 'field') {
+        filter.values = null
+        model.value = null
+      }
+
+      const setFirst = name => {
+        const X = filter[name+'s']
+        if (model[name] == null && X instanceof Array && X.length) {
+          model[name] = X[0].value
+        }
+      }
+
+      setFirst('field')
+      setFirst('operator')
+
+      if (filter.operators instanceof Array && model.operator) {
+        const exact = filter.exact
+        filter.exact = filter.operators.reduce((r, {
+          value, exact
+        }) => r != null || value != model.operator ? r : exact, null) || false
+        if (filter.exact !== exact) {
+          model.value = null
+          filter.values = null
+        }
+      }
+
+      const P = schema.items.properties
+      if (filter.values == null) {
+        filter.inputs[2] = input({
+          type: 'string',
+          readOnly: filter.exact
+        }, {name: 'value', model})
+        if (filter.exact) {
+          const f = model.field
+          const o = model.operator
+          filter.pending = true
+          Promise.resolve().then(() => api.values(route, f)).then(values => {
+            if (model.field == f && model.operator == o) {
+              filter.pending = false
+              filter.values = values
+              filter.inputs[2] = input({
+                ...P[f]
+              }, {name: 'value', model, options: values})
+              call('set')
+            }
+          })
+        }
+      }
+
+      filter.inputs[0].validate()
+      filter.inputs[1].validate()
+      filter.inputs[2].validate()
+
+      const {field, operator, value} = model
+      if (field == null || operator == null || value == null) {
+        filter.disabled = true
+      } else {
+        filter.disabled = false
+        if (name == 'filter') {
+          const F = route.Query._filter
+          const _filter = F instanceof Array ? F : []
+          _filter.push(`${field}${operator}${value}`)
+          call('goto', {_filter})
+        }
+      }
     }
   },
   check: ({rows, route}, ev, call) => {
@@ -392,11 +470,7 @@ export default {
       throw err
     })
   },
-  filter: ({filter, api, route}, ev, call) => {
-    const v = !ev ? null : ev.target.value
-    const name = !ev ? null : ev.target.getAttribute('name')
-    const btn = ev ? ev.target.closest('button[data-run]') : null
-    const run = !ev || !btn ? null : btn.getAttribute('data-run')
+  filter: ({route}, ev, call) => {
     const link = ev ? ev.target.closest('a[data-index]') : null
     const index = !ev || !link ? null : link.getAttribute('data-index')
     const F = route.Query._filter
@@ -409,68 +483,6 @@ export default {
           _filter: F
         })
         return
-      }
-    }
-
-    if (name) {
-      filter[name] = v
-      if (name == 'field') {
-        filter.values = null
-        filter.value = null
-      }
-    }
-
-    const setFirst = name => {
-      const X = filter[name+'s']
-      if (filter[name] == null && X instanceof Array && X.length) {
-        filter[name] = X[0].value
-      }
-    }
-
-    setFirst('field')
-    setFirst('operator')
-
-    if (filter.operators instanceof Array && filter.operator) {
-      const exact = filter.exact
-      filter.exact = filter.operators.reduce((r, {
-        value, exact
-      }) => r != null || value != filter.operator ? r : exact, null) || false
-      if (filter.exact != exact) {
-        filter.value = null
-      }
-    }
-
-    if (filter.exact && filter.values == null) {
-      const f = filter.field
-      const o = filter.operator
-      filter.pending = true
-      Promise.resolve().then(() => api.values(route, f)).then(values => {
-        if (filter.field == f && filter.operator == o) {
-          filter.pending = false
-          filter.values = values
-          call('set')
-        }
-      })
-    }
-
-    if (run == 'open') {
-      filter.isOpen = true
-    } else if (run == 'close') {
-      filter.field = null
-      filter.operator = null
-      filter.value = null
-      filter.isOpen = false
-    }
-
-    const {field, operator, value} = filter
-    if (field == null || operator == null || value == null) {
-      filter.disabled = true
-    } else {
-      filter.disabled = false
-      if (run == 'submit') {
-        const _filter = F instanceof Array ? F : []
-        _filter.push(`${field}${operator}${value}`)
-        call('goto', {_filter})
       }
     }
   },

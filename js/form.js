@@ -1,6 +1,6 @@
 import {getDefault, parser} from './lib.js'
 import config from './config.js'
-import ui from './ui.js'
+import {input} from './ui.js'
 const {tools, text, icon, link} = config
 
 export default {
@@ -53,7 +53,7 @@ export default {
       }
 
       const P = state.schema.properties || {}
-      state.fields = Object.keys(P).map(k => ui(P[k], {
+      state.fields = Object.keys(P).map(k => input(P[k], {
         name: k,
         model: state.model,
         showValid: true

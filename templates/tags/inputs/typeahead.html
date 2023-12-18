@@ -8,6 +8,12 @@
   onchange="change"
 >
   <option
+    if:="noOpt"
+    value="_"
+    selected="true"
+    disabled="true"
+  >...</option>
+  <option
     each:="options"
     value:="value"
     label:="label"

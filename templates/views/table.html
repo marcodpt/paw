@@ -80,8 +80,8 @@
             <button
               not:="count"
               class:="link"
-              data-run="open"
-              onclick="filter"
+              name="toggle"
+              onclick="change"
             >
               <i class:="icon"></i>
               <template text:="label"></template>
@@ -90,8 +90,8 @@
               <button
                 type="button"
                 class:="link"
-                data-run="open"
-                onclick="filter"
+                name="toggle"
+                onclick="change"
               >
                 <i class:="icon"></i>
                 <template text:="label"></template>
@@ -149,46 +149,21 @@
           <div with:="close" class="col-auto">
             <button
               class:="link"
-              data-run="close"
-              onclick="filter"
+              name="toggle"
+              onclick="change"
             >
               <i class:="icon"></i>
             </button>
           </div>
-          <div class="col-auto">
-            <select class="form-control" name="field" onchange="filter">
-              <option each:="fields" value:="value" label:="label"></option>
-            </select>
-          </div>
-          <div class="col-auto">
-            <select class="form-control" name="operator" onchange="filter">
-              <option each:="operators" value:="value" label:="label"></option>
-            </select>
-          </div>
-          <div class="col-auto">
-            <select
-              show:="exact"
-              class="form-control"
-              disabled:="pending"
-              name="value"
-              onchange="filter"
-            >
-              <option each:="values" value:="value" label:="label"></option>
-            </select>
-            <input
-              hide:="exact"
-              class="form-control"
-              name="value"
-              value:="value"
-              oninput="filter"
-            />
+          <div class="col-auto" each:="inputs">
+            <tag-ui bind:></tag-ui>
           </div>
           <div class="col-auto">
             <button
               class:="link"
               disabled:="disabled"
-              data-run="submit"
-              onclick="filter"
+              name="filter"
+              onclick="change"
             >
               <i class:="icon"></i>
               <template text:="label"></template>
