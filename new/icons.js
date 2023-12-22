@@ -1,0 +1,20 @@
+export default {
+  menu: 'bars',
+  isOpen: 'angle-up',
+  isClosed: 'angle-down',
+  loading: 'spinner fa-spin fa-5x',
+  back: 'arrow-left',
+  submit: 'check',
+  first: 'fast-backward',
+  previous: 'step-backward',
+  next: 'step-forward',
+  last: 'fast-forward',
+  close: 'times',
+  filter: 'filter',
+  group: 'th',
+  exporter: 'file',
+  check: 'check',
+  sort: 'sort',
+  sortAsc: 'sort-down',
+  sortDesc: 'sort-up'
+}

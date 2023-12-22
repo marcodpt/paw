@@ -1,4 +1,4 @@
-import merlin from "https://cdn.jsdelivr.net/gh/marcodpt/merlin@0.1.0/index.js"
+import merlin from "https://cdn.jsdelivr.net/gh/marcodpt/merlin@0.2.0/index.js"
 import navbar from './js/navbar.js'
 import table from './js/table.js'
 import form from './js/form.js'

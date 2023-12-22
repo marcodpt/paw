@@ -4,6 +4,8 @@ import schema_users from './schema/users.js'
 import {copy} from './js/lib.js'
 import options from './js/options.js'
 
+window.blur = () => {console.log('blur')}
+
 window.setTheme = theme => document.getElementById('theme')
   .setAttribute('href', theme)
 

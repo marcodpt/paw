@@ -6,14 +6,14 @@ const {tools, text, icon, link} = config
 export default {
   template: document.getElementById('view-table'),
   set: (_, state) => state,
-  init: ({data, ...route}, call) => {
-    const api = data
+  init: ({api, ...route}, call) => {
     const Q = route.Query
     const model = {
       search: Q._search || '',
       field: null,
       operator: null,
-      value: null
+      value: null,
+      page: 0
     }
     const filter = {
       label: text.filter,
@@ -50,15 +50,15 @@ export default {
       last: tools.icon(icon.last),
       isFirst: true,
       isLast: true,
-      page: 0,
       pages: 0
     }
     const pageInput = options => {
       pager.input = input({
         type: 'integer',
         minimum: 1,
-        default: pager.page
-      }, {name: 'page', options})
+        default: model.page
+      }, {name: 'page', model, options})
+      pager.input.validate()
     }
     pageInput([])
     const state = {
@@ -103,13 +103,13 @@ export default {
       })
       return
     }
-    pager.page = parseInt(p)
+    model.page = parseInt(p)
     if (p > 1) {
       pager.isFirst = false
     }
     pageInput([{
-      value: pager.page,
-      label: text.pagination(pager.page, pager.pages)
+      value: model.page,
+      label: text.pagination(model.page, pager.pages)
     }])
     Promise.resolve().then(() => {
       return typeof api.schema == 'function' ? api.schema(route) : null
@@ -119,9 +119,9 @@ export default {
     }).then(pages => {
       if (pages) {
         pager.pages = pages
-        if (pager.page < pager.pages) {
+        if (model.page < pager.pages) {
           pager.isLast = false
-        } else if (pager.page > pager.pages) {
+        } else if (model.page > pager.pages) {
           call('goto', {
             _page: pager.pages
           })
@@ -270,12 +270,16 @@ export default {
       }
     })
   },
-  change: ({model, search, filter, schema, route, api}, ev, call) => {
+  change: ({model, pager, search, filter, schema, route, api}, ev, call) => {
     const {name, data} = parser(ev)
     if (name == 'page') {
-      call('goto', {
-        _page: data
-      })
+      model.page = data
+      pager.input.validate()
+      if (data && typeof data == 'number') {
+        call('goto', {
+          _page: data
+        })
+      }
     } else if (name == 'search') {
       model.search = data
       search.disabled = !data
@@ -387,21 +391,22 @@ export default {
       _page: 1
     })
   },
-  previous: ({pager}, ev, call) => {
-    const p = pager.page
+  previous: ({model}, ev, call) => {
+    const p = model.page
     if (p > 1) {
       call('goto', {
         _page: p - 1
       })
     }
   },
-  pager: (_, ev, call) => {
+  pager: ({}, ev, call) => {
     call('goto', {
       _page: ev.target.value
     })
   },
-  next: ({pager}, ev, call) => {
-    const {page, pages} = pager
+  next: ({pager, model}, ev, call) => {
+    const {page} = model
+    const {pages} = pager
     if (page < pages) {
       call('goto', {
         _page: page + 1

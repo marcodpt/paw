@@ -1,22 +1,20 @@
-<select
+<input
   case="input:typeahead"
   class="form-control"
   class:="feedback"
   name:="name"
-  disabled:="disabled"
+  list:="name"
+  placeholder:="placeholder"
+  type="text"
+  value:="value"
+  data-value:="value"
   data-parser:="parser"
-  onchange="change"
+  oninput="change"
+  onblur="blur"
+/>
+<datalist
+  case="input:typeahead"
+  id:="name"
 >
-  <option
-    if:="noOpt"
-    value="_"
-    selected="true"
-    disabled="true"
-  >...</option>
-  <option
-    each:="options"
-    value:="value"
-    label:="label"
-    selected:="selected"
-  ></option>
-</select>
+  <option each:="options" data-value:="value" value:="label" />
+</datalist>

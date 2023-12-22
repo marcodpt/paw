@@ -528,6 +528,7 @@
         class="form-control"
         class:="feedback"
         name:="name"
+        list:="list"
         placeholder:="placeholder"
         min:="min"
         max:="max"
@@ -537,7 +538,15 @@
         disabled:="disabled"
         data-parser:="parser"
         oninput="change"
-      /><textarea
+        onblur="blur"
+      />
+      <datalist
+        case="input:default"
+        if:="list"
+        id:="list"
+      >
+        <option each:="options" data-value:="value" value:="label" />
+      </datalist><textarea
         case="input:textarea"
         rows="6"
         class="form-control"
@@ -548,28 +557,26 @@
         disabled:="disabled"
         data-parser:="parser"
         oninput="change"
-      ></textarea><select
+      ></textarea><input
         case="input:typeahead"
         class="form-control"
         class:="feedback"
         name:="name"
-        disabled:="disabled"
+        list:="name"
+        placeholder:="placeholder"
+        type="text"
+        value:="value"
+        data-value:="value"
         data-parser:="parser"
-        onchange="change"
+        oninput="change"
+        onblur="blur"
+      />
+      <datalist
+        case="input:typeahead"
+        id:="name"
       >
-        <option
-          if:="noOpt"
-          value="_"
-          selected="true"
-          disabled="true"
-        >...</option>
-        <option
-          each:="options"
-          value:="value"
-          label:="label"
-          selected:="selected"
-        ></option>
-      </select><template case="input:link" each:="options">
+        <option each:="options" data-value:="value" value:="label" />
+      </datalist><template case="input:link" each:="options">
         <input
           type="radio"
           class="btn-check"

@@ -3,6 +3,7 @@
   class="form-control"
   class:="feedback"
   name:="name"
+  list:="list"
   placeholder:="placeholder"
   min:="min"
   max:="max"
@@ -12,4 +13,12 @@
   disabled:="disabled"
   data-parser:="parser"
   oninput="change"
+  onblur="blur"
 />
+<datalist
+  case="input:default"
+  if:="list"
+  id:="list"
+>
+  <option each:="options" data-value:="value" value:="label" />
+</datalist>

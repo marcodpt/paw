@@ -6,8 +6,8 @@ const {tools, text, icon, link} = config
 export default {
   template: document.getElementById('view-row'),
   set: (_, state) => state,
-  init: ({data, ...route}, call) => {
-    const {schema, row} = data
+  init: ({api, ...route}, call) => {
+    const {schema, row} = api
     const state = {
       schema: null,
       row: null,

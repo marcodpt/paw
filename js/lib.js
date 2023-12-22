@@ -60,8 +60,19 @@ const parser = ev => {
   const name = e.getAttribute('name')
   const method = e.getAttribute('data-parser')
   const type = e.getAttribute('type')
-  const data = e.value 
+  const list = e.getAttribute('list')
+  var data = e.value 
   var value = null
+
+  if (list) {
+    const opt = e.parentNode.querySelector(`#${list}`)
+      .querySelector(`option[value="${data}"]`)
+    if (opt) {
+      data = opt.getAttribute('data-value')
+    } else {
+      return {name, data}
+    }
+  }
 
   if (type == 'date' && (method == 'int' || method == 'num')) {
     if (!data) {

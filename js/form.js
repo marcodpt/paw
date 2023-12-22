@@ -6,8 +6,8 @@ const {tools, text, icon, link} = config
 export default {
   template: document.getElementById('view-form'),
   set: (_, state) => state,
-  init: ({data, ...route}, call) => {
-    const {schema, row, submit} = data
+  init: ({api, ...route}, call) => {
+    const {schema, row, submit} = api
     const state = {
       route,
       alert: 'danger',

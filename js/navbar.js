@@ -4,7 +4,7 @@ const {tools, icon} = config
 export default {
   root: document.getElementById('navbar'),
   set: (_, state) => state,
-  init: (data, call) => {
+  init: ({api}, call) => {
     const offcanvas = new bootstrap.Offcanvas(
       document.getElementById('sidebar')
     )
@@ -20,7 +20,7 @@ export default {
       hashchange,
       navbarchange
     })
-    call('update', data)
+    call('update', api)
   },
   update: (state, data) => {
     if (data && typeof data == 'object') {

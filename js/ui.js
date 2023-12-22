@@ -136,7 +136,14 @@ const input = (schema, settings) => {
   }
 
   var loader = x => x
-  if (ui == 'date' && (type == 'integer' || type == 'number')) {
+  if (options) {
+    loader = x => {
+      const r = options.reduce((r, {
+        value, label
+      }) => r == null && x == value ? label : r, null)
+      return r == null ? x : r
+    }
+  } else if (ui == 'date' && (type == 'integer' || type == 'number')) {
     loader = x => new Date((x < 0 ? x+1 : x) * 1000)
       .toISOString().substr(0, 10)
   } else if (isNum && type == 'integer') {
@@ -152,8 +159,6 @@ const input = (schema, settings) => {
   var input = 'default'
   if (ui == 'link') {
     input = 'link'
-  } else if (options) {
-    input = 'typeahead'
   } else if (ui == 'icon') {
     input = 'icon'
   } else if (ui == 'text' || ui == 'info') {
@@ -163,11 +168,12 @@ const input = (schema, settings) => {
   const test = validate(schema)
   const F = {
     ui: `input:${input}`,
-    type: ui == 'date' ? 'date' :
+    type: options ? 'text' : ui == 'date' ? 'date' :
       type == 'integer' || type == 'number' ? 'number' :
       ui != 'default' ? null : 'text',
     name,
     options,
+    list: options && options.length && name ? name : null,
     title: title || '',
     description: description || '',
     placeholder: label,
@@ -181,20 +187,11 @@ const input = (schema, settings) => {
     validate: () => {
       const x = model == null ? value : model[name]
       F.value = readOnly && label ? label : loader(x)
-      F.noOpt = F.options && schema.enum.indexOf(F.value) < 0
-      if (F.noOpt) {
-        F.value = '_'
-      }
       F.raw = x
       if (readOnly) {
         return
       }
       F.error = test(x)
-      if (F.options instanceof Array) {
-        F.options.forEach(o => {
-          o.selected = o.value == F.value
-        })
-      }
       if (F.error) {
         F.feedback = ' is-invalid'
       } else if (showValid) {
