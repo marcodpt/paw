@@ -9,14 +9,14 @@ const view = (root, elem) => {
 }
 
 const router = build({
-  '*': main => view(main, e(({h1, text}) =>
+  '*': main => view(main, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
       h1({}, [
         text("Hello world!")
       ])
     ])
   )),
-  '/hello/:name': (main, {Params}) => view(main, e(({h1, text}) =>
+  '/hello/:name': (main, {Params}) => view(main, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
       h1({}, [
         text(`Hello ${Params.name}!`)

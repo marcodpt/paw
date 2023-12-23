@@ -1,9 +1,6 @@
 import e from './e.js'
-import lang from './lang.js'
-import links from './links.js'
-import icons from './icons.js'
-import {linkify, iconify, interpolate} from './lib.js'
-import {back} from './tags.js'
+import {link, icon, linkify, iconify, interpolate, lang} from './lib.js'
+import back from './tags/back.js'
 
 export default ({
   title,
@@ -84,14 +81,14 @@ export default ({
               class: 'col-auto'
             }, [
               a({
-                class: linkify(links.pagination),
+                class: link.pagination,
                 href: page <= 1 ? null : goto({
                   _page: 1
                 }),
                 disabled: page <= 1
               }, [
                 i({
-                  class: iconify(icons.first)
+                  class: icon.first
                 })
               ])
             ]),
@@ -99,14 +96,14 @@ export default ({
               class: 'col-auto'
             }, [
               a({
-                class: linkify(links.pagination),
+                class: link.pagination,
                 href: page <= 1 ? null : goto({
                   _page: page - 1
                 }),
                 disabled: page <= 1
               }, [
                 i({
-                  class: iconify(icons.previous)
+                  class: icon.previous
                 })
               ])
             ]),
@@ -119,14 +116,14 @@ export default ({
               class: 'col-auto'
             }, [
               a({
-                class: linkify(links.pagination),
+                class: link.pagination,
                 href: page >= pages ? null : goto({
                   _page: page + 1
                 }),
                 disabled: page >= pages
               }, [
                 i({
-                  class: iconify(icons.next)
+                  class: icon.next
                 })
               ])
             ]),
@@ -134,14 +131,14 @@ export default ({
               class: 'col-auto'
             }, [
               a({
-                class: linkify(links.pagination),
+                class: link.pagination,
                 href: page >= pages ? null : goto({
                   _page: pages
                 }),
                 disabled: page >= pages
               }, [
                 i({
-                  class: iconify(icons.last)
+                  class: icon.last
                 })
               ])
             ])
