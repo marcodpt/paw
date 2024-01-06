@@ -14,9 +14,11 @@ export default ({
   rows
 }) => {
   const l = lang()
+  rowLinks = rowLinks || []
+  rows = rows || []
 
-  return e(({
-    table, thead, tbody, tr, th, td, div, a
+  const tbl = e(({
+    table, thead, tbody, tr, th, td, div, a, i, text
   }) => table({
     class: [
       'table',
@@ -197,4 +199,16 @@ export default ({
       )))
     )
   ]))
+
+  tbl.addEventListener('app.table.rows', ev => {
+    const rows = ev.detail
+
+    if (rows instanceof Array) {
+
+    } else {
+
+    }
+  })
+
+  return tbl
 }

@@ -9,7 +9,17 @@ export default ({
 }) => {
   const l = lang()
 
-  return e(({div, form, fieldset, legend, label, input, button, text}) => div({
+  return e(({
+    div,
+    form,
+    fieldset,
+    legend,
+    label,
+    input,
+    button,
+    text,
+    i
+  }) => div({
     class: 'container my-5'
   }, [
     form({
@@ -39,21 +49,21 @@ export default ({
             }, [
               text(title)
             ])
-          ])
-        ]),
-        div({
-          class: title == null ? null : 'col-md-9'
-        }, [
-          input({
-            class: 'form-control',
-            name,
-            value
-          }),
+          ]),
           div({
-            class: 'invalid-feedback'
-          })
+            class: title == null ? null : 'col-md-9'
+          }, [
+            input({
+              class: 'form-control',
+              name,
+              value
+            }),
+            div({
+              class: 'invalid-feedback'
+            })
+          ])
         ])
-      ))).concat([
+      )).concat([
         div({
           class: 'row g-2 align-items-center'
         }, [
@@ -76,7 +86,7 @@ export default ({
             ])
           ])
         ])
-      ])
+      ]))
     ])
   ]))
 }
