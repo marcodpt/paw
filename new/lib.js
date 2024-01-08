@@ -37,4 +37,14 @@ const interpolate = (str, X) => {
   return str
 }
 
-export {iconify, linkify, link, icon, lang, interpolate}
+const queryString = Params => Object.keys(Params)
+  .reduce((P, key) => P.concat(Params[key] instanceof Array ?
+    Params[key].map(value => ({key: `${key}[]`, value})) :
+    {key, value: Params[key]}
+  ), [])
+  .filter(({value}) => typeof value == "number" || typeof value == "string")
+  .map(({key, value}) =>
+    encodeURIComponent(key)+'='+encodeURIComponent(value)
+  ).join("&")
+
+export {iconify, linkify, link, icon, lang, interpolate, queryString}

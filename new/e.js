@@ -114,15 +114,21 @@ const normalTags = [
   'video'
 ]
 
+
+const camelToKebab = string => string
+  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
+  .toLowerCase()
+
 const h = (tagName, attributes, children) => {
   const e = document.createElement(tagName)
 
   Object.keys(attributes || {}).forEach(key => {
     const v = attributes[key]
+    const k = camelToKebab(key)
     if (typeof v == 'function') {
-      e.addEventListener(key, v)
+      e.addEventListener(k, v)
     } else if (v != null && v !== false) {
-      e.setAttribute(key, v)
+      e.setAttribute(k, v)
     }
   })
 

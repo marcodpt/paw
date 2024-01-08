@@ -1,6 +1,7 @@
 export default {
   back: 'Voltar',
   submit: 'Enviar',
+  loading: 'Carregando...',
   type: v => `Deve ser do tipo específicado.`,
   minLength: v => `Deve ter no mínimo ${v} caractere(s).`,
   maxLength: v => `Deve ter no máximo ${v} caractere(s).`,

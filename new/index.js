@@ -4,6 +4,9 @@ import table from './table.js'
 import form from './form.js'
 import users from '../data/users.js'
 import schema_users from '../schema/users.js'
+import {queryString} from './lib.js'
+
+const delay = 0
 
 const view = (root, elem) => {
   root.innerHTML = ''
@@ -27,19 +30,42 @@ const router = build({
       ])
     ])
   )),
-  '/users': (main, {Params}) => {
-    const P = schema_users.items.properties
-    const fields = Object.keys(P).map(k => ({
-      ...P[k],
-      name: k
-    }))
-
-    view(main, table({
-      ...schema_users,
-      fields
-    }))
+  '/users': (main, {url, path, Query}) => {
+    const goto = Q => {
+      const q = queryString({
+        ...Query,
+        ...(Q || {})
+      })
+      return '#'+path+(q.length?'?'+q:'')
+    }
+    const tbl = table(schema_users)
+    view(main, tbl)
+    setTimeout(() => {
+      const p = !Query._page || isNaN(Query._page) ? 1 : parseInt(Query._page)
+      const ps = Math.ceil(users.length / 10) || 1
+      tbl.dispatchEvent(new CustomEvent('app.table', {detail: {
+        pagination: {
+          page: p,
+          pages: ps,
+          first: goto({
+            _page: 1
+          }),
+          previous: goto({
+            _page: p - 1
+          }),
+          next: goto({
+            _page: p + 1
+          }),
+          last: goto({
+            _page: ps
+          })
+        },
+        rows: users.slice((p - 1) * 10, p * 10),
+        totals: null
+      }}))
+    }, delay)
   },
-  '/insert/users': (main) => {
+  '/insert/users': main => {
     const P = schema_users.items.properties
     view(main, form({
       title: 'Insert',
@@ -59,11 +85,12 @@ const router = build({
       title: s.substr(0, 1).toUpperCase()+s.substr(1)+
         (row ? ': '+row.name : ''),
       description: s == 'delete' ? 'Do you want to delete this row?' : '',
-      fields: s == 'delete' ? [] : Object.keys(P).filter(k != 'id').map(k => ({
-        ...P[k],
-        name: k,
-        value: row[k]
-      }))
+      fields: s == 'delete' ? [] : Object.keys(P).filter(k => k != 'id')
+        .map(k => ({
+          ...P[k],
+          name: k,
+          value: row[k]
+        }))
     }))
   }
 })

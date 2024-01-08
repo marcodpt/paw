@@ -1,23 +1,22 @@
-<div class="d-flex justify-content-center">
-  <div class="spinner-border" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
-</div>
-
 import e from '../e.js'
-import {lang, link, icon} from '../lib.js'
+import {lang} from '../lib.js'
 
 export default () => {
   const l = lang()
-  return e(({div, span, text}) => 
-    a({
-      class: link.back,
-      href: 'javascript:history.back()'
+  return e(({div, span, text}) => div({
+    class: 'd-flex justify-content-center',
+    title: l.loading
+  }, [
+    div({
+      class: 'spinner-border',
+      style: 'width: 5rem; height: 5rem;',
+      role: 'status'
     }, [
-      i({
-        class: icon.back
-      }),
-      text(l.back)
+      span({
+        class: 'visually-hidden'
+      }, [
+        text(l.loading)
+      ])
     ])
-  )
+  ]))
 }
