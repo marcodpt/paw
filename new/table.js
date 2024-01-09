@@ -2,6 +2,7 @@ import e from './e.js'
 import {link, icon, linkify, iconify, interpolate, lang} from './lib.js'
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
+import output from './tags/output.js'
 
 export default ({
   title,
@@ -231,7 +232,11 @@ export default ({
           .concat(K.map(k => td({
             class: 'align-middle text-center'
           }, [
-            text(row[k])
+            output({
+              ...P[k],
+              href: interpolate(P[k].href, row),
+              default: row[k]
+            })
           ])))
         )))
       })

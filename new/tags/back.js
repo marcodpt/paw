@@ -11,6 +11,7 @@ export default () => {
       i({
         class: icon.back
       }),
+      text(' '),
       text(l.back)
     ])
   )

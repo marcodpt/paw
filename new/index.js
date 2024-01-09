@@ -2,6 +2,7 @@ import e from './e.js'
 import build from './router.js'
 import table from './table.js'
 import form from './form.js'
+import row from './row.js'
 import users from '../data/users.js'
 import schema_users from '../schema/users.js'
 import {queryString} from './lib.js'
@@ -65,32 +66,34 @@ const router = build({
       }}))
     }, delay)
   },
+  '/users/:id': (main, {Params}) => {
+    const X = users.filter(({id}) => id == Params.id)[0]
+    view(main, row({
+      ...schema_users.items,
+      title: X.name,
+      default: X 
+    }))
+  },
   '/insert/users': main => {
-    const P = schema_users.items.properties
+    const P = {...schema_users.items.properties}
+    delete P.id
     view(main, form({
       title: 'Insert',
       description: '',
-      fields: Object.keys(P).filter(k => k != 'id').map(k => ({
-        ...P[k],
-        name: k,
-        value: P[k].default
-      }))
+      properties: P
     }))
   },
   '/:service/users/:id': (main, {Params}) => {
-    const P = schema_users.items.properties
     const s = Params.service || 'insert'
     const row = users.filter(({id}) => id == Params.id)[0]
+    const P = {...schema_users.items.properties}
+    delete P.id
     view(main, form({
       title: s.substr(0, 1).toUpperCase()+s.substr(1)+
         (row ? ': '+row.name : ''),
       description: s == 'delete' ? 'Do you want to delete this row?' : '',
-      fields: s == 'delete' ? [] : Object.keys(P).filter(k => k != 'id')
-        .map(k => ({
-          ...P[k],
-          name: k,
-          value: row[k]
-        }))
+      properties: s == 'delete' ? null : P,
+      default: row
     }))
   }
 })

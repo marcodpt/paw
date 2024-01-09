@@ -6,5 +6,6 @@ export default {
   filter: 'info',
   group: 'warning',
   exporter: 'secondary',
-  check: 'success'
+  check: 'success',
+  link: ''
 }

@@ -18,8 +18,12 @@ const icon = Object.keys(raw_icon).reduce((icon, k) => ({
 }), {})
 
 const lang = () => {
-  const l = document.documentElement.lang.split('-')[0]
-  return l == 'pt' ? pt : en
+  const lang = document.documentElement.lang
+  const l = lang.split('-')[0]
+  return {
+    ...(l == 'pt' ? pt : en),
+    lang
+  }
 }
 
 const interpolate = (str, X) => {
