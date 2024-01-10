@@ -5,6 +5,7 @@ export default {
   loading: 'spinner fa-spin fa-5x',
   back: 'arrow-left',
   submit: 'check',
+  error: 'exclamation',
   first: 'fast-backward',
   previous: 'step-backward',
   next: 'step-forward',

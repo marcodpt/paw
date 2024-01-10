@@ -13,10 +13,10 @@ export default ({
   const P = properties || {}
   const D = schema.default || {}
 
-  return e(({text, div, legend, label, a, i}) => div({
+  return e(({text, div, label, h3, a, i}) => div({
     class: 'container my-5'
   }, [
-    legend({
+    h3({
       title: description
     }, [
       text(title)

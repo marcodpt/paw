@@ -7,11 +7,27 @@ export default ({
   title,
   description,
   properties,
+  submit,
   ...schema
 }) => {
   const l = lang()
   const P = properties || {}
   const D = schema.default || {}
+  var Data = {}
+  var Err = {}
+  const hasErr = () => Object.keys(Err)
+    .reduce((err, k) => err || Err[k], false)
+
+  const b = e(({button, i, text}) => button({
+    type: 'submit',
+    class: link.submit
+  }, [
+    i({
+      class: icon.submit
+    }),
+    text(' '),
+    text(l.submit)
+  ]))
 
   return e(({
     div,
@@ -26,7 +42,14 @@ export default ({
     class: 'container my-5'
   }, [
     form({
-      novalidate: true
+      novalidate: true,
+      submit: ev => {
+        ev.preventDefault()
+        ev.stopPropagation()
+        if (typeof submit == 'function' && !hasErr()) {
+          submit(Data)
+        }
+      }
     }, [
       fieldset({}, [
         !title ? null : legend({}, [
@@ -57,18 +80,26 @@ export default ({
               text(title)
             ])
           ]),
-          div({
-            class: title == null ? null : 'col-md-9'
-          }, [
-            input({
-              ...schema,
-              title: name,
-              default: schema.default
-            }),
-            div({
-              class: 'invalid-feedback'
-            })
-          ])
+          input({
+            ...schema,
+            title: name,
+            default: schema.default,
+            css: title == null ? null : 'col-md-9',
+            update: (v, err) => {
+              Data[name] = v
+              Err[name] = !!err
+              const ic = b.querySelector('i')
+              if (hasErr()) {
+                b.disabled = true
+                b.setAttribute('class', link.error)
+                ic.setAttribute('class', icon.error)
+              } else {
+                b.disabled = false
+                b.setAttribute('class', link.submit)
+                ic.setAttribute('class', icon.submit)
+              }
+            }
+          })
         ])
       )).concat([
         div({
@@ -81,17 +112,7 @@ export default ({
           ]),
           div({
             class: 'col-auto'
-          }, [
-            button({
-              type: 'submit',
-              class: link.submit
-            }, [
-              i({
-                class: icon.submit
-              }),
-              text(l.submit)
-            ])
-          ])
+          }, [b])
         ])
       ]))
     ])

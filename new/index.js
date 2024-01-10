@@ -80,11 +80,17 @@ const router = build({
     view(main, form({
       title: 'Insert',
       description: '',
-      properties: P
+      properties: P,
+      submit: user => {
+        users.push({
+          ...user,
+          id: users.reduce((rowid, {id}) => id >= rowid ? id + 1 : rowid, 0)
+        })
+      }
     }))
   },
   '/:service/users/:id': (main, {Params}) => {
-    const s = Params.service || 'insert'
+    const s = Params.service
     const row = users.filter(({id}) => id == Params.id)[0]
     const P = {...schema_users.items.properties}
     delete P.id
@@ -93,7 +99,17 @@ const router = build({
         (row ? ': '+row.name : ''),
       description: s == 'delete' ? 'Do you want to delete this row?' : '',
       properties: s == 'delete' ? null : P,
-      default: row
+      default: row,
+      submit: user => {
+        if (Params.service == 'delete') {
+          const i = users.reduce((p, {id}, i) => id == Params.id ? i : p, -1)
+          if (i >= 0) {
+            users.splice(i, 1)
+          }
+        } else {
+          Object.assign(users.filter(({id}) => id == Params.id)[0], user)
+        }
+      }
     }))
   }
 })
