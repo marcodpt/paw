@@ -1,5 +1,6 @@
 import e from './e.js'
-import {back} from './tags.js'
+import back from './tags/back.js'
+import alert from './tags/alert.js'
 
 export default ({
   ui,
@@ -12,13 +13,7 @@ export default ({
   !title ? null : h3({}, [
     text(title)
   ]),
-  !description ? null : div({
-    class: 'alert alert-'+ui,
-    role: 'alert',
-    style: 'white-space: pre-wrap;'
-  }, [
-    text(description)
-  ]),
+  alert(description, ui),
   div({
     class: 'row g-2 align-items-center'
   }, [

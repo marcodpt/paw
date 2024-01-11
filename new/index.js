@@ -7,7 +7,13 @@ import users from '../data/users.js'
 import schema_users from '../schema/users.js'
 import {queryString} from './lib.js'
 
-const delay = 0
+const delay = 500
+
+const wait = message => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(message)
+  }, delay)
+})
 
 const view = (root, elem) => {
   root.innerHTML = ''
@@ -86,6 +92,7 @@ const router = build({
           ...user,
           id: users.reduce((rowid, {id}) => id >= rowid ? id + 1 : rowid, 0)
         })
+        return wait('New user inserted!')
       }
     }))
   },
@@ -106,8 +113,10 @@ const router = build({
           if (i >= 0) {
             users.splice(i, 1)
           }
+          return wait(`User ${row.name} was removed!`)
         } else {
           Object.assign(users.filter(({id}) => id == Params.id)[0], user)
+          return wait(`User ${row.name} was edited!`)
         }
       }
     }))

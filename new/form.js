@@ -2,6 +2,9 @@ import e from './e.js'
 import {link, icon, lang} from './lib.js'
 import back from './tags/back.js'
 import input from './tags/input.js'
+import alert from './tags/alert.js'
+import pending from './tags/pending.js'
+import message from './message.js'
 
 export default ({
   title,
@@ -29,7 +32,7 @@ export default ({
     text(l.submit)
   ]))
 
-  return e(({
+  const target = e(({
     div,
     form,
     fieldset,
@@ -47,7 +50,20 @@ export default ({
         ev.preventDefault()
         ev.stopPropagation()
         if (typeof submit == 'function' && !hasErr()) {
-          submit(Data)
+          b.disabled = true
+          const ic = b.querySelector('i')
+          ic.replaceWith(pending())
+          Promise.resolve()
+            .then(() => submit(Data))
+            .then(description => target.replaceWith(message({
+              title,
+              description,
+              ui: 'success'
+            })))
+            .catch(description => target.replaceWith(message({
+              title,
+              description
+            })))
         }
       }
     }, [
@@ -55,13 +71,7 @@ export default ({
         !title ? null : legend({}, [
           text(title)
         ]),
-        !description ? null : div({
-          class: 'alert alert-info',
-          role: 'alert',
-          style: 'white-space: pre-wrap;'
-        }, [
-          text(description)
-        ])
+        alert(description, 'info')
       ].concat(Object.keys(P).map(k => ({
         ...P[k],
         name: k,
@@ -117,4 +127,6 @@ export default ({
       ]))
     ])
   ]))
+
+  return target
 }
