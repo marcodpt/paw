@@ -119,6 +119,10 @@ const validator = schema => data => {
   } = schema 
   var error = ''
   if (
+    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
+  ) {
+    error = l.enum(schema.enum)
+  } else if (
     (type == 'null' && data !== null) ||
     (type == 'boolean' && data !== false && data !== true) ||
     (type == 'object' && (
@@ -130,10 +134,6 @@ const validator = schema => data => {
     (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
   ) {
     error = l.type(type)
-  } else if (
-    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
-  ) {
-    error = l.enum(schema.enum)
   } else if (typeof data == 'string') {
     if (minLength != null && data.length < minLength) {
       error = l.minLength(minLength)

@@ -3,6 +3,7 @@ import {link, icon, linkify, iconify, interpolate, lang} from './lib.js'
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
 import output from './tags/output.js'
+import input from './tags/input.js'
 
 export default ({
   title,
@@ -17,6 +18,18 @@ export default ({
   const K = Object.keys(P)
   const totals = null
   const rows = []
+  const pager = {
+    type: 'integer',
+    title: 'pagination',
+    enum: [],
+    noValid: true,
+    update: (v, err) => {
+      const d = pager.default
+      if (!err && d != null && v != d && pager.change) {
+        pager.change(v)
+      }
+    }
+  }
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text
@@ -67,6 +80,7 @@ export default ({
               i({
                 class: iconify(icon)
               }),
+              text(' '),
               text(title)
             ])
           ]))))
@@ -107,7 +121,7 @@ export default ({
             div({
               class: 'col-auto'
             }, [
-              text(l.loading)
+              input(pager)
             ]),
             div({
               class: 'col-auto'
@@ -173,7 +187,7 @@ export default ({
     var x = null
 
     if (pagination) {
-      const {page, pages, first, previous, next, last} = pagination
+      const {page, pages, change, first, previous, next, last} = pagination
       x = tbl.querySelector('.app-pagination').querySelectorAll('.col-auto')
       if (page <= 1 || !first) {
         x[0].querySelector('a').classList.add('disabled')
@@ -189,7 +203,16 @@ export default ({
         x[1].querySelector('a').classList.remove('disabled')
         x[1].querySelector('a').setAttribute('href', previous)
       }
-      x[2].textContent = l.pagination(page, pages)
+      pager.default = page
+      pager.change = change
+      x[2].querySelector('input').dispatchEvent(
+        new CustomEvent('app.input.pagination.data', {
+          detail: Array(pages).fill().map((v, i) => ({
+            value: i + 1,
+            label: l.pagination(i + 1, pages)
+          }))
+        })
+      )
       if (page >= pages || !next) {
         x[3].querySelector('a').classList.add('disabled')
         x[3].querySelector('a').removeAttribute('href')

@@ -35,7 +35,8 @@ export default {
         title: 'Balance ($)',
         default: 0,
         minimum: 1000,
-        maximum: 4000
+        maximum: 4000,
+        ui: 'num.2'
       }
     },
     links: [

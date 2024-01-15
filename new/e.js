@@ -126,7 +126,7 @@ const h = (tagName, attributes, children) => {
     const v = attributes[key]
     const k = camelToKebab(key)
     if (typeof v == 'function') {
-      e.addEventListener(k, v)
+      e.addEventListener(k.substr(0, 2) == 'on' ? k.substr(2) : k, v)
     } else if (v != null && v !== false) {
       e.setAttribute(k, v)
     }

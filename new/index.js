@@ -54,18 +54,19 @@ const router = build({
         pagination: {
           page: p,
           pages: ps,
-          first: goto({
+          change: _page => location.replace(goto({_page})),
+          first: 'javascript:location.replace("'+goto({
             _page: 1
-          }),
-          previous: goto({
+          })+'")',
+          previous: 'javascript:location.replace("'+goto({
             _page: p - 1
-          }),
-          next: goto({
+          })+'")',
+          next: 'javascript:location.replace("'+goto({
             _page: p + 1
-          }),
-          last: goto({
+          })+'")',
+          last: 'javascript:location.replace("'+goto({
             _page: ps
-          })
+          })+'")'
         },
         rows: users.slice((p - 1) * 10, p * 10),
         totals: null
