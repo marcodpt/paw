@@ -1,5 +1,7 @@
 import e from './e.js'
 import build from './router.js'
+import options from './options.js'
+import navbar from './navbar.js'
 import table from './table.js'
 import form from './form.js'
 import row from './row.js'
@@ -21,6 +23,68 @@ const view = (root, elem) => {
     root.appendChild(elem)
   }
 }
+
+window.setTheme = theme => document.getElementById('theme')
+  .setAttribute('href', theme)
+
+window.setNavbar = css => document.getElementById('navbar')
+  .querySelector('nav')
+  .setAttribute('class', `navbar navbar-expand-lg ${css}`)
+
+document.body.prepend(navbar({
+  title: 'App',
+  current: '',
+  links: [
+    {
+      title: 'Set Theme',
+      icon: 'palette',
+      children: options.theme.map(({value, label}) => ({
+        title: label,
+        href: `javascript:setTheme('${value}')`
+      }))
+    }, {
+      title: 'Set Navbar',
+      icon: 'droplet',
+      children: options.navbar.map(({value, label}) => ({
+        title: label,
+        href: `javascript:setNavbar('${value}')`
+      }))
+    }, {
+      title: 'Repository',
+      icon: 'code-fork',
+      href: 'https://github.com/marcodpt/app'
+    }
+  ],
+  sidebar: [
+    {
+      title: 'Data',
+      children: [
+        {
+          title: 'Users',
+          href: '#/users'
+        }
+      ]
+    }, {
+      title: 'Tools',
+      icon: 'tools',
+      children: [
+        {
+          title: 'Flowchart',
+          icon: 'project-diagram',
+          href: '#/graph/sample'
+        }, {
+          title: 'Chart',
+          icon: 'chart-line',
+          href: '#/chart/sample'
+        }, {
+          title: 'Import Files',
+          icon: 'file',
+          href: '#/upload'
+        }
+      ]
+    }
+  ]
+}))
 
 const router = build({
   '*': main => view(main, e(({div, h1, text}) =>

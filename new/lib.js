@@ -3,6 +3,8 @@ import raw_icon from './config/icon.js'
 import pt from './lang/pt.js'
 import en from './lang/en.js'
 
+const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
+
 const iconify = x => x ? `fa-solid fa-${x}` : ''
 
 const linkify = (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : ''
@@ -189,6 +191,7 @@ const parser = ({type, ui}) => data => {
 }
 
 export {
+  setOptions,
   iconify,
   linkify,
   link,
