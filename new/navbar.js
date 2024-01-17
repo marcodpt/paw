@@ -1,5 +1,8 @@
 import e from './e.js'
 import {iconify, icon} from './lib.js'
+import list from './tags/list.js'
+import offcanvas from './tags/offcanvas.js'
+import navlink from './tags/navlink.js'
 
 export default ({
   title,
@@ -7,17 +10,7 @@ export default ({
   links,
   current
 }) => {
-  const {menu, isClosed, isOpen} = icon 
-  const hide = () => {}
-  const toggle = ev => {
-    ev.target.closest('.list-group')
-      .querySelector('.app-sublist').classList.toggle('d-none')
-    const i = ev.target.closest('a')
-      .querySelector('i[class="'+isClosed+'"], i[class="'+isOpen+'"]')
-    i.setAttribute('class',
-      i.getAttribute('class') == isClosed ? isOpen : isClosed
-    )
-  }
+  const {menu} = icon 
   const navbar = e(({
     div, nav, h5, a, small, ul, li, i, span, text, button
   }) => div({
@@ -67,119 +60,14 @@ export default ({
         div({
           class: 'collapse navbar-collapse'
         }, [
-          ul({
-            class: 'navbar-nav ms-auto'
-          }, links.map(({children, href, icon, title}) => children ?
-            li({
-              class: 'nav-item dropdown'
-            }, [
-              a({
-                class: 'nav-link dropdown-toggle',
-                dataBsToggle: 'dropdown',
-                role: 'button',
-                ariaExpanded: 'false'
-              }, [
-                icon ? i({class: iconify(icon)}) : null,
-                icon && title ? text(' ') : null,
-                text(title)
-              ]),
-              ul({
-                class: 'dropdown-menu'
-              }, children.map(({href, icon, title}) => 
-                li({}, [
-                  a({
-                    class: 'dropdown-item',
-                    href
-                  }, [
-                    icon ? i({class: iconify(icon)}) : null,
-                    icon && title ? text(' ') : null,
-                    text(title)
-                  ])
-                ])
-              ))
-            ]) : li({
-              class: 'nav-item'
-            }, [
-              a({
-                class: 'nav-link',
-                href
-              }, [
-                icon ? i({class: iconify(icon)}) : null,
-                icon && title ? text(' ') : null,
-                text(title)
-              ])
-            ])
-          ))
+          navlink({children: links})
         ])
       ])
     ]),
-    div({
-      class: 'offcanvas offcanvas-start',
-      tabindex: '-1',
+    offcanvas({
       id: 'sidebar'
     }, [
-      div({
-        class: 'offcanvas-header'
-      }, [
-        h5({
-          class: 'offcanvas-title'
-        }, [
-          a({
-            href: '#/',
-            class: 'text-reset text-decoration-none',
-            onclick: hide
-          }, [
-            text(title)
-          ]),
-          small({
-            class: 'text-secondary app-current'
-          })
-        ])
-      ]),
-      div({
-        class: 'offcanvas-body'
-      }, sidebar.map(({children, href, icon, title}) => 
-        ul({
-          class: 'list-group'
-        }, [
-          li({
-            class: 'list-group-item'
-          }, [
-            a({
-              class: 'text-decoration-none text-reset',
-              href: children ? 'javascript:;' : href,
-              onclick: children ? toggle : hide
-            }, [
-              icon ? i({class: iconify(icon)}) : null,
-              icon && title ? text(' ') : null,
-              text(title),
-              children ? text(' ') : null,
-              children ? i({class: isClosed}) : null
-            ])
-          ]),
-          !children ? null : li({
-            class: 'list-group-item app-sublist d-none'
-          }, [
-            ul({
-              class: 'list-group'
-            }, children.map(({href, icon, title}) => 
-              li({
-                class: 'list-group-item'
-              }, [
-                a({
-                  class: 'text-decoration-none text-reset',
-                  href,
-                  onclick: hide
-                }, [
-                  icon ? i({class: iconify(icon)}) : null,
-                  icon && title ? text(' ') : null,
-                  text(title)
-                ])
-              ])
-            ))
-          ])
-        ])
-      ))
+      list({children: sidebar})
     ])
   ]))
 
