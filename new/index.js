@@ -1,13 +1,17 @@
 import e from './e.js'
-import build from './router.js'
+import router from './router.js'
 import options from './options.js'
-import navbar from './navbar.js'
 import table from './table.js'
 import form from './form.js'
 import row from './row.js'
 import users from '../data/users.js'
 import schema_users from '../schema/users.js'
 import {queryString} from './lib.js'
+import offcanvas from './tags/offcanvas.js'
+import navmenu from './tags/navmenu.js'
+import navtoggler from './tags/navtoggler.js'
+import navlink from './tags/navlink.js'
+import list from './tags/list.js'
 
 const delay = 500
 
@@ -27,66 +31,82 @@ const view = (root, elem) => {
 window.setTheme = theme => document.getElementById('theme')
   .setAttribute('href', theme)
 
-window.setNavbar = css => document.getElementById('navbar')
-  .querySelector('nav')
+window.setNavbar = css => document.body
+  .querySelector('nav.navbar')
   .setAttribute('class', `navbar navbar-expand-lg ${css}`)
 
-document.body.prepend(navbar({
-  title: 'App',
-  current: '',
-  links: [
-    {
-      title: 'Set Theme',
-      icon: 'palette',
-      children: options.theme.map(({value, label}) => ({
-        title: label,
-        href: `javascript:setTheme('${value}')`
-      }))
-    }, {
-      title: 'Set Navbar',
-      icon: 'droplet',
-      children: options.navbar.map(({value, label}) => ({
-        title: label,
-        href: `javascript:setNavbar('${value}')`
-      }))
-    }, {
-      title: 'Repository',
-      icon: 'code-fork',
-      href: 'https://github.com/marcodpt/app'
-    }
-  ],
-  sidebar: [
-    {
-      title: 'Data',
-      children: [
-        {
-          title: 'Users',
-          href: '#/users'
-        }
-      ]
-    }, {
-      title: 'Tools',
-      icon: 'tools',
-      children: [
-        {
-          title: 'Flowchart',
-          icon: 'project-diagram',
-          href: '#/graph/sample'
-        }, {
-          title: 'Chart',
-          icon: 'chart-line',
-          href: '#/chart/sample'
-        }, {
-          title: 'Import Files',
-          icon: 'file',
-          href: '#/upload'
-        }
-      ]
-    }
-  ]
-}))
+const nav = document.body.querySelector('nav > .container-fluid')
 
-const router = build({
+nav.appendChild(navtoggler())
+nav.appendChild(navlink({children: [
+  {
+    title: 'Tools',
+    icon: 'tools',
+    children: [
+      {
+        title: 'Flowchart',
+        icon: 'project-diagram',
+        href: '#/graph/sample'
+      }, {
+        title: 'Chart',
+        icon: 'chart-line',
+        href: '#/chart/sample'
+      }, {
+        title: 'Import Files',
+        icon: 'file',
+        href: '#/upload'
+      }
+    ]
+  }, {
+    title: 'Set Theme',
+    icon: 'palette',
+    children: options.theme.map(({value, label}) => ({
+      title: label,
+      href: `javascript:setTheme('${value}')`
+    }))
+  }, {
+    title: 'Set Navbar',
+    icon: 'droplet',
+    children: options.navbar.map(({value, label}) => ({
+      title: label,
+      href: `javascript:setNavbar('${value}')`
+    }))
+  }, {
+    title: 'Logout',
+    icon: 'power-off',
+    href: '#/logout'
+  }, {
+    title: 'Repository',
+    icon: 'code-fork',
+    href: 'https://github.com/marcodpt/app'
+  }
+]}))
+
+nav.prepend(navmenu({target: '#sidebar'}))
+
+document.body.appendChild(
+  offcanvas({
+    id: 'sidebar'
+  }, [
+    list({children: [
+      {
+        title: 'Data',
+        children: [
+          {
+            title: 'Users',
+            href: '#/users'
+          }
+        ]
+      }, {
+        title: 'Login',
+        icon: 'sign-in',
+        href: '#/login'
+      }
+    ]})
+  ])
+)
+
+router({
   '*': main => view(main, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
       h1({}, [
@@ -187,6 +207,3 @@ const router = build({
     }))
   }
 })
-
-window.addEventListener('hashchange', router)
-router()

@@ -28,7 +28,8 @@ export default (attributes, slot) => e(({div, h5, small, a, text, button}) =>
         ]),
         text(' '),
         small({
-          class: 'text-secondary app-current'
+          class: 'text-secondary',
+          dataAppText: 'current'
         })
       ]),
       button({

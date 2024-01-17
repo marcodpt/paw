@@ -8,7 +8,9 @@ const list = ({children}) => {
       class: 'list-group'
     }, (children || []).map(({children, href, icon, title}) => 
       li({
-        class: 'list-group-item'
+        class: 'list-group-item',
+        dataAppTitle: title,
+        dataAppActive: 'active'
       }, [
         a({
           class: 'text-decoration-none text-reset',
