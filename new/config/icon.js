@@ -3,6 +3,7 @@ export default {
   isOpen: 'angle-up',
   isClosed: 'angle-down',
   loading: 'spinner fa-spin fa-5x',
+  pending: 'spinner fa-spin',
   back: 'arrow-left',
   submit: 'check',
   error: 'exclamation',

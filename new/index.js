@@ -1,7 +1,7 @@
 import e from './e.js'
 import router from './router.js'
 import options from './options.js'
-import table from './table.js'
+import table from './newtable.js'
 import form from './form.js'
 import row from './row.js'
 import users from '../data/users.js'
@@ -151,7 +151,12 @@ router({
     ])
   )),
   '/users': (main, {url, path, Query}) => {
-    const goto = (Q, raw) => {
+    const tbl = table(schema_users)
+    view(main, tbl)
+    setTimeout(() => {
+      tbl.setData(users)
+    }, delay)
+    /*const goto = (Q, raw) => {
       const q = queryString({
         ...Query,
         ...(Q || {})
@@ -159,9 +164,6 @@ router({
       const href = '#'+path+(q.length?'?'+q:'')
       return raw ? href : `javascript:location.replace("${href}")`
     }
-    const tbl = table(schema_users)
-    view(main, tbl)
-    var oldSearch = null
     const p = !Query._page || isNaN(Query._page) ? 1 : parseInt(Query._page)
     const ps = Math.ceil(run(
       search(Query._search)
@@ -210,7 +212,7 @@ router({
         )(users),
         totals: null
       }}))
-    }, delay)
+    }, delay)*/
   },
   '/users/:id': (main, {Params}) => {
     const X = users.filter(({id}) => id == Params.id)[0]

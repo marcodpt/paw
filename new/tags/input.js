@@ -20,7 +20,7 @@ export default s => {
     }
   }
   const change = () => {
-    var value = target.value
+    var value = isCheckbox ? target.checked : target.value
     if (schema.enum) {
       const i = getOpt()
       value = schema.enum[i]
@@ -41,6 +41,7 @@ export default s => {
     }
   }
   const {type, ui} = schema
+  const isCheckbox = type == 'boolean' && !schema.enum
   var step = null
   if (['integer', 'number'].indexOf(type) >= 0) {
     if (/^num\.[1-9][0-9]*$/.test(ui)) {
@@ -51,14 +52,16 @@ export default s => {
     }
   }
   const target = e(({input}) => input({
-    class: 'form-control',
+    class: isCheckbox ? 'form-check-input' : 'form-control',
     name: title,
     type: schema.enum ? null :
+      isCheckbox ? 'checkbox' :
       step ? 'number' :
       ui == 'date' ? 'date' : null,
     step,
     placeholder: schema.enum && !schema.enum.length ? l.loading : description,
-    value: schema.default,
+    value: isCheckbox ? null : schema.default,
+    checked: isCheckbox ? !!schema.default : null,
     oninput: change,
     onfocus,
     onblur,

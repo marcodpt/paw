@@ -1,4 +1,5 @@
 import e from './e.js'
+import rawlink from './config/link.js'
 import {link, icon, linkify, iconify, interpolate, lang} from './lib.js'
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
@@ -44,6 +45,8 @@ export default ({
       }, 500)
     }
   }
+
+  const state = {}
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text, button
@@ -224,24 +227,38 @@ export default ({
       ]),
       tr({
         class: 'app-totals'
-      }, []
-        .concat(rowLinks.map(() => td()))
-        .concat(K.map(k => td({
+      }, [
+        td()
+      ].concat(rowLinks.map(() =>
+        td()
+      )).concat(K.map(k =>
+        td({
           class: 'text-center align-middle',
           dataProp: k
         }, [
           text('_')
-        ])))
-      ),
-      tr({}, []
-        .concat(rowLinks.map(({icon, title}) => th({
+        ])
+      ))),
+      tr({}, [
+        th({
+          class: 'text-center align-middle'
+        }, [
+          button({
+            class: linkify(rawlink.check, true)
+          }, [
+            i({class: icon.check})
+          ])
+        ])
+      ].concat(rowLinks.map(({icon, title}) =>
+        th({
           class: 'text-center align-middle'
         }, [
           icon ? i({
             class: iconify(icon)
           }) : text(title)
-        ])))
-        .concat(K.map(k => th({
+        ])
+      )).concat(K.map(k =>
+        th({
           class: 'text-center align-middle'
         }, [
           a({
@@ -260,8 +277,8 @@ export default ({
               class: icon.sort
             })
           ])
-        ])))
-      )
+        ])
+      )))
     ]),
     tbody()
   ]))
@@ -350,29 +367,45 @@ export default ({
     x.innerHTML = ''
     if (rows instanceof Array) {
       rows.forEach(row => {
-        x.appendChild(e(({tr, td, i, a, text}) => tr({}, []
-          .concat(rowLinks.map(({link, icon, href}) => td({
-            class: 'text-center align-middle'
-          }, [
-            a({
-              class: linkify(link, true),
-              href: interpolate(href, row)
+        x.appendChild(e(({tr, td, i, a, text}) =>
+          tr({}, [
+            td({
+              class: 'text-center align-middle'
             }, [
-              icon ? i({
-                class: iconify(icon)
-              }) : text(title)
+              input({
+                type: 'boolean',
+                noValid: true,
+                title: 'row:'+row.id,
+                update: () => {
+
+                }
+              })
             ])
-          ])))
-          .concat(K.map(k => td({
-            class: 'align-middle text-center'
-          }, [
-            output({
-              ...P[k],
-              href: interpolate(P[k].href, row),
-              default: row[k]
-            })
-          ])))
-        )))
+          ].concat(rowLinks.map(({link, icon, href}) =>
+            td({
+              class: 'text-center align-middle'
+            }, [
+              a({
+                class: linkify(link, true),
+                href: interpolate(href, row)
+              }, [
+                icon ? i({
+                  class: iconify(icon)
+                }) : text(title)
+              ])
+            ])
+          )).concat(K.map(k =>
+            td({
+              class: 'align-middle text-center'
+            }, [
+              output({
+                ...P[k],
+                href: interpolate(P[k].href, row),
+                default: row[k]
+              })
+            ])
+          )))
+        ))
       })
     } else {
       x.appendChild(e(({tr, td}) => tr({}, [
