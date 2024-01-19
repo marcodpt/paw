@@ -106,6 +106,35 @@ document.body.appendChild(
   ])
 )
 
+const run = (...F) => data => F.reduce((data, F) => F(data), data)
+
+const cmp = Fields => {
+  const F = Fields.filter(f => f && typeof f == 'string').map(f => {
+    const x = f.substr(0, 1) == '-' ? -1 : 1
+    return {x, k: x == -1 ? f.substr(1) : f}
+  })
+
+  return (a, b) =>  F.reduce(
+    (r, {x, k}) => r || x * (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0)
+  , 0)
+}
+
+const sort = Fields => data => {
+  data.sort(cmp(Fields))
+  return data
+}
+
+const pager = p => data => data.slice((p - 1) * 10, p * 10)
+
+const search = match => data => {
+  if (match) {
+    data = data.filter(row => Object.keys(row).reduce((pass, k) =>
+      pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
+    , false))
+  }
+  return data
+}
+
 router({
   '*': main => view(main, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
@@ -122,37 +151,63 @@ router({
     ])
   )),
   '/users': (main, {url, path, Query}) => {
-    const goto = Q => {
+    const goto = (Q, raw) => {
       const q = queryString({
         ...Query,
         ...(Q || {})
       })
-      return '#'+path+(q.length?'?'+q:'')
+      const href = '#'+path+(q.length?'?'+q:'')
+      return raw ? href : `javascript:location.replace("${href}")`
     }
     const tbl = table(schema_users)
     view(main, tbl)
+    var oldSearch = null
+    const p = !Query._page || isNaN(Query._page) ? 1 : parseInt(Query._page)
+    const ps = Math.ceil(run(
+      search(Query._search)
+    )(users).length / 10) || 1
+    if (p > ps) {
+      return location.replace(goto({_page: ps}, true))
+    }
     setTimeout(() => {
-      const p = !Query._page || isNaN(Query._page) ? 1 : parseInt(Query._page)
-      const ps = Math.ceil(users.length / 10) || 1
       tbl.dispatchEvent(new CustomEvent('app.table', {detail: {
         pagination: {
           page: p,
           pages: ps,
-          change: _page => location.replace(goto({_page})),
-          first: 'javascript:location.replace("'+goto({
+          change: _page => location.replace(goto({_page}, true)),
+          first: goto({
             _page: 1
-          })+'")',
-          previous: 'javascript:location.replace("'+goto({
+          }),
+          previous: goto({
             _page: p - 1
-          })+'")',
-          next: 'javascript:location.replace("'+goto({
+          }),
+          next: goto({
             _page: p + 1
-          })+'")',
-          last: 'javascript:location.replace("'+goto({
+          }),
+          last: goto({
             _page: ps
-          })+'")'
+          })
         },
-        rows: users.slice((p - 1) * 10, p * 10),
+        sort: {
+          status: k => Query._sort == '-'+k ? -1 : Query._sort == k ? 1 : 0,
+          change: k => goto({
+            _sort: (Query._sort == k ? '-' : '')+k
+          })
+        },
+        search: {
+          value: Query._search || '',
+          change: data => location.replace(goto({
+            _search: data || null
+          }, true)),
+          clear: goto({
+            _search: null
+          })
+        },
+        rows: run(
+          search(Query._search),
+          sort([Query._sort || 'id']), 
+          pager(p)
+        )(users),
         totals: null
       }}))
     }, delay)

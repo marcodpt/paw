@@ -30,9 +30,23 @@ export default ({
       }
     }
   }
+  const searcher = {
+    type: 'string',
+    description: l.search,
+    noValid: true,
+    old: null,
+    update: (v, err) => {
+      searcher.old = v
+      setTimeout(() => {
+        if (searcher.old == v && typeof searcher.change == 'function') {
+          searcher.change(v)
+        }
+      }, 500)
+    }
+  }
 
   const tbl = e(({
-    table, thead, tbody, tr, th, td, div, a, i, text
+    table, thead, tbody, tr, th, td, div, a, i, text, button
   }) => table({
     class: [
       'table',
@@ -148,6 +162,66 @@ export default ({
           ])
         ])
       ]),
+      tr({}, [
+        th({
+          class: 'text-center',
+          colspan: '100%'
+        }, [
+          div({
+            class: 'row gx-1 justify-content-center'
+          }, [
+            div({
+              class: 'col-auto',
+              dataAppCtx: 'clear'
+            }, [
+              a({
+                class: link.close+' disabled'
+              }, [
+                i({class: icon.close})
+              ])
+            ]),
+            div({
+              class: 'col-auto',
+              dataAppCtx: 'search'
+            }, [
+              input(searcher)
+            ]),
+            div({
+              class: 'col-auto',
+              dataAppCtx: 'filter'
+            }, [
+              button({
+                class: link.filter
+              }, [
+                i({class: icon.filter}),
+                text(' '+l.filter)
+              ])
+            ]),
+            div({
+              class: 'col-auto',
+              dataAppCtx: 'group'
+            }, [
+              button({
+                class: link.group
+              }, [
+                i({class: icon.group}),
+                text(' '+l.group)
+              ])
+            ]),
+            div({
+              class: 'col-auto',
+              dataAppCtx: 'exporter'
+            }, [
+              button({
+                class: link.exporter
+              }, [
+                i({class: icon.exporter}),
+                text(' '+l.exporter)
+              ])
+            ])
+          ])
+        ])
+      ]),
       tr({
         class: 'app-totals'
       }, []
@@ -171,10 +245,20 @@ export default ({
           class: 'text-center align-middle'
         }, [
           a({
-            class: 'text-decoration-none',
+            class: 'text-decoration-none text-reset',
             title: P[k].description
           }, [
             text(P[k].title)
+          ]),
+          text(' '),
+          a({
+            dataAppSort: k,
+            href: 'javascript:;',
+            class: 'd-none'
+          }, [
+            i({
+              class: icon.sort
+            })
           ])
         ])))
       )
@@ -183,7 +267,7 @@ export default ({
   ]))
 
   tbl.addEventListener('app.table', ev => {
-    const {rows, totals, pagination} = ev.detail
+    const {rows, totals, pagination, sort, search} = ev.detail
     var x = null
 
     if (pagination) {
@@ -228,6 +312,33 @@ export default ({
         x[4].querySelector('a').setAttribute('href', last)
       }
     }
+
+    if (search) {
+      const {clear, value, change} = search
+      x = tbl.querySelector('[data-app-ctx="clear"]').querySelector('a')
+      x.setAttribute('href', clear)
+      x.classList[value ? 'remove' : 'add']('disabled')
+
+      x = tbl.querySelector('[data-app-ctx="search"]').querySelector('input')
+      x.value = value
+      searcher.change = change
+    }
+
+    tbl.querySelectorAll('[data-app-sort]').forEach(a => {
+      if (sort) {
+        const {status, change} = sort
+        const k = a.getAttribute('data-app-sort')
+        a.setAttribute('href', change(k))
+        a.classList.remove('d-none')
+        const i = a.querySelector('i')
+        const s = status(k)
+        i.setAttribute('class',
+          icon['sort'+(s > 0 ? 'Asc' : s < 0 ? 'Desc' : '')]
+        )
+      } else {
+        a.classList.add('d-none')
+      }
+    })
 
     x = tbl.querySelector('.app-totals')
     x.querySelectorAll('[data-prop]').forEach(p => {
