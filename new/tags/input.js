@@ -1,8 +1,7 @@
 import e from '../e.js'
 import {lang, validator, parser} from '../lib.js'
 
-export default s => {
-  const {title, description, css, update, noValid, ...schema} = s
+export default ({title, description, css, update, noValid, ...schema}) => {
   const l = lang()
   var validate = validator(schema)
   const parse = parser(schema)
@@ -17,6 +16,7 @@ export default s => {
     const i = getOpt()
     if (oldValue != null && i < 0) {
       target.value = oldValue
+      change()
     }
   }
   const change = () => {
@@ -60,8 +60,6 @@ export default s => {
       ui == 'date' ? 'date' : null,
     step,
     placeholder: schema.enum && !schema.enum.length ? l.loading : description,
-    value: isCheckbox ? null : schema.default,
-    checked: isCheckbox ? !!schema.default : null,
     oninput: change,
     onfocus,
     onblur,
@@ -81,27 +79,33 @@ export default s => {
       class: 'invalid-feedback'
     })
   ]))
-  change()
 
-  if (schema.enum) {
-    target.addEventListener(`app.input.${title}.data`, ev => {
-      schema.enum = ev.detail.map(({value}) => value)
-      validate = validator(schema)
-      target.disabled = false
-      wrapper.querySelector('datalist')
-        .replaceWith(e(({datalist, option}) => datalist({
-          id: `app.data.${title}`
-        }, ev.detail.map(({label}) => option({value: label})))))
-      if (s.default != null) {
-        const v = ev.detail.reduce((v, {value, label}) =>
-          v == null && value == s.default ? label : v
-        , null)
-        if (v != null) {
-          target.value = v
-          change()
-        }
+  target.setValue = v => {
+    if (isCheckbox) {
+      target.checked = !!v
+    } else if (v != null) {
+      target.value = v
+    }
+    change()
+  }
+  target.setValue(schema.default)
+
+  target.setOptions = (options, dflt) => {
+    schema.enum = options.map(({value}) => value)
+    validate = validator(schema)
+    target.disabled = false
+    wrapper.querySelector('datalist')
+      .replaceWith(e(({datalist, option}) => datalist({
+        id: `app.data.${title}`
+      }, options.map(({label}) => option({value: label})))))
+    if (dflt != null) {
+      const v = options.reduce((v, {value, label}) =>
+        v == null && value == dflt ? label : v
+      , null)
+      if (v != null) {
+        target.setValue(v)
       }
-    })
+    }
   }
 
   return wrapper

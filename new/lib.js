@@ -3,6 +3,8 @@ import raw_icon from './config/icon.js'
 import pt from './lang/pt.js'
 import en from './lang/en.js'
 
+const copy = X => JSON.parse(JSON.stringify(X))
+
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
 
 const iconify = x => x ? `fa-solid fa-${x}` : ''
@@ -191,6 +193,7 @@ const parser = ({type, ui}) => data => {
 }
 
 export {
+  copy,
   setOptions,
   iconify,
   linkify,

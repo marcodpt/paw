@@ -12,7 +12,8 @@ export default {
         title: 'Id',
         description: 'User id',
         default: 0,
-        href: '#/users/{id}'
+        href: '#/users/{id}',
+        totals: 'count'
       },
       name: {
         type: 'string',
@@ -28,7 +29,8 @@ export default {
         description: 'User age',
         default: 18,
         minimum: 18,
-        maximum: 99
+        maximum: 99,
+        totals: 'avg'
       }, 
       balance: {
         type: 'number',
@@ -36,7 +38,8 @@ export default {
         default: 0,
         minimum: 1000,
         maximum: 4000,
-        ui: 'num.2'
+        ui: 'num.2',
+        totals: 'sum'
       }
     },
     links: [
