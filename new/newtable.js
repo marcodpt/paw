@@ -1,12 +1,16 @@
 import e from './e.js'
 import rawlink from './config/link.js'
-import {copy, link, icon, linkify, iconify, interpolate, lang} from './lib.js'
+import {
+  copy, link, icon, linkify, iconify, interpolate, lang, formatter
+} from './lib.js'
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
 import output from './tags/output.js'
 import input from './tags/input.js'
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
+
+const identity = data => data
 
 const cmp = Fields => {
   const F = Fields.filter(f => f && typeof f == 'string').map(f => {
@@ -35,6 +39,38 @@ const search = match => data => {
   return data
 }
 
+const Aggregates = {
+  count: X => X.length,
+  avg: X => X.reduce((s, v) => s += v, 0) / X.length,
+  sum: X => X.reduce((s, v) => s += v, 0)
+}
+
+const totals = (Fields, Methods) => data => {
+  const notEqual = cmp(Fields)
+  const T = sort(Fields)(data)
+  return T.reduce((T, row) => {
+    const X = T[T.length - 1]
+    if (X == null || notEqual(row, X)) {
+      T.push(Object.keys(row).reduce((R, k) => ({
+        ...R,
+        [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
+      }), {}))
+    } else {
+      Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
+        X[k].push(row[k])
+      })
+    }
+    return T
+  }, []).map(row => Object.keys(row)
+    .filter(k => Fields.indexOf(k) < 0)
+    .reduce((R, k) => ({
+      ...R,
+      [k]: Fields.indexOf(k) >= 0 ? row[k] :
+        (Aggregates[Methods[k]] || Aggregates.none)(row[k])
+    }), row)
+  )
+}
+
 export default ({
   title,
   description,
@@ -42,12 +78,6 @@ export default ({
   items,
   ...schema
 }) => {
-  const l = lang()
-  items = items || {}
-  const rowLinks = items.links || []
-  const P = items.properties || {}
-  const K = Object.keys(P)
-
   const state = {
     data: copy(schema.default || null),
     rows: null,
@@ -56,6 +86,24 @@ export default ({
     page: 1,
     pages: 1
   }
+
+  const l = lang()
+  items = items || {}
+  const rowLinks = items.links || []
+  const P = items.properties || {}
+  const K = Object.keys(P)
+  const F = K.reduce((F, k) => ({
+    ...F,
+    [k]: formatter(P[k])
+  }), {})
+  const A = Object.keys(Aggregates)
+  const M = K.reduce((M, k) => {
+    if (A.indexOf(P[k].totals) >= 0) {
+      M[k] = V => F[k](Aggregates[P[k].totals](V))
+    }
+    return M
+  }, {})
+  const T = Object.keys(M)
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text, button
@@ -284,12 +332,8 @@ export default ({
                         return G
                       }, [])
                       i.setAttribute('class', icon.close)
-                      console.log(state.group)
                     }
-                    tbl.querySelectorAll('[data-ctx="groupHide"]')
-                      .forEach(g => {
-                        g.classList[state.group ? 'add' : 'remove']('d-none')
-                      })
+                    update()
                   }
                 }, [
                   i({class: icon.group}),
@@ -300,7 +344,29 @@ export default ({
                 class: 'col-auto'
               }, [
                 button({
-                  class: link.exporter
+                  class: link.exporter,
+                  onclick: () => {
+                    const name = title.toLowerCase().split(' ').join('_')+
+                      '.csv'
+                    const nl = '\n'
+                    const sep = '\t'
+                    
+                    var data = ''
+                    data += K.map(k => P[k].title || k).join(sep)+nl
+                    data += state.rows
+                      .map(row => K.map(k => F[k](row[k])).join(sep))
+                      .join(nl)
+
+                    data = 'data:text/plain;charset=utf-8,'+
+                      encodeURIComponent(data)
+                    const link = document.createElement("a")
+                    link.setAttribute('href', data) 
+                    link.setAttribute('download', name)
+
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                  }
                 }, [
                   i({class: icon.exporter}),
                   text(' '+l.exporter)
@@ -389,9 +455,7 @@ export default ({
           td({
             class: 'text-center align-middle',
             dataCtx: 'totals:'+k
-          }, [
-            text('_')
-          ])
+          })
         ))),
         tr({}, [
           th({
@@ -464,7 +528,7 @@ export default ({
     if (state.data instanceof Array) {
       state.rows = run(
         search(state.search),
-        sort([state.sort || 'id'])
+        state.sort ? sort([state.sort]) : identity
       )(state.data)
       state.pages = Math.ceil(state.rows.length / 10) || 1
       if (state.page > state.pages) {
@@ -504,14 +568,35 @@ export default ({
       tbl.querySelector('[data-ctx="search"]')
         .querySelector('[name=search]').setValue(state.search)
 
-      console.log(state.rows.filter(({checked}) => checked).length)
+      tbl.querySelectorAll('[data-ctx="groupHide"]')
+        .forEach(g => {
+          g.classList[state.group ? 'add' : 'remove']('d-none')
+        })
+
+      const H = K.filter(
+        k => state.group && state.group.indexOf(k) < 0 && T.indexOf(k) < 0 
+      )
+      K.forEach(k => {
+        tbl.querySelectorAll(
+          '[data-ctx="field:'+k+'"], [data-ctx="totals:'+k+'"]'
+        ).forEach(g => {
+          g.closest('th,td')
+            .classList[H.indexOf(k) < 0 ? 'remove' : 'add']('d-none')
+        })
+      })
+
+      const X = state.rows.filter(({checked}) => checked)
+      const C = X.length ? X : state.rows
+      tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
+        const k = t.getAttribute('data-ctx').substr(7)
+        t.textContent = M[k] ? M[k](C.map(row => row[k])) : '_' 
+      })
 
       view.forEach(row => {
         x.appendChild(e(({tr, td, i, a, text}) =>
           tr({}, [
-            td({
-              class: 'text-center align-middle',
-              dataCtx: 'groupHide'
+            state.group ? null : td({
+              class: 'text-center align-middle'
             }, [
               input({
                 type: 'boolean',
@@ -526,9 +611,8 @@ export default ({
               })
             ])
           ].concat(rowLinks.map(({link, icon, href}) =>
-            td({
-              class: 'text-center align-middle',
-              dataCtx: 'groupHide'
+            state.group ? null : td({
+              class: 'text-center align-middle'
             }, [
               a({
                 class: linkify(link, true),
@@ -539,13 +623,13 @@ export default ({
                 }) : text(title)
               ])
             ])
-          )).concat(K.map(k =>
+          )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>
             td({
               class: 'align-middle text-center'
             }, [
               output({
                 ...P[k],
-                href: interpolate(P[k].href, row),
+                href: state.group ? null : interpolate(P[k].href, row),
                 default: row[k]
               })
             ])
@@ -554,6 +638,9 @@ export default ({
       })
     } else {
       state.rows = null
+      tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
+        t.textContent = '_'
+      })
       x.appendChild(e(({tr, td}) =>
         tr({}, [
           td({

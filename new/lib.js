@@ -103,7 +103,8 @@ const formatter = ({type, ui}) => {
     return iconify
   } else if (type == 'integer' || type == 'number') {
     const l = lang()
-    return x => typeof x != 'number' ? x : x.toLocaleString(l.lang)
+    return x => (type == 'integer' ? Math.round(x) : x)
+      .toLocaleString(l.lang)
   } else if (type != 'string') {
     return x => JSON.stringify(x, undefined, 2)
   } else {
