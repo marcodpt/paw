@@ -24,12 +24,14 @@ export default {
   boolFalse: 'No',
   boolTrue: 'Yes',
 
-  ct: 'Contains',
-  nc: 'Not contains',
-  eq: 'Equals',
-  ne: 'Not equals',
-  gt: 'Greater than',
-  ge: 'Greater than or equals',
-  lt: 'Less than',
-  le: 'Less than or equals'
+  operators: {
+    ct: 'Contains',
+    nc: 'Not contains',
+    eq: 'Equals',
+    ne: 'Not equals',
+    gt: 'Greater than',
+    ge: 'Greater than or equals',
+    lt: 'Less than',
+    le: 'Less than or equals'
+  }
 }

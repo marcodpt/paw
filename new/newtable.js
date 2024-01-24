@@ -90,7 +90,8 @@ export default ({
     search: '',
     sort: null,
     page: 1,
-    pages: 1
+    pages: 1,
+    filter: {}
   }
 
   const l = lang()
@@ -110,6 +111,7 @@ export default ({
     return M
   }, {})
   const T = Object.keys(M)
+  const O = Object.keys(l.operators)
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text, button
@@ -213,16 +215,15 @@ export default ({
               }, [
                 input({
                   type: 'integer',
-                  enum: [],
                   title: 'pager',
                   noValid: true,
                   update: (v, err) => {
-                    if (!err && v != state.page) {
+                    if (!err && v && v != state.page) {
                       state.page = v
                       update()
                     }
                   }
-                })
+                }).setOptions(true)
               ]),
               div({
                 class: 'col-auto'
@@ -411,8 +412,16 @@ export default ({
                 input({
                   type: 'string',
                   title: 'field',
-                  noValid: true
-                })
+                  noValid: true,
+                  default: K[0],
+                  update: (v, err) => {
+                    state.filter.field = err ? null : v
+                    console.log(state.filter)
+                  }
+                }).setOptions(K.map(k => ({
+                  value: k,
+                  label: P[k].title || k
+                })))
               ]),
               div({
                 class: 'col-auto'
@@ -420,8 +429,16 @@ export default ({
                 input({
                   type: 'string',
                   title: 'operator',
-                  noValid: true
-                })
+                  noValid: true,
+                  default: O[0],
+                  update: (v, err) => {
+                    state.filter.operator = err ? null : v
+                    console.log(state.filter)
+                  }
+                }).setOptions(O.map(o => ({
+                  value: o,
+                  label: l.operators[o]
+                })))
               ]),
               div({
                 class: 'col-auto'
@@ -429,7 +446,11 @@ export default ({
                 input({
                   type: 'string',
                   title: 'value',
-                  noValid: true
+                  noValid: true,
+                  update: (v, err) => {
+                    state.filter.value = err ? null : v
+                    console.log(state.filter)
+                  }
                 })
               ]),
               div({
@@ -555,11 +576,12 @@ export default ({
         )
       })
 
-      tbl.querySelector('[data-ctx="pager"]').querySelector('[name=pager]')
+      tbl.querySelector('[data-ctrl="pager"]')
         .setOptions(Array(state.pages).fill().map((v, i) => ({
-            value: i + 1,
-            label: l.pagination(i + 1, state.pages)
-          })), state.page)
+          value: i + 1,
+          label: l.pagination(i + 1, state.pages)
+        })))
+        .setValue(state.page)
 
       tbl.querySelectorAll(
         '[data-ctx="first"], [data-ctx="previous"]'
@@ -574,8 +596,7 @@ export default ({
       })
 
       tbl.querySelector('[data-ctx="clear"]').disabled = !state.search
-      tbl.querySelector('[data-ctx="search"]')
-        .querySelector('[name=search]').setValue(state.search)
+      tbl.querySelector('[data-ctrl="search"]').setValue(state.search)
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')
         .forEach(g => {
