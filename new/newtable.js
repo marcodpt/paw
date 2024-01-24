@@ -45,28 +45,33 @@ const Aggregates = {
   sum: X => X.reduce((s, v) => s += v, 0)
 }
 
-const totals = (Fields, Methods) => data => {
+const group = (Fields, Methods) => data => {
   const notEqual = cmp(Fields)
   const T = sort(Fields)(data)
+  const K = Object.keys(Methods).reduce((K, k) => {
+    if (K.indexOf(k) < 0) {
+      K.push(k)
+    }
+    return K
+  }, copy(Fields))
   return T.reduce((T, row) => {
     const X = T[T.length - 1]
     if (X == null || notEqual(row, X)) {
-      T.push(Object.keys(row).reduce((R, k) => ({
+      T.push(K.reduce((R, k) => ({
         ...R,
         [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
       }), {}))
     } else {
-      Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
+      K.filter(k => Fields.indexOf(k) < 0).forEach(k => {
         X[k].push(row[k])
       })
     }
     return T
-  }, []).map(row => Object.keys(row)
+  }, []).map(row => K
     .filter(k => Fields.indexOf(k) < 0)
     .reduce((R, k) => ({
       ...R,
-      [k]: Fields.indexOf(k) >= 0 ? row[k] :
-        (Aggregates[Methods[k]] || Aggregates.none)(row[k])
+      [k]: Methods[k](row[k])
     }), row)
   )
 }
@@ -80,6 +85,7 @@ export default ({
 }) => {
   const state = {
     data: copy(schema.default || null),
+    base: null,
     rows: null,
     search: '',
     sort: null,
@@ -465,7 +471,7 @@ export default ({
             button({
               class: linkify(rawlink.check, true),
               onclick: () => {
-                (state.rows || []).forEach(row => {
+                (state.base || []).forEach(row => {
                   row.checked = !row.checked
                 })
                 update()
@@ -526,10 +532,13 @@ export default ({
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
     if (state.data instanceof Array) {
-      state.rows = run(
-        search(state.search),
-        state.sort ? sort([state.sort]) : identity
+      state.base = run(
+        search(state.search)
       )(state.data)
+      state.rows = run(
+        state.group ? group(state.group, M) : identity,
+        state.sort ? sort([state.sort]) : identity
+      )(state.base)
       state.pages = Math.ceil(state.rows.length / 10) || 1
       if (state.page > state.pages) {
         state.page = state.pages
@@ -585,8 +594,8 @@ export default ({
         })
       })
 
-      const X = state.rows.filter(({checked}) => checked)
-      const C = X.length ? X : state.rows
+      const X = state.base.filter(({checked}) => checked)
+      const C = X.length ? X : state.base
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
         t.textContent = M[k] ? M[k](C.map(row => row[k])) : '_' 
@@ -637,6 +646,7 @@ export default ({
         ))
       })
     } else {
+      state.base = null
       state.rows = null
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         t.textContent = '_'
