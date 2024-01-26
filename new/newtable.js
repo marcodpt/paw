@@ -76,6 +76,23 @@ const group = (Fields, Methods) => data => {
   )
 }
 
+const filter = (Filters, F) => data => Filters.reduce((data, {
+  field, operator, value
+}) => data.filter(row => {
+  const op = operator
+  const v = row[field]
+  const f = F[field]
+  return v == null ? false :
+    op == 'ct' ? f(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
+    op == 'nc' ? f(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 
+    op == 'eq' ? v == value : 
+    op == 'ne' ? v != value : 
+    op == 'gt' ? v > value : 
+    op == 'ge' ? v >= value : 
+    op == 'lt' ? v < value : 
+    op == 'le' ? v <= value : true
+}), data)
+
 export default ({
   title,
   description,
@@ -91,7 +108,10 @@ export default ({
     sort: null,
     page: 1,
     pages: 1,
-    filter: {}
+    filter: {
+      label: ['', '', '']
+    },
+    filters: []
   }
 
   const l = lang()
@@ -112,9 +132,10 @@ export default ({
   }, {})
   const T = Object.keys(M)
   const O = Object.keys(l.operators)
+  const S = ['ct', 'nc']
 
   const tbl = e(({
-    table, thead, tbody, tr, th, td, div, a, i, text, button
+    table, thead, tbody, tr, th, td, div, a, i, text, button, ul
   }) =>
     table({
       class: [
@@ -306,18 +327,30 @@ export default ({
                 })
               ]),
               div({
-                class: 'col-auto'
+                class: 'col-auto',
+                dataCtx: 'filters'
               }, [
                 button({
                   class: link.filter,
                   onclick: () => {
-                    tbl.querySelector('[data-ctx=filter]')
-                      .classList.toggle('d-none')
+                    const f = tbl.querySelector('[data-ctx=filter]')
+                    f.classList.toggle('d-none')
+                    f.querySelector('button[class="'+link.filter+'"]')
+                      .disabled = true
                   }
                 }, [
                   i({class: icon.filter}),
                   text(' '+l.filter)
-                ])
+                ]),
+                button({
+                  dataBsToggle: 'dropdown',
+                  ariaExpanded: 'false',
+                  class: 'dropdown-toggle dropdown-toggle-split d-none '+
+                    link.filter
+                }),
+                ul({
+                  class: 'dropdown-menu d-none'
+                })
               ]),
               div({
                 class: 'col-auto'
@@ -384,7 +417,35 @@ export default ({
         ]),
         tr({
           dataCtx: 'filter',
-          class: 'd-none'
+          class: 'd-none',
+          update: (f, run) => {
+            const {field, operator, value} = state.filter
+            if (run) {
+              const target = f.querySelector('[data-ctrl=value]')
+              if (
+                field != null && operator != null &&
+                S.indexOf(operator) < 0 &&
+                (state.data instanceof Array)
+              ) {
+                const Opt = state.data.map(row => ({
+                  value: row[field],
+                  label: F[field](row[field])
+                }))
+                Opt.sort(cmp([field]))
+                target.setOptions(Opt, {
+                  type: P[field].type,
+                  minLength: null
+                })
+              } else {
+                target.setOptions(false, {
+                  type: 'string',
+                  minLength: 1
+                })
+              }
+            }
+            f.querySelector('button[class="'+link.filter+'"]')
+              .disabled = field == null || operator == null || value == null
+          }
         }, [
           th({
             class: 'text-center',
@@ -414,9 +475,13 @@ export default ({
                   title: 'field',
                   noValid: true,
                   default: K[0],
-                  update: (v, err) => {
+                  update: (v, err, label, wrapper) => {
                     state.filter.field = err ? null : v
-                    console.log(state.filter)
+                    state.filter.label[0] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f, S.indexOf(state.filter.operator) >= 0)
+                    }
                   }
                 }).setOptions(K.map(k => ({
                   value: k,
@@ -431,9 +496,15 @@ export default ({
                   title: 'operator',
                   noValid: true,
                   default: O[0],
-                  update: (v, err) => {
+                  update: (v, err, label, wrapper) => {
+                    const change = (S.indexOf(v) < 0) !==
+                      (S.indexOf(state.filter.operator) < 0)
                     state.filter.operator = err ? null : v
-                    console.log(state.filter)
+                    state.filter.label[1] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f, change)
+                    }
                   }
                 }).setOptions(O.map(o => ({
                   value: o,
@@ -445,11 +516,16 @@ export default ({
               }, [
                 input({
                   type: 'string',
+                  minLength: 1,
                   title: 'value',
                   noValid: true,
-                  update: (v, err) => {
+                  update: (v, err, label, wrapper) => {
                     state.filter.value = err ? null : v
-                    console.log(state.filter)
+                    state.filter.label[2] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f)
+                    }
                   }
                 })
               ]),
@@ -459,8 +535,54 @@ export default ({
                 button({
                   class: link.filter,
                   onclick: () => {
-                    tbl.querySelector('[data-ctx=filter]')
-                      .classList.toggle('d-none')
+                    const {field, operator, value} = state.filter
+                    if (
+                      field != null && operator != null && value != null &&
+                      (value !== '' || S.indexOf(operator) < 0)
+                    ) {
+                      const F = copy(state.filter)
+                      const n = state.filters.length
+                      F.label = F.label.join(' ')
+                      state.filter.label = ['', '', '']
+                      state.filters.push(F)
+                      tbl.querySelector('[data-ctx=filter]')
+                        .classList.toggle('d-none')
+                      tbl.querySelector('[data-ctrl="field"]').setValue()
+                      tbl.querySelector('[data-ctrl="operator"]').setValue()
+                      tbl.querySelector('[data-ctrl="value"]').setValue()
+                      const f = tbl.querySelector('[data-ctx=filters]')
+                      const ul = f.querySelector('ul')
+                      const btn = f
+                        .querySelector('button[data-bs-toggle=dropdown]')
+                      ul.classList.remove('d-none')
+                      btn.classList.remove('d-none')
+                      f.classList.add('btn-group')
+                      ul.appendChild(e(({li, a, i, text}) => 
+                        li({}, [
+                          a({
+                            class: 'dropdown-item',
+                            href: 'javascript:;',
+                            onclick: ev => {
+                              state.filters.splice(n, 1)
+                              const node = ev.target.closest('li')
+                              node.parentNode.removeChild(node)
+                              if (!state.filters.length) {
+                                ul.classList.add('d-none')
+                                btn.classList.add('d-none')
+                                f.classList.remove('btn-group')
+                              }
+                              update()
+                            }
+                          }, [
+                            i({
+                              class: icon.close
+                            }),
+                            text(' '+F.label)
+                          ])
+                        ])
+                      ))
+                      update()
+                    }
                   }
                 }, [
                   i({class: icon.filter}),
@@ -554,7 +676,8 @@ export default ({
     x.innerHTML = ''
     if (state.data instanceof Array) {
       state.base = run(
-        search(state.search)
+        search(state.search),
+        filter(state.filters, F)
       )(state.data)
       state.rows = run(
         state.group ? group(state.group, M) : identity,
