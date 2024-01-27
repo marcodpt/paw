@@ -1,7 +1,7 @@
 import e from './e.js'
 import {link, icon, lang} from './lib.js'
 import back from './tags/back.js'
-import input from './tags/input.js'
+import ctrl from './tags/ctrl.js'
 import alert from './tags/alert.js'
 import pending from './tags/pending.js'
 import message from './message.js'
@@ -46,7 +46,7 @@ export default ({
   }, [
     form({
       novalidate: true,
-      submit: ev => {
+      onsubmit: ev => {
         ev.preventDefault()
         ev.stopPropagation()
         if (typeof submit == 'function' && !hasErr()) {
@@ -90,12 +90,12 @@ export default ({
               text(title)
             ])
           ]),
-          input({
+          ctrl({
             ...schema,
             title: name,
             default: schema.default,
             css: title == null ? null : 'col-md-9',
-            update: (v, err) => {
+            update: (err, v) => {
               Data[name] = v
               Err[name] = !!err
               const ic = b.querySelector('i')

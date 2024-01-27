@@ -1,12 +1,9 @@
 import e from './e.js'
 import router from './router.js'
 import options from './options.js'
-import table from './table.js'
-import form from './form.js'
 import row from './row.js'
 import users from '../data/users.js'
 import schema_users from '../schema/users.js'
-import {queryString} from './lib.js'
 import offcanvas from './tags/offcanvas.js'
 import navmenu from './tags/navmenu.js'
 import navtoggler from './tags/navtoggler.js'
@@ -107,39 +104,39 @@ document.body.appendChild(
 )
 
 router({
-  '*': main => view(main, e(({div, h1, text}) =>
+  '*': ({root}) => view(root, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
       h1({}, [
         text("Hello world!")
       ])
     ])
   )),
-  '/hello/:name': (main, {Params}) => view(main, e(({div, h1, text}) =>
+  '/hello/:name': ({root, Params}) => view(root, e(({div, h1, text}) =>
     div({class: 'container my-5'}, [
       h1({}, [
         text(`Hello ${Params.name}!`)
       ])
     ])
   )),
-  '/users': (main, {url, path, Query}) => {
+  '/users': ({root, url, path, Query, table}) => {
     const tbl = table(schema_users)
-    view(main, tbl)
+    view(root, tbl)
     setTimeout(() => {
       tbl.setData(users)
     }, delay)
   },
-  '/users/:id': (main, {Params}) => {
+  '/users/:id': ({root, Params}) => {
     const X = users.filter(({id}) => id == Params.id)[0]
-    view(main, row({
+    view(root, row({
       ...schema_users.items,
       title: X.name,
       default: X 
     }))
   },
-  '/insert/users': main => {
+  '/insert/users': ({root, form}) => {
     const P = {...schema_users.items.properties}
     delete P.id
-    view(main, form({
+    view(root, form({
       title: 'Insert',
       description: '',
       properties: P,
@@ -152,12 +149,12 @@ router({
       }
     }))
   },
-  '/:service/users/:id': (main, {Params}) => {
+  '/:service/users/:id': ({root, Params, form}) => {
     const s = Params.service
     const row = users.filter(({id}) => id == Params.id)[0]
     const P = {...schema_users.items.properties}
     delete P.id
-    view(main, form({
+    view(root, form({
       title: s.substr(0, 1).toUpperCase()+s.substr(1)+
         (row ? ': '+row.name : ''),
       description: s == 'delete' ? 'Do you want to delete this row?' : '',

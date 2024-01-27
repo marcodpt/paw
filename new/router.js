@@ -1,3 +1,6 @@
+import table from './table.js'
+import form from './form.js'
+
 var stop = null
 var old = null
 export default routes => {
@@ -60,11 +63,14 @@ export default routes => {
     })
 
     if (typeof routes[route] == 'function') {
-      const state = {url, route, path, Path, Params, query, Query, old}
+      const state = {
+        url, route, path, Path, Params, query, Query, old,
+        root, table, form
+      }
       if (typeof stop == 'function') {
         stop(state)
       }
-      stop = routes[route](root, state)
+      stop = routes[route](state)
       old = state
     }
 

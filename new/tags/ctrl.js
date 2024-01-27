@@ -49,7 +49,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     }
     wrapper.querySelector('.invalid-feedback').textContent = err
     if (typeof update == 'function') {
-      update(v, err, label, wrapper)
+      update(err, v, label, wrapper)
     }
   }
   const target = e(({input}) => input({

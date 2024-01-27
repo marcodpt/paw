@@ -6,7 +6,7 @@ import {
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
 import output from './tags/output.js'
-import input from './tags/input.js'
+import ctrl from './tags/ctrl.js'
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
 
@@ -41,7 +41,7 @@ const search = match => data => {
 
 const Aggregates = {
   count: X => X.length,
-  avg: X => X.reduce((s, v) => s += v, 0) / X.length,
+  avg: X => X.reduce((s, v) => s += v, 0) / (X.length || 1),
   sum: X => X.reduce((s, v) => s += v, 0)
 }
 
@@ -234,11 +234,11 @@ export default ({
                 class: 'col-auto',
                 dataCtx: 'pager'
               }, [
-                input({
+                ctrl({
                   type: 'integer',
                   title: 'pager',
                   noValid: true,
-                  update: (v, err) => {
+                  update: (err, v) => {
                     if (!err && v && v != state.page) {
                       state.page = v
                       update()
@@ -308,13 +308,13 @@ export default ({
                 class: 'col-auto',
                 dataCtx: 'search'
               }, [
-                input({
+                ctrl({
                   type: 'string',
                   description: l.search,
                   noValid: true,
                   title: 'search',
                   default: state.search,
-                  update: (v, err) => {
+                  update: (err, v) => {
                     if (!err && v != state.search) {
                       state.search = v
                       setTimeout(() => {
@@ -335,6 +335,9 @@ export default ({
                   onclick: () => {
                     const f = tbl.querySelector('[data-ctx=filter]')
                     f.classList.toggle('d-none')
+                    f.querySelector('[data-ctrl="field"]').setValue()
+                    f.querySelector('[data-ctrl="operator"]').setValue()
+                    f.querySelector('[data-ctrl="value"]').setValue()
                     f.querySelector('button[class="'+link.filter+'"]')
                       .disabled = true
                   }
@@ -470,12 +473,12 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                input({
+                ctrl({
                   type: 'string',
                   title: 'field',
                   noValid: true,
                   default: K[0],
-                  update: (v, err, label, wrapper) => {
+                  update: (err, v, label, wrapper) => {
                     state.filter.field = err ? null : v
                     state.filter.label[0] = label
                     const f = wrapper.closest('[data-ctx=filter]')
@@ -491,12 +494,12 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                input({
+                ctrl({
                   type: 'string',
                   title: 'operator',
                   noValid: true,
                   default: O[0],
-                  update: (v, err, label, wrapper) => {
+                  update: (err, v, label, wrapper) => {
                     const change = (S.indexOf(v) < 0) !==
                       (S.indexOf(state.filter.operator) < 0)
                     state.filter.operator = err ? null : v
@@ -514,12 +517,12 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                input({
+                ctrl({
                   type: 'string',
                   minLength: 1,
                   title: 'value',
                   noValid: true,
-                  update: (v, err, label, wrapper) => {
+                  update: (err, v, label, wrapper) => {
                     state.filter.value = err ? null : v
                     state.filter.label[2] = label
                     const f = wrapper.closest('[data-ctx=filter]')
@@ -547,9 +550,6 @@ export default ({
                       state.filters.push(F)
                       tbl.querySelector('[data-ctx=filter]')
                         .classList.toggle('d-none')
-                      tbl.querySelector('[data-ctrl="field"]').setValue()
-                      tbl.querySelector('[data-ctrl="operator"]').setValue()
-                      tbl.querySelector('[data-ctrl="value"]').setValue()
                       const f = tbl.querySelector('[data-ctx=filters]')
                       const ul = f.querySelector('ul')
                       const btn = f
@@ -751,12 +751,12 @@ export default ({
             state.group ? null : td({
               class: 'text-center align-middle'
             }, [
-              input({
+              ctrl({
                 type: 'boolean',
                 noValid: true,
                 default: !!row.checked,
-                update: v => {
-                  if (!!row.checked !== v) {
+                update: (err, v) => {
+                  if (!err && !!row.checked !== v) {
                     row.checked = v
                     update()
                   }
