@@ -1,16 +1,29 @@
 import e from '../e.js'
-import {lang, validator, parser, setOptions} from '../lib.js'
+import {
+  lang, validator, parser, setOptions, hasStep, getStep
+} from '../lib.js'
+import opt from '../options.js'
+
+const loader = ({type, ui}, data) => data == null ? data :
+  (type == 'integer' || type == 'number') && ui == 'date' ?
+    data ?
+      new Date(data < 0 ? data + 1 : data * 1000).toISOString().substr(0, 10) :
+      '' :
+  type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
 
 export default ({title, description, css, update, noValid, ...schema}) => {
   const l = lang()
   const t = schema.type
-  const dflt = schema.default != null ? schema.default :
-    t == 'integer' || t == 'number' ? 0 :
-    t == 'boolean' ? false : ''
+  const ui = schema.ui
+  const isText = t == 'string' && (ui == 'text' || ui == 'info')
   var isCheckbox = false
   var E = schema.enum
-  var O = E instanceof Array ? setOptions(E) : null
-  var validate = null
+  var O = E instanceof Array ? setOptions(E) :
+    (t == 'integer' || t == 'number') && schema.ui == 'bool' ? [
+      {value: 0, label: l.boolFalse},
+      {value: 1, label: l.boolTrue}
+    ] : opt[schema.ui]
+  var validate = validator(schema)
   const parse = parser(schema)
   var oldValue = null
   const onfocus = () => {
@@ -35,7 +48,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
   const change = () => {
     const label = target.value == null ? '' : target.value
     var value = isCheckbox ? target.checked : target.value
-    if (O instanceof Array) {
+    if (O instanceof Array && !isText) {
       const i = getOpt()
       value = E[i]
     }
@@ -52,29 +65,34 @@ export default ({title, description, css, update, noValid, ...schema}) => {
       update(err, v, label, wrapper)
     }
   }
-  const target = e(({input}) => input({
-    name: title,
-    oninput: change,
-    onfocus,
-    onblur
-  }))
+  const target = e(({input, textarea}) => 
+    isText ? textarea({
+      name: title,
+      class: 'form-control',
+      oninput: change,
+      rows: 6
+    }) : input({
+      name: title,
+      oninput: change,
+      onfocus,
+      onblur
+    })
+  )
   const wrapper = e(({div, datalist, option}) => div({
     class: css,
     dataCtrl: title,
-    setOptions: (options, S) => {
+    setOptions: isText ? null : (options, S) => {
       if (S) {
         Object.keys(S).forEach(k => {
           schema[k] = S[k]
         })
       }
       var step = null
-      if (['integer', 'number'].indexOf(schema.type) >= 0) {
-        if (/^num\.[1-9][0-9]*$/.test(schema.ui)) {
-          const precision = parseInt(schema.ui.substr(4))
-          step = 1 / (10 ** precision)
-        } else {
-          step = 1
-        }
+      if (
+        ['integer', 'number'].indexOf(schema.type) >= 0 &&
+        schema.ui != 'date'
+      ) {
+        step = getStep(schema.ui)
       }
       if (step != null) {
         target.setAttribute('step', step)
@@ -82,12 +100,12 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         target.removeAttribute('step')
       }
       if (schema.minimum != null) {
-        target.setAttribute('min', schema.minimum)
+        target.setAttribute('min', loader(schema, schema.minimum))
       } else {
         target.removeAttribute('min')
       }
       if (schema.maximum != null) {
-        target.setAttribute('max', schema.maximum)
+        target.setAttribute('max', loader(schema, schema.maximum))
       } else {
         target.removeAttribute('max')
       }
@@ -97,8 +115,11 @@ export default ({title, description, css, update, noValid, ...schema}) => {
       )
       target.setAttribute('type', options ? null :
         isCheckbox ? 'checkbox' :
-        step ? 'number' :
-        schema.ui == 'date' ? 'date' : null
+        step ? 'number' : [
+          'date',
+          'password',
+          'range'
+        ].indexOf(schema.ui) >= 0 ? schema.ui : null
       )
       if (options === true) {
         target.disabled = true
@@ -126,23 +147,26 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         ...schema,
         enum: E
       })
-      if (options !== true) {
-        wrapper.setValue(dflt)
-      }
 
-      return wrapper
+      return options !== true ? wrapper.setValue(schema.default) : wrapper
     },
     setValue: v => {
+      const t = schema.type
+      if (v == null) {
+        v = t == 'integer' || t == 'number' ? 0 :
+          t == 'boolean' ? false : ''
+      } else {
+        v = loader(schema, v)
+      }
       if (O instanceof Array) {
-        v = v == null ? dflt : v
         const x = O.reduce((x, {value, label}) =>
           x == null && value == v ? label : x
         , null)
         target.value = x == null ? v : x
       } else if (isCheckbox) {
-        target.checked = v == null ? dflt : !!v
+        target.checked = !!v
       } else {
-        target.value = v == null ? dflt : v
+        target.value = v
       }
       change()
       return wrapper
@@ -154,7 +178,5 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     })
   ]))
 
-  wrapper.setOptions(O)
-
-  return wrapper
+  return isText ? wrapper.setValue(schema.default) : wrapper.setOptions(O)
 }

@@ -52,6 +52,15 @@ minijinja-cli templates/index.html build.json > index.html
 The `index.min.js` file is a minified and bundled version of `index.js` built
 online with [bundle.js](https://bundlejs.com/).
 
+## TODO
+ - inputs/outputs
+ - config
+ - promise loader and render view
+ - modal
+ - graph
+ - chart
+ - documentation
+
 ## Contributing
 It's a very simple project.
 Any contribution, any feedback is greatly appreciated.

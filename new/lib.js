@@ -162,6 +162,10 @@ const validator = schema => data => {
 const isNum = x =>
   x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
+const hasStep = ui => /^num\.[1-9][0-9]*$/.test(ui)
+
+const getStep = ui => !hasStep(ui) ? 1 : 1 / (10 ** parseInt(ui.substr(4)))
+
 const parser = ({type, ui}) => data => {
   var value = null
 
@@ -177,7 +181,7 @@ const parser = ({type, ui}) => data => {
       value = d
     }
   } else if (type == 'integer' && isNum(data)) {
-    value = parseInt(data)
+    value = parseInt(Math.round(data / getStep(ui)))
   } else if (type == 'number' && isNum(data)) {
     value = parseFloat(data)
   } else if (type == 'boolean') {
@@ -205,5 +209,7 @@ export {
   queryString,
   formatter,
   validator,
+  hasStep,
+  getStep,
   parser
 }

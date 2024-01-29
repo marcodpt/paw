@@ -1,177 +1,118 @@
-import e from './e.js'
-import router from './router.js'
-import options from './options.js'
-import row from './row.js'
-import users from '../data/users.js'
-import schema_users from '../schema/users.js'
-import offcanvas from './tags/offcanvas.js'
-import navmenu from './tags/navmenu.js'
-import navtoggler from './tags/navtoggler.js'
-import navlink from './tags/navlink.js'
-import list from './tags/list.js'
+import table from './table.js'
+import form from './form.js'
 
-const delay = 500
-
-const wait = message => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(message)
-  }, delay)
-})
-
-const view = (root, elem) => {
-  root.innerHTML = ''
-  if (elem) {
-    root.appendChild(elem)
-  }
-}
-
-window.setTheme = theme => document.getElementById('theme')
-  .setAttribute('href', theme)
-
-window.setNavbar = css => document.body
-  .querySelector('nav.navbar')
-  .setAttribute('class', `navbar navbar-expand-lg ${css}`)
-
-const nav = document.body.querySelector('nav > .container-fluid')
-
-nav.appendChild(navtoggler())
-nav.appendChild(navlink({children: [
-  {
-    title: 'Tools',
-    icon: 'tools',
-    children: [
-      {
-        title: 'Flowchart',
-        icon: 'project-diagram',
-        href: '#/graph/sample'
-      }, {
-        title: 'Chart',
-        icon: 'chart-line',
-        href: '#/chart/sample'
-      }, {
-        title: 'Import Files',
-        icon: 'file',
-        href: '#/upload'
-      }
-    ]
-  }, {
-    title: 'Set Theme',
-    icon: 'palette',
-    children: options.theme.map(({value, label}) => ({
-      title: label,
-      href: `javascript:setTheme('${value}')`
-    }))
-  }, {
-    title: 'Set Navbar',
-    icon: 'droplet',
-    children: options.navbar.map(({value, label}) => ({
-      title: label,
-      href: `javascript:setNavbar('${value}')`
-    }))
-  }, {
-    title: 'Logout',
-    icon: 'power-off',
-    href: '#/logout'
-  }, {
-    title: 'Repository',
-    icon: 'code-fork',
-    href: 'https://github.com/marcodpt/app'
-  }
-]}))
-
-nav.prepend(navmenu({target: '#sidebar'}))
-
-document.body.appendChild(
-  offcanvas({
-    id: 'sidebar'
-  }, [
-    list({children: [
-      {
-        title: 'Data',
-        children: [
-          {
-            title: 'Users',
-            href: '#/users'
+var stop = null
+var old = null
+export default routes => {
+  const router = () => {
+    const root = document.body.querySelector('main')
+    const url = (window.location.hash || '#/').substr(1)
+    const Url = url.split('?')
+    const path = Url.shift()
+    const Path = path.split('/').map(decodeURIComponent)
+    const query = Url.join('?')
+    const Query = query.split('&')
+      .map(pair => pair.split('='))
+      .map(pair => ({
+        key: decodeURIComponent(pair.shift()),
+        value: decodeURIComponent(pair.join('='))
+      }))
+      .filter(({key}) => key != "")
+      .reduce((Q, {key, value}) => {
+        if (key.substr(key.length - 2) == '[]') {
+          key = key.substr(0, key.length - 2)
+          if (!(Q[key] instanceof Array)) {
+            Q[key] = []
           }
-        ]
-      }, {
-        title: 'Login',
-        icon: 'sign-in',
-        href: '#/login'
-      }
-    ]})
-  ])
-)
-
-router({
-  '*': ({root}) => view(root, e(({div, h1, text}) =>
-    div({class: 'container my-5'}, [
-      h1({}, [
-        text("Hello world!")
-      ])
-    ])
-  )),
-  '/hello/:name': ({root, Params}) => view(root, e(({div, h1, text}) =>
-    div({class: 'container my-5'}, [
-      h1({}, [
-        text(`Hello ${Params.name}!`)
-      ])
-    ])
-  )),
-  '/users': ({root, url, path, Query, table}) => {
-    const tbl = table(schema_users)
-    view(root, tbl)
-    setTimeout(() => {
-      tbl.setData(users)
-    }, delay)
-  },
-  '/users/:id': ({root, Params}) => {
-    const X = users.filter(({id}) => id == Params.id)[0]
-    view(root, row({
-      ...schema_users.items,
-      title: X.name,
-      default: X 
-    }))
-  },
-  '/insert/users': ({root, form}) => {
-    const P = {...schema_users.items.properties}
-    delete P.id
-    view(root, form({
-      title: 'Insert',
-      description: '',
-      properties: P,
-      submit: user => {
-        users.push({
-          ...user,
-          id: users.reduce((rowid, {id}) => id >= rowid ? id + 1 : rowid, 0)
-        })
-        return wait('New user inserted!')
-      }
-    }))
-  },
-  '/:service/users/:id': ({root, Params, form}) => {
-    const s = Params.service
-    const row = users.filter(({id}) => id == Params.id)[0]
-    const P = {...schema_users.items.properties}
-    delete P.id
-    view(root, form({
-      title: s.substr(0, 1).toUpperCase()+s.substr(1)+
-        (row ? ': '+row.name : ''),
-      description: s == 'delete' ? 'Do you want to delete this row?' : '',
-      properties: s == 'delete' ? null : P,
-      default: row,
-      submit: user => {
-        if (Params.service == 'delete') {
-          const i = users.reduce((p, {id}, i) => id == Params.id ? i : p, -1)
-          if (i >= 0) {
-            users.splice(i, 1)
-          }
-          return wait(`User ${row.name} was removed!`)
+          Q[key].push(value)
         } else {
-          Object.assign(users.filter(({id}) => id == Params.id)[0], user)
-          return wait(`User ${row.name} was edited!`)
+          Q[key] = value
+        }
+        return Q
+      }, {})
+
+    const {route, Params} = Object.keys(routes).reduce((match, route) => {
+      const Route = route.split('/')
+      if (Route.length == Path.length) {
+        var weight = 1
+        const Params = Path.reduce((Params, value, i) => {
+          if (Params) {
+            if (Route[i].substr(0, 1) == ':') {
+              Params[Route[i].substr(1)] = value
+            } else if (Route[i] !== value) {
+              Params = null
+            } else {
+              weight++
+            }
+          }
+          return Params
+        }, {})
+        if (Params && weight > match.weight) {
+          return {
+            route,
+            Params,
+            weight,
+          }
         }
       }
-    }))
+      return match
+    }, {
+      route: '*',
+      Params: {},
+      weight: 0
+    })
+
+    if (typeof routes[route] == 'function') {
+      const state = {
+        url, route, path, Path, Params, query, Query, old,
+        root, table, form
+      }
+      if (typeof stop == 'function') {
+        stop(state)
+      }
+      stop = routes[route](state)
+      old = state
+    }
+
+    const hash = '#'+url
+    const href = Array.from(
+      document.body.querySelectorAll('[data-app-title] > a[href]')
+    ).reduce((v, link) => {
+      const p = link.closest('[data-app-active]')
+      p.classList.remove(p.getAttribute('data-app-active'))
+
+      const href = link.getAttribute('href')
+      const l = href.length
+      return hash.substr(0, l) == href && l > v.length ? href : v
+    }, '')
+
+    const link = document.body
+      .querySelector('[data-app-title] > a[href="'+href+'"]')
+    const T = document.body.querySelectorAll('[data-app-text="current"]')
+    if (href && link) {
+      const Current = []
+      var l = link
+      while (l = l.closest('[data-app-title]')) {
+        Current.push(l.getAttribute('data-app-title'))
+        const p = l.getAttribute('data-app-active') ? l :
+          l.querySelector('[data-app-active]')
+        if (p) {
+          p.classList.add(p.getAttribute('data-app-active'))
+        }
+        l = l.parentNode
+      }
+      Current.reverse()
+      const current = Current.join(' / ')
+      T.forEach(t => {
+        t.textContent = current
+      })
+    } else {
+      T.forEach(t => {
+        t.textContent = ''
+      })
+    }
   }
-})
+
+  window.addEventListener('hashchange', router)
+  router()
+}
