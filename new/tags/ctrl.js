@@ -1,6 +1,7 @@
 import e from '../e.js'
 import {
-  lang, validator, parser, setOptions, hasStep, getStep
+  lang, validator, parser, setOptions, hasStep, getStep, readFiles,
+  iconify, linkify 
 } from '../lib.js'
 import opt from '../options.js'
 
@@ -16,6 +17,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
   const t = schema.type
   const ui = schema.ui
   const isText = t == 'string' && (ui == 'text' || ui == 'info')
+  const isRadio = ui == 'link'
   var isCheckbox = false
   var E = schema.enum
   var O = E instanceof Array ? setOptions(E) :
@@ -46,13 +48,34 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     }
   }
   const change = () => {
-    const label = target.value == null ? '' : target.value
-    var value = isCheckbox ? target.checked : target.value
-    if (O instanceof Array && !isText) {
-      const i = getOpt()
-      value = E[i]
+    if (schema.ui == 'file') {
+      readFiles(target.files)
+        .then(files => {
+          const names = files.map(({name}) => name)
+          resolve(
+            schema.type == 'array' ? files : files[0],
+            schema.type == 'array' ? names.join('\n') : names[0]
+          )
+        })
+        .catch(err => {
+          resolve(null, err.toString())
+        })
+    } else {
+      const label = target.value == null ? '' : target.value
+      var value = isCheckbox ? target.checked : target.value
+      if (O instanceof Array && !isText) {
+        const i = getOpt()
+        value = E[i]
+      } else if (schema.ui == 'icon') {
+        const g = target.closest('.input-group')
+        if (g) {
+          g.querySelector('i').setAttribute('class', iconify(target.value))
+        }
+      }
+      resolve(value, label)
     }
-
+  }
+  const resolve = (value, label) => {
     const v = parse(value)
     const err = validate(v)
     target.classList.remove(`is-invalid`)
@@ -75,10 +98,13 @@ export default ({title, description, css, update, noValid, ...schema}) => {
       name: title,
       oninput: change,
       onfocus,
+      onmousedown: onfocus,
       onblur
     })
   )
-  const wrapper = e(({div, datalist, option}) => div({
+  const wrapper = e(({
+    div, datalist, option, span, i, input, label, text
+  }) => div({
     class: css,
     dataCtrl: title,
     setOptions: isText ? null : (options, S) => {
@@ -118,9 +144,15 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         step ? 'number' : [
           'date',
           'password',
-          'range'
+          'range',
+          'file'
         ].indexOf(schema.ui) >= 0 ? schema.ui : null
       )
+      if (schema.ui == 'file' && schema.type == 'array') {
+        target.setAttribute('multiple', true)
+      } else {
+        target.removeAttribute('multiple')
+      }
       if (options === true) {
         target.disabled = true
         target.setAttribute('placeholder', l.loading)
@@ -152,6 +184,9 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     },
     setValue: v => {
       const t = schema.type
+      if (t == 'object' || t == 'array') {
+        return wrapper
+      }
       if (v == null) {
         v = t == 'integer' || t == 'number' ? 0 :
           t == 'boolean' ? false : ''
@@ -162,21 +197,62 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         const x = O.reduce((x, {value, label}) =>
           x == null && value == v ? label : x
         , null)
-        target.value = x == null ? v : x
+        if (isRadio) {
+          wrapper.querySelectorAll('input').forEach(e => {
+            e.checked = e.value == x
+            if (e.checked) {
+              e.click()
+            }
+          })
+        } else {
+          target.value = x == null ? v : x
+        }
       } else if (isCheckbox) {
         target.checked = !!v
       } else {
         target.value = v
       }
-      change()
+      if (!isRadio) {
+        change()
+      }
       return wrapper
     }
-  }, [
-    target,
+  }, isRadio ? O.map(o => [
+    input({
+      type: 'radio',
+      name: title,
+      class: 'btn-check',
+      id: title+'.'+o.value,
+      autocomplete: 'off',
+      value: o.value,
+      onclick: typeof update != 'function' ? null : () => {
+        update('', o.value, o.label, wrapper)
+      }
+    }),
+    label({
+      class: (linkify(o.value) || 'btn btn-link')+' me-2',
+      for: title+'.'+o.value
+    }, [
+      text(o.label)
+    ])
+  ]).reduce((X, V) => X.concat(V), []) : [
+    schema.ui == 'icon' ? 
+      div({
+        class: 'input-group'
+      }, [
+        span({
+          class: 'input-group-text'
+        }, [
+          i({})
+        ]),
+        target
+      ]) : 
+      target,
     div({
       class: 'invalid-feedback'
     })
   ]))
 
-  return isText ? wrapper.setValue(schema.default) : wrapper.setOptions(O)
+  return isRadio || isText ?
+    wrapper.setValue(schema.default) : wrapper.setOptions(O)
 }

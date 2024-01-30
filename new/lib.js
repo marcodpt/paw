@@ -186,7 +186,7 @@ const parser = ({type, ui}) => data => {
     value = parseFloat(data)
   } else if (type == 'boolean') {
     value = !!(isNum(data) ? parseInt(data) : data)
-  } else if (type != 'string') {
+  } else if (type != 'string' && ui != 'file') {
     try {
       value = JSON.parse(data)
     } catch (err) {}
@@ -195,6 +195,29 @@ const parser = ({type, ui}) => data => {
   }
 
   return value
+}
+
+const readFiles = Files => {
+  const reader = (file, bin) => new Promise((resolve, reject) => {
+    const r = new FileReader()
+    const end = data => resolve({
+      data: bin && data != null ? btoa(data) : data,
+      name: file.name,
+      mime: file.type,
+      is_base64: bin ? 1 : 0
+    })
+    r.onloadend = () => {
+      !r.error ? end(r.result) : 
+        bin ? end(null) : reader(file, true)
+    }
+    bin ? r.readAsBinaryString(file) : r.readAsText(file, 'UTF-8')
+  })
+  
+  const P = []
+  for (var i = 0; i < Files.length; i++) {
+    P.push(reader(Files[i], Files[i].type.indexOf('text/') < 0))
+  }
+  return Promise.all(P)
 }
 
 export {
@@ -211,5 +234,6 @@ export {
   validator,
   hasStep,
   getStep,
-  parser
+  parser,
+  readFiles
 }

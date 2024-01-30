@@ -85,6 +85,18 @@ export default {
       minLength: 5,
       maxLength: 10
     },
+    file: {
+      title: 'File',
+      description: 'This is a single file object (ui: file)',
+      type: 'object',
+      ui: 'file'
+    },
+    files: {
+      title: 'Files',
+      description: 'This is an array of files (ui: file)',
+      type: 'array',
+      ui: 'file'
+    },
     link: {
       title: 'Link',
       description: 'This is a bootstrap btn string (ui: link)',
@@ -120,7 +132,7 @@ export default {
       ui: 'lang',
       default: 'pt'
     },
-    lang: {
+    ui: {
       title: 'UI',
       description: 'This is an ui string (ui: ui)',
       type: 'string',

@@ -53,7 +53,7 @@ The `index.min.js` file is a minified and bundled version of `index.js` built
 online with [bundle.js](https://bundlejs.com/).
 
 ## TODO
- - inputs/outputs
+ - outputs
  - config
  - promise loader and render view
  - modal
