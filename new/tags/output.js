@@ -12,10 +12,11 @@ export default schema => {
     ]) :
     schema.ui == 'icon' ? span({}, [
       i({class: data}),
-      text(schema.default)
+      text(' '+schema.default)
     ]) : 
     schema.ui == 'link' ? a({
-      class: data
+      class: data,
+      href: 'javascript:;'
     }, [
       text(schema.default)
     ]) : 

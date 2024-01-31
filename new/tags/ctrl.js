@@ -184,11 +184,9 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     },
     setValue: v => {
       const t = schema.type
-      if (t == 'object' || t == 'array') {
-        return wrapper
-      }
       if (v == null) {
-        v = t == 'integer' || t == 'number' ? 0 :
+        v = schema.default != null ? schema.default :
+          t == 'integer' || t == 'number' ? 0 :
           t == 'boolean' ? false : ''
       } else {
         v = loader(schema, v)
@@ -209,7 +207,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         }
       } else if (isCheckbox) {
         target.checked = !!v
-      } else {
+      } else if (schema.ui != 'file') {
         target.value = v
       }
       if (!isRadio) {

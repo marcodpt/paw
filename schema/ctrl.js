@@ -85,15 +85,9 @@ export default {
       minLength: 5,
       maxLength: 10
     },
-    file: {
-      title: 'File',
-      description: 'This is a single file object (ui: file)',
-      type: 'object',
-      ui: 'file'
-    },
     files: {
       title: 'Files',
-      description: 'This is an array of files (ui: file)',
+      description: 'This is an array of files (ui: file).\nUse type: object for single file.',
       type: 'array',
       ui: 'file'
     },

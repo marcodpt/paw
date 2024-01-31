@@ -10,14 +10,16 @@ export default ({
   title,
   description,
   properties,
+  update,
   submit,
   ...schema
 }) => {
   const l = lang()
   const P = properties || {}
+  const K = Object.keys(P)
   const D = schema.default || {}
   var Data = {}
-  var Err = {}
+  var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
   const hasErr = () => Object.keys(Err)
     .reduce((err, k) => err || Err[k], false)
 
@@ -55,12 +57,13 @@ export default ({
           ic.replaceWith(pending())
           Promise.resolve()
             .then(() => submit(Data))
-            .then(description => target.replaceWith(message({
-              title,
-              description,
-              ui: 'success'
-            })))
-            .catch(description => target.replaceWith(message({
+            .then(result => target.replaceWith(
+              result && typeof result == 'object' ? result : message({
+                title,
+                description,
+                ui: 'success'
+              }))
+            ).catch(description => target.replaceWith(message({
               title,
               description
             })))
@@ -72,7 +75,7 @@ export default ({
           text(title)
         ]),
         alert(description, 'info')
-      ].concat(Object.keys(P).map(k => ({
+      ].concat(K.map(k => ({
         ...P[k],
         name: k,
         default: D[k] == null ? P[k].default : D[k]
@@ -108,11 +111,14 @@ export default ({
                 b.setAttribute('class', link.submit)
                 ic.setAttribute('class', icon.submit)
               }
+              if (typeof update == 'function') {
+                update(hasErr(), Data)
+              }
             }
           })
         ])
       )).concat([
-        div({
+        !submit ? null : div({
           class: 'row g-2 align-items-center'
         }, [
           div({

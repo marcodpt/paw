@@ -118,7 +118,8 @@ export default ({
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
-  const K = Object.keys(P)
+  const K = Object.keys(P).filter(k => P[k].ui != 'info')
+  const I = Object.keys(P).filter(k => P[k].ui == 'info')
   const F = K.reduce((F, k) => ({
     ...F,
     [k]: formatter(P[k])
@@ -747,7 +748,9 @@ export default ({
 
       view.forEach(row => {
         x.appendChild(e(({tr, td, i, a, text}) =>
-          tr({}, [
+          tr({
+            title: I.map(k => row[k]).join('\n')
+          }, [
             state.group ? null : td({
               class: 'text-center align-middle'
             }, [
@@ -778,7 +781,9 @@ export default ({
             ])
           )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>
             td({
-              class: 'align-middle text-center'
+              class: 'align-middle text-'+
+                (P[k].ui == 'text' ? 'left' : 'center'),
+              style: P[k].ui == 'text' ? 'white-space:pre-wrap' : null
             }, [
               output({
                 ...P[k],

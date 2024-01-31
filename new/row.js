@@ -44,7 +44,8 @@ export default ({
         ])
       ]),
       div({
-        class: title == null ? '' : 'col-md-9'
+        class: title == null ? '' : 'col-md-9',
+        style: 'white-space:pre-wrap'
       }, [
         output(schema)
       ])

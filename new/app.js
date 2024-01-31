@@ -10,6 +10,7 @@ import navmenu from './tags/navmenu.js'
 import navtoggler from './tags/navtoggler.js'
 import navlink from './tags/navlink.js'
 import list from './tags/list.js'
+import {copy} from './lib.js'
 
 const delay = 500
 
@@ -126,7 +127,19 @@ app({
   '/ctrl': ({root, form}) => {
     view(root, form({
       ...ctrl,
-      submit: data => wait(JSON.stringify(data, undefined, 2))
+      submit: data => {
+        console.log(JSON.stringify(data, undefined, 2))
+        const schema = copy(ctrl) 
+        const P = schema.properties
+        Object.keys(P).forEach(k => {
+          P[k].default = data[k]
+        })
+        return row(schema)
+      },
+      update: (err, data) => {
+        console.log(err)
+        console.log(JSON.stringify(data, undefined, 2))
+      }
     }))
   },
   '/users': ({root, url, path, Query, table}) => {
