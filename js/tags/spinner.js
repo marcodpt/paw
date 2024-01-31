@@ -4,7 +4,7 @@ import {lang} from '../lib.js'
 export default () => {
   const l = lang()
   return e(({div, span, text}) => div({
-    class: 'd-flex justify-content-center',
+    class: 'd-flex justify-content-center p-5',
     title: l.loading
   }, [
     div({

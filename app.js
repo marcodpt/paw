@@ -1,9 +1,7 @@
-import e from './js/e.js'
 import app from './index.js'
 import options from './js/options.js'
-import row from './js/row.js'
 import users from './data/users.js'
-import schema_users from './data/schema.js'
+import schema from './data/schema.js'
 import ctrl from './data/ctrl.js'
 import offcanvas from './js/tags/offcanvas.js'
 import navmenu from './js/tags/navmenu.js'
@@ -19,13 +17,6 @@ const wait = message => new Promise(resolve => {
     resolve(message)
   }, delay)
 })
-
-const view = (root, elem) => {
-  root.innerHTML = ''
-  if (elem) {
-    root.appendChild(elem)
-  }
-}
 
 window.setTheme = theme => document.getElementById('theme')
   .setAttribute('href', theme)
@@ -93,74 +84,111 @@ document.body.appendChild(
   }, [
     list({children: [
       {
-        title: 'Data',
+        title: 'Users',
+        icon: 'user',
+        href: '#/users'
+      }, {
+        title: 'Render',
+        icon: 'image',
         children: [
           {
-            title: 'Users',
-            href: '#/users'
+            title: 'Raw String',
+            href: '#/render/string'
+          }, {
+            title: 'Lazy String',
+            href: '#/render/lazystring'
+          }, {
+            title: 'Hyperscript Object',
+            href: '#/render/object'
+          }, {
+            title: 'Lazy Hyperscript Object',
+            href: '#/render/lazyobject'
+          }, {
+            title: 'Error',
+            href: '#/render/error'
           }
         ]
-      }, {
-        title: 'Login',
-        icon: 'sign-in',
-        href: '#/login'
       }
     ]})
   ])
 )
 
 app({
-  '*': ({root}) => view(root, e(({div, h1, text}) =>
-    div({class: 'container my-5'}, [
+  '*': ({render, e}) => render(e(({div, h1, text}) =>
+    div({
+      class: 'container my-5'
+    }, [
       h1({}, [
         text("Hello world!")
       ])
     ])
   )),
-  '/hello/:name': ({root, Params}) => view(root, e(({div, h1, text}) =>
-    div({class: 'container my-5'}, [
+  '/render/string': ({render}) => render(`
+    <div class="container my-5">
+      <h1>Raw HTML string</h1>
+    </div>
+  `),
+  '/render/lazystring': ({render}) => render(() => wait(`
+    <div class="container my-5">
+      <h1>Lazy HTML string</h1>
+    </div>
+  `)),
+  '/render/object': ({render, e}) => render(e(({div, h1, text}) =>
+    div({
+      class: 'container my-5'
+    }, [
       h1({}, [
-        text(`Hello ${Params.name}!`)
+        text("Hyperscript Object")
       ])
     ])
   )),
-  '/ctrl': ({root, form}) => {
-    view(root, form({
-      ...ctrl,
-      submit: data => {
-        console.log(JSON.stringify(data, undefined, 2))
-        const schema = copy(ctrl) 
-        const P = schema.properties
-        Object.keys(P).forEach(k => {
-          P[k].default = data[k]
-        })
-        return row(schema)
-      },
-      update: (err, data) => {
-        console.log(err)
-        console.log(JSON.stringify(data, undefined, 2))
-      }
-    }))
-  },
-  '/users': ({root, url, path, Query, table}) => {
-    const tbl = table(schema_users)
-    view(root, tbl)
+  '/render/lazyobject': ({render, e}) => render(() => wait(e(({div, h1, text}) =>
+    div({
+      class: 'container my-5'
+    }, [
+      h1({}, [
+        text("Lazy Hyperscript Object")
+      ])
+    ])
+  ))),
+  '/render/error': ({render}) => render(() => {
+    throw 'This is an intentional error showcase!'
+  }),
+  '/ctrl': ({render, form, row}) => render(form({
+    ...ctrl,
+    submit: data => {
+      console.log(JSON.stringify(data, undefined, 2))
+      const schema = copy(ctrl) 
+      const P = schema.properties
+      Object.keys(P).forEach(k => {
+        P[k].default = data[k]
+      })
+      return row(schema)
+    },
+    update: (err, data) => {
+      console.log(err)
+      console.log(JSON.stringify(data, undefined, 2))
+    }
+  })),
+  '/users': ({render, url, path, Query, table}) => {
+    const tbl = table(schema)
+    render(tbl)
     setTimeout(() => {
       tbl.setData(users)
     }, delay)
   },
-  '/users/:id': ({root, Params}) => {
+  '/users/:id': ({render, Params, row}) => {
     const X = users.filter(({id}) => id == Params.id)[0]
-    view(root, row({
-      ...schema_users.items,
+    render(row({
+      ...schema.items,
       title: X.name,
       default: X 
     }))
   },
-  '/insert/users': ({root, form}) => {
-    const P = {...schema_users.items.properties}
+  '/insert/users': ({render, form}) => {
+    const P = {...schema.items.properties}
     delete P.id
-    view(root, form({
+    render(form({
       title: 'Insert',
       description: '',
       properties: P,
@@ -173,12 +201,12 @@ app({
       }
     }))
   },
-  '/:service/users/:id': ({root, Params, form}) => {
+  '/:service/users/:id': ({render, Params, form}) => {
     const s = Params.service
     const row = users.filter(({id}) => id == Params.id)[0]
-    const P = {...schema_users.items.properties}
+    const P = {...schema.items.properties}
     delete P.id
-    view(root, form({
+    render(form({
       title: s.substr(0, 1).toUpperCase()+s.substr(1)+
         (row ? ': '+row.name : ''),
       description: s == 'delete' ? 'Do you want to delete this row?' : '',

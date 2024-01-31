@@ -803,7 +803,6 @@ export default ({
       x.appendChild(e(({tr, td}) =>
         tr({}, [
           td({
-            class: 'text-center p-5',
             colspan: '100%'
           }, [
             spinner()

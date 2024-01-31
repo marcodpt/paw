@@ -2,6 +2,7 @@ export default {
   back: 'Back',
   submit: 'Submit',
   loading: 'Loading...',
+  error: 'Error!',
 
   type: v => `Must be of the specified type.`,
   minLength: v => `Must be a minimum of ${v} character(s).`,

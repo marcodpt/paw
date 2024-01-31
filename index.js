@@ -1,11 +1,20 @@
+import render from './js/render.js'
+import e from './js/e.js'
+import message from './js/message.js'
 import table from './js/table.js'
 import form from './js/form.js'
+import row from './js/row.js'
 
 var stop = null
 var old = null
 export default routes => {
+  const root = document.body.querySelector('main')
+  const components = {
+    e, message, table, form, row,
+    render: (view, el) => render(view, el || root)
+  }
+
   const router = () => {
-    const root = document.body.querySelector('main')
     const url = (window.location.hash || '#/').substr(1)
     const Url = url.split('?')
     const path = Url.shift()
@@ -64,8 +73,8 @@ export default routes => {
 
     if (typeof routes[route] == 'function') {
       const state = {
-        url, route, path, Path, Params, query, Query, old,
-        root, table, form
+        url, route, path, Path, Params, query, Query, old, root,
+        ...components 
       }
       if (typeof stop == 'function') {
         stop(state)
