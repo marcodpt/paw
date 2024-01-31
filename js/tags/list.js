@@ -9,7 +9,7 @@ const list = ({children}) => {
     }, (children || []).map(({children, href, icon, title}) => 
       li({
         class: 'list-group-item',
-        dataAppTitle: title,
+        dataAppPath: title,
         dataAppActive: 'active'
       }, [
         a({

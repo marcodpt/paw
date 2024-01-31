@@ -220,6 +220,20 @@ const readFiles = Files => {
   return Promise.all(P)
 }
 
+const download = (data, name) => {
+  data = 'data:text/plain;charset=utf-8,'+
+    encodeURIComponent(data)
+  const link = document.createElement("a")
+  link.setAttribute('href', data) 
+  if (name) {
+    link.setAttribute('download', name)
+  }
+
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
 export {
   copy,
   setOptions,
@@ -235,5 +249,6 @@ export {
   hasStep,
   getStep,
   parser,
-  readFiles
+  readFiles,
+  download
 }

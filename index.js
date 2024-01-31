@@ -4,13 +4,14 @@ import message from './js/message.js'
 import table from './js/table.js'
 import form from './js/form.js'
 import row from './js/row.js'
+import config from './js/config.js'
 
 var stop = null
 var old = null
 export default routes => {
   const root = document.body.querySelector('main')
   const components = {
-    e, message, table, form, row,
+    e, message, table, form, row, config,
     render: (view, el) => render(view, el || root)
   }
 
@@ -85,7 +86,7 @@ export default routes => {
 
     const hash = '#'+url
     const href = Array.from(
-      document.body.querySelectorAll('[data-app-title] > a[href]')
+      document.body.querySelectorAll('[data-app-path] > a[href]')
     ).reduce((v, link) => {
       const p = link.closest('[data-app-active]')
       p.classList.remove(p.getAttribute('data-app-active'))
@@ -96,13 +97,13 @@ export default routes => {
     }, '')
 
     const link = document.body
-      .querySelector('[data-app-title] > a[href="'+href+'"]')
+      .querySelector('[data-app-path] > a[href="'+href+'"]')
     const T = document.body.querySelectorAll('[data-app-text="current"]')
     if (href && link) {
       const Current = []
       var l = link
-      while (l = l.closest('[data-app-title]')) {
-        Current.push(l.getAttribute('data-app-title'))
+      while (l = l.closest('[data-app-path]')) {
+        Current.push(l.getAttribute('data-app-path'))
         const p = l.getAttribute('data-app-active') ? l :
           l.querySelector('[data-app-active]')
         if (p) {

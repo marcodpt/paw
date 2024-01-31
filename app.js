@@ -1,5 +1,4 @@
 import app from './index.js'
-import options from './js/options.js'
 import users from './data/users.js'
 import schema from './data/schema.js'
 import ctrl from './data/ctrl.js'
@@ -17,13 +16,6 @@ const wait = message => new Promise(resolve => {
     resolve(message)
   }, delay)
 })
-
-window.setTheme = theme => document.getElementById('theme')
-  .setAttribute('href', theme)
-
-window.setNavbar = css => document.body
-  .querySelector('nav.navbar')
-  .setAttribute('class', `navbar navbar-expand-lg ${css}`)
 
 const nav = document.body.querySelector('nav > .container-fluid')
 
@@ -52,23 +44,9 @@ nav.appendChild(navlink({children: [
       }
     ]
   }, {
-    title: 'Set Theme',
-    icon: 'palette',
-    children: options.theme.map(({value, label}) => ({
-      title: label,
-      href: `javascript:setTheme('${value}')`
-    }))
-  }, {
-    title: 'Set Navbar',
-    icon: 'droplet',
-    children: options.navbar.map(({value, label}) => ({
-      title: label,
-      href: `javascript:setNavbar('${value}')`
-    }))
-  }, {
-    title: 'Logout',
-    icon: 'power-off',
-    href: '#/logout'
+    title: 'Config',
+    icon: 'cog',
+    href: '#/config'
   }, {
     title: 'Repository',
     icon: 'code-fork',
@@ -113,16 +91,9 @@ document.body.appendChild(
   ])
 )
 
+const home = document.body.querySelector('main').innerHTML
 app({
-  '*': ({render, e}) => render(e(({div, h1, text}) =>
-    div({
-      class: 'container my-5'
-    }, [
-      h1({}, [
-        text("Hello world!")
-      ])
-    ])
-  )),
+  '*': ({render, e}) => render(home),
   '/render/string': ({render}) => render(`
     <div class="container my-5">
       <h1>Raw HTML string</h1>
@@ -154,6 +125,7 @@ app({
   '/render/error': ({render}) => render(() => {
     throw 'This is an intentional error showcase!'
   }),
+  '/config': ({render, config}) => render(config()),
   '/ctrl': ({render, form, row}) => render(form({
     ...ctrl,
     submit: data => {

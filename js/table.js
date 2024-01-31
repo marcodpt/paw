@@ -1,7 +1,7 @@
 import e from './e.js'
 import rawlink from './config/link.js'
 import {
-  copy, link, icon, linkify, iconify, interpolate, lang, formatter
+  copy, link, icon, linkify, iconify, interpolate, lang, formatter, download
 } from './lib.js'
 import back from './tags/back.js'
 import spinner from './tags/spinner.js'
@@ -401,15 +401,7 @@ export default ({
                       .map(row => K.map(k => F[k](row[k])).join(sep))
                       .join(nl)
 
-                    data = 'data:text/plain;charset=utf-8,'+
-                      encodeURIComponent(data)
-                    const link = document.createElement("a")
-                    link.setAttribute('href', data) 
-                    link.setAttribute('download', name)
-
-                    document.body.appendChild(link)
-                    link.click()
-                    document.body.removeChild(link)
+                    download(data, name)
                   }
                 }, [
                   i({class: icon.exporter}),

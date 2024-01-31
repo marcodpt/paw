@@ -112,7 +112,7 @@ export default ({
                 ic.setAttribute('class', icon.submit)
               }
               if (typeof update == 'function') {
-                update(hasErr(), Data)
+                update(hasErr(), Data, name)
               }
             }
           })

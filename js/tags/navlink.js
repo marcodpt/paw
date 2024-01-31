@@ -10,7 +10,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
     }, children.map(({children, href, icon, title}) => children ?
       li({
         class: 'nav-item dropdown',
-        dataAppTitle: title
+        dataAppPath: title
       }, [
         a({
           class: 'nav-link dropdown-toggle',
@@ -27,7 +27,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
           class: 'dropdown-menu'
         }, children.map(({href, icon, title}) => 
           li({
-            dataAppTitle: title
+            dataAppPath: title
           }, [
             a({
               class: 'dropdown-item',
@@ -42,7 +42,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
         ))
       ]) : li({
         class: 'nav-item',
-        dataAppTitle: title
+        dataAppPath: title
       }, [
         a({
           class: 'nav-link',

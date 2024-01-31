@@ -21,13 +21,16 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-light navbar-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#/">App</a>
+        <a class="navbar-brand" href="#/" data-app-text="title">App</a>
         <span class="navbar-text" data-app-text="current"></span>
       </div>
     </nav>
     <main>
-      <div class="container">
-        <h1>App</h1>
+      <div class="container my-5">
+        <h1 data-app-text="title">App</h1>
+        <p class="lead text-body-secondary">
+          A dashboard application
+        </p>
       </div>
     </main>
     <script type="module" src="app.js"></script>
