@@ -1,6 +1,7 @@
 import e from './e.js'
 import back from './tags/back.js'
 import alert from './tags/alert.js'
+import style from './config/style.js'
 
 export default ({
   ui,
@@ -8,7 +9,7 @@ export default ({
   description
 }) => e(({div, h3, text}) => div({
   class: 'container my-5 mx-auto',
-  style: 'max-width: 600px;'
+  style: style.alert
 }, [
   !title ? null : h3({}, [
     text(title)

@@ -7,6 +7,7 @@ import back from './tags/back.js'
 import spinner from './tags/spinner.js'
 import output from './tags/output.js'
 import ctrl from './tags/ctrl.js'
+import style from './config/style.js'
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
 
@@ -775,7 +776,7 @@ export default ({
             td({
               class: 'align-middle text-'+
                 (P[k].ui == 'text' ? 'left' : 'center'),
-              style: P[k].ui == 'text' ? 'white-space:pre-wrap' : null
+              style: P[k].ui == 'text' ? style.text : null
             }, [
               output({
                 ...P[k],

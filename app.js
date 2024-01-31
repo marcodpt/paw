@@ -44,9 +44,9 @@ nav.appendChild(navlink({children: [
       }
     ]
   }, {
-    title: 'Config',
+    title: 'Settings',
     icon: 'cog',
-    href: '#/config'
+    href: '#/settings'
   }, {
     title: 'Repository',
     icon: 'code-fork',
@@ -125,7 +125,7 @@ app({
   '/render/error': ({render}) => render(() => {
     throw 'This is an intentional error showcase!'
   }),
-  '/config': ({render, config}) => render(config()),
+  '/settings': ({render, settings}) => render(settings()),
   '/ctrl': ({render, form, row}) => render(form({
     ...ctrl,
     submit: data => {

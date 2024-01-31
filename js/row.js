@@ -2,6 +2,7 @@ import e from './e.js'
 import {linkify, iconify, interpolate} from './lib.js'
 import back from './tags/back.js'
 import output from './tags/output.js'
+import style from './config/style.js'
 
 export default ({
   title,
@@ -45,7 +46,7 @@ export default ({
       ]),
       div({
         class: title == null ? '' : 'col-md-9',
-        style: 'white-space:pre-wrap'
+        style: style.text
       }, [
         output(schema)
       ])

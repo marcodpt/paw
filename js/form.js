@@ -5,6 +5,7 @@ import ctrl from './tags/ctrl.js'
 import alert from './tags/alert.js'
 import pending from './tags/pending.js'
 import message from './message.js'
+import style from './config/style.js'
 
 export default ({
   title,
@@ -44,7 +45,8 @@ export default ({
     text,
     i
   }) => div({
-    class: 'container my-5'
+    class: 'container my-5',
+    style: K.length ? null : style.alert
   }, [
     form({
       novalidate: true,
@@ -112,7 +114,7 @@ export default ({
                 ic.setAttribute('class', icon.submit)
               }
               if (typeof update == 'function') {
-                update(hasErr(), Data, name)
+                update(hasErr(), Data)
               }
             }
           })

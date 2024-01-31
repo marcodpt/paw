@@ -9,7 +9,7 @@ export default () => {
     .join(' ')
 
   return form({
-    title: 'Config',
+    title: 'Settings',
     type: 'object',
     properties: {
       title: {
@@ -37,27 +37,22 @@ export default () => {
         default: css
       }
     },
-    update: (err, Data, name) => {
+    update: (err, Data) => {
       if (err) {
         return
       }
-      if (name == 'title') {
-        document.body.querySelectorAll('[data-app-text=title]').forEach(e => {
-          if (e.textContent == document.title) {
-            e.textContent = Data[name]
-          }
-        })
-        document.title = Data[name]
-      } else if (name == 'lang') {
-        document.documentElement.lang = Data[name]
-      } else if (name == 'theme') {
-        document.getElementById('theme').setAttribute('href', Data[name])
-      } else if (name == 'navbar') {
-        nav.setAttribute('class',
-          nav.getAttribute('class').replace(css, Data[name])
-        )
-        css = Data[name]
-      }
+      document.body.querySelectorAll('[data-app-text=title]').forEach(e => {
+        if (e.textContent == document.title) {
+          e.textContent = Data.title
+        }
+      })
+      document.title = Data.title
+      document.documentElement.lang = Data.lang
+      document.getElementById('theme').setAttribute('href', Data.theme)
+      nav.setAttribute('class',
+        nav.getAttribute('class').replace(css, Data.navbar)
+      )
+      css = Data.navbar
     }
   })
   return 

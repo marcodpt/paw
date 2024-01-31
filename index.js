@@ -4,14 +4,14 @@ import message from './js/message.js'
 import table from './js/table.js'
 import form from './js/form.js'
 import row from './js/row.js'
-import config from './js/config.js'
+import settings from './js/settings.js'
 
 var stop = null
 var old = null
 export default routes => {
   const root = document.body.querySelector('main')
   const components = {
-    e, message, table, form, row, config,
+    e, message, table, form, row, settings,
     render: (view, el) => render(view, el || root)
   }
 

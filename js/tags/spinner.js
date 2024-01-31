@@ -1,5 +1,6 @@
 import e from '../e.js'
 import {lang} from '../lib.js'
+import style from '../config/style.js'
 
 export default () => {
   const l = lang()
@@ -9,7 +10,7 @@ export default () => {
   }, [
     div({
       class: 'spinner-border',
-      style: 'width: 5rem; height: 5rem;',
+      style: style.spinner,
       role: 'status'
     }, [
       span({
