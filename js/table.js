@@ -1,504 +1,823 @@
-import {interpolate, queryString, parser} from './lib.js'
-import config from './config.js'
-import {input, output} from './ui.js'
-const {tools, text, icon, link} = config
+import e from './e.js'
+import rawlink from './config/link.js'
+import {
+  copy, link, icon, linkify, iconify, interpolate, lang, formatter
+} from './lib.js'
+import back from './tags/back.js'
+import spinner from './tags/spinner.js'
+import output from './tags/output.js'
+import ctrl from './tags/ctrl.js'
 
-export default {
-  template: document.getElementById('view-table'),
-  set: (_, state) => state,
-  init: ({api, ...route}, call) => {
-    const Q = route.Query
-    const model = {
-      search: Q._search || '',
-      field: null,
-      operator: null,
-      value: null,
-      page: 0
+const run = (...F) => data => F.reduce((data, F) => F(data), data)
+
+const identity = data => data
+
+const cmp = Fields => {
+  const F = Fields.filter(f => f && typeof f == 'string').map(f => {
+    const x = f.substr(0, 1) == '-' ? -1 : 1
+    return {x, k: x == -1 ? f.substr(1) : f}
+  })
+
+  return (a, b) =>  F.reduce(
+    (r, {x, k}) => r || x * (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0)
+  , 0)
+}
+
+const sort = Fields => data => {
+  data.sort(cmp(Fields))
+  return data
+}
+
+const pager = p => data => data.slice((p - 1) * 10, p * 10)
+
+const search = match => data => {
+  if (match) {
+    data = data.filter(row => Object.keys(row).reduce((pass, k) =>
+      pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
+    , false))
+  }
+  return data
+}
+
+const Aggregates = {
+  count: X => X.length,
+  avg: X => X.reduce((s, v) => s += v, 0) / (X.length || 1),
+  sum: X => X.reduce((s, v) => s += v, 0)
+}
+
+const group = (Fields, Methods) => data => {
+  const notEqual = cmp(Fields)
+  const T = sort(Fields)(data)
+  const K = Object.keys(Methods).reduce((K, k) => {
+    if (K.indexOf(k) < 0) {
+      K.push(k)
     }
-    const filter = {
-      label: text.filter,
-      icon: tools.icon(icon.filter),
-      link: tools.link(link.filter),
-      fields: null,
-      operators: null,
-      values: null,
-      exact: false,
-      isOpen: false,
-      filters: (Q._filter || []).map((f, i) => ({
-        value: i,
-        label: f
-      })),
-      count: (Q._filter || []).length,
-      disabled: true,
-      pending: true,
-      inputs: []
-    }
-    const group = {
-      label: text.group,
-      icon: tools.icon(icon.group),
-      link: tools.link(link.group),
-      textOff: 'reset',
-      textOn: link.group,
-      active: false,
-      disabled: true
-    }
-    const pager = {
-      link: tools.link(link.pagination),
-      first: tools.icon(icon.first),
-      previous: tools.icon(icon.previous),
-      next: tools.icon(icon.next),
-      last: tools.icon(icon.last),
-      isFirst: true,
-      isLast: true,
-      pages: 0
-    }
-    const pageInput = options => {
-      pager.input = input({
-        type: 'integer',
-        minimum: 1,
-        default: model.page
-      }, {name: 'page', model, options})
-      pager.input.validate()
-    }
-    pageInput([])
-    const state = {
-      route,
-      api,
-      model,
-      pager,
-      filter,
-      group,
-      search: {
-        disabled: !model.search,
-        input: input({type: 'string'}, {
-          name: 'search',
-          label: text.search, 
-          model
-        })
-      },
-      exporter: {
-        label: text.exporter,
-        icon: tools.icon(icon.exporter),
-        link: tools.link(link.exporter),
-        disabled: false
-      },
-      back: {
-        label: text.back,
-        icon: tools.icon(icon.back),
-        link: tools.link(link.back)
-      },
-      close: {
-        icon: tools.icon(icon.close),
-        link: tools.link(link.close)
-      },
-      loading: {
-        icon: tools.icon(icon.loading)
-      }
-    }
-    call('set', state)
-    const p = Q._page
-    if (!p || isNaN(p)) {
-      call('goto', {
-        _page: 1
+    return K
+  }, copy(Fields))
+  return T.reduce((T, row) => {
+    const X = T[T.length - 1]
+    if (X == null || notEqual(row, X)) {
+      T.push(K.reduce((R, k) => ({
+        ...R,
+        [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
+      }), {}))
+    } else {
+      K.filter(k => Fields.indexOf(k) < 0).forEach(k => {
+        X[k].push(row[k])
       })
-      return
     }
-    model.page = parseInt(p)
-    if (p > 1) {
-      pager.isFirst = false
+    return T
+  }, []).map(row => K
+    .filter(k => Fields.indexOf(k) < 0)
+    .reduce((R, k) => ({
+      ...R,
+      [k]: Methods[k](row[k])
+    }), row)
+  )
+}
+
+const filter = (Filters, F) => data => Filters.reduce((data, {
+  field, operator, value
+}) => data.filter(row => {
+  const op = operator
+  const v = row[field]
+  const f = F[field]
+  return v == null ? false :
+    op == 'ct' ? f(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
+    op == 'nc' ? f(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 
+    op == 'eq' ? v == value : 
+    op == 'ne' ? v != value : 
+    op == 'gt' ? v > value : 
+    op == 'ge' ? v >= value : 
+    op == 'lt' ? v < value : 
+    op == 'le' ? v <= value : true
+}), data)
+
+export default ({
+  title,
+  description,
+  links,
+  items,
+  ...schema
+}) => {
+  const state = {
+    data: copy(schema.default || null),
+    base: null,
+    rows: null,
+    search: '',
+    sort: null,
+    page: 1,
+    pages: 1,
+    filter: {
+      label: ['', '', '']
+    },
+    filters: []
+  }
+
+  const l = lang()
+  items = items || {}
+  const rowLinks = items.links || []
+  const P = items.properties || {}
+  const K = Object.keys(P).filter(k => P[k].ui != 'info')
+  const I = Object.keys(P).filter(k => P[k].ui == 'info')
+  const F = K.reduce((F, k) => ({
+    ...F,
+    [k]: formatter(P[k])
+  }), {})
+  const A = Object.keys(Aggregates)
+  const M = K.reduce((M, k) => {
+    if (A.indexOf(P[k].totals) >= 0) {
+      M[k] = V => F[k](Aggregates[P[k].totals](V))
     }
-    pageInput([{
-      value: model.page,
-      label: text.pagination(model.page, pager.pages)
-    }])
-    Promise.resolve().then(() => {
-      return typeof api.schema == 'function' ? api.schema(route) : null
-    }).then(schema => {
-      state.schema = schema
-      return typeof api.pages == 'function' ? api.pages(route) : null
-    }).then(pages => {
-      if (pages) {
-        pager.pages = pages
-        if (model.page < pager.pages) {
-          pager.isLast = false
-        } else if (model.page > pager.pages) {
-          call('goto', {
-            _page: pager.pages
+    return M
+  }, {})
+  const T = Object.keys(M)
+  const O = Object.keys(l.operators)
+  const S = ['ct', 'nc']
+
+  const tbl = e(({
+    table, thead, tbody, tr, th, td, div, a, i, text, button, ul
+  }) =>
+    table({
+      class: [
+        'table',
+        'table-bordered',
+        'table-center',
+        'table-striped',
+        'table-hover'
+      ].join(' ')
+    }, [
+      thead({}, [
+        !title ? null : tr({}, [
+          th({
+            class: 'text-center',
+            colspan: '100%',
+            title: description
+          }, [
+            text(title)
+          ])
+        ]),
+        !links ? null : tr({}, [
+          th({
+            class: 'text-center',
+            colspan: '100%'
+          }, [
+            div({
+              class: 'row gx-1 justify-content-center'
+            }, [
+              div({
+                class: 'col-auto'
+              }, [
+                back()
+              ])
+            ].concat(links.map(({
+              href,
+              link,
+              icon,
+              title
+            }) => div({
+              class: 'col-auto'
+            }, [
+              a({
+                href,
+                class: linkify(link)
+              }, [
+                i({
+                  class: iconify(icon)
+                }),
+                text(' '),
+                text(title)
+              ])
+            ]))))
+          ])
+        ]),
+        tr({}, [
+          td({
+            class: 'text-center',
+            colspan: '100%'
+          }, [
+            div({
+              class: 'row gx-1 justify-content-center'
+            }, [
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.pagination,
+                  dataCtx: 'first',
+                  onclick: () => {
+                    state.page = 1
+                    update()
+                  }
+                }, [
+                  i({
+                    class: icon.first
+                  })
+                ])
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.pagination,
+                  dataCtx: 'previous',
+                  onclick: () => {
+                    state.page--
+                    update()
+                  }
+                }, [
+                  i({
+                    class: icon.previous
+                  })
+                ])
+              ]),
+              div({
+                class: 'col-auto',
+                dataCtx: 'pager'
+              }, [
+                ctrl({
+                  type: 'integer',
+                  title: 'pager',
+                  noValid: true,
+                  update: (err, v) => {
+                    if (!err && v && v != state.page) {
+                      state.page = v
+                      update()
+                    }
+                  }
+                }).setOptions(true)
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.pagination,
+                  dataCtx: 'next',
+                  onclick: () => {
+                    state.page++
+                    update()
+                  }
+                }, [
+                  i({
+                    class: icon.next
+                  })
+                ])
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.pagination,
+                  dataCtx: 'last',
+                  onclick: () => {
+                    state.page = state.pages
+                    update()
+                  }
+                }, [
+                  i({
+                    class: icon.last
+                  })
+                ])
+              ])
+            ])
+          ])
+        ]),
+        tr({}, [
+          th({
+            class: 'text-center',
+            colspan: '100%'
+          }, [
+            div({
+              class: 'row gx-1 justify-content-center'
+            }, [
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.close,
+                  disabled: true,
+                  dataCtx: 'clear',
+                  onclick: () => {
+                    state.search = ''
+                    update()
+                  }
+                }, [
+                  i({class: icon.close})
+                ])
+              ]),
+              div({
+                class: 'col-auto',
+                dataCtx: 'search'
+              }, [
+                ctrl({
+                  type: 'string',
+                  description: l.search,
+                  noValid: true,
+                  title: 'search',
+                  default: state.search,
+                  update: (err, v) => {
+                    if (!err && v != state.search) {
+                      state.search = v
+                      setTimeout(() => {
+                        if (state.search == v) {
+                          update()
+                        }
+                      }, 500)
+                    }
+                  }
+                })
+              ]),
+              div({
+                class: 'col-auto',
+                dataCtx: 'filters'
+              }, [
+                button({
+                  class: link.filter,
+                  onclick: () => {
+                    const f = tbl.querySelector('[data-ctx=filter]')
+                    f.classList.toggle('d-none')
+                    f.querySelector('[data-ctrl="field"]').setValue()
+                    f.querySelector('[data-ctrl="operator"]').setValue()
+                    f.querySelector('[data-ctrl="value"]').setValue()
+                    f.querySelector('button[class="'+link.filter+'"]')
+                      .disabled = true
+                  }
+                }, [
+                  i({class: icon.filter}),
+                  text(' '+l.filter)
+                ]),
+                button({
+                  dataBsToggle: 'dropdown',
+                  ariaExpanded: 'false',
+                  class: 'dropdown-toggle dropdown-toggle-split d-none '+
+                    link.filter
+                }),
+                ul({
+                  class: 'dropdown-menu d-none'
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.group,
+                  onclick: ev => {
+                    const i = ev.target.closest('button').querySelector('i')
+                    if (state.group) {
+                      state.group = null
+                      i.setAttribute('class', icon.group)
+                    } else {
+                      state.group = Array.from(tbl.querySelectorAll(
+                        '[data-ctx^="field:"].text-'+rawlink.group
+                      )).reduce((G, e) => {
+                        G.push(e.getAttribute('data-ctx').substr(6))
+                        e.classList.add('text-reset')
+                        e.classList.remove('text-'+rawlink.group)
+                        return G
+                      }, [])
+                      i.setAttribute('class', icon.close)
+                    }
+                    update()
+                  }
+                }, [
+                  i({class: icon.group}),
+                  text(' '+l.group)
+                ])
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.exporter,
+                  onclick: () => {
+                    const name = title.toLowerCase().split(' ').join('_')+
+                      '.csv'
+                    const nl = '\n'
+                    const sep = '\t'
+                    
+                    var data = ''
+                    data += K.map(k => P[k].title || k).join(sep)+nl
+                    data += state.rows
+                      .map(row => K.map(k => F[k](row[k])).join(sep))
+                      .join(nl)
+
+                    data = 'data:text/plain;charset=utf-8,'+
+                      encodeURIComponent(data)
+                    const link = document.createElement("a")
+                    link.setAttribute('href', data) 
+                    link.setAttribute('download', name)
+
+                    document.body.appendChild(link)
+                    link.click()
+                    document.body.removeChild(link)
+                  }
+                }, [
+                  i({class: icon.exporter}),
+                  text(' '+l.exporter)
+                ])
+              ])
+            ])
+          ])
+        ]),
+        tr({
+          dataCtx: 'filter',
+          class: 'd-none',
+          update: (f, run) => {
+            const {field, operator, value} = state.filter
+            if (run) {
+              const target = f.querySelector('[data-ctrl=value]')
+              if (
+                field != null && operator != null &&
+                S.indexOf(operator) < 0 &&
+                (state.data instanceof Array)
+              ) {
+                const Opt = state.data.map(row => ({
+                  value: row[field],
+                  label: F[field](row[field])
+                }))
+                Opt.sort(cmp([field]))
+                target.setOptions(Opt, {
+                  type: P[field].type,
+                  minLength: null
+                })
+              } else {
+                target.setOptions(false, {
+                  type: 'string',
+                  minLength: 1
+                })
+              }
+            }
+            f.querySelector('button[class="'+link.filter+'"]')
+              .disabled = field == null || operator == null || value == null
+          }
+        }, [
+          th({
+            class: 'text-center',
+            colspan: '100%'
+          }, [
+            div({
+              class: 'row gx-1 justify-content-center'
+            }, [
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.close,
+                  onclick: () => {
+                    tbl.querySelector('[data-ctx=filter]')
+                      .classList.add('d-none')
+                  }
+                }, [
+                  i({class: icon.close})
+                ])
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
+                  type: 'string',
+                  title: 'field',
+                  noValid: true,
+                  default: K[0],
+                  update: (err, v, label, wrapper) => {
+                    state.filter.field = err ? null : v
+                    state.filter.label[0] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f, S.indexOf(state.filter.operator) >= 0)
+                    }
+                  }
+                }).setOptions(K.map(k => ({
+                  value: k,
+                  label: P[k].title || k
+                })))
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
+                  type: 'string',
+                  title: 'operator',
+                  noValid: true,
+                  default: O[0],
+                  update: (err, v, label, wrapper) => {
+                    const change = (S.indexOf(v) < 0) !==
+                      (S.indexOf(state.filter.operator) < 0)
+                    state.filter.operator = err ? null : v
+                    state.filter.label[1] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f, change)
+                    }
+                  }
+                }).setOptions(O.map(o => ({
+                  value: o,
+                  label: l.operators[o]
+                })))
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
+                  type: 'string',
+                  minLength: 1,
+                  title: 'value',
+                  noValid: true,
+                  update: (err, v, label, wrapper) => {
+                    state.filter.value = err ? null : v
+                    state.filter.label[2] = label
+                    const f = wrapper.closest('[data-ctx=filter]')
+                    if (f) {
+                      f.update(f)
+                    }
+                  }
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                button({
+                  class: link.filter,
+                  onclick: () => {
+                    const {field, operator, value} = state.filter
+                    if (
+                      field != null && operator != null && value != null &&
+                      (value !== '' || S.indexOf(operator) < 0)
+                    ) {
+                      const F = copy(state.filter)
+                      const n = state.filters.length
+                      F.label = F.label.join(' ')
+                      state.filter.label = ['', '', '']
+                      state.filters.push(F)
+                      tbl.querySelector('[data-ctx=filter]')
+                        .classList.toggle('d-none')
+                      const f = tbl.querySelector('[data-ctx=filters]')
+                      const ul = f.querySelector('ul')
+                      const btn = f
+                        .querySelector('button[data-bs-toggle=dropdown]')
+                      ul.classList.remove('d-none')
+                      btn.classList.remove('d-none')
+                      f.classList.add('btn-group')
+                      ul.appendChild(e(({li, a, i, text}) => 
+                        li({}, [
+                          a({
+                            class: 'dropdown-item',
+                            href: 'javascript:;',
+                            onclick: ev => {
+                              state.filters.splice(n, 1)
+                              const node = ev.target.closest('li')
+                              node.parentNode.removeChild(node)
+                              if (!state.filters.length) {
+                                ul.classList.add('d-none')
+                                btn.classList.add('d-none')
+                                f.classList.remove('btn-group')
+                              }
+                              update()
+                            }
+                          }, [
+                            i({
+                              class: icon.close
+                            }),
+                            text(' '+F.label)
+                          ])
+                        ])
+                      ))
+                      update()
+                    }
+                  }
+                }, [
+                  i({class: icon.filter}),
+                  text(' '+l.filter)
+                ])
+              ])
+            ])
+          ])
+        ]),
+        tr({}, [
+          td({
+            dataCtx: 'groupHide'
           })
-          throw 'redirect'
-        }
-        pageInput(Array(pages).fill().map((v, i) => ({
-          value: i + 1,
-          label: text.pagination(i + 1, pages)
-        })))
-      }
-      return typeof api.totals == 'function' ? api.totals(route, []) : null
-    }).then(totals => {
-      state.totals = totals
-      return typeof api.rows == 'function' ? api.rows(route) : null
-    }).then(rows => {
-      rows = rows instanceof Array ? rows : []
-      state.schema = state.schema || {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: rows.reduce((P, row) => {
-            Object.keys(rows).forEach(k => {
-              if (P[k] == null) {
-                P[k] = {
-                  type: typeof row[k],
-                  title: k,
-                  name: k
+        ].concat(rowLinks.map(() =>
+          td({
+            dataCtx: 'groupHide'
+          })
+        )).concat(K.map(k =>
+          td({
+            class: 'text-center align-middle',
+            dataCtx: 'totals:'+k
+          })
+        ))),
+        tr({}, [
+          th({
+            class: 'text-center align-middle',
+            dataCtx: 'groupHide'
+          }, [
+            button({
+              class: linkify(rawlink.check, true),
+              onclick: () => {
+                (state.base || []).forEach(row => {
+                  row.checked = !row.checked
+                })
+                update()
+              }
+            }, [
+              i({class: icon.check})
+            ])
+          ])
+        ].concat(rowLinks.map(({icon, title}) =>
+          th({
+            class: 'text-center align-middle',
+            dataCtx: 'groupHide'
+          }, [
+            icon ? i({
+              class: iconify(icon)
+            }) : text(title)
+          ])
+        )).concat(K.map(k =>
+          th({
+            class: 'text-center align-middle'
+          }, [
+            a({
+              class: 'text-decoration-none text-reset',
+              title: P[k].description,
+              href: 'javascript:;',
+              dataCtx: 'field:'+k,
+              onclick: ev => {
+                if (state.group == null) {
+                  const a = ev.target.closest('a')
+                  a.classList.toggle('text-reset')
+                  a.classList.toggle('text-'+rawlink.group)
                 }
               }
-            })
-            return P
-          }, {}) 
-        }
-      }
-
-      const P = state.schema.items.properties
-      const C = Object.keys(P)
-      filter.fields = C.map(k => ({
-        value: k,
-        label: P[k].title || k
-      }))
-      filter.inputs[0] = input({
-        type: 'string'
-      }, {name: 'field', model, options: filter.fields})
-      const L = (state.schema.items.links || []).map(({link, icon, ...l}) => ({
-        ...l,
-        link: tools.link(link, true),
-        icon: tools.icon(icon)
-      }))
-      const G = (Q._group || []).filter(k => C.indexOf(k) >= 0)
-      group.active = G.length > 0
-      if (group.active) {
-        group.disabled = false
-      }
-      call('set', {
-        ...state,
-        title: state.schema.title,
-        description: state.schema.description,
-        check: {
-          disabled: P.id == null || !state.totals || group.active,
-          label: text.check,
-          icon: tools.icon(icon.check),
-          link: tools.link(link.check, true)
-        },
-        links: state.schema.links.map(({link, icon, ...l}) => ({
-          ...l,
-          link: tools.link(link),
-          icon: tools.icon(icon)
-        })),
-        columns: C.map(k => ({
-          ...P[k],
-          name: k,
-          group: G.indexOf(k) >= 0 ? group.textOn : group.textOff,
-          label: text.sort,
-          sort: Q._sort == k ? tools.icon(icon.sortAsc) : 
-            Q._sort == `-${k}` ? tools.icon(icon.sortDesc) :
-              tools.icon(icon.sort)
-        })),
-        aggregates: !state.totals ? null : C.map(k => state.totals[k]),
-        actions: L,
-        rows: rows.map(row => ({
-          id: row.id,
-          checked: (Q._id || []).indexOf(String(row.id)) >= 0,
-          fields: C.map(k => output({
-            ...P[k],
-            href: group.active ? null : interpolate(P[k].href, row)
-          }, {name: k, model: row})),
-          links: L.map(({href, ...l}) => ({
-            ...l,
-            href: interpolate(href, row)
-          }))
-        }))
-      })
-      return typeof api.operators == 'function' ? api.operators(route) : null
-    }).then(operators => {
-      if (operators instanceof Array) {
-        filter.operators = operators
-        filter.inputs[1] = input({
-          type: 'string'
-        }, {
-          name: 'operator',
-          model,
-          options: filter.operators
-        })
-        filter.filters.forEach(f => {
-          const op = operators.reduce((Match, op) => 
-            Match || f.label.indexOf(op.value) < 0 ? Match : op
-          , null)
-          if (!op) {
-            return null
-          }
-
-          const L = f.label.split(op.value)
-          const field = L.shift()
-          const value = L.join(op.value)
-          const P = state.schema.items.properties[field]
-          const base = `${P.title} ${op.label} `
-
-          if (!op.exact) {
-            f.label = base+value
-            call('set')
-          } else {
-            Promise.resolve().then(() => {
-              return typeof api.values == 'function' ?
-                api.values(route, field) : null
-            }).then(values => {
-              var l = null
-              if (values instanceof Array) {
-                l = values.reduce(
-                  (l, V) => l == null && V.value == value ? V.label : l 
-                , l)
+            }, [
+              text(P[k].title)
+            ]),
+            text(' '),
+            a({
+              href: 'javascript:;',
+              onclick: () => {
+                state.sort = (state.sort == k ? '-' : '')+k
+                update()
               }
-              f.label = base+(l == null ? value : l)
-              call('set')
-            }).catch(err => {
-              f.label = base+value
-              call('set')
-              throw err
-            })
-          }
+            }, [
+              i({
+                dataCtx: 'sort:'+k,
+                class: icon.sort
+              })
+            ])
+          ])
+        )))
+      ]),
+      tbody()
+    ])
+  )
+
+  const update = () => {
+    const x = tbl.querySelector('tbody')
+    x.innerHTML = ''
+    if (state.data instanceof Array) {
+      state.base = run(
+        search(state.search),
+        filter(state.filters, F)
+      )(state.data)
+      state.rows = run(
+        state.group ? group(state.group, M) : identity,
+        state.sort ? sort([state.sort]) : identity
+      )(state.base)
+      state.pages = Math.ceil(state.rows.length / 10) || 1
+      if (state.page > state.pages) {
+        state.page = state.pages
+      } else if (state.page < 1) {
+        state.page = 1
+      }
+      const view = run(pager(state.page))(state.rows)
+
+      tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(i => {
+        const k = i.getAttribute('data-ctx').substr(5)
+        const s = state.sort
+        i.setAttribute('class',
+          icon['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
+        )
+      })
+
+      tbl.querySelector('[data-ctrl="pager"]')
+        .setOptions(Array(state.pages).fill().map((v, i) => ({
+          value: i + 1,
+          label: l.pagination(i + 1, state.pages)
+        })))
+        .setValue(state.page)
+
+      tbl.querySelectorAll(
+        '[data-ctx="first"], [data-ctx="previous"]'
+      ).forEach(btn => {
+        btn.disabled = state.page <= 1
+      })
+
+      tbl.querySelectorAll(
+        '[data-ctx="next"], [data-ctx="last"]'
+      ).forEach(btn => {
+        btn.disabled = state.page >= state.pages
+      })
+
+      tbl.querySelector('[data-ctx="clear"]').disabled = !state.search
+      tbl.querySelector('[data-ctrl="search"]').setValue(state.search)
+
+      tbl.querySelectorAll('[data-ctx="groupHide"]')
+        .forEach(g => {
+          g.classList[state.group ? 'add' : 'remove']('d-none')
         })
-      }
-    }).catch(err => {
-      if (err != 'redirect') {
-        throw err
-      }
-    })
-  },
-  change: ({model, pager, search, filter, schema, route, api}, ev, call) => {
-    const {name, data} = parser(ev)
-    if (name == 'page') {
-      model.page = data
-      pager.input.validate()
-      if (data && typeof data == 'number') {
-        call('goto', {
-          _page: data
+
+      const H = K.filter(
+        k => state.group && state.group.indexOf(k) < 0 && T.indexOf(k) < 0 
+      )
+      K.forEach(k => {
+        tbl.querySelectorAll(
+          '[data-ctx="field:'+k+'"], [data-ctx="totals:'+k+'"]'
+        ).forEach(g => {
+          g.closest('th,td')
+            .classList[H.indexOf(k) < 0 ? 'remove' : 'add']('d-none')
         })
-      }
-    } else if (name == 'search') {
-      model.search = data
-      search.disabled = !data
-      search.input.validate()
-      setTimeout(() => {
-        const actual = ev.target.value || ''
-        if (actual == data) {
-          call('goto', {_search: data})
-        }
-      }, 500)
+      })
+
+      const X = state.base.filter(({checked}) => checked)
+      const C = X.length ? X : state.base
+      tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
+        const k = t.getAttribute('data-ctx').substr(7)
+        t.textContent = M[k] ? M[k](C.map(row => row[k])) : '_' 
+      })
+
+      view.forEach(row => {
+        x.appendChild(e(({tr, td, i, a, text}) =>
+          tr({
+            title: I.map(k => row[k]).join('\n')
+          }, [
+            state.group ? null : td({
+              class: 'text-center align-middle'
+            }, [
+              ctrl({
+                type: 'boolean',
+                noValid: true,
+                default: !!row.checked,
+                update: (err, v) => {
+                  if (!err && !!row.checked !== v) {
+                    row.checked = v
+                    update()
+                  }
+                }
+              })
+            ])
+          ].concat(rowLinks.map(({link, icon, href}) =>
+            state.group ? null : td({
+              class: 'text-center align-middle'
+            }, [
+              a({
+                class: linkify(link, true),
+                href: interpolate(href, row)
+              }, [
+                icon ? i({
+                  class: iconify(icon)
+                }) : text(title)
+              ])
+            ])
+          )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>
+            td({
+              class: 'align-middle text-'+
+                (P[k].ui == 'text' ? 'left' : 'center'),
+              style: P[k].ui == 'text' ? 'white-space:pre-wrap' : null
+            }, [
+              output({
+                ...P[k],
+                href: state.group ? null : interpolate(P[k].href, row),
+                default: row[k]
+              })
+            ])
+          )))
+        ))
+      })
     } else {
-      if (['toggle', 'filter'].indexOf(name) < 0) {
-        model[name] = data
-      } else if (name == 'toggle' && filter.isOpen) {
-        model.field = null
-        model.operator = null
-        model.value = null
-        filter.exact = null
-        filter.isOpen = false
-      } else if (name == 'toggle') {
-        filter.isOpen = true
-      }
-      if (name == 'field') {
-        filter.values = null
-        model.value = null
-      }
-
-      const setFirst = name => {
-        const X = filter[name+'s']
-        if (model[name] == null && X instanceof Array && X.length) {
-          model[name] = X[0].value
-        }
-      }
-
-      setFirst('field')
-      setFirst('operator')
-
-      if (filter.operators instanceof Array && model.operator) {
-        const exact = filter.exact
-        filter.exact = filter.operators.reduce((r, {
-          value, exact
-        }) => r != null || value != model.operator ? r : exact, null) || false
-        if (filter.exact !== exact) {
-          model.value = null
-          filter.values = null
-        }
-      }
-
-      const P = schema.items.properties
-      if (filter.values == null) {
-        filter.inputs[2] = input({
-          type: 'string',
-          readOnly: filter.exact
-        }, {name: 'value', model})
-        if (filter.exact) {
-          const f = model.field
-          const o = model.operator
-          filter.pending = true
-          Promise.resolve().then(() => api.values(route, f)).then(values => {
-            if (model.field == f && model.operator == o) {
-              filter.pending = false
-              filter.values = values
-              filter.inputs[2] = input({
-                ...P[f]
-              }, {name: 'value', model, options: values})
-              call('set')
-            }
-          })
-        }
-      }
-
-      filter.inputs[0].validate()
-      filter.inputs[1].validate()
-      filter.inputs[2].validate()
-
-      const {field, operator, value} = model
-      if (field == null || operator == null || value == null) {
-        filter.disabled = true
-      } else {
-        filter.disabled = false
-        if (name == 'filter') {
-          const F = route.Query._filter
-          const _filter = F instanceof Array ? F : []
-          _filter.push(`${field}${operator}${value}`)
-          call('goto', {_filter})
-        }
-      }
-    }
-  },
-  check: ({rows, route}, ev, call) => {
-    const v = ev.target.getAttribute('value')
-    const Id = route.Query._id || []
-    rows.forEach(row => {
-      if (v == row.id || v == null) {
-        const i = Id.indexOf(String(row.id))
-        if (i < 0) {
-          Id.push(row.id)
-        } else {
-          Id.splice(i, 1)
-        }
-      }
-    })
-    call('goto', {
-      _id: Id
-    })
-  },
-  first: ({}, ev, call) => {
-    call('goto', {
-      _page: 1
-    })
-  },
-  previous: ({model}, ev, call) => {
-    const p = model.page
-    if (p > 1) {
-      call('goto', {
-        _page: p - 1
+      state.base = null
+      state.rows = null
+      tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
+        t.textContent = '_'
       })
-    }
-  },
-  pager: ({}, ev, call) => {
-    call('goto', {
-      _page: ev.target.value
-    })
-  },
-  next: ({pager, model}, ev, call) => {
-    const {page} = model
-    const {pages} = pager
-    if (page < pages) {
-      call('goto', {
-        _page: page + 1
-      })
-    }
-  },
-  last: ({pager}, ev, call) => {
-    call('goto', {
-      _page: pager.pages
-    })
-  },
-  sort: ({route}, ev, call) => {
-    const k = ev.target.closest('a').getAttribute('data-sort')
-    call('goto', {
-      _sort: (route.Query._sort == k ? '-' : '')+k
-    })
-  },
-  group: ({group, columns}, ev, call) => {
-    const name = ev.target.getAttribute('data-name')
-    const {textOn, textOff, active} = group
-    if (active) {
-      if (name == null) {
-        call('goto', {
-          _group: null
-        })
-      }
-    } else if (name) {
-      group.disabled = !columns.reduce((pass, c) => {
-        if (c.name == name) {
-          c.group = c.group == textOn ? textOff : textOn
-        }
-        return pass || c.group == textOn
-      }, false)
-    } else {
-      const G = columns.reduce((G, {group, name}) => {
-        if (group == textOn) {
-          G.push(name)
-        }
-        return G
-      }, [])
-      if (G.length) {
-        call('goto', {
-          _group: G
-        })
-      }
-    }
-  },
-  exporter: ({exporter, api, route}, ev, call) => {
-    exporter.disabled = true
-    Promise.resolve().then(() => {
-      return api.exporter(route)
-    }).then(({data, name}) => {
-      data = 'data:text/plain;charset=utf-8,'+encodeURIComponent(data)
-      const link = document.createElement("a")
-      link.setAttribute('href', data) 
-      link.setAttribute('download', name)
-
-      document.body.appendChild(link)
-      link.click()
-      document.body.removeChild(link)
-      exporter.disabled = false
-      call('set')
-    }).catch(err => {
-      exporter.disabled = false
-      call('set')
-      throw err
-    })
-  },
-  filter: ({route}, ev, call) => {
-    const link = ev ? ev.target.closest('a[data-index]') : null
-    const index = !ev || !link ? null : link.getAttribute('data-index')
-    const F = route.Query._filter
-
-    if (typeof index == 'string' && !isNaN(index)) {
-      const i = parseInt(index)
-      if ((F instanceof Array) && i < F.length && i >= 0) {
-        F.splice(i, 1)
-        call('goto', {
-          _filter: F
-        })
-        return
-      }
-    }
-  },
-  goto: ({route}, Q) => {
-    const {url, path, Query} = route
-    if (location.hash == url) {
-      const q = queryString({
-        ...Query,
-        ...(Q || {})
-      })
-      location.replace(path+(q.length?'?'+q:''))
+      x.appendChild(e(({tr, td}) =>
+        tr({}, [
+          td({
+            class: 'text-center p-5',
+            colspan: '100%'
+          }, [
+            spinner()
+          ])
+        ])
+      ))
     }
   }
+  update()
+
+  tbl.setData = data => {
+    state.data = copy(data)
+    update()
+  }
+
+  return tbl
 }

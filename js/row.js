@@ -1,53 +1,80 @@
-import {interpolate} from './lib.js'
-import config from './config.js'
-import {output} from './ui.js'
-const {tools, text, icon, link} = config
+import e from './e.js'
+import {linkify, iconify, interpolate} from './lib.js'
+import back from './tags/back.js'
+import output from './tags/output.js'
 
-export default {
-  template: document.getElementById('view-row'),
-  set: (_, state) => state,
-  init: ({api, ...route}, call) => {
-    const {schema, row} = api
-    const state = {
-      schema: null,
-      row: null,
-      fields: null,
-      back: {
-        label: text.back,
-        icon: tools.icon(icon.back),
-        link: tools.link(link.back)
-      }
-    }
+export default ({
+  title,
+  description,
+  properties,
+  links,
+  ...schema
+}) => {
+  const P = properties || {}
+  const D = schema.default || {}
 
-    call('set', state)
-    Promise.resolve().then(() => {
-      return typeof schema == 'function' ? schema(route) : null
-    }).then(schema => {
-      state.schema = schema
-      return typeof row == 'function' ? row(route) : null
-    }).then(row => {
-      row = row && typeof row == 'object' ? row : {}
-      state.schema = state.schema || {
-        type: 'object',
-        properties: Object.keys(row).forEach(k => ({
-          type: typeof row[k],
-          title: k,
-          name: k
-        }))
-      }
-
-      const P = state.schema.properties || {}
-      state.fields = Object.keys(P).map(k => output({
-        ...P[k],
-        href: interpolate(P[k].href, row)
-      }, {name: k, model: row}))
-      state.links = state.schema.links.map(({href, link, icon, ...l}) => ({
-        ...l,
-        href: interpolate(href, row),
-        link: tools.link(link),
-        icon: tools.icon(icon)
-      }))
-      call('set', state)
-    })
-  }
+  return e(({text, div, label, h3, a, i}) => div({
+    class: 'container my-5'
+  }, [
+    h3({
+      title: description
+    }, [
+      text(title)
+    ])
+  ].concat(Object.keys(P).map(k => ({
+    ...P[k],
+    default: D[k] == null ? P[k].default : D[k],
+    href: interpolate(P[k].href, D)
+  })).map(({
+    title,
+    description,
+    ...schema
+  }) =>
+    div({
+      class: 'my-3'+(title != null ? ' row' : '')
+    }, [
+      title == null ? null : div({
+        class: 'col-md-3'
+      }, [
+        label({
+          class: 'form-label',
+          title: description
+        }, [
+          text(title)
+        ])
+      ]),
+      div({
+        class: title == null ? '' : 'col-md-9',
+        style: 'white-space:pre-wrap'
+      }, [
+        output(schema)
+      ])
+    ])
+  )).concat([
+    div({
+      class: 'row g-2 align-items-center'
+    }, [
+      div({
+        class: 'col-auto'
+      }, [
+        back()
+      ])
+    ].concat((links || []).map(({href, link, icon, title, description}) => 
+      div({
+        class: 'col-auto'
+      }, [
+        a({
+          class: linkify(link),
+          title: description,
+          href: interpolate(href, D)
+        }, [
+          i({
+            class: iconify(icon)
+          }),
+          text(' '),
+          text(title)
+        ])
+      ])
+    )))
+  ])))
 }

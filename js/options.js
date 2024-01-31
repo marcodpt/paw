@@ -17,20 +17,14 @@ export default {
     'num.1',
     'num.2',
     'num.3',
-    'progress',
     'password',
+    'file',
     'link',
     'icon',
     'navbar',
     'theme',
     'lang',
     'ui'
-  ]),
-  parser: setOptions([
-    'int',
-    'num',
-    'bool',
-    'json'
   ]),
   link: setOptions([
     '',

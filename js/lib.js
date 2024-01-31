@@ -1,8 +1,34 @@
-import config from './config.js'
+import raw_link from './config/link.js'
+import raw_icon from './config/icon.js'
+import pt from './lang/pt.js'
+import en from './lang/en.js'
 
 const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
+
+const iconify = x => x ? `fa-solid fa-${x}` : ''
+
+const linkify = (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : ''
+
+const link = Object.keys(raw_link).reduce((link, k) => ({
+  ...link,
+  [k]: linkify(raw_link[k])
+}), {})
+
+const icon = Object.keys(raw_icon).reduce((icon, k) => ({
+  ...icon,
+  [k]: iconify(raw_icon[k])
+}), {})
+
+const lang = () => {
+  const lang = document.documentElement.lang
+  const l = lang.split('-')[0]
+  return {
+    ...(l == 'pt' ? pt : en),
+    lang
+  }
+}
 
 const interpolate = (str, X) => {
   if (typeof str != 'string') {
@@ -29,6 +55,148 @@ const queryString = Params => Object.keys(Params)
     encodeURIComponent(key)+'='+encodeURIComponent(value)
   ).join("&")
 
+const formatter = ({type, ui}) => {
+  if (ui == 'password') {
+    return () => '********'
+  } else if (type == 'boolean' || ui == 'bool') {
+    const l = lang()
+    return x => x ? l.boolTrue : l.boolFalse
+  } else if (ui == 'date') {
+    const l = lang()
+    return x => {
+      if (typeof x == 'number' && x) {
+        x = (x < 0 ? x+1 : x) * 1000
+      } else if (typeof x == 'string' && /^\d{4}-\d{2}-\d{2}/.test(x)) {
+        if (x.indexOf('T') < 0) {
+          x += 'T12:00'
+        }
+      } else {
+        return ''
+      }
+
+      const d = new Date(x)
+      return d.toLocaleDateString(l.lang)
+    }
+  } else if (/^num\.[1-9][0-9]*$/.test(ui)) {
+    const l = lang()
+    const precision = parseInt(ui.substr(4))
+    const pow = 10 ** precision
+    return x => typeof x != 'number' ? x : 
+      (type == 'integer' ? (x / pow) : x).toLocaleString(l.lang, {
+        minimumFractionDigits: precision,
+        maximumFractionDigits: precision
+      })
+  } else if (ui == 'progress') {
+    return x => {
+      if (typeof x != 'number') {
+        return x
+      }
+      const a = minimum
+      const b = maximum
+      x = (x - a) / (b - a)
+      x = x > 1 ? 1 : x < 0 ? 0 : x
+      return (100 * x).toFixed(2)
+    }
+  } else if (ui == 'link') {
+    return link => linkify(link, true)
+  } else if (ui == 'icon') {
+    return iconify
+  } else if (type == 'integer' || type == 'number') {
+    const l = lang()
+    return x => (type == 'integer' ? Math.round(x) : x)
+      .toLocaleString(l.lang)
+  } else if (type != 'string') {
+    return x => JSON.stringify(x, undefined, 2)
+  } else {
+    return x => x
+  }
+}
+
+const validator = schema => data => {
+  const l = lang()
+  const {
+    type,
+    minLength,
+    maxLength,
+    pattern,
+    minimum,
+    maximum
+  } = schema 
+  var error = ''
+  if (
+    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
+  ) {
+    error = l.enum(schema.enum)
+  } else if (
+    (type == 'null' && data !== null) ||
+    (type == 'boolean' && data !== false && data !== true) ||
+    (type == 'object' && (
+      typeof data != 'object' || data == null || data instanceof Array
+    )) ||
+    (type == 'array' && !(data instanceof Array)) ||
+    (type == 'string' && typeof data != 'string') ||
+    (type == 'number' && typeof data != 'number') ||
+    (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
+  ) {
+    error = l.type(type)
+  } else if (typeof data == 'string') {
+    if (minLength != null && data.length < minLength) {
+      error = l.minLength(minLength)
+    } else if (maxLength != null && data.length > maxLength) {
+      error = l.maxLength(maxLength)
+    } else if (pattern != null && !(new RegExp(pattern)).test(data)) {
+      error = l.pattern(pattern)
+    }
+  } else if (typeof data == 'number') {
+  }
+  if (!error) {
+    if (minimum != null && data < minimum) {
+      error = l.minimum(formatter(schema)(minimum))
+    } else if (maximum != null && data > maximum) {
+      error = l.maximum(formatter(schema)(maximum))
+    }
+  }
+  return error
+}
+
+const isNum = x =>
+  x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
+
+const hasStep = ui => /^num\.[1-9][0-9]*$/.test(ui)
+
+const getStep = ui => !hasStep(ui) ? 1 : 1 / (10 ** parseInt(ui.substr(4)))
+
+const parser = ({type, ui}) => data => {
+  var value = null
+
+  if (ui == 'date' && (type == 'integer' || type == 'number')) {
+    if (!data) {
+      value = 0
+    } else {
+      var d = new Date(data+'T12:00').getTime() / 1000
+      d = d <= 0 ? d-1 : d
+      if (type == 'integer') {
+        d = Math.round(d)
+      }
+      value = d
+    }
+  } else if (type == 'integer' && isNum(data)) {
+    value = parseInt(Math.round(data / getStep(ui)))
+  } else if (type == 'number' && isNum(data)) {
+    value = parseFloat(data)
+  } else if (type == 'boolean') {
+    value = !!(isNum(data) ? parseInt(data) : data)
+  } else if (type != 'string' && ui != 'file') {
+    try {
+      value = JSON.parse(data)
+    } catch (err) {}
+  } else {
+    value = data
+  }
+
+  return value
+}
+
 const readFiles = Files => {
   const reader = (file, bin) => new Promise((resolve, reject) => {
     const r = new FileReader()
@@ -52,143 +220,20 @@ const readFiles = Files => {
   return Promise.all(P)
 }
 
-const isNum = x =>
-  x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
-
-const parser = ev => {
-  const e = ev.target.closest('[name]')
-  const name = e.getAttribute('name')
-  const method = e.getAttribute('data-parser')
-  const type = e.getAttribute('type')
-  const list = e.getAttribute('list')
-  var data = e.value 
-  var value = null
-
-  if (list) {
-    const opt = e.parentNode.querySelector(`#${list}`)
-      .querySelector(`option[value="${data}"]`)
-    if (opt) {
-      data = opt.getAttribute('data-value')
-    } else {
-      return {name, data}
-    }
-  }
-
-  if (type == 'date' && (method == 'int' || method == 'num')) {
-    if (!data) {
-      value = 0
-    } else {
-      var d = new Date(data+'T12:00').getTime() / 1000
-      d = d <= 0 ? d-1 : d
-      if (method == 'int') {
-        d = Math.round(d)
-      }
-      value = d
-    }
-  } else if (type == 'number' || type == 'range') {
-    const step = parseFloat(e.getAttribute('step') || '1') || 1
-    if (isNum(data)) {
-      value = step % 1 == 0 ? parseInt(data) : parseFloat(data)
-    }
-    if (method == 'int' && value && step) {
-      value = Math.round(value / step)
-    }
-  } else if (method == 'int' && isNum(data)) {
-    value = parseInt(data)
-  } else if (method == 'num' && isNum(data)) {
-    value = parseFloat(data)
-  } else if (method == 'bool') {
-    value = !!(isNum(data) ? parseInt(data) : data)
-  } else if (method == 'json') {
-    try {
-      value = JSON.parse(data)
-    } catch (err) {}
-  } else {
-    value = data
-  }
-
-  return {name, data: value}
-}
-
-const validate = schema => data => {
-  const {text} = config
-  var error = ''
-  const {
-    type,
-    minLength,
-    maxLength,
-    pattern,
-    minimum,
-    maximum,
-    min,
-    max
-  } = schema 
-  if (
-    (type == 'null' && data !== null) ||
-    (type == 'boolean' && data !== false && data !== true) ||
-    (type == 'object' && (
-      typeof data != 'object' || data == null || data instanceof Array
-    )) ||
-    (type == 'array' && !(data instanceof Array)) ||
-    (type == 'string' && typeof data != 'string') ||
-    (type == 'number' && typeof data != 'number') ||
-    (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
-  ) {
-    error = text.type(type)
-  } else if (
-    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
-  ) {
-    error = text.enum(schema.enum)
-  } else if (typeof data == 'string') {
-    if (minLength != null && data.length < minLength) {
-      error = text.minLength(minLength)
-    } else if (maxLength != null && data.length > maxLength) {
-      error = text.maxLength(maxLength)
-    } else if (pattern != null && !(new RegExp(pattern)).test(data)) {
-      error = text.pattern(pattern)
-    }
-  } else if (typeof data == 'number') {
-    if (minimum != null && data < minimum) {
-      error = text.minimum(min == null ? minimum : min)
-    } else if (maximum != null && data > maximum) {
-      error = text.maximum(max == null ? maximum : max)
-    }
-  }
-  return error
-}
-
-const getDefault = ({type, ...schema}, data) => {
-  data = data == null ? schema.default == null ? null : schema.default : data
-
-  if (type == 'integer' && typeof data == 'string' && isNum(data)) {
-    data = parseInt(data)
-  } else if (type == 'number' && typeof data == 'string' && isNum(data)) {
-    data = parseFloat(data)
-  }
-
-  if (data == null) {
-    if (type == 'number' || type == 'integer') {
-      return 0
-    } else if (type == 'string') {
-      return ""
-    } else if (type == 'boolean') {
-      return false
-    } else if (type == 'object') {
-      data = {}
-      Object.keys(schema.properties || {}).forEach(k => {
-        const p = getDefault(schema.properties[k])
-        if (p != null) {
-          data[k] = p
-        }
-      })
-    } else if (type == 'array') {
-      return []
-    }
-  }
-
-  return data
-}
-
 export {
-  copy, setOptions, interpolate, queryString, parser, validate, getDefault
+  copy,
+  setOptions,
+  iconify,
+  linkify,
+  link,
+  icon,
+  lang,
+  interpolate,
+  queryString,
+  formatter,
+  validator,
+  hasStep,
+  getStep,
+  parser,
+  readFiles
 }

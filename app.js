@@ -1,203 +1,97 @@
+import e from './js/e.js'
 import app from './index.js'
-import users from './data/users.js'
-import schema_users from './schema/users.js'
-import {copy} from './js/lib.js'
 import options from './js/options.js'
+import row from './js/row.js'
+import users from './data/users.js'
+import schema_users from './data/schema.js'
+import ctrl from './data/ctrl.js'
+import offcanvas from './js/tags/offcanvas.js'
+import navmenu from './js/tags/navmenu.js'
+import navtoggler from './js/tags/navtoggler.js'
+import navlink from './js/tags/navlink.js'
+import list from './js/tags/list.js'
+import {copy} from './js/lib.js'
 
-window.blur = () => {console.log('blur')}
+const delay = 500
+
+const wait = message => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(message)
+  }, delay)
+})
+
+const view = (root, elem) => {
+  root.innerHTML = ''
+  if (elem) {
+    root.appendChild(elem)
+  }
+}
 
 window.setTheme = theme => document.getElementById('theme')
   .setAttribute('href', theme)
 
-window.setNavbar = css => document.getElementById('navbar')
-  .querySelector('nav')
+window.setNavbar = css => document.body
+  .querySelector('nav.navbar')
   .setAttribute('class', `navbar navbar-expand-lg ${css}`)
 
-const run = (...F) => data => F.reduce((data, F) => F(data), data)
+const nav = document.body.querySelector('nav > .container-fluid')
 
-const identity = data => data
-
-const search = match => data => {
-  if (match) {
-    data = data.filter(row => Object.keys(row).reduce((pass, k) =>
-      pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
-    , false))
-  }
-  return data
-}
-
-const lang = document.documentElement.lang.split('-')[0]
-const operators = lang == 'pt' ? {
-  "~ct~": "Contém",
-  "~nc~": "Não contém",
-  "~eq~": "É igual a",
-  "~ne~": "Não é igual a",
-  "~gt~": "Maior que",
-  "~ge~": "Maior ou igual a",
-  "~lt~": "Menor que",
-  "~le~": "Menor ou igual a"
-} : {
-  "~ct~": "Contains",
-  "~nc~": "Not contains",
-  "~eq~": "Equals",
-  "~ne~": "Not equals",
-  "~gt~": "Greater than",
-  "~ge~": "Greater than or equals",
-  "~lt~": "Less than",
-  "~le~": "Less than or equals"
-}
-
-const filter = Filters => data => (Filters || []).map(filter => {
-  const op = Object.keys(operators).reduce((Match, op) => 
-    Match || filter.indexOf(op) < 0 ? Match : op
-  , null)
-  if (!op) {
-    return null
-  }
-
-  const L = filter.split(op)
-  const field = L.shift()
-  const value = L.join(op)
-
-  return {value, field, op}
-}).filter(f => f).reduce((data, {field, op, value}) => data.filter(row => {
-  const v = row[field]
-  return v == null ? false :
-    op == '~ct~' ? String(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
-    op == '~nc~' ? String(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 
-    op == '~eq~' ? v == value : 
-    op == '~ne~' ? v != value : 
-    op == '~gt~' ? v > value : 
-    op == '~ge~' ? v >= value : 
-    op == '~lt~' ? v < value : 
-    op == '~le~' ? v <= value : true
-}), data)
-
-const cmp = Fields => {
-  const F = Fields.filter(f => f && typeof f == 'string').map(f => {
-    const x = f.substr(0, 1) == '-' ? -1 : 1
-    return {x, k: x == -1 ? f.substr(1) : f}
-  })
-
-  return (a, b) =>  F.reduce(
-    (r, {x, k}) => r || x * (a[k] > b[k] ? 1 : a[k] < b[k] ? -1 : 0)
-  , 0)
-}
-
-const sort = Fields => data => {
-  data.sort(cmp(Fields))
-  return data
-}
-
-const pager = page => data => {
-  const p = !page || isNaN(page) ? 1 : parseInt(page)
-  return data.slice((p - 1) * 10, p * 10)
-}
-
-const select = Id => data => (Id instanceof Array) && Id.length ?
-  data.filter(row => Id.indexOf(String(row.id)) >= 0) : data
-
-const Aggregates = {
-  count: X => X.length,
-  avg: X => X.reduce((s, v) => s += v, 0) / X.length,
-  sum: X => X.reduce((s, v) => s += v, 0),
-  none: X => ''
-}
-
-const totals = (Fields, Methods) => data => {
-  const notEqual = cmp(Fields)
-  const T = sort(Fields)(data)
-  return T.reduce((T, row) => {
-    const X = T[T.length - 1]
-    if (X == null || notEqual(row, X)) {
-      T.push(Object.keys(row).reduce((R, k) => ({
-        ...R,
-        [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
-      }), {}))
-    } else {
-      Object.keys(row).filter(k => Fields.indexOf(k) < 0).forEach(k => {
-        X[k].push(row[k])
-      })
-    }
-    return T
-  }, []).map(row => Object.keys(row)
-    .filter(k => Fields.indexOf(k) < 0)
-    .reduce((R, k) => ({
-      ...R,
-      [k]: Fields.indexOf(k) >= 0 ? row[k] :
-        (Aggregates[Methods[k]] || Aggregates.none)(row[k])
-    }), row)
-  )
-}
-
-const Methods = {
-  id: 'count',
-  age: 'avg',
-  balance: 'sum'
-}
-
-const Formatters = {
-  num1: v => v.toFixed(1),
-  num2: v => v.toFixed(2),
-  none: v => String(v)
-}
-
-const formatter = F => data => data.map(
-  row => Object.keys(row).reduce((R, k) => ({
-    ...R,
-    [k]: (Formatters[F[k]] || Formatters.none)(row[k])
-  }), {})
-)
-
-app({
-  routes: [
-    {}, {
-      route: '#'
-    }, {
-      route: '#/'
-    }, {
-      route: '#/:name',
-      component: 'table'
-    }, {
-      route: '#/:name/:id',
-      component: 'row'
-    }, {
-      route: '#/insert/:name',
-      component: 'form'
-    }, {
-      route: '#/:service/:name/:id',
-      component: 'form'
-    }, {
-      route: '#/graph/:name'
-    }, {
-      route: '#/chart/:name'
-    }, {
-      route: '#/upload'
-    }
-  ],
-  navbar: {
-    links: [
+nav.appendChild(navtoggler())
+nav.appendChild(navlink({children: [
+  {
+    title: 'Tools',
+    icon: 'tools',
+    children: [
       {
-        title: 'Set Theme',
-        icon: 'palette',
-        children: options.theme.map(({value, label}) => ({
-          title: label,
-          href: `javascript:setTheme('${value}')`
-        }))
+        title: 'Flowchart',
+        icon: 'project-diagram',
+        href: '#/graph/sample'
       }, {
-        title: 'Set Navbar',
-        icon: 'droplet',
-        children: options.navbar.map(({value, label}) => ({
-          title: label,
-          href: `javascript:setNavbar('${value}')`
-        }))
+        title: 'Chart',
+        icon: 'chart-line',
+        href: '#/chart/sample'
       }, {
-        title: 'Repository',
-        icon: 'code-fork',
-        href: 'https://github.com/marcodpt/app'
+        title: 'Import Files',
+        icon: 'file',
+        href: '#/upload'
+      }, {
+        title: 'Controls',
+        icon: 'gamepad',
+        href: '#/ctrl'
       }
-    ],
-    sidebar: [
+    ]
+  }, {
+    title: 'Set Theme',
+    icon: 'palette',
+    children: options.theme.map(({value, label}) => ({
+      title: label,
+      href: `javascript:setTheme('${value}')`
+    }))
+  }, {
+    title: 'Set Navbar',
+    icon: 'droplet',
+    children: options.navbar.map(({value, label}) => ({
+      title: label,
+      href: `javascript:setNavbar('${value}')`
+    }))
+  }, {
+    title: 'Logout',
+    icon: 'power-off',
+    href: '#/logout'
+  }, {
+    title: 'Repository',
+    icon: 'code-fork',
+    href: 'https://github.com/marcodpt/app'
+  }
+]}))
+
+nav.prepend(navmenu({target: '#sidebar'}))
+
+document.body.appendChild(
+  offcanvas({
+    id: 'sidebar'
+  }, [
+    list({children: [
       {
         title: 'Data',
         children: [
@@ -207,137 +101,101 @@ app({
           }
         ]
       }, {
-        title: 'Tools',
-        icon: 'tools',
-        children: [
-          {
-            title: 'Flowchart',
-            icon: 'project-diagram',
-            href: '#/graph/sample'
-          }, {
-            title: 'Chart',
-            icon: 'chart-line',
-            href: '#/chart/sample'
-          }, {
-            title: 'Import Files',
-            icon: 'file',
-            href: '#/upload'
-          }
-        ]
+        title: 'Login',
+        icon: 'sign-in',
+        href: '#/login'
       }
-    ]
-  },
-  table: {
-    schema: () => schema_users,
-    rows: ({Query}) => run(
-      search(Query._search),
-      filter(Query._filter),
-      Query._group && Query._group.length ?
-        totals(Query._group, Methods) : identity,
-      sort([Query._sort || 'id']), 
-      pager(Query._page),
-      formatter({
-        age: Query._group && Query._group.length ? 'num1' : null,
-        balance: 'num2'
-      })
-    )(users),
-    exporter: ({Query}) => {
-      const Data = run(
-        search(Query._search),
-        filter(Query._filter),
-        Query._group && Query._group.length ?
-          totals(Query._group, Methods) : identity,
-        sort([Query._sort || 'id']), 
-        formatter({
-          age: Query._group && Query._group.length ? 'num1' : null,
-          balance: 'num2'
+    ]})
+  ])
+)
+
+app({
+  '*': ({root}) => view(root, e(({div, h1, text}) =>
+    div({class: 'container my-5'}, [
+      h1({}, [
+        text("Hello world!")
+      ])
+    ])
+  )),
+  '/hello/:name': ({root, Params}) => view(root, e(({div, h1, text}) =>
+    div({class: 'container my-5'}, [
+      h1({}, [
+        text(`Hello ${Params.name}!`)
+      ])
+    ])
+  )),
+  '/ctrl': ({root, form}) => {
+    view(root, form({
+      ...ctrl,
+      submit: data => {
+        console.log(JSON.stringify(data, undefined, 2))
+        const schema = copy(ctrl) 
+        const P = schema.properties
+        Object.keys(P).forEach(k => {
+          P[k].default = data[k]
         })
-      )(users)
-
-      const name = 'users.csv'
-      const nl = '\n'
-      const sep = '\t'
-      const K = Object.keys(schema_users.items.properties)
-      
-      var data = ''
-      data += K.join(sep)+nl
-      data += Data
-        .map(row => K.map(field => String(row[field])).join(sep))
-        .join(nl)
-
-      return {name, data}
-    },
-    pages: ({Query}) => Math.ceil(run(
-      search(Query._search),
-      filter(Query._filter),
-      Query._group && Query._group.length ?
-        totals(Query._group, Methods) : identity
-    )(users).length / 10) || 1,
-    totals: ({Query}, Fields) => run(
-      select(Query._id),
-      search(Query._search),
-      filter(Query._filter),
-      totals(Fields, Methods),
-      formatter({
-        age: 'num1',
-        balance: 'num2'
-      })
-    )(users)[0],
-    operators: () => Object.keys(operators).map(k => ({
-      value: k,
-      label: operators[k],
-      exact: ['~ct~', '~nc~'].indexOf(k) < 0
-    })),
-    values: (route, field) => users.map(row => ({
-      value: row[field],
-      label: row[field]
+        return row(schema)
+      },
+      update: (err, data) => {
+        console.log(err)
+        console.log(JSON.stringify(data, undefined, 2))
+      }
     }))
   },
-  form: {
-    schema: ({Params}) => {
-      const s = Params.service || 'insert'
-      const submit = copy(schema_users.items)
-      const row = users.filter(({id}) => id == Params.id)[0] || null
-      submit.title = s.substr(0, 1).toUpperCase()+s.substr(1)
-      if (row) {
-        submit.title += ': '+row.name
-      }
-      if (s == 'delete') {
-        submit.properties = {}
-        submit.description = 'Do you want to delete this row?'
-      } else {
-        submit.description = ''
-        delete submit.properties.id
-      }
-      submit.links = [{
-        title: submit.title,
-        description: s == 'insert' ? 'New row inserted!' :
-          s == 'edit' ? 'Row was edited!' :
-          s == 'delete' ? 'Row was removed!' : '',
-        href: location.hash
-      }]
-
-      return submit
-    },
-    row: ({Params}) => copy(users.filter(({id}) => id == Params.id)[0] || null),
-    submit: ({Params}, user) => {
-      if (Params.service == 'delete') {
-        const i = users.reduce((p, {id}, i) => id == Params.id ? i : p, -1)
-        if (i >= 0) {
-          users.splice(i, 1)
-        }
-      } else if (Params.service == 'edit') {
-        Object.assign(users.filter(({id}) => id == Params.id)[0], user)
-      } else {
+  '/users': ({root, url, path, Query, table}) => {
+    const tbl = table(schema_users)
+    view(root, tbl)
+    setTimeout(() => {
+      tbl.setData(users)
+    }, delay)
+  },
+  '/users/:id': ({root, Params}) => {
+    const X = users.filter(({id}) => id == Params.id)[0]
+    view(root, row({
+      ...schema_users.items,
+      title: X.name,
+      default: X 
+    }))
+  },
+  '/insert/users': ({root, form}) => {
+    const P = {...schema_users.items.properties}
+    delete P.id
+    view(root, form({
+      title: 'Insert',
+      description: '',
+      properties: P,
+      submit: user => {
         users.push({
           ...user,
           id: users.reduce((rowid, {id}) => id >= rowid ? id + 1 : rowid, 0)
         })
+        return wait('New user inserted!')
       }
-    }
+    }))
   },
-  row: {
-    schema: () => schema_users.items,
-    row: ({Params}) => users.filter(({id}) => id == Params.id)[0]
+  '/:service/users/:id': ({root, Params, form}) => {
+    const s = Params.service
+    const row = users.filter(({id}) => id == Params.id)[0]
+    const P = {...schema_users.items.properties}
+    delete P.id
+    view(root, form({
+      title: s.substr(0, 1).toUpperCase()+s.substr(1)+
+        (row ? ': '+row.name : ''),
+      description: s == 'delete' ? 'Do you want to delete this row?' : '',
+      properties: s == 'delete' ? null : P,
+      default: row,
+      submit: user => {
+        if (Params.service == 'delete') {
+          const i = users.reduce((p, {id}, i) => id == Params.id ? i : p, -1)
+          if (i >= 0) {
+            users.splice(i, 1)
+          }
+          return wait(`User ${row.name} was removed!`)
+        } else {
+          Object.assign(users.filter(({id}) => id == Params.id)[0], user)
+          return wait(`User ${row.name} was edited!`)
+        }
+      }
+    }))
   }
 })
