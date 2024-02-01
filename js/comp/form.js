@@ -1,39 +1,21 @@
 import e from '../e.js'
-import {link, icon, lang} from '../lib.js'
 import back from '../tags/back.js'
-import ctrl from '../tags/ctrl.js'
 import alert from '../tags/alert.js'
-import pending from '../tags/pending.js'
 import message from './message.js'
 import style from '../config/style.js'
+import fields from '../tags/fields.js'
+import button from '../tags/submit.js'
 
 export default ({
-  title,
   description,
-  properties,
   update,
   submit,
   ...schema
 }) => {
-  const l = lang()
-  const P = properties || {}
-  const K = Object.keys(P)
-  const D = schema.default || {}
+  const btn = button()
+  const K = Object.keys(schema.properties || {})
   var Data = {}
-  var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
-  const hasErr = () => Object.keys(Err)
-    .reduce((err, k) => err || Err[k], false)
-
-  const b = e(({button, i, text}) => button({
-    type: 'submit',
-    class: link.submit
-  }, [
-    i({
-      class: icon.submit
-    }),
-    text(' '),
-    text(l.submit)
-  ]))
+  var err = false
 
   const target = e(({
     div,
@@ -41,7 +23,6 @@ export default ({
     fieldset,
     legend,
     label,
-    button,
     text,
     i
   }) => div({
@@ -53,96 +34,49 @@ export default ({
       onsubmit: ev => {
         ev.preventDefault()
         ev.stopPropagation()
-        if (typeof submit == 'function' && !hasErr()) {
-          b.disabled = true
-          const ic = b.querySelector('i')
-          const p = pending()
-          ic.replaceWith(p)
-          Promise.resolve()
-            .then(() => submit(Data))
+        if (typeof submit == 'function' && !err) {
+          btn.run(() => submit(Data))
             .then(result => {
-              if (!result) {
-                b.disabled = false
-                p.replaceWith(e(({i}) => i({
-                  class: icon.submit
-                })))
-              } else {
+              if (result) {
                 target.replaceWith(
                   typeof result == 'object' ? result : message({
-                    title,
+                    title: schema.title,
                     description: result,
                     ui: 'success'
                   })
                 )
               }
             }).catch(description => target.replaceWith(message({
-              title,
+              title: schema.title,
               description
             })))
         }
       }
     }, [
-      fieldset({}, [
-        !title ? null : legend({}, [
-          text(title)
-        ]),
-        alert(description, 'info')
-      ].concat(K.map(k => ({
-        ...P[k],
-        name: k,
-        default: D[k] == null ? P[k].default : D[k]
-      })).map(({title, description, name, ...schema}) =>
+      fields({
+        ...schema,
+        update: (error, data) => {
+          Data = data
+          err = error
+          btn.setStatus(err)
+          if (typeof update == 'function') {
+            update(err, Data)
+          }
+        } 
+      }),
+      alert(description, 'info'),
+      !submit ? null : div({
+        class: 'row g-2 align-items-center'
+      }, [
         div({
-          class: 'my-3'+(title != null ? ' row' : '')
+          class: 'col-auto'
         }, [
-          title == null ? null : div({
-            class: 'col-md-3'
-          }, [
-            label({
-              class: 'form-label',
-              title: description
-            }, [
-              text(title)
-            ])
-          ]),
-          ctrl({
-            ...schema,
-            title: name,
-            default: schema.default,
-            css: title == null ? null : 'col-md-9',
-            update: (err, v) => {
-              Data[name] = v
-              Err[name] = !!err
-              const ic = b.querySelector('i')
-              if (hasErr()) {
-                b.disabled = true
-                b.setAttribute('class', link.error)
-                ic.setAttribute('class', icon.error)
-              } else {
-                b.disabled = false
-                b.setAttribute('class', link.submit)
-                ic.setAttribute('class', icon.submit)
-              }
-              if (typeof update == 'function') {
-                update(hasErr(), Data)
-              }
-            }
-          })
-        ])
-      )).concat([
-        !submit ? null : div({
-          class: 'row g-2 align-items-center'
-        }, [
-          div({
-            class: 'col-auto'
-          }, [
-            back()
-          ]),
-          div({
-            class: 'col-auto'
-          }, [b])
-        ])
-      ]))
+          back()
+        ]),
+        div({
+          class: 'col-auto'
+        }, [btn])
+      ])
     ])
   ]))
 

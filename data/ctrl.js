@@ -1,7 +1,6 @@
 export default {
   type: 'object',
-  title: 'Controls',
-  description: 'A showcase of all controls available',
+  title: 'Controls Showcase',
   properties: {
     bool: {
       title: 'Boolean',
