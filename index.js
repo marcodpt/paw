@@ -85,12 +85,12 @@ export default routes => {
     }
 
     const hash = '#'+url
+    document.body.querySelectorAll('[data-app-active]').forEach(p => {
+      p.classList.remove(p.getAttribute('data-app-active'))
+    })
     const href = Array.from(
       document.body.querySelectorAll('[data-app-path] > a[href]')
     ).reduce((v, link) => {
-      const p = link.closest('[data-app-active]')
-      p.classList.remove(p.getAttribute('data-app-active'))
-
       const href = link.getAttribute('href')
       const l = href.length
       return hash.substr(0, l) == href && l > v.length ? href : v

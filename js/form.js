@@ -56,16 +56,26 @@ export default ({
         if (typeof submit == 'function' && !hasErr()) {
           b.disabled = true
           const ic = b.querySelector('i')
-          ic.replaceWith(pending())
+          const p = pending()
+          ic.replaceWith(p)
           Promise.resolve()
             .then(() => submit(Data))
-            .then(result => target.replaceWith(
-              result && typeof result == 'object' ? result : message({
-                title,
-                description,
-                ui: 'success'
-              }))
-            ).catch(description => target.replaceWith(message({
+            .then(result => {
+              if (!result) {
+                b.disabled = false
+                p.replaceWith(e(({i}) => i({
+                  class: icon.submit
+                })))
+              } else {
+                target.replaceWith(
+                  typeof result == 'object' ? result : message({
+                    title,
+                    description: result,
+                    ui: 'success'
+                  })
+                )
+              }
+            }).catch(description => target.replaceWith(message({
               title,
               description
             })))

@@ -1,12 +1,28 @@
 import form from './form.js'
+import {download} from './lib.js'
 
 export default () => {
-  const nav = document.body.querySelector('nav.navbar') 
-  var css = nav.getAttribute('class')
+  const getNav = doc => doc.body.querySelector('nav.navbar')
+  const getCss = nav => nav.getAttribute('class')
     .split(' ')
     .map(css => css.trim())
     .filter(css => /^bg-[a-z]+$/.test(css) || /^navbar-[a-z]+$/.test(css))
     .join(' ')
+
+  const rebuild = (doc, Data) => {
+    doc.body.querySelectorAll('[data-app-text=title]').forEach(e => {
+      if (e.textContent == doc.title) {
+        e.textContent = Data.title
+      }
+    })
+    doc.title = Data.title
+    doc.documentElement.lang = Data.lang
+    doc.getElementById('theme').setAttribute('href', Data.theme)
+    const nav = getNav(doc)
+    nav.setAttribute('class',
+      nav.getAttribute('class').replace(getCss(nav), Data.navbar)
+    )
+  }
 
   return form({
     title: 'Settings',
@@ -34,26 +50,20 @@ export default () => {
         title: 'Navbar',
         type: 'string',
         ui: 'navbar',
-        default: css
+        default: getCss(getNav(document))
       }
     },
-    update: (err, Data) => {
-      if (err) {
-        return
-      }
-      document.body.querySelectorAll('[data-app-text=title]').forEach(e => {
-        if (e.textContent == document.title) {
-          e.textContent = Data.title
-        }
+    update: (err, Data) => err ? null : rebuild(document, Data),
+    submit: Data => fetch(document.location.href)
+      .then(response => response.text())
+      .then(pageSource => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(pageSource, "text/html")
+        rebuild(doc, Data)
+        download(
+          '<!DOCTYPE html>\n'+doc.documentElement.outerHTML,
+          'index.html'
+        )
       })
-      document.title = Data.title
-      document.documentElement.lang = Data.lang
-      document.getElementById('theme').setAttribute('href', Data.theme)
-      nav.setAttribute('class',
-        nav.getAttribute('class').replace(css, Data.navbar)
-      )
-      css = Data.navbar
-    }
   })
-  return 
 }

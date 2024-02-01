@@ -7,7 +7,8 @@ const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
 
-const iconify = x => x ? `fa-solid fa-${x}` : ''
+const iconify = x => !x || typeof x != 'string' ? '' : 
+  x.substr(0, 1) == '@' ? `fa-brands fa-${x.substr(1)}` : `fa-solid fa-${x}`
 
 const linkify = (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : ''
 

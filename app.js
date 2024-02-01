@@ -49,7 +49,7 @@ nav.appendChild(navlink({children: [
     href: '#/settings'
   }, {
     title: 'Repository',
-    icon: 'code-fork',
+    icon: '@github',
     href: 'https://github.com/marcodpt/app'
   }
 ]}))
