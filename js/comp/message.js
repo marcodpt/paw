@@ -1,7 +1,7 @@
-import e from './e.js'
-import back from './tags/back.js'
-import alert from './tags/alert.js'
-import style from './config/style.js'
+import e from '../e.js'
+import back from '../tags/back.js'
+import alert from '../tags/alert.js'
+import style from '../config/style.js'
 
 export default ({
   ui,

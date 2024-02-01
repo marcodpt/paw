@@ -1,14 +1,19 @@
 import render from './js/render.js'
 import e from './js/e.js'
-import message from './js/message.js'
-import table from './js/table.js'
-import form from './js/form.js'
-import row from './js/row.js'
-import settings from './js/settings.js'
+import message from './js/comp/message.js'
+import table from './js/comp/table.js'
+import form from './js/comp/form.js'
+import row from './js/comp/row.js'
+import settings from './js/comp/settings.js'
+import offcanvas from './js/nav/offcanvas.js'
+import menu from './js/nav/menu.js'
+import toggler from './js/nav/toggler.js'
+import link from './js/nav/link.js'
+import list from './js/nav/list.js'
 
 var stop = null
 var old = null
-export default routes => {
+const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
     e, message, table, form, row, settings,
@@ -126,3 +131,24 @@ export default routes => {
   window.addEventListener('hashchange', router)
   router()
 }
+
+const nav = ({links, sidebar}) => {
+  const nav = document.body.querySelector('nav > .container-fluid')
+  if (links && links instanceof Array) {
+    nav.appendChild(toggler())
+    nav.appendChild(link({children: links}))
+  }
+  if (sidebar && sidebar instanceof Array) {
+    nav.prepend(menu({target: '#sidebar'}))
+
+    document.body.appendChild(
+      offcanvas({
+        id: 'sidebar'
+      }, [
+        list({children: sidebar})
+      ])
+    )
+  }
+}
+
+export {app, nav}

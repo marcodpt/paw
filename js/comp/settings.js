@@ -1,5 +1,5 @@
 import form from './form.js'
-import {download} from './lib.js'
+import {download} from '../lib.js'
 
 export default () => {
   const getNav = doc => doc.body.querySelector('nav.navbar')

@@ -1,13 +1,7 @@
-import app from './index.js'
+import {app, nav} from './index.js'
 import users from './data/users.js'
 import schema from './data/schema.js'
 import ctrl from './data/ctrl.js'
-import offcanvas from './js/tags/offcanvas.js'
-import navmenu from './js/tags/navmenu.js'
-import navtoggler from './js/tags/navtoggler.js'
-import navlink from './js/tags/navlink.js'
-import list from './js/tags/list.js'
-import {copy} from './js/lib.js'
 
 const delay = 500
 
@@ -17,79 +11,69 @@ const wait = message => new Promise(resolve => {
   }, delay)
 })
 
-const nav = document.body.querySelector('nav > .container-fluid')
-
-nav.appendChild(navtoggler())
-nav.appendChild(navlink({children: [
-  {
-    title: 'Tools',
-    icon: 'tools',
-    children: [
-      {
-        title: 'Flowchart',
-        icon: 'project-diagram',
-        href: '#/graph/sample'
-      }, {
-        title: 'Chart',
-        icon: 'chart-line',
-        href: '#/chart/sample'
-      }, {
-        title: 'Import Files',
-        icon: 'file',
-        href: '#/upload'
-      }, {
-        title: 'Controls',
-        icon: 'gamepad',
-        href: '#/ctrl'
-      }
-    ]
-  }, {
-    title: 'Settings',
-    icon: 'cog',
-    href: '#/settings'
-  }, {
-    title: 'Repository',
-    icon: '@github',
-    href: 'https://github.com/marcodpt/app'
-  }
-]}))
-
-nav.prepend(navmenu({target: '#sidebar'}))
-
-document.body.appendChild(
-  offcanvas({
-    id: 'sidebar'
-  }, [
-    list({children: [
-      {
-        title: 'Users',
-        icon: 'user',
-        href: '#/users'
-      }, {
-        title: 'Render',
-        icon: 'image',
-        children: [
-          {
-            title: 'Raw String',
-            href: '#/render/string'
-          }, {
-            title: 'Lazy String',
-            href: '#/render/lazystring'
-          }, {
-            title: 'Hyperscript Object',
-            href: '#/render/object'
-          }, {
-            title: 'Lazy Hyperscript Object',
-            href: '#/render/lazyobject'
-          }, {
-            title: 'Error',
-            href: '#/render/error'
-          }
-        ]
-      }
-    ]})
-  ])
-)
+nav({
+  links: [
+    {
+      title: 'Tools',
+      icon: 'tools',
+      children: [
+        {
+          title: 'Flowchart',
+          icon: 'project-diagram',
+          href: '#/graph/sample'
+        }, {
+          title: 'Chart',
+          icon: 'chart-line',
+          href: '#/chart/sample'
+        }, {
+          title: 'Import Files',
+          icon: 'file',
+          href: '#/upload'
+        }, {
+          title: 'Controls',
+          icon: 'gamepad',
+          href: '#/ctrl'
+        }
+      ]
+    }, {
+      title: 'Settings',
+      icon: 'cog',
+      href: '#/settings'
+    }, {
+      title: 'Repository',
+      icon: '@github',
+      href: 'https://github.com/marcodpt/app'
+    }
+  ],
+  sidebar: [
+    {
+      title: 'Users',
+      icon: 'user',
+      href: '#/users'
+    }, {
+      title: 'Render',
+      icon: 'image',
+      children: [
+        {
+          title: 'Raw String',
+          href: '#/render/string'
+        }, {
+          title: 'Lazy String',
+          href: '#/render/lazystring'
+        }, {
+          title: 'Hyperscript Object',
+          href: '#/render/object'
+        }, {
+          title: 'Lazy Hyperscript Object',
+          href: '#/render/lazyobject'
+        }, {
+          title: 'Error',
+          href: '#/render/error'
+        }
+      ]
+    }
+  ]
+})
 
 const home = document.body.querySelector('main').innerHTML
 app({
@@ -130,12 +114,10 @@ app({
     ...ctrl,
     submit: data => {
       console.log(JSON.stringify(data, undefined, 2))
-      const schema = copy(ctrl) 
-      const P = schema.properties
-      Object.keys(P).forEach(k => {
-        P[k].default = data[k]
+      return row({
+        ...ctrl,
+        default: data
       })
-      return row(schema)
     },
     update: (err, data) => {
       console.log(err)

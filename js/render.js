@@ -1,5 +1,5 @@
 import spinner from './tags/spinner.js'
-import message from './message.js'
+import message from './comp/message.js'
 import {lang} from './lib.js'
 
 export default (resolve, root) => {

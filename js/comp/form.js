@@ -1,11 +1,11 @@
-import e from './e.js'
-import {link, icon, lang} from './lib.js'
-import back from './tags/back.js'
-import ctrl from './tags/ctrl.js'
-import alert from './tags/alert.js'
-import pending from './tags/pending.js'
+import e from '../e.js'
+import {link, icon, lang} from '../lib.js'
+import back from '../tags/back.js'
+import ctrl from '../tags/ctrl.js'
+import alert from '../tags/alert.js'
+import pending from '../tags/pending.js'
 import message from './message.js'
-import style from './config/style.js'
+import style from '../config/style.js'
 
 export default ({
   title,
