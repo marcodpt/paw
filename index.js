@@ -7,6 +7,7 @@ import form from './js/comp/form.js'
 import row from './js/comp/row.js'
 import settings from './js/comp/settings.js'
 import chart from './js/comp/chart.js'
+import graph from './js/comp/graph.js'
 import offcanvas from './js/nav/offcanvas.js'
 import menu from './js/nav/menu.js'
 import toggler from './js/nav/toggler.js'
@@ -20,7 +21,7 @@ const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
     e, modal,
-    message, table, form, row, settings, chart,
+    message, table, form, row, settings, chart, graph,
     render: (view, el) => render(view, el || root)
   }
 

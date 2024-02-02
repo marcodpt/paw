@@ -3,6 +3,7 @@ export default {
   close: 'Close',
   submit: 'Submit',
   loading: 'Loading...',
+  noOption: 'Choose one option...',
   error: 'Error!',
 
   type: v => `Must be of the specified type.`,
