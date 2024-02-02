@@ -39,7 +39,6 @@ The `index.min.js` file is a minified and bundled version of `index.js` built
 online with [bundle.js](https://bundlejs.com/).
 
 ## TODO
- - navbar refresh
  - graph
  - chart
  - documentation

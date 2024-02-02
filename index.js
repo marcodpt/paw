@@ -11,6 +11,7 @@ import menu from './js/nav/menu.js'
 import toggler from './js/nav/toggler.js'
 import link from './js/nav/link.js'
 import list from './js/nav/list.js'
+import {rm} from './js/lib.js'
 
 var stop = null
 var old = null
@@ -136,6 +137,10 @@ const app = routes => {
 
 const nav = ({links, sidebar}) => {
   const nav = document.body.querySelector('nav > .container-fluid')
+
+  rm(document.getElementById('sidebar'))
+  nav.querySelectorAll('[data-app="nav"]').forEach(e => rm(e))
+
   if (links && links instanceof Array) {
     nav.appendChild(toggler())
     nav.appendChild(link({children: links}))

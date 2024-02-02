@@ -2,7 +2,8 @@ import e from '../e.js'
 import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
-  copy, link, icon, linkify, iconify, interpolate, lang, formatter, download
+  rm, copy, link, icon, linkify, iconify,
+  interpolate, lang, formatter, download
 } from '../lib.js'
 import back from '../tags/back.js'
 import spinner from '../tags/spinner.js'
@@ -563,7 +564,7 @@ export default ({
                             onclick: ev => {
                               state.filters.splice(n, 1)
                               const node = ev.target.closest('li')
-                              node.parentNode.removeChild(node)
+                              rm(node)
                               if (!state.filters.length) {
                                 ul.classList.add('d-none')
                                 btn.classList.add('d-none')

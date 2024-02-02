@@ -3,6 +3,12 @@ import raw_icon from './config/icon.js'
 import pt from './lang/pt.js'
 import en from './lang/en.js'
 
+const rm = el => {
+  if (el && el.parentNode) {
+    el.parentNode.removeChild(el)
+  }
+}
+
 const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
@@ -232,10 +238,11 @@ const download = (data, name) => {
 
   document.body.appendChild(link)
   link.click()
-  document.body.removeChild(link)
+  rm(link)
 }
 
 export {
+  rm,
   copy,
   setOptions,
   iconify,

@@ -1,7 +1,7 @@
 import e from '../e.js'
 import {
   lang, validator, parser, setOptions, hasStep, getStep, readFiles,
-  iconify, linkify 
+  iconify, linkify, rm
 } from '../lib.js'
 import opt from '../options.js'
 
@@ -162,9 +162,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         target.setAttribute('placeholder', description || '')
       }
       var list = wrapper.querySelector('datalist')
-      if (list) {
-        list.parentNode.removeChild(list)
-      }
+      rm(list)
       if (options instanceof Array) {
         target.setAttribute('list', `app.data.${title}`)
         wrapper.appendChild(e(({datalist, option}) => datalist({

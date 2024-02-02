@@ -2,7 +2,7 @@ import e from './e.js'
 import alert from './tags/alert.js'
 import fields from './tags/fields.js'
 import button from './tags/submit.js'
-import {link, icon, lang} from './lib.js'
+import {link, icon, lang, rm} from './lib.js'
 
 const showModal = ({
   title,
@@ -108,7 +108,7 @@ const showModal = ({
   )
 
   modal.addEventListener('hidden.bs.modal', () => {
-    modal.parentNode.removeChild(modal)
+    rm(modal)
   })
 
   document.body.appendChild(modal)

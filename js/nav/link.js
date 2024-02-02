@@ -3,7 +3,8 @@ import {iconify} from '../lib.js'
 
 export default ({children}) => e(({div, a, ul, li, i, text}) => 
   div({
-    class: 'collapse navbar-collapse'
+    class: 'collapse navbar-collapse',
+    dataApp: 'nav'
   }, [
     ul({
       class: 'navbar-nav ms-auto'

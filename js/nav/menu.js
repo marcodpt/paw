@@ -3,7 +3,8 @@ import {icon} from '../lib.js'
 
 export default ({target}) => e(({ul, li, a, i}) => 
   ul({
-    class: 'navbar-nav'
+    class: 'navbar-nav',
+    dataApp: 'nav'
   }, [
     li({
       class: 'nav-item'
