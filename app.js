@@ -55,17 +55,8 @@ nav({
       icon: 'image',
       children: [
         {
-          title: 'Raw String',
-          href: '#/render/string'
-        }, {
           title: 'Lazy String',
-          href: '#/render/lazystring'
-        }, {
-          title: 'Hyperscript Object',
-          href: '#/render/object'
-        }, {
-          title: 'Lazy Hyperscript Object',
-          href: '#/render/lazyobject'
+          href: '#/render/string'
         }, {
           title: 'Error',
           href: '#/render/error'
@@ -78,34 +69,11 @@ nav({
 const home = document.body.querySelector('main').innerHTML
 app({
   '*': ({render, e}) => render(home),
-  '/render/string': ({render}) => render(`
-    <div class="container my-5">
-      <h1>Raw HTML string</h1>
-    </div>
-  `),
-  '/render/lazystring': ({render}) => render(() => wait(`
+  '/render/string': ({render}) => render(() => wait(`
     <div class="container my-5">
       <h1>Lazy HTML string</h1>
     </div>
   `)),
-  '/render/object': ({render, e}) => render(e(({div, h1, text}) =>
-    div({
-      class: 'container my-5'
-    }, [
-      h1({}, [
-        text("Hyperscript Object")
-      ])
-    ])
-  )),
-  '/render/lazyobject': ({render, e}) => render(() => wait(e(({div, h1, text}) =>
-    div({
-      class: 'container my-5'
-    }, [
-      h1({}, [
-        text("Lazy Hyperscript Object")
-      ])
-    ])
-  ))),
   '/render/error': ({render}) => render(() => {
     throw 'This is an intentional error showcase!'
   }),
@@ -124,7 +92,51 @@ app({
       console.log(JSON.stringify(data, undefined, 2))
     }
   })),
-  '/users': ({render, url, path, Query, table}) => {
+  '/users': ({render, url, path, Query, table, modal}) => {
+    schema.links[0].href = () => {
+      const P = {...schema.items.properties}
+      delete P.id
+      modal({
+        title: 'Insert',
+        properties: P,
+        submit: user => {
+          users.push({
+            ...user,
+            id: users.reduce(
+              (rowid, {id}) => id >= rowid ? id + 1 : rowid
+            , 0)
+          })
+          tbl.setData(users)
+          return 'New user inserted!'
+        }
+      })
+    }
+    schema.items.links[0].href = user => modal({
+      title: 'Delete: '+user.name,
+      description: 'Do you want to delete this row?',
+      submit: () => {
+        const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
+        if (i >= 0) {
+          users.splice(i, 1)
+          tbl.setData(users)
+        }
+        return `User ${user.name} was removed!`
+      }
+    })
+    schema.items.links[1].href = (user) => {
+      const P = {...schema.items.properties}
+      delete P.id
+      modal({
+        title: 'Edit: '+user.name,
+        properties: P,
+        default: user,
+        submit: data => {
+          Object.assign(users.filter(({id}) => id == user.id)[0], data)
+          tbl.setData(users)
+          return `User ${user.name} was edited!`
+        }
+      })
+    }
     const tbl = table(schema)
     render(tbl)
     setTimeout(() => {
@@ -136,48 +148,7 @@ app({
     render(row({
       ...schema.items,
       title: X.name,
-      default: X 
-    }))
-  },
-  '/insert/users': ({render, form}) => {
-    const P = {...schema.items.properties}
-    delete P.id
-    render(form({
-      title: 'Insert',
-      description: '',
-      properties: P,
-      submit: user => {
-        users.push({
-          ...user,
-          id: users.reduce((rowid, {id}) => id >= rowid ? id + 1 : rowid, 0)
-        })
-        return wait('New user inserted!')
-      }
-    }))
-  },
-  '/:service/users/:id': ({render, Params, form}) => {
-    const s = Params.service
-    const row = users.filter(({id}) => id == Params.id)[0]
-    const P = {...schema.items.properties}
-    delete P.id
-    render(form({
-      title: s.substr(0, 1).toUpperCase()+s.substr(1)+
-        (row ? ': '+row.name : ''),
-      description: s == 'delete' ? 'Do you want to delete this row?' : '',
-      properties: s == 'delete' ? null : P,
-      default: row,
-      submit: user => {
-        if (Params.service == 'delete') {
-          const i = users.reduce((p, {id}, i) => id == Params.id ? i : p, -1)
-          if (i >= 0) {
-            users.splice(i, 1)
-          }
-          return wait(`User ${row.name} was removed!`)
-        } else {
-          Object.assign(users.filter(({id}) => id == Params.id)[0], user)
-          return wait(`User ${row.name} was edited!`)
-        }
-      }
+      default: X
     }))
   }
 })

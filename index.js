@@ -1,5 +1,6 @@
-import render from './js/render.js'
 import e from './js/e.js'
+import render from './js/render.js'
+import modal from './js/modal.js'
 import message from './js/comp/message.js'
 import table from './js/comp/table.js'
 import form from './js/comp/form.js'
@@ -16,7 +17,8 @@ var old = null
 const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
-    e, message, table, form, row, settings,
+    e, modal,
+    message, table, form, row, settings,
     render: (view, el) => render(view, el || root)
   }
 

@@ -1,5 +1,6 @@
 export default {
   back: 'Back',
+  close: 'Close',
   submit: 'Submit',
   loading: 'Loading...',
   error: 'Error!',

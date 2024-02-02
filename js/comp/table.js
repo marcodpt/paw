@@ -1,4 +1,5 @@
 import e from '../e.js'
+import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
   copy, link, icon, linkify, iconify, interpolate, lang, formatter, download
@@ -176,20 +177,23 @@ export default ({
               link,
               icon,
               title
-            }) => div({
-              class: 'col-auto'
-            }, [
-              a({
-                href,
-                class: linkify(link)
+            }) =>
+              div({
+                class: 'col-auto'
               }, [
-                i({
-                  class: iconify(icon)
-                }),
-                text(' '),
-                text(title)
+                a({
+                  href: typeof href != 'function' ? href : 'javascript:;',
+                  class: linkify(link),
+                  onclick: typeof href != 'function' ? null : () => href()
+                }, [
+                  i({
+                    class: iconify(icon)
+                  }),
+                  text(' '),
+                  text(title)
+                ])
               ])
-            ]))))
+            )))
           ])
         ]),
         tr({}, [
@@ -765,7 +769,9 @@ export default ({
             }, [
               a({
                 class: linkify(link, true),
-                href: interpolate(href, row)
+                href: typeof href != 'function' ?
+                  interpolate(href, row) : 'javascript:;',
+                onclick: typeof href != 'function' ? null : () => href(row)
               }, [
                 icon ? i({
                   class: iconify(icon)
