@@ -10,9 +10,13 @@ export default (resolve, root) => {
     }
   }
 
-  if (typeof resolve == 'function') {
+  if (
+    typeof resolve == 'function' ||
+    (resolve && typeof resolve.then == 'function')
+  ) {
     render(spinner())
-    Promise.resolve().then(() => resolve())
+    Promise.resolve()
+      .then(() => typeof resolve == 'function' ? resolve() : resolve)
       .then(view => render(view))
       .catch(err => {
         const l = lang()

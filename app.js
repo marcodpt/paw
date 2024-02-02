@@ -20,15 +20,11 @@ nav({
         {
           title: 'Flowchart',
           icon: 'project-diagram',
-          href: '#/graph/sample'
+          href: '#/graph'
         }, {
           title: 'Chart',
           icon: 'chart-line',
-          href: '#/chart/sample'
-        }, {
-          title: 'Import Files',
-          icon: 'file',
-          href: '#/upload'
+          href: '#/chart'
         }, {
           title: 'Controls',
           icon: 'gamepad',
@@ -177,5 +173,32 @@ app({
       })
     }
     render(row(s))
-  }
+  },
+  '/chart': ({render, chart}) => render(chart({
+    title: '$',
+    labels: [
+      "Jan",
+      "Fev",
+      "Mar"
+    ],
+    datasets: [
+      {
+        data: [
+          1.5,
+          3,
+          4.5
+        ],
+        borderColor: "blue",
+        label: "Sells ($)"
+      }, {
+        data: [
+          2.5,
+          3,
+          2.5
+        ],
+        borderColor: "red",
+        label: "Expenses ($)"
+      }
+    ]
+  }))
 })
