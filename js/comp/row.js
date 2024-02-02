@@ -67,7 +67,9 @@ export default ({
         a({
           class: linkify(link),
           title: description,
-          href: interpolate(href, D)
+          href: typeof href != 'function' ?
+            interpolate(href, D) : 'javascript:;',
+          onclick: typeof href != 'function' ? null : () => href(D)
         }, [
           i({
             class: iconify(icon)

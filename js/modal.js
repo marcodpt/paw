@@ -61,7 +61,9 @@ const showModal = ({
           }, [
             h5({
               class: 'modal-title'
-            }, text(title)),
+            }, [
+              text(title)
+            ]),
             button({
               type: 'button',
               class: 'btn-close',

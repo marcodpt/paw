@@ -143,12 +143,39 @@ app({
       tbl.setData(users)
     }, delay)
   },
-  '/users/:id': ({render, Params, row}) => {
-    const X = users.filter(({id}) => id == Params.id)[0]
-    render(row({
+  '/users/:id': ({render, Params, row, modal}) => {
+    const user = users.filter(({id}) => id == Params.id)[0]
+    const s = {
       ...schema.items,
-      title: X.name,
-      default: X
-    }))
+      title: user.name,
+      default: user
+    }
+    s.links[0].href = () => modal({
+      title: 'Delete: '+user.name,
+      description: 'Do you want to delete this row?',
+      submit: () => {
+        const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
+        if (i >= 0) {
+          users.splice(i, 1)
+        }
+        history.back()
+      }
+    })
+    s.links[1].href = () => {
+      const P = {...schema.items.properties}
+      delete P.id
+      modal({
+        title: 'Edit: '+user.name,
+        properties: P,
+        default: user,
+        submit: data => {
+          const name = user.name
+          Object.assign(user, data)
+          render(row(s))
+          return `User ${name} was edited!`
+        }
+      })
+    }
+    render(row(s))
   }
 })

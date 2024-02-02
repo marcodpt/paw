@@ -763,12 +763,13 @@ export default ({
                 }
               })
             ])
-          ].concat(rowLinks.map(({link, icon, href}) =>
+          ].concat(rowLinks.map(({link, icon, title, href}) =>
             state.group ? null : td({
               class: 'text-center align-middle'
             }, [
               a({
                 class: linkify(link, true),
+                title,
                 href: typeof href != 'function' ?
                   interpolate(href, row) : 'javascript:;',
                 onclick: typeof href != 'function' ? null : () => href(row)
