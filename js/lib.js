@@ -88,7 +88,7 @@ const formatter = ({type, ui}) => {
     const l = lang()
     const precision = parseInt(ui.substr(4))
     const pow = 10 ** precision
-    return x => typeof x != 'number' ? x : 
+    return x => typeof x != 'number' ? x == null ? '' : x : 
       (type == 'integer' ? (x / pow) : x).toLocaleString(l.lang, {
         minimumFractionDigits: precision,
         maximumFractionDigits: precision
@@ -96,7 +96,7 @@ const formatter = ({type, ui}) => {
   } else if (ui == 'progress') {
     return x => {
       if (typeof x != 'number') {
-        return x
+        return x == null ? '' : x
       }
       const a = minimum
       const b = maximum
@@ -110,12 +110,12 @@ const formatter = ({type, ui}) => {
     return iconify
   } else if (type == 'integer' || type == 'number') {
     const l = lang()
-    return x => (type == 'integer' ? Math.round(x) : x)
-      .toLocaleString(l.lang)
+    return x => typeof x != 'number' ? x == null ? '' : x :
+      (type == 'integer' ? Math.round(x) : x).toLocaleString(l.lang)
   } else if (type != 'string') {
     return x => JSON.stringify(x, undefined, 2)
   } else {
-    return x => x
+    return x => x == null ? '' : x
   }
 }
 
