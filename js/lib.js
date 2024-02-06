@@ -74,7 +74,7 @@ const formatter = ({type, ui}) => {
       if (typeof x == 'number' && x) {
         x = (x < 0 ? x+1 : x) * 1000
       } else if (typeof x == 'string' && /^\d{4}-\d{2}-\d{2}/.test(x)) {
-        if (x.indexOf('T') < 0) {
+        if (x.length == 10) {
           x += 'T12:00'
         }
       } else {
