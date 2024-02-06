@@ -35,7 +35,6 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - filter with multiple same itens
  - disable whole fields
  - documentation
 

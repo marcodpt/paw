@@ -434,8 +434,10 @@ export default ({
                   value: row[field],
                   label: F[field](row[field])
                 }))
-                Opt.sort(cmp([field]))
-                target.setOptions(Opt, {
+                Opt.sort(cmp(['value']))
+                target.setOptions(Opt.filter(
+                  (o, i) => !i || o.value != Opt[i - 1].value
+                ), {
                   type: P[field].type,
                   minLength: null
                 })
@@ -483,7 +485,7 @@ export default ({
                     state.filter.label[0] = label
                     const f = wrapper.closest('[data-ctx=filter]')
                     if (f) {
-                      f.update(f, S.indexOf(state.filter.operator) >= 0)
+                      f.update(f, S.indexOf(state.filter.operator) < 0)
                     }
                   }
                 }).setOptions(K.map(k => ({
