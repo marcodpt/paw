@@ -38,7 +38,6 @@ minimum effort and maximum customization.
  - strings should handle null case in formatter
  - filter with multiple same itens
  - disable whole fields
- - when input is wrong typeahead is not handling correct blur
  - documentation
 
 ## Contributing

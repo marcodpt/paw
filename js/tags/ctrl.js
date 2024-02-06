@@ -29,7 +29,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
   const parse = parser(schema)
   var oldValue = null
   const onfocus = () => {
-    if (O instanceof Array) {
+    if (O instanceof Array && target.value != '') {
       oldValue = target.value
       target.value = ''
     }
