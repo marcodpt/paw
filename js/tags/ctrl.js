@@ -12,7 +12,9 @@ const loader = ({type, ui}, data) => data == null ? data :
       '' :
   type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
 
-export default ({title, description, css, update, noValid, ...schema}) => {
+export default ({
+  title, description, readOnly, css, update, noValid, ...schema
+}) => {
   const l = lang()
   const t = schema.type
   const ui = schema.ui
@@ -91,11 +93,13 @@ export default ({title, description, css, update, noValid, ...schema}) => {
   const target = e(({input, textarea}) => 
     isText ? textarea({
       name: title,
+      disabled: !!readOnly,
       class: 'form-control',
       oninput: change,
       rows: 6
     }) : input({
       name: title,
+      disabled: !!readOnly,
       oninput: change,
       onfocus,
       onmousedown: onfocus,
@@ -156,7 +160,7 @@ export default ({title, description, css, update, noValid, ...schema}) => {
         target.setAttribute('placeholder', l.loading)
         target.value = ''
       } else {
-        target.disabled = false
+        target.disabled = !!readOnly
         target.setAttribute('placeholder', description || '')
       }
       var list = wrapper.querySelector('datalist')
