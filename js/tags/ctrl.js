@@ -108,11 +108,9 @@ export default ({title, description, css, update, noValid, ...schema}) => {
     class: css,
     dataCtrl: title,
     setOptions: isText ? null : (options, S) => {
-      if (S) {
-        Object.keys(S).forEach(k => {
-          schema[k] = S[k]
-        })
-      }
+      Object.keys(S || {}).forEach(k => {
+        schema[k] = S[k]
+      })
       var step = null
       if (
         ['integer', 'number'].indexOf(schema.type) >= 0 &&

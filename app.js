@@ -64,7 +64,7 @@ nav({
 
 const home = document.body.querySelector('main').innerHTML
 app({
-  '*': ({render, e}) => render(home),
+  '*': ({render}) => render(home),
   '/render/string': ({render}) => render(() => wait(`
     <div class="container my-5">
       <h1>Lazy HTML string</h1>
@@ -88,7 +88,7 @@ app({
       console.log(JSON.stringify(data, undefined, 2))
     }
   })),
-  '/users': ({render, url, path, Query, table, modal}) => {
+  '/users': ({render, table, modal}) => {
     schema.links[0].href = () => {
       const P = {...schema.items.properties}
       delete P.id

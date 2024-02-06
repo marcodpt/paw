@@ -34,11 +34,11 @@ popular icon library, essential for creating intuitive user interfaces.
 of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
-## Bundle
-The `index.min.js` file is a minified and bundled version of `index.js` built
-online with [bundle.js](https://bundlejs.com/).
-
 ## TODO
+ - strings should handle null case in formatter
+ - filter with multiple same itens
+ - disable whole fields
+ - when input is wrong typeahead is not handling correct blur
  - documentation
 
 ## Contributing

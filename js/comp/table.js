@@ -135,6 +135,7 @@ export default ({
     return M
   }, {})
   const T = Object.keys(M)
+  const hasTotals = T.length > 0
   const O = Object.keys(l.operators)
   const S = ['ct', 'nc']
 
@@ -362,7 +363,7 @@ export default ({
                   class: 'dropdown-menu d-none'
                 })
               ]),
-              div({
+              !hasTotals ? null : div({
                 class: 'col-auto'
               }, [
                 button({
@@ -591,7 +592,7 @@ export default ({
             ])
           ])
         ]),
-        tr({}, [
+        !hasTotals ? null : tr({}, [
           td({
             dataCtx: 'groupHide'
           })
@@ -606,7 +607,7 @@ export default ({
           })
         ))),
         tr({}, [
-          th({
+          !hasTotals ? null : th({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
@@ -749,7 +750,7 @@ export default ({
           tr({
             title: I.map(k => row[k]).join('\n')
           }, [
-            state.group ? null : td({
+            state.group || !hasTotals ? null : td({
               class: 'text-center align-middle'
             }, [
               ctrl({
