@@ -7,6 +7,7 @@ import style from '../config/style.js'
 export default ({
   title,
   description,
+  close,
   properties,
   links,
   ...schema
@@ -14,10 +15,15 @@ export default ({
   const P = properties || {}
   const D = schema.default || {}
 
-  return e(({text, div, label, h3, a, i}) => div({
+  return e(({text, div, label, h5, a, i, button}) => div({
     class: 'container my-5'
   }, [
-    h3({
+    !close ? null : button({
+      type: 'button',
+      class: 'btn-close float-start me-3',
+      onclick: close
+    }),
+    h5({
       title: description
     }, [
       text(title)
@@ -53,10 +59,10 @@ export default ({
       ])
     ])
   )).concat([
-    div({
+    close && (!links || !links.length) ? null : div({
       class: 'row g-2 align-items-center'
     }, [
-      div({
+      close ? null : div({
         class: 'col-auto'
       }, [
         back()
