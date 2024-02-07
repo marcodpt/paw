@@ -93,6 +93,7 @@ app({
       const P = {...schema.items.properties}
       delete P.id
       modal({
+        icon: schema.links[0].icon,
         title: 'Insert',
         properties: P,
         submit: user => {
@@ -108,6 +109,7 @@ app({
       })
     }
     schema.items.links[0].href = user => modal({
+      icon: schema.items.links[0].icon,
       title: 'Delete: '+user.name,
       description: 'Do you want to delete this row?',
       submit: () => {
@@ -123,6 +125,7 @@ app({
       const P = {...schema.items.properties}
       delete P.id
       modal({
+        icon: schema.items.links[1].icon,
         title: 'Edit: '+user.name,
         properties: P,
         default: user,
@@ -147,6 +150,7 @@ app({
       default: user
     }
     s.links[0].href = () => modal({
+      icon: s.links[0].icon,
       title: 'Delete: '+user.name,
       description: 'Do you want to delete this row?',
       submit: () => {
@@ -161,6 +165,7 @@ app({
       const P = {...schema.items.properties}
       delete P.id
       modal({
+        icon: s.links[1].icon,
         title: 'Edit: '+user.name,
         properties: P,
         default: user,

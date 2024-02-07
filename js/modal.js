@@ -2,7 +2,7 @@ import e from './e.js'
 import alert from './tags/alert.js'
 import fields from './tags/fields.js'
 import button from './tags/submit.js'
-import {link, icon, lang, rm} from './lib.js'
+import {link, icon, iconify, lang, rm} from './lib.js'
 
 const showModal = ({
   title,
@@ -46,8 +46,9 @@ const showModal = ({
                   if (response) {
                     modal.addEventListener('hidden.bs.modal', () => {
                       showModal({
-                        ...response,
-                        title
+                        title,
+                        icon: schema.icon,
+                        ...response
                       })
                     })
                   }
@@ -62,7 +63,10 @@ const showModal = ({
             h5({
               class: 'modal-title'
             }, [
-              text(title)
+              !schema.icon ? null : i({
+                class: iconify(schema.icon)
+              }),
+              text((title && schema.icon ? ' ' : '')+title)
             ]),
             button({
               type: 'button',
@@ -79,7 +83,9 @@ const showModal = ({
               update: (error, data) => {
                 Data = data
                 err = error
-                btn.setStatus(err)
+                if (btn) {
+                  btn.setStatus(err)
+                }
                 if (typeof update == 'function') {
                   update(err, Data)
                 }

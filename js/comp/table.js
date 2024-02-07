@@ -744,7 +744,7 @@ export default ({
       const C = X.length ? X : state.base
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
-        t.textContent = M[k] ? M[k](C.map(row => row[k])) : '_' 
+        t.textContent = M[k] ? M[k](C.map(row => row[k])) : '' 
       })
 
       view.forEach(row => {
@@ -802,7 +802,8 @@ export default ({
       state.base = null
       state.rows = null
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
-        t.textContent = '_'
+        const k = t.getAttribute('data-ctx').substr(7)
+        t.textContent = M[k] ? '_' : '' 
       })
       x.appendChild(e(({tr, td}) =>
         tr({}, [
