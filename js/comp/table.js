@@ -791,7 +791,8 @@ export default ({
             }, [
               output({
                 ...P[k],
-                href: state.group ? null : interpolate(P[k].href, row),
+                href: state.group ? null : typeof P[k].href == 'function' ?
+                  P[k].href(row) : interpolate(P[k].href, row),
                 default: row[k]
               })
             ])

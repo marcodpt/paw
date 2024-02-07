@@ -25,7 +25,8 @@ export default ({
   ].concat(Object.keys(P).map(k => ({
     ...P[k],
     default: D[k] == null ? P[k].default : D[k],
-    href: interpolate(P[k].href, D)
+    href: typeof P[k].href == 'function' ?
+      P[k].href(D) : interpolate(P[k].href, D)
   })).map(({
     title,
     description,

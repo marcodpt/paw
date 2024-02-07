@@ -35,9 +35,7 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - output href support function
  - row add close button with function
- - formatter number fixed digits
  - documentation
 
 ## Contributing
