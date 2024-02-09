@@ -112,6 +112,7 @@ export default ({
     base: null,
     rows: null,
     search: '',
+    noSearch: !!config.noSearch,
     sort: null,
     page: 1,
     pages: 1,
@@ -302,7 +303,7 @@ export default ({
             div({
               class: 'row gx-1 justify-content-center'
             }, [
-              div({
+              state.noSearch ? null : div({
                 class: 'col-auto'
               }, [
                 button({
@@ -317,7 +318,7 @@ export default ({
                   i({class: icon.close})
                 ])
               ]),
-              div({
+              state.noSearch ? null : div({
                 class: 'col-auto',
                 dataCtx: 'search'
               }, [
@@ -726,8 +727,12 @@ export default ({
         btn.disabled = state.page >= state.pages
       })
 
-      tbl.querySelector('[data-ctx="clear"]').disabled = !state.search
-      tbl.querySelector('[data-ctrl="search"]').setValue(state.search)
+      tbl.querySelectorAll('[data-ctx="clear"]').forEach(e => {
+        e.disabled = !state.search
+      })
+      tbl.querySelectorAll('[data-ctrl="search"]').forEach(e => {
+        e.setValue(state.search)
+      })
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')
         .forEach(g => {
