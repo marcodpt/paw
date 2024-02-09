@@ -113,6 +113,7 @@ export default ({
     rows: null,
     search: '',
     noSearch: !!config.noSearch,
+    noFilter: !!config.noFilter,
     sort: null,
     page: 1,
     pages: 1,
@@ -340,7 +341,7 @@ export default ({
                   }
                 })
               ]),
-              div({
+              state.noFilter ? null : div({
                 class: 'col-auto',
                 dataCtx: 'filters'
               }, [
@@ -424,7 +425,7 @@ export default ({
             ])
           ])
         ]),
-        tr({
+        state.noFilter ? null : tr({
           dataCtx: 'filter',
           class: 'd-none',
           update: (f, run) => {
