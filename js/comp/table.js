@@ -114,6 +114,8 @@ export default ({
     search: '',
     noSearch: !!config.noSearch,
     noFilter: !!config.noFilter,
+    noGroup: !!config.noGroup,
+    noCheck: !!config.noCheck,
     sort: null,
     page: 1,
     pages: 1,
@@ -370,7 +372,7 @@ export default ({
                   class: 'dropdown-menu d-none'
                 })
               ]),
-              !hasTotals ? null : div({
+              !hasTotals || state.noGroup ? null : div({
                 class: 'col-auto'
               }, [
                 button({
@@ -602,7 +604,7 @@ export default ({
           ])
         ]),
         !hasTotals ? null : tr({}, [
-          td({
+          state.noCheck ? null : td({
             dataCtx: 'groupHide'
           })
         ].concat(rowLinks.map(() =>
@@ -616,7 +618,7 @@ export default ({
           })
         ))),
         tr({}, [
-          !hasTotals ? null : th({
+          !hasTotals || state.noCheck ? null : th({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
@@ -764,7 +766,7 @@ export default ({
           tr({
             title: I.map(k => row[k]).join('\n')
           }, [
-            state.group || !hasTotals ? null : td({
+            state.group || !hasTotals || state.noCheck ? null : td({
               class: 'text-center align-middle'
             }, [
               ctrl({

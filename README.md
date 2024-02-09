@@ -35,7 +35,7 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - control table back, export, filter, group, check
+ - control table back, export, group, check
  - documentation
 
 ## Contributing

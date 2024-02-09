@@ -139,7 +139,9 @@ app({
     schema.config = {
       limit: null,
       noSearch: false,
-      noFilter: false
+      noFilter: false,
+      noGroup: false,
+      noCheck: false
     }
     const tbl = table(schema)
     render(tbl)
