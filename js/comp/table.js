@@ -31,7 +31,8 @@ const sort = Fields => data => {
   return data
 }
 
-const pager = p => data => data.slice((p - 1) * 10, p * 10)
+const pager = (p, limit) => data => !limit ? data :
+  data.slice((p - 1) * limit, p * limit)
 
 const search = match => data => {
   if (match) {
@@ -101,8 +102,11 @@ export default ({
   description,
   links,
   items,
+  config,
   ...schema
 }) => {
+  config = config || {}
+
   const state = {
     data: copy(schema.default || null),
     base: null,
@@ -111,6 +115,7 @@ export default ({
     sort: null,
     page: 1,
     pages: 1,
+    limit: config.limit == null ? 10 : config.limit,
     filter: {
       label: ['', '', '']
     },
@@ -198,7 +203,7 @@ export default ({
             )))
           ])
         ]),
-        tr({}, [
+        !state.limit ? null : tr({}, [
           td({
             class: 'text-center',
             colspan: '100%'
@@ -685,13 +690,13 @@ export default ({
         state.group ? group(state.group, M) : identity,
         state.sort ? sort([state.sort]) : identity
       )(state.base)
-      state.pages = Math.ceil(state.rows.length / 10) || 1
+      state.pages = Math.ceil(state.rows.length / state.limit) || 1
       if (state.page > state.pages) {
         state.page = state.pages
       } else if (state.page < 1) {
         state.page = 1
       }
-      const view = run(pager(state.page))(state.rows)
+      const view = run(pager(state.page, state.limit))(state.rows)
 
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(i => {
         const k = i.getAttribute('data-ctx').substr(5)
@@ -701,12 +706,13 @@ export default ({
         )
       })
 
-      tbl.querySelector('[data-ctrl="pager"]')
-        .setOptions(Array(state.pages).fill().map((v, i) => ({
+      tbl.querySelectorAll('[data-ctrl="pager"]').forEach(e => {
+        e.setOptions(Array(state.pages).fill().map((v, i) => ({
           value: i + 1,
           label: l.pagination(i + 1, state.pages)
         })))
         .setValue(state.page)
+      })
 
       tbl.querySelectorAll(
         '[data-ctx="first"], [data-ctx="previous"]'

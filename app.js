@@ -136,6 +136,9 @@ app({
         }
       })
     }
+    schema.config = {
+      limit: 0
+    }
     const tbl = table(schema)
     render(tbl)
     setTimeout(() => {
