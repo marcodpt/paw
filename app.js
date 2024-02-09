@@ -142,7 +142,8 @@ app({
       noFilter: false,
       noGroup: false,
       noCheck: false,
-      exporter: null
+      exporter: null,
+      back: null
     }
     const tbl = table(schema)
     render(tbl)

@@ -111,6 +111,7 @@ export default ({
     data: copy(schema.default || null),
     base: null,
     rows: null,
+    back: config.back,
     search: '',
     noSearch: !!config.noSearch,
     noFilter: !!config.noFilter,
@@ -173,7 +174,7 @@ export default ({
             text(title)
           ])
         ]),
-        !links ? null : tr({}, [
+        !links && state.back === false ? null : tr({}, [
           th({
             class: 'text-center',
             colspan: '100%'
@@ -181,10 +182,12 @@ export default ({
             div({
               class: 'row gx-1 justify-content-center'
             }, [
-              div({
+              state.back === false ? null : div({
                 class: 'col-auto'
               }, [
-                back()
+                back({
+                  href: state.back
+                })
               ])
             ].concat(links.map(({
               href,
