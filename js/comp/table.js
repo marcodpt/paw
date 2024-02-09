@@ -116,6 +116,9 @@ export default ({
     noFilter: !!config.noFilter,
     noGroup: !!config.noGroup,
     noCheck: !!config.noCheck,
+    exporter: config.exporter == null ?
+      (title || 'data').toLowerCase().split(' ').join('_')+'.txt' :
+      config.exporter,
     sort: null,
     page: 1,
     pages: 1,
@@ -298,7 +301,10 @@ export default ({
             ])
           ])
         ]),
-        tr({}, [
+        state.noSearch &&
+        state.noFilter &&
+        (!hasTotals || state.noGroup) &&
+        !state.exporter ? null : tr({}, [
           th({
             class: 'text-center',
             colspan: '100%'
@@ -400,14 +406,12 @@ export default ({
                   text(' '+l.group)
                 ])
               ]),
-              div({
+              !state.exporter ? null : div({
                 class: 'col-auto'
               }, [
                 button({
                   class: link.exporter,
                   onclick: () => {
-                    const name = title.toLowerCase().split(' ').join('_')+
-                      '.csv'
                     const nl = '\n'
                     const sep = '\t'
                     
@@ -417,7 +421,7 @@ export default ({
                       .map(row => K.map(k => F[k](row[k])).join(sep))
                       .join(nl)
 
-                    download(data, name)
+                    download(data, state.exporter)
                   }
                 }, [
                   i({class: icon.exporter}),

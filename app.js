@@ -141,7 +141,8 @@ app({
       noSearch: false,
       noFilter: false,
       noGroup: false,
-      noCheck: false
+      noCheck: false,
+      exporter: null
     }
     const tbl = table(schema)
     render(tbl)
