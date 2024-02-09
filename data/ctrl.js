@@ -1,3 +1,4 @@
+const d = new Date()
 export default {
   type: 'object',
   title: 'Controls Showcase',
@@ -56,16 +57,17 @@ export default {
       description: 'A date string using ISO dates (ui: date)',
       type: 'string',
       ui: 'date',
-      default: new Date().toISOString().substr(0, 10)
+      default: d.toISOString().substr(0, 10),
+      minimum: d.getFullYear()+'-'+('0'+(d.getMonth() + 1)).slice(-2)+'-01'
     },
     dateUnix: {
       title: 'Date Unix',
       description: 'A date integer using Unix timestamp (ui: date)',
       type: 'integer',
       ui: 'date',
-      default: Math.round(new Date().getTime() / 1000),
-      minimum: (new Date().getTime() - 24 * 60 * 60 * 1000) / 1000,
-      maximum: (new Date().getTime() + 7 * 24 * 60 * 60 * 1000) / 1000
+      default: Math.round(d.getTime() / 1000),
+      minimum: (d.getTime() - 24 * 60 * 60 * 1000) / 1000,
+      maximum: (d.getTime() + 7 * 24 * 60 * 60 * 1000) / 1000
     },
     text: {
       title: 'Text',
