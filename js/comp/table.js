@@ -2,7 +2,7 @@ import e from '../e.js'
 import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
-  rm, copy, link, icon, linkify, iconify,
+  rm, copy, link, icon, linkify, iconify, parser,
   interpolate, lang, formatter, download
 } from '../lib.js'
 import back from '../tags/back.js'
@@ -107,35 +107,13 @@ export default ({
 }) => {
   config = config || {}
 
-  const state = {
-    data: copy(schema.default || null),
-    base: null,
-    rows: null,
-    back: config.back,
-    search: '',
-    noSearch: !!config.noSearch,
-    noFilter: !!config.noFilter,
-    noGroup: !!config.noGroup,
-    noCheck: !!config.noCheck,
-    exporter: config.exporter == null ?
-      (title || 'data').toLowerCase().split(' ').join('_')+'.txt' :
-      config.exporter,
-    sort: null,
-    page: 1,
-    pages: 1,
-    limit: config.limit == null ? 10 : config.limit,
-    filter: {
-      label: ['', '', '']
-    },
-    filters: []
-  }
-
   const l = lang()
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
-  const K = Object.keys(P).filter(k => P[k].ui != 'info')
-  const I = Object.keys(P).filter(k => P[k].ui == 'info')
+  const Y = Object.keys(P)
+  const K = Y.filter(k => P[k].ui != 'info')
+  const I = Y.filter(k => P[k].ui == 'info')
   const F = K.reduce((F, k) => ({
     ...F,
     [k]: formatter(P[k])
@@ -151,6 +129,39 @@ export default ({
   const hasTotals = T.length > 0
   const O = Object.keys(l.operators)
   const S = ['ct', 'nc']
+  const Z = Y.reduce((Z, k) => ({
+    ...Z,
+    [k]: parser(P[k])
+  }), {})
+  const parseData = D => D instanceof Array ?
+    D.map(row => Y.reduce((R, k) => ({
+      ...R,
+      [k]: Z[k](row[k])
+    }), {})) : null
+
+  const state = {
+    data: parseData(schema.default),
+    base: null,
+    rows: null,
+    back: config.back,
+    search: '',
+    noSearch: !!config.noSearch,
+    noFilter: !!config.noFilter,
+    noGroup: !!config.noGroup,
+    noCheck: !!config.noCheck,
+    noSort: !!config.noSort,
+    exporter: config.exporter == null ?
+      (title || 'data').toLowerCase().split(' ').join('_')+'.txt' :
+      config.exporter,
+    sort: null,
+    page: 1,
+    pages: 1,
+    limit: config.limit == null ? 10 : config.limit,
+    filter: {
+      label: ['', '', '']
+    },
+    filters: []
+  }
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text, button, ul
@@ -669,8 +680,8 @@ export default ({
             }, [
               text(P[k].title)
             ]),
-            text(' '),
-            a({
+            state.noSort ? null : text(' '),
+            state.noSort ? null : a({
               href: 'javascript:;',
               onclick: () => {
                 state.sort = (state.sort == k ? '-' : '')+k
@@ -841,7 +852,7 @@ export default ({
   update()
 
   tbl.setData = data => {
-    state.data = copy(data)
+    state.data = parseData(data)
     update()
   }
 

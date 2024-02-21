@@ -142,6 +142,7 @@ app({
       noFilter: false,
       noGroup: false,
       noCheck: false,
+      noSort: false,
       exporter: null,
       back: null
     }

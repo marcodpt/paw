@@ -1,6 +1,6 @@
 import e from '../e.js'
-import {linkify, iconify, interpolate} from '../lib.js'
-import back from '../tags/back.js'
+import {linkify, iconify, interpolate, parser} from '../lib.js'
+import btnBack from '../tags/back.js'
 import output from '../tags/output.js'
 import style from '../config/style.js'
 
@@ -8,6 +8,7 @@ export default ({
   title,
   description,
   close,
+  back,
   properties,
   links,
   ...schema
@@ -23,14 +24,14 @@ export default ({
       class: 'btn-close float-start me-3',
       onclick: close
     }),
-    h5({
+    !title ? null : h5({
       title: description
     }, [
       text(title)
     ])
   ].concat(Object.keys(P).map(k => ({
     ...P[k],
-    default: D[k] == null ? P[k].default : D[k],
+    default: parser(P[k])(D[k] == null ? P[k].default : D[k]),
     href: typeof P[k].href == 'function' ?
       P[k].href(D) : interpolate(P[k].href, D)
   })).map(({
@@ -59,13 +60,15 @@ export default ({
       ])
     ])
   )).concat([
-    close && (!links || !links.length) ? null : div({
+    (close || back === false) && (!links || !links.length) ? null : div({
       class: 'row g-2 align-items-center'
     }, [
-      close ? null : div({
+      (close || back === false) ? null : div({
         class: 'col-auto'
       }, [
-        back()
+        btnBack({
+          href: back
+        })
       ])
     ].concat((links || []).map(({href, link, icon, title, description}) => 
       div({

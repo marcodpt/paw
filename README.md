@@ -36,6 +36,7 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
+ - row col
 
 ## Contributing
 It's a very simple project.
