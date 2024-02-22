@@ -29,37 +29,42 @@ export default ({
     }, [
       text(title)
     ])
-  ].concat(Object.keys(P).map(k => ({
-    ...P[k],
-    default: parser(P[k])(D[k] == null ? P[k].default : D[k]),
-    href: typeof P[k].href == 'function' ?
-      P[k].href(D) : interpolate(P[k].href, D)
-  })).map(({
-    title,
-    description,
-    ...schema
-  }) =>
+  ].concat(
     div({
-      class: 'my-3'+(title != null ? ' row' : '')
-    }, [
-      title == null ? null : div({
-        class: 'col-md-3'
-      }, [
-        label({
-          class: 'form-label',
-          title: description
-        }, [
-          text(title)
-        ])
-      ]),
+      class: 'row'
+    }, Object.keys(P).map(k => ({
+      ...P[k],
+      default: parser(P[k])(D[k] == null ? P[k].default : D[k]),
+      href: typeof P[k].href == 'function' ?
+        P[k].href(D) : interpolate(P[k].href, D)
+    })).map(({
+      title,
+      description,
+      col,
+      ...schema
+    }) =>
       div({
-        class: title == null ? '' : 'col-md-9',
-        style: style.text
+        class: `my-2 col-${col || 12}`+(title != null ? ' row' : '')
       }, [
-        output(schema)
+        title == null ? null : div({
+          class: 'col-3'
+        }, [
+          label({
+            class: 'form-label',
+            title: description
+          }, [
+            text(title)
+          ])
+        ]),
+        div({
+          class: title == null ? '' : 'col-9',
+          style: style.text
+        }, [
+          output(schema)
+        ])
       ])
-    ])
-  )).concat([
+    ))
+  ).concat([
     (close || back === false) && (!links || !links.length) ? null : div({
       class: 'row g-2 align-items-center'
     }, [
