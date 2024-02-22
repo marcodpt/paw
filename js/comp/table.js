@@ -668,9 +668,9 @@ export default ({
             a({
               class: 'text-decoration-none text-reset',
               title: P[k].description,
-              href: 'javascript:;',
+              href:  state.noGroup ? null : 'javascript:;',
               dataCtx: 'field:'+k,
-              onclick: ev => {
+              onclick: state.noGroup ? null : ev => {
                 if (state.group == null) {
                   const a = ev.target.closest('a')
                   a.classList.toggle('text-reset')
