@@ -44,10 +44,10 @@ export default ({
       ...schema
     }) =>
       div({
-        class: `my-2 col-${col || 12}`+(title != null ? ' row' : '')
+        class: `my-2 col-${col || 12}`+(title != null && !col ? ' row' : '')
       }, [
         title == null ? null : div({
-          class: 'col-3'
+          class: col ? 'd-inline' : 'col-3'
         }, [
           label({
             class: 'form-label',
@@ -56,8 +56,9 @@ export default ({
             text(title)
           ])
         ]),
+        col ? text(' ') : null,
         div({
-          class: title == null ? '' : 'col-9',
+          class: col ? 'd-inline' : title == null ? '' : 'col-9',
           style: style.text
         }, [
           output(schema)
