@@ -93,6 +93,17 @@ const formatter = ({type, ui}) => {
         minimumFractionDigits: precision,
         maximumFractionDigits: precision
       })
+  } else if (/^fixed:[1-9][0-9]*$/.test(ui)) {
+    const len = parseInt(ui.substr(6))
+    return x => {
+      if (x == null) {
+        return ''
+      } else if (type == 'number' || type == 'integer') {
+        return String(x).padStart(len, '0')
+      } else {
+        return String(x).padEnd(len, ' ').substr(0, len)
+      }
+    }
   } else if (ui == 'progress') {
     return x => {
       if (typeof x != 'number') {

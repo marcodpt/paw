@@ -13,7 +13,8 @@ export default {
         description: 'User id',
         default: 0,
         href: '#/users/{id}',
-        totals: 'count'
+        totals: 'count',
+        ui: 'fixed:2'
       },
       name: {
         type: 'string',
@@ -21,7 +22,8 @@ export default {
         description: 'User name',
         default: '',
         minLength: 1,
-        maxLength: 255
+        maxLength: 255,
+        ui: 'fixed:12'
       }, 
       age: {
         type: 'integer',
