@@ -137,7 +137,7 @@ export default ({
     D.map(row => Y.reduce((R, k) => ({
       ...R,
       [k]: Z[k](row[k])
-    }), {})) : null
+    }), row)) : null
 
   const state = {
     data: parseData(schema.default),
