@@ -93,8 +93,8 @@ const formatter = ({type, ui}) => {
         minimumFractionDigits: precision,
         maximumFractionDigits: precision
       })
-  } else if (/^fixed:[1-9][0-9]*$/.test(ui)) {
-    const len = parseInt(ui.substr(6))
+  } else if (/^len:[1-9][0-9]*$/.test(ui)) {
+    const len = parseInt(ui.substr(4))
     return x => {
       if (x == null) {
         return ''
