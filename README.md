@@ -36,7 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
- - num.2 case integer as lpad zero
 
 ## Contributing
 It's a very simple project.

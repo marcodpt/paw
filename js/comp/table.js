@@ -678,7 +678,7 @@ export default ({
                 }
               }
             }, [
-              text(P[k].title)
+              text(P[k].title || k)
             ]),
             state.noSort ? null : text(' '),
             state.noSort ? null : a({
