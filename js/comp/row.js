@@ -16,8 +16,8 @@ export default ({
   const P = properties || {}
   const D = schema.default || {}
 
-  return e(({text, div, label, h5, a, i, button}) => div({
-    class: 'container my-5'
+  return e(({text, div, label, h5, a, i, button, hr}) => div({
+    class: 'container card my-5 p-4'
   }, [
     !close ? null : button({
       type: 'button',
@@ -28,7 +28,8 @@ export default ({
       title: description
     }, [
       text(title)
-    ])
+    ]),
+    !close && !title ? null : hr()
   ].concat(
     div({
       class: 'row'
@@ -54,9 +55,10 @@ export default ({
             class: 'form-label fw-bold',
             title: description
           }, [
-            text(title+': ')
+            text(title+':')
           ])
         ]),
+        col ? text(' ') : null,
         div({
           class: col ? 'd-inline' : title == null ? '' : 'col-9',
           style: style.text
