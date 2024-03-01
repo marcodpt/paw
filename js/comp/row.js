@@ -34,6 +34,7 @@ export default ({
       class: 'row'
     }, Object.keys(P).map(k => ({
       ...P[k],
+      title: P[k].title == null ? k : P[k].title,
       default: parser(P[k])(D[k] == null ? P[k].default : D[k]),
       href: typeof P[k].href == 'function' ?
         P[k].href(D) : interpolate(P[k].href, D)
@@ -44,19 +45,18 @@ export default ({
       ...schema
     }) =>
       div({
-        class: `my-2 col-${col || 12}`+(title != null && !col ? ' row' : '')
+        class: `my-1 col-${col || 12}`+(title != null && !col ? ' row' : '')
       }, [
-        title == null ? null : div({
+        !title ? null : div({
           class: col ? 'd-inline' : 'col-3'
         }, [
           label({
-            class: 'form-label',
+            class: 'form-label fw-bold',
             title: description
           }, [
-            text(title)
+            text(title+': ')
           ])
         ]),
-        col ? text(' ') : null,
         div({
           class: col ? 'd-inline' : title == null ? '' : 'col-9',
           style: style.text

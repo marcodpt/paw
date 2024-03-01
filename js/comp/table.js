@@ -200,7 +200,7 @@ export default ({
                   href: state.back
                 })
               ])
-            ].concat(links.map(({
+            ].concat((links || []).map(({
               href,
               link,
               icon,
