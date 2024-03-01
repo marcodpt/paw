@@ -167,13 +167,14 @@ export default ({
     table, thead, tbody, tr, th, td, div, a, i, text, button, ul
   }) =>
     table({
-      class: [
+      class: config.class || [
         'table',
         'table-bordered',
         'table-center',
         'table-striped',
         'table-hover'
-      ].join(' ')
+      ].join(' '),
+      style: config.style
     }, [
       thead({}, [
         !title ? null : tr({}, [
