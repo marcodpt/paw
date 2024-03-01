@@ -76,10 +76,12 @@ app({
   '/settings': ({render, settings}) => render(settings()),
   '/ctrl': ({render, form, row}) => render(form({
     ...ctrl,
+    css: 'container my-5',
     submit: data => {
       console.log(JSON.stringify(data, undefined, 2))
       return row({
         ...ctrl,
+        css: 'container card my-5 p-3',
         default: data
       })
     },
@@ -156,6 +158,8 @@ app({
     const user = users.filter(({id}) => id == Params.id)[0]
     const s = {
       ...schema.items,
+      css: 'container card my-5 p-3',
+      close: () => {history.back()},
       title: user.name,
       default: user
     }

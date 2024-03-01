@@ -5,6 +5,7 @@ import output from '../tags/output.js'
 import style from '../config/style.js'
 
 export default ({
+  css,
   title,
   description,
   close,
@@ -17,17 +18,22 @@ export default ({
   const D = schema.default || {}
 
   return e(({text, div, label, h5, a, i, button, hr}) => div({
-    class: 'container card my-5 p-4'
+    class: css
   }, [
-    !close ? null : button({
-      type: 'button',
-      class: 'btn-close float-start me-3',
-      onclick: close
-    }),
-    !title ? null : h5({
-      title: description
+    !close && !title ? null : div({
+      class: 'clearfix'
     }, [
-      text(title)
+      !title ? null : h5({
+        title: description,
+        class: 'd-inline'
+      }, [
+        text(title)
+      ]),
+      !close ? null : button({
+        type: 'button',
+        class: 'btn-close float-end',
+        onclick: close
+      })
     ]),
     !close && !title ? null : hr()
   ].concat(

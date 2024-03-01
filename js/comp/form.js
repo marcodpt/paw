@@ -7,6 +7,7 @@ import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
 
 export default ({
+  css,
   description,
   update,
   submit,
@@ -26,7 +27,7 @@ export default ({
     text,
     i
   }) => div({
-    class: 'container my-5',
+    class: css,
     style: K.length ? null : style.alert
   }, [
     form({
