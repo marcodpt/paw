@@ -820,9 +820,12 @@ export default ({
             td({
               class: 'align-middle text-'+
                 (P[k].ui == 'text' ? 'left' : 'center'),
-              style: P[k].ui == 'text' ? style.text : null
+              style: P[k].ui == 'text' ? style.text :
+                P[k].ui == 'color' && row[k] && typeof row[k] == 'string' ?
+                  'background-color:'+row[k] : null,
+              title: P[k].ui == 'color' ? row[k] : null
             }, [
-              output({
+              P[k].ui == 'color' ? null : output({
                 ...P[k],
                 href: state.group ? null : typeof P[k].href == 'function' ?
                   P[k].href(row) : interpolate(P[k].href, row),

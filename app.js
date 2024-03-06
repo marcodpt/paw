@@ -73,7 +73,13 @@ app({
   '/render/error': ({render}) => render(() => {
     throw 'This is an intentional error showcase!'
   }),
-  '/settings': ({render, settings}) => render(settings()),
+  '/settings': ({render, e, settings}) => render(e(({div}) =>
+    div({
+      class: 'container my-5'
+    }, [
+      settings()
+    ])
+  )),
   '/ctrl': ({render, form, row}) => render(form({
     ...ctrl,
     css: 'container my-5',

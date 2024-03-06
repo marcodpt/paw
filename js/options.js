@@ -27,6 +27,7 @@ export default {
     'len:9',
     'password',
     'file',
+    'color',
     'link',
     'icon',
     'navbar',
