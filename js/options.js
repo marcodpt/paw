@@ -28,6 +28,7 @@ export default {
     'password',
     'file',
     'color',
+    'progress',
     'link',
     'icon',
     'navbar',

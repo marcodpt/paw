@@ -62,7 +62,7 @@ const queryString = Params => Object.keys(Params)
     encodeURIComponent(key)+'='+encodeURIComponent(value)
   ).join("&")
 
-const formatter = ({type, ui}) => {
+const formatter = ({type, ui, maximum, minimum}) => {
   if (ui == 'password') {
     return () => '********'
   } else if (type == 'boolean' || ui == 'bool') {
@@ -107,13 +107,13 @@ const formatter = ({type, ui}) => {
   } else if (ui == 'progress') {
     return x => {
       if (typeof x != 'number') {
-        return x == null ? '' : x
+        return x == null ? 0 : x
       }
-      const a = minimum
-      const b = maximum
+      const a = minimum == null ? 0 : minimum
+      const b = maximum == null ? (type == 'number' ? 1 : 100) : maximum
       x = (x - a) / (b - a)
       x = x > 1 ? 1 : x < 0 ? 0 : x
-      return (100 * x).toFixed(2)
+      return 100 * x
     }
   } else if (ui == 'link') {
     return link => linkify(link, true)
