@@ -124,7 +124,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
     return x => typeof x != 'number' ? x == null ? '' : x :
       (type == 'integer' ? Math.round(x) : x).toLocaleString(l.lang)
   } else if (type != 'string') {
-    return x => JSON.stringify(x, undefined, 2)
+    return x => x == null ? '' : JSON.stringify(x, undefined, 2)
   } else {
     return x => x == null ? '' : x
   }
