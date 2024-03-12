@@ -3,6 +3,7 @@ import {iconify, linkify, lang, formatter} from '../lib.js'
 
 export default ({href, link, ...schema}) => {
   const data = formatter(schema)(schema.default)
+  const p = typeof data == 'number' && data > 100 ? 100 : data
   return e(({a, div, span, i, text}) =>
     href ? a({
       href: typeof href == 'function' ? 'javascript:;' : href,
@@ -18,10 +19,10 @@ export default ({href, link, ...schema}) => {
     }, [
       div({
         class: 'text-center rounded text-white overflow-x-hidden',
-        style: `width:${data}%;background-color:hsl(${[
-          ((100 - data) / 100 * 240).toFixed(1),
+        style: `width:${p}%;background-color:hsl(${[
+          ((100 - p) / 100 * 240).toFixed(1),
           '100%',
-          (data / 4 + 25).toFixed(1)+'%'
+          (p / 4 + 25).toFixed(1)+'%'
         ].join(',')})`
       }, [
         text(data.toFixed(1)+'%')
