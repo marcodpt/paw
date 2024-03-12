@@ -822,7 +822,7 @@ export default ({
                 (P[k].ui == 'text' ? 'left' : 'center'),
               style: P[k].ui == 'text' ? style.text :
                 P[k].ui == 'color' && row[k] && typeof row[k] == 'string' ?
-                  'background-color:'+row[k] : null,
+                  'background-color:'+F[k](row[k]) : null,
               title: P[k].ui == 'color' ? row[k] : null
             }, [
               P[k].ui == 'color' ? null : output({

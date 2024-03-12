@@ -104,6 +104,9 @@ const formatter = ({type, ui, maximum, minimum}) => {
         return String(x).padEnd(len, ' ').substr(0, len)
       }
     }
+  } else if (ui == 'color') {
+    return x => typeof x == 'string' ?
+      (/^[\dA-Fa-f]{6}$/.test(x) ? '#' : '')+x : x
   } else if (ui == 'progress') {
     return x => {
       if (typeof x != 'number') {
@@ -112,7 +115,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
       const a = minimum == null ? 0 : minimum
       const b = maximum == null ? (type == 'number' ? 1 : 100) : maximum
       x = (x - a) / (b - a)
-      x = x > 1 ? 1 : x < 0 ? 0 : x
+      x = x < 0 ? 0 : x
       return 100 * x
     }
   } else if (ui == 'link') {

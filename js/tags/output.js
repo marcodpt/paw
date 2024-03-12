@@ -28,7 +28,7 @@ export default ({href, link, ...schema}) => {
       ])
     ]) : 
     schema.ui == 'color' ? div({
-      style: schema.default ? 'background-color:'+schema.default : null,
+      style: data ? 'background-color:'+data : null,
       title: schema.default,
       class: 'h-100 w-100'
     }) :
