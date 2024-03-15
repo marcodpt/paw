@@ -4,6 +4,7 @@ import {
   iconify, linkify, rm
 } from '../lib.js'
 import opt from '../options.js'
+import output from './output.js'
 
 const loader = ({type, ui}, data) => data == null ? data :
   (type == 'integer' || type == 'number') && ui == 'date' ?
@@ -13,11 +14,12 @@ const loader = ({type, ui}, data) => data == null ? data :
   type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
 
 export default ({
-  title, description, readOnly, css, update, noValid, ...schema
+  title, description, readOnly, writeOnly, css, update, noValid, ...schema
 }) => {
   const l = lang()
   const t = schema.type
   const ui = schema.ui
+  const isStatic = readOnly === true && writeOnly === false
   const isText = t == 'string' && (ui == 'text' || ui == 'info')
   const isRadio = ui == 'link'
   var isCheckbox = false
@@ -91,6 +93,7 @@ export default ({
     }
   }
   const target = e(({input, textarea}) => 
+    isStatic ? output(schema) : 
     isText ? textarea({
       name: title,
       disabled: !!readOnly,
@@ -111,7 +114,7 @@ export default ({
   }) => div({
     class: css,
     dataCtrl: title,
-    setOptions: isText ? null : (options, S) => {
+    setOptions: isText || isStatic ? null : (options, S) => {
       Object.keys(S || {}).forEach(k => {
         schema[k] = S[k]
       })
@@ -210,8 +213,10 @@ export default ({
       } else if (schema.ui != 'file') {
         target.value = v
       }
-      if (!isRadio) {
+      if (!isRadio && !isStatic) {
         change()
+      } else {
+        update('', v, v, wrapper)
       }
       return wrapper
     }
@@ -251,6 +256,6 @@ export default ({
     })
   ]))
 
-  return isRadio || isText ?
+  return isRadio || isText || isStatic ?
     wrapper.setValue(schema.default) : wrapper.setOptions(O)
 }
