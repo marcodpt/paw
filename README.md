@@ -36,7 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
- - find a way to pass checkbox to global links
 
 ## Contributing
 It's a very simple project.
