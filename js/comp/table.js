@@ -142,6 +142,7 @@ export default ({
   const state = {
     data: parseData(schema.default),
     base: null,
+    checked: null,
     rows: null,
     back: config.back,
     search: '',
@@ -213,7 +214,8 @@ export default ({
                 a({
                   href: typeof href != 'function' ? href : 'javascript:;',
                   class: linkify(link),
-                  onclick: typeof href != 'function' ? null : () => href(),
+                  onclick: typeof href != 'function' ? null :
+                    () => href(state.checked),
                   target: getTarget(href)
                 }, [
                   i({
@@ -774,8 +776,8 @@ export default ({
         })
       })
 
-      const X = state.base.filter(({checked}) => checked)
-      const C = X.length ? X : state.base
+      state.checked = state.base.filter(({checked}) => checked)
+      const C = state.checked.length ? state.checked : state.base
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
         t.textContent = M[k] ? M[k](C.map(row => row[k])) : '' 
