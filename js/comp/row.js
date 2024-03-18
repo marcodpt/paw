@@ -1,5 +1,5 @@
 import e from '../e.js'
-import {linkify, iconify, interpolate, parser} from '../lib.js'
+import {linkify, iconify, interpolate, parser, getTarget} from '../lib.js'
 import btnBack from '../tags/back.js'
 import output from '../tags/output.js'
 import style from '../config/style.js'
@@ -93,7 +93,8 @@ export default ({
           title: description,
           href: typeof href != 'function' ?
             interpolate(href, D) : 'javascript:;',
-          onclick: typeof href != 'function' ? null : () => href(D)
+          onclick: typeof href != 'function' ? null : () => href(D),
+          target: getTarget(href)
         }, [
           i({
             class: iconify(icon)

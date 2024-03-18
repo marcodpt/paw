@@ -1,5 +1,5 @@
 import e from '../e.js'
-import {iconify, linkify, lang, formatter} from '../lib.js'
+import {iconify, linkify, lang, formatter, getTarget} from '../lib.js'
 
 export default ({href, link, ...schema}) => {
   const data = formatter(schema)(schema.default)
@@ -8,7 +8,8 @@ export default ({href, link, ...schema}) => {
     href ? a({
       href: typeof href == 'function' ? 'javascript:;' : href,
       onclick: typeof href == 'function' ? href : null,
-      class: linkify(link)
+      class: linkify(link),
+      target: getTarget(href)
     }, [
       text(data)
     ]) :

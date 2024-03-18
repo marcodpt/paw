@@ -255,6 +255,9 @@ const download = (data, name) => {
   rm(link)
 }
 
+const getTarget = href => typeof href == 'string' && href.indexOf('://') > 0 ?
+  '_blank' : null
+
 export {
   rm,
   copy,
@@ -272,5 +275,6 @@ export {
   getStep,
   parser,
   readFiles,
-  download
+  download,
+  getTarget
 }

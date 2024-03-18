@@ -3,7 +3,7 @@ import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
   rm, copy, link, icon, linkify, iconify, parser,
-  interpolate, lang, formatter, download
+  interpolate, lang, formatter, download, getTarget
 } from '../lib.js'
 import back from '../tags/back.js'
 import spinner from '../tags/spinner.js'
@@ -213,7 +213,8 @@ export default ({
                 a({
                   href: typeof href != 'function' ? href : 'javascript:;',
                   class: linkify(link),
-                  onclick: typeof href != 'function' ? null : () => href()
+                  onclick: typeof href != 'function' ? null : () => href(),
+                  target: getTarget(href)
                 }, [
                   i({
                     class: iconify(icon)
@@ -809,7 +810,8 @@ export default ({
                 title,
                 href: typeof href != 'function' ?
                   interpolate(href, row) : 'javascript:;',
-                onclick: typeof href != 'function' ? null : () => href(row)
+                onclick: typeof href != 'function' ? null : () => href(row),
+                target: getTarget(href)
               }, [
                 icon ? i({
                   class: iconify(icon)
