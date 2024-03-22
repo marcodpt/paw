@@ -84,9 +84,12 @@ app({
     ...ctrl,
     css: 'container my-5',
     submit: data => {
-      console.log(JSON.stringify(data, undefined, 2))
+      console.log(data)
       return row({
         ...ctrl,
+        back: () => {
+          location.reload()
+        },
         css: 'container card my-5 p-3',
         default: data
       })

@@ -53,17 +53,24 @@ export default ({
   }
   const change = () => {
     if (schema.ui == 'file') {
-      readFiles(target.files)
-        .then(files => {
-          const names = files.map(({name}) => name)
-          resolve(
-            schema.type == 'array' ? files : files[0],
-            schema.type == 'array' ? names.join('\n') : names[0]
-          )
-        })
-        .catch(err => {
-          resolve(null, err.toString())
-        })
+      if (schema.type == 'File' || schema.type == 'FileList') {
+        resolve(
+          schema.type == 'File' ? target.files[0] : target.files,
+          Array.from(target.files).map(f => f.name).join('\n')
+        )
+      } else {
+        readFiles(target.files)
+          .then(files => {
+            const names = files.map(({name}) => name)
+            resolve(
+              schema.type == 'array' ? files : files[0],
+              schema.type == 'array' ? names.join('\n') : names[0]
+            )
+          })
+          .catch(err => {
+            resolve(null, err.toString())
+          })
+      }
     } else {
       const label = target.value == null ? '' : target.value
       var value = isCheckbox ? target.checked : target.value
@@ -153,7 +160,9 @@ export default ({
           'file'
         ].indexOf(schema.ui) >= 0 ? schema.ui : null
       )
-      if (schema.ui == 'file' && schema.type == 'array') {
+      if (schema.ui == 'file' &&
+        (schema.type == 'array' || schema.type == 'FileList')
+      ) {
         target.setAttribute('multiple', true)
       } else {
         target.removeAttribute('multiple')

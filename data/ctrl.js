@@ -92,6 +92,12 @@ export default {
       type: 'array',
       ui: 'file'
     },
+    rawfiles: {
+      title: 'Raw Files',
+      description: 'This is a FileList (ui: file)\nUse type: File for a single file.',
+      ui: 'file',
+      type: 'FileList'
+    },
     link: {
       title: 'Link',
       description: 'This is a bootstrap btn string (ui: link)',
