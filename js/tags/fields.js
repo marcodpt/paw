@@ -50,6 +50,7 @@ export default ({
         ctrl({
           ...schema,
           title: name,
+          description: title == null ? description : null,
           css: title == null ? null : 'col-md-9',
           update: (err, v) => {
             Data[name] = v
