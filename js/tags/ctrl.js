@@ -14,8 +14,17 @@ const loader = ({type, ui}, data) => data == null ? data :
   type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
 
 export default ({
-  title, description, readOnly, writeOnly, css, update, noValid, ...schema
+  title,
+  description,
+  readOnly,
+  writeOnly,
+  css,
+  update,
+  noValid,
+  size,
+  ...schema
 }) => {
+  size = ['lg', 'sm'].indexOf(size) >= 0 ? ' form-control-'+size : ''
   const l = lang()
   const t = schema.type
   const ui = schema.ui
@@ -104,7 +113,7 @@ export default ({
     isText ? textarea({
       name: title,
       disabled: !!readOnly,
-      class: 'form-control',
+      class: 'form-control'+size,
       oninput: change,
       rows: 6
     }) : input({
@@ -149,7 +158,7 @@ export default ({
       }
       isCheckbox = schema.type == 'boolean' && !options
       target.setAttribute('class',
-        isCheckbox ? 'form-check-input' : 'form-control'
+        isCheckbox ? 'form-check-input' : ('form-control'+size)
       )
       target.setAttribute('type', options ? null :
         isCheckbox ? 'checkbox' :
@@ -242,7 +251,8 @@ export default ({
       }
     }),
     label({
-      class: (linkify(o.value) || 'btn btn-link')+' me-2',
+      class: (linkify(o.value) || 'btn btn-link')+' me-2'+
+        (size.replace('form-control', 'btn')),
       for: title+'.'+o.value
     }, [
       text(o.label)
