@@ -187,7 +187,7 @@ export default ({
             text(title)
           ])
         ]),
-        !links && state.back === false ? null : tr({}, [
+        (!links || !links.length) && state.back === false ? null : tr({}, [
           th({
             class: 'text-center',
             colspan: '100%'
