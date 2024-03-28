@@ -6,6 +6,7 @@ export default ({
   description,
   properties,
   update,
+  noValid,
   ...schema
 }) => {
   const P = properties || {}
@@ -49,6 +50,7 @@ export default ({
         ]),
         ctrl({
           ...schema,
+          noValid: schema.noValid == null ? noValid : schema.noValid,
           title: name,
           description: title == null ? description : null,
           css: title == null ? null : 'col-md-9',
