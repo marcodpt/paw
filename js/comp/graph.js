@@ -1,6 +1,6 @@
 import e from '../e.js'
 import style from '../config/style.js'
-import spinner from '../tags/spinner.js'
+import spinner from '../comp/spinner.js'
 import {lang} from '../lib.js'
 
 export default ({data}) => {

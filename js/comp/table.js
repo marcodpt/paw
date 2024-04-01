@@ -6,7 +6,7 @@ import {
   interpolate, lang, formatter, download, getTarget
 } from '../lib.js'
 import back from '../tags/back.js'
-import spinner from '../tags/spinner.js'
+import spinner from '../comp/spinner.js'
 import output from '../tags/output.js'
 import ctrl from '../tags/ctrl.js'
 import style from '../config/style.js'

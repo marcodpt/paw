@@ -1,4 +1,4 @@
-import spinner from './tags/spinner.js'
+import spinner from './comp/spinner.js'
 import message from './comp/message.js'
 import {lang} from './lib.js'
 
