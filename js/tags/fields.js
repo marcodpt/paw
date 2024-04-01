@@ -6,6 +6,7 @@ export default ({
   description,
   properties,
   update,
+  delay,
   noValid,
   size,
   ...schema
@@ -51,6 +52,7 @@ export default ({
         ]),
         ctrl({
           ...schema,
+          delay: schema.delay == null ? delay : schema.delay,
           noValid: schema.noValid == null ? noValid : schema.noValid,
           size: schema.size == null ? size : schema.size,
           title: name,

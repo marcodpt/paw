@@ -20,6 +20,7 @@ export default ({
   writeOnly,
   css,
   update,
+  delay,
   noValid,
   size,
   ...schema
@@ -95,7 +96,18 @@ export default ({
       resolve(value, label)
     }
   }
+  var delayValue = null
   const resolve = (value, label) => {
+    if (delay && delayValue !== value) {
+      delayValue = value
+      setTimeout(() => {
+        if (delayValue === value) {
+          resolve(value, label)
+        }
+      }, delay)
+      return
+    }
+    delayValue = null
     const v = parse(value)
     const err = validate(v)
     target.classList.remove(`is-invalid`)

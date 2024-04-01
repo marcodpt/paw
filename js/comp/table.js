@@ -355,14 +355,11 @@ export default ({
                   noValid: true,
                   title: 'search',
                   default: state.search,
+                  delay: 500,
                   update: (err, v) => {
                     if (!err && v != state.search) {
                       state.search = v
-                      setTimeout(() => {
-                        if (state.search == v) {
-                          update()
-                        }
-                      }, 500)
+                      update()
                     }
                   }
                 })
