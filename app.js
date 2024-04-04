@@ -80,18 +80,21 @@ app({
       settings()
     ])
   )),
-  '/ctrl': ({render, form, row}) => render(form({
+  '/ctrl': ({render, form}) => render(form({
     ...ctrl,
     css: 'container my-5',
     submit: data => {
       console.log(data)
-      return row({
+      return form({
         ...ctrl,
+        submit: null,
         close: () => {
           location.reload()
         },
-        css: 'container card my-5 p-3',
-        default: data
+        css: 'container card my-5 p-3 pb-0',
+        default: data,
+        readOnly: true,
+        writeOnly: false
       })
     },
     update: (err, data) => {
@@ -162,10 +165,12 @@ app({
       tbl.setData(users)
     }, delay)
   },
-  '/users/:id': ({render, Params, row, modal}) => {
+  '/users/:id': ({render, Params, form, modal}) => {
     const user = users.filter(({id}) => id == Params.id)[0]
     const s = {
       ...schema.items,
+      readOnly: true,
+      writeOnly: false,
       css: 'container card my-5 p-3',
       close: () => {history.back()},
       title: user.name,
@@ -194,12 +199,12 @@ app({
         submit: data => {
           const name = user.name
           Object.assign(user, data)
-          render(row(s))
+          render(form(s))
           return `User ${name} was edited!`
         }
       })
     }
-    render(row(s))
+    render(form(s))
   },
   '/chart': ({render, chart}) => render(chart({
     title: '$',

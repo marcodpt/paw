@@ -1,11 +1,12 @@
 import e from '../e.js'
 import ctrl from '../tags/ctrl.js'
-import {iconify} from '../lib.js'
+import {iconify, interpolate} from '../lib.js'
 
 export default ({
   title,
   description,
   icon,
+  close,
   properties,
   update,
   delay,
@@ -29,23 +30,34 @@ export default ({
     legend,
     label,
     i,
-    text
+    text,
+    hr,
+    button
   }) =>
     fieldset({}, [
-      !title && !icon ? null : legend({
+      !close && !title && !icon ? null : legend({
         title: description,
-        class: 'fw-bold '+
+        class: 'fw-bold clearfix '+
           (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
       }, [
         !icon ? null : i({
           class: iconify(icon)
         }),
-        text((title && icon ? ' ' : '')+title)
-      ])
+        text((title && icon ? ' ' : '')+(title || '')),
+        !close ? null : button({
+          type: 'button',
+          class: 'btn-close float-end',
+          onclick: close
+        })
+      ]),
+      !close && !title && !icon ? null : hr({
+        class: 'mb-4'
+      })
     ].concat(K.map(k => ({
       ...P[k],
       name: k,
-      default: D[k] == null ? P[k].default : D[k]
+      default: D[k] == null ? P[k].default : D[k],
+      href: interpolate(P[k].href, D)
     })).map(schema => ({
       delay,
       noValid,
@@ -65,7 +77,7 @@ export default ({
             class: 'form-label fw-bold',
             title: description
           }, [
-            text(title)
+            text(title ? title+':' : '')
           ])
         ]),
         ctrl({

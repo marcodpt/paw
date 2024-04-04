@@ -2,21 +2,23 @@ import e from '../e.js'
 import {link, icon, lang} from '../lib.js'
 import pending from '../tags/pending.js'
 
-export default () => {
+export default X => {
   const l = lang()
+  X = X || {}
+  const css = typeof X.css == 'string' ? (' '+X.css.trim()) : ''
   const btn = e(({button, i, text}) =>
     button({
       type: 'submit',
-      class: link.submit,
+      class: link.submit+css,
       setStatus: err => {
         const ic = btn.querySelector('i')
         if (err) {
           btn.disabled = true
-          btn.setAttribute('class', link.error)
+          btn.setAttribute('class', link.error+css)
           ic.setAttribute('class', icon.error)
         } else {
           btn.disabled = false
-          btn.setAttribute('class', link.submit)
+          btn.setAttribute('class', link.submit+css)
           ic.setAttribute('class', icon.submit)
         }
       },
@@ -35,7 +37,7 @@ export default () => {
             return result
           })
           .catch(err => {
-            btn.setAttribute('class', link.error)
+            btn.setAttribute('class', link.error+css)
             p.replaceWith(e(({i}) => i({
               class: icon.error
             })))
