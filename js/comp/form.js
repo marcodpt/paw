@@ -1,5 +1,4 @@
 import e from '../e.js'
-import back from '../tags/back.js'
 import alert from '../tags/alert.js'
 import message from './message.js'
 import style from '../config/style.js'
@@ -70,11 +69,6 @@ export default ({
       !submit ? null : div({
         class: 'row g-2 align-items-center'
       }, [
-        div({
-          class: 'col-auto'
-        }, [
-          back()
-        ]),
         div({
           class: 'col-auto'
         }, [btn])

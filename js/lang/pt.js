@@ -1,5 +1,4 @@
 export default {
-  back: 'Voltar',
   close: 'Fechar',
   submit: 'Enviar',
   loading: 'Carregando...',

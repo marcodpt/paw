@@ -1,6 +1,5 @@
 import e from '../e.js'
 import {linkify, iconify, interpolate, parser, getTarget} from '../lib.js'
-import btnBack from '../tags/back.js'
 import output from '../tags/output.js'
 import style from '../config/style.js'
 
@@ -9,7 +8,6 @@ export default ({
   title,
   description,
   close,
-  back,
   properties,
   links,
   ...schema
@@ -74,17 +72,9 @@ export default ({
       ])
     ))
   ).concat([
-    (close || back === false) && (!links || !links.length) ? null : div({
+    !links || !links.length ? null : div({
       class: 'row g-2 align-items-center'
-    }, [
-      (close || back === false) ? null : div({
-        class: 'col-auto'
-      }, [
-        btnBack({
-          href: back
-        })
-      ])
-    ].concat((links || []).map(({href, link, icon, title, description}) => 
+    }, (links || []).map(({href, link, icon, title, description}) => 
       div({
         class: 'col-auto'
       }, [
@@ -103,6 +93,6 @@ export default ({
           text(title)
         ])
       ])
-    )))
+    ))
   ])))
 }

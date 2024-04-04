@@ -1,5 +1,4 @@
 export default {
-  back: 'secondary',
   submit: 'primary',
   error: 'danger',
   close: 'secondary',

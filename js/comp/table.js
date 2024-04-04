@@ -5,7 +5,6 @@ import {
   rm, copy, link, icon, linkify, iconify, parser,
   interpolate, lang, formatter, download, getTarget
 } from '../lib.js'
-import back from '../tags/back.js'
 import spinner from '../comp/spinner.js'
 import output from '../tags/output.js'
 import ctrl from '../tags/ctrl.js'
@@ -144,7 +143,6 @@ export default ({
     base: null,
     checked: null,
     rows: null,
-    back: config.back,
     search: '',
     noSearch: !!config.noSearch,
     noFilter: !!config.noFilter,
@@ -187,22 +185,14 @@ export default ({
             text(title)
           ])
         ]),
-        (!links || !links.length) && state.back === false ? null : tr({}, [
+        !links || !links.length ? null : tr({}, [
           th({
             class: 'text-center',
             colspan: '100%'
           }, [
             div({
               class: 'row gx-1 justify-content-center'
-            }, [
-              state.back === false ? null : div({
-                class: 'col-auto'
-              }, [
-                back({
-                  href: state.back
-                })
-              ])
-            ].concat((links || []).map(({
+            }, (links || []).map(({
               href,
               link,
               icon,
@@ -225,7 +215,7 @@ export default ({
                   text(title)
                 ])
               ])
-            )))
+            ))
           ])
         ]),
         !state.limit ? null : tr({}, [

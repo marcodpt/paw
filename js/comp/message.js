@@ -1,5 +1,4 @@
 import e from '../e.js'
-import back from '../tags/back.js'
 import alert from '../tags/alert.js'
 import style from '../config/style.js'
 
@@ -14,14 +13,5 @@ export default ({
   !title ? null : h3({}, [
     text(title)
   ]),
-  alert(description, ui),
-  div({
-    class: 'row g-2 align-items-center'
-  }, [
-    div({
-      class: 'col-auto'
-    }, [
-      back()
-    ])
-  ])
+  alert(description, ui)
 ]))

@@ -87,7 +87,7 @@ app({
       console.log(data)
       return row({
         ...ctrl,
-        back: () => {
+        close: () => {
           location.reload()
         },
         css: 'container card my-5 p-3',
@@ -154,8 +154,7 @@ app({
       noGroup: false,
       noCheck: false,
       noSort: false,
-      exporter: null,
-      back: null
+      exporter: null
     }
     const tbl = table(schema)
     render(tbl)
