@@ -11,6 +11,7 @@ export default ({
   description,
   update,
   submit,
+  links,
   ...schema
 }) => {
   const btn = button()

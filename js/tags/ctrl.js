@@ -31,7 +31,7 @@ export default ({
   const ui = schema.ui
   const isStatic = readOnly === true && writeOnly === false
   const isText = t == 'string' && (ui == 'text' || ui == 'info')
-  const isRadio = ui == 'link'
+  const isRadio = ui == 'link' && !isStatic
   var isCheckbox = false
   var E = schema.enum
   var O = E instanceof Array ? setOptions(E) :
@@ -270,7 +270,7 @@ export default ({
       text(o.label)
     ])
   ]).reduce((X, V) => X.concat(V), []) : [
-    schema.ui == 'icon' ? 
+    schema.ui == 'icon' && !isStatic ? 
       div({
         class: 'input-group'
       }, [

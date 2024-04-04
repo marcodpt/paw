@@ -16,7 +16,9 @@ const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
 const iconify = x => !x || typeof x != 'string' ? '' : 
   x.substr(0, 1) == '@' ? `fa-brands fa-${x.substr(1)}` : `fa-solid fa-${x}`
 
-const linkify = (x, isRow) => x ? `btn${isRow ? ' btn-sm' : ''} btn-${x}` : ''
+const linkify = (x, size) => x || size ? `btn${
+  ['lg', 'sm'].indexOf(size) >= 0 ? ' btn-'+size : ''
+} btn-${x ? x : 'link'}` : ''
 
 const link = Object.keys(raw_link).reduce((link, k) => ({
   ...link,
@@ -119,7 +121,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
       return 100 * x
     }
   } else if (ui == 'link') {
-    return link => linkify(link, true)
+    return link => linkify(link, 'sm')
   } else if (ui == 'icon') {
     return iconify
   } else if (type == 'integer' || type == 'number') {

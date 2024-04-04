@@ -36,6 +36,8 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
+ - links on form to remove submit button
+ - unify row and form
 
 ## Contributing
 It's a very simple project.

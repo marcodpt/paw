@@ -642,7 +642,7 @@ export default ({
             dataCtx: 'groupHide'
           }, [
             button({
-              class: linkify(rawlink.check, true),
+              class: linkify(rawlink.check, 'sm'),
               onclick: () => {
                 (state.base || []).forEach(row => {
                   row.checked = !row.checked
@@ -805,7 +805,7 @@ export default ({
               class: 'text-center align-middle'
             }, [
               a({
-                class: linkify(link, true),
+                class: linkify(link, 'sm'),
                 title,
                 href: typeof href != 'function' ?
                   interpolate(href, row) : 'javascript:;',

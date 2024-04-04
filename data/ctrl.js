@@ -14,6 +14,7 @@ export default {
       description: 'raw string',
       type: 'string',
       default: 'test',
+      readOnly: false,
       minLength: 1,
       maxLength: 5
     },
