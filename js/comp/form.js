@@ -53,10 +53,13 @@ export default ({
                   })
                 )
               }
-            }).catch(description => target.replaceWith(message({
-              title: schema.title,
-              description
-            })))
+            }).catch(description => {
+              target.replaceWith(message({
+                title: schema.title,
+                description
+              }))
+              throw description
+            })
         }
       }
     }, [

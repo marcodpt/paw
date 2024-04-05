@@ -1,5 +1,6 @@
 import e from '../e.js'
 import {iconify, linkify, lang, formatter, getTarget} from '../lib.js'
+import style from '../config/style.js'
 
 export default ({href, link, ...schema}) => {
   const data = formatter(schema)(schema.default)
@@ -43,6 +44,11 @@ export default ({href, link, ...schema}) => {
       href: 'javascript:;'
     }, [
       text(schema.default)
+    ]) : 
+    schema.ui == 'text' || schema.ui == 'info' ? span({
+      style: style.text
+    }, [
+      text(data)
     ]) : 
     text(data)
   )

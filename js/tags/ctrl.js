@@ -245,7 +245,7 @@ export default ({
       }
       if (!isRadio && !isStatic) {
         change()
-      } else {
+      } else if (!isStatic) {
         update('', v, v, wrapper)
       }
       return wrapper
