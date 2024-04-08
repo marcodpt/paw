@@ -85,7 +85,7 @@ app({
     css: 'container my-5',
     submit: data => {
       console.log(data)
-      return form({
+      return {
         ...ctrl,
         submit: null,
         close: () => {
@@ -95,7 +95,7 @@ app({
         default: data,
         readOnly: true,
         writeOnly: false
-      })
+      }
     },
     update: (err, data) => {
       console.log(err)
@@ -135,7 +135,7 @@ app({
         return `User ${user.name} was removed!`
       }
     })
-    schema.items.links[1].href = (user) => {
+    schema.items.links[1].href = user => {
       const P = {...schema.items.properties}
       delete P.id
       modal({

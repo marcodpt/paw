@@ -47,12 +47,11 @@ export default ({
       !close ? null : button({
         type: 'button',
         class: 'btn-close float-end',
-        onclick: close
+        onclick: typeof close != 'function' ? null : close,
+        dataBsDismiss: typeof close != 'string' ? null : close 
       })
     ]),
-    !close && !title && !icon ? null : hr({
-      class: 'mb-2'
-    }),
+    !close && !title && !icon ? null : hr(),
     !K.length ? null : div({
       class: 'row'
     }, K.map(k => ({

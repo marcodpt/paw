@@ -5,13 +5,11 @@ import button from './tags/submit.js'
 import {link, icon as ic, iconify, lang, rm} from './lib.js'
 
 const showModal = ({
-  icon,
-  title,
-  description,
   update,
   submit,
-  ui,
   body,
+  description,
+  ui,
   ...schema
 }) => {
   const l = lang()
@@ -47,8 +45,8 @@ const showModal = ({
                   if (response) {
                     modal.addEventListener('hidden.bs.modal', () => {
                       showModal({
-                        title,
-                        icon,
+                        title: schema.title,
+                        icon: schema.icon,
                         ...response
                       })
                     })
@@ -59,28 +57,11 @@ const showModal = ({
           }
         }, [
           div({
-            class: 'modal-header'
-          }, [
-            h5({
-              class: 'modal-title'
-            }, [
-              !icon ? null : i({
-                class: iconify(icon)
-              }),
-              text((title && icon ? ' ' : '')+(title || ''))
-            ]),
-            button({
-              type: 'button',
-              class: 'btn-close',
-              dataBsDismiss: 'modal'
-            })
-          ]),
-          div({
             class: 'modal-body'
           }, [
-            body,
             fields({
               ...schema,
+              close: 'modal',
               update: (error, data) => {
                 Data = data
                 err = error
@@ -92,7 +73,8 @@ const showModal = ({
                 }
               } 
             }),
-            alert(description, ui || 'info')
+            alert(description, ui || 'info'),
+            body
           ]),
           div({
             class: 'modal-footer'

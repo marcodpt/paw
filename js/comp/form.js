@@ -6,10 +6,11 @@ import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
 import {linkify, iconify, interpolate, getTarget} from '../lib.js'
 
-export default ({
+const builder = ({
   css,
   description,
   update,
+  ui,
   submit,
   links,
   ...schema
@@ -31,7 +32,8 @@ export default ({
     label,
     text,
     i,
-    a
+    a,
+    hr
   }) => div({
     class: css,
     style: K.length ? null : style.alert
@@ -43,22 +45,21 @@ export default ({
         ev.stopPropagation()
         if (typeof submit == 'function' && !err) {
           btn.run(() => submit(Data))
-            .then(result => {
-              if (result) {
-                target.replaceWith(
-                  typeof result == 'object' ? result : message({
-                    title: schema.title,
-                    description: result,
-                    ui: 'success'
-                  })
-                )
+            .catch(err => ({
+              description: err.toString(),
+              error: err,
+              ui: 'danger'
+            })).then(response => {
+              if (response && typeof response == 'object') {
+                target.replaceWith(builder({
+                  title: schema.title,
+                  icon: schema.icon,
+                  ...response
+                }))
+                if (response.error) {
+                  throw description
+                }
               }
-            }).catch(description => {
-              target.replaceWith(message({
-                title: schema.title,
-                description
-              }))
-              throw description
             })
         }
       }
@@ -75,7 +76,8 @@ export default ({
           }
         } 
       }),
-      !submit ? null : alert(description, 'info'),
+      !submit ? null : alert(description, ui || 'info'),
+      (links || submit) && (!links || links.length) ? hr() : null,
       !links ? !submit ? null : btn : !links.length ? null : div({
         class: 'row g-2 align-items-center'
       }, (links || []).map(({href, link, icon, title, description}) => 
@@ -102,4 +104,6 @@ export default ({
   ]))
 
   return target
-}
+} 
+
+export default builder
