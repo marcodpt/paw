@@ -118,7 +118,10 @@ app({
             , 0)
           })
           tbl.setData(users)
-          return 'New user inserted!'
+          return {
+            ui: 'success',
+            description: 'New user inserted!'
+          }
         }
       })
     }
@@ -132,7 +135,10 @@ app({
           users.splice(i, 1)
           tbl.setData(users)
         }
-        return `User ${user.name} was removed!`
+        return {
+          ui: 'success',
+          description: `User ${user.name} was removed!`
+        }
       }
     })
     schema.items.links[1].href = user => {
@@ -146,7 +152,10 @@ app({
         submit: data => {
           Object.assign(users.filter(({id}) => id == user.id)[0], data)
           tbl.setData(users)
-          return `User ${user.name} was edited!`
+          return {
+            ui: 'success',
+            description: `User ${user.name} was edited!`
+          }
         }
       })
     }
@@ -200,7 +209,10 @@ app({
           const name = user.name
           Object.assign(user, data)
           render(form(s))
-          return `User ${name} was edited!`
+          return {
+            ui: 'success',
+            description: `User ${name} was edited!`
+          }
         }
       })
     }

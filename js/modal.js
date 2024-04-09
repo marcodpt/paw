@@ -7,7 +7,6 @@ import {link, icon as ic, iconify, lang, rm} from './lib.js'
 const showModal = ({
   update,
   submit,
-  body,
   description,
   ui,
   ...schema
@@ -34,15 +33,12 @@ const showModal = ({
             ev.stopPropagation()
             if (typeof submit == 'function' && !err) {
               btn.run(() => submit(Data))
-                .then(result => !result ? null : ({
-                  body: typeof result == 'object' ? result : null,
-                  description: typeof result == 'string' ? result : null,
-                  ui: 'success'
-                })).catch(err => ({
+                .catch(err => ({
                   description: err.toString(),
+                  error: err,
                   ui: 'danger'
                 })).then(response => {
-                  if (response) {
+                  if (response && typeof response == 'object') {
                     modal.addEventListener('hidden.bs.modal', () => {
                       showModal({
                         title: schema.title,
@@ -73,8 +69,7 @@ const showModal = ({
                 }
               } 
             }),
-            alert(description, ui || 'info'),
-            body
+            alert(description, ui || 'info')
           ]),
           div({
             class: 'modal-footer'

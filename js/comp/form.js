@@ -1,6 +1,5 @@
 import e from '../e.js'
 import alert from '../tags/alert.js'
-import message from './message.js'
 import style from '../config/style.js'
 import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
@@ -66,7 +65,7 @@ const builder = ({
     }, [
       fields({
         ...schema,
-        description,
+        description: ui ? null : description,
         update: (error, data) => {
           Data = data
           err = error
@@ -76,7 +75,7 @@ const builder = ({
           }
         } 
       }),
-      !submit ? null : alert(description, ui || 'info'),
+      !ui ? null : alert(description, ui),
       (links || submit) && (!links || links.length) ? hr() : null,
       !links ? !submit ? null : btn : !links.length ? null : div({
         class: 'row g-2 align-items-center'

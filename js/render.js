@@ -1,5 +1,5 @@
 import spinner from './comp/spinner.js'
-import message from './comp/message.js'
+import form from './comp/form.js'
 import {lang} from './lib.js'
 
 export default (resolve, root) => {
@@ -20,9 +20,11 @@ export default (resolve, root) => {
       .then(view => render(view))
       .catch(err => {
         const l = lang()
-        render(message({
+        render(form({
           title: l.error,
-          description: err.toString()
+          description: err.toString(),
+          ui: 'danger',
+          css: 'mx-auto my-5'
         }))
         throw err
       })

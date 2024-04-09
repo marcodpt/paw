@@ -1,7 +1,6 @@
 import e from './js/e.js'
 import render from './js/render.js'
 import modal from './js/modal.js'
-import message from './js/comp/message.js'
 import table from './js/comp/table.js'
 import form from './js/comp/form.js'
 import row from './js/comp/row.js'
@@ -22,7 +21,7 @@ const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
     e, modal,
-    message, table, form, row, settings, chart, graph, spinner,
+    table, form, row, settings, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }
 
