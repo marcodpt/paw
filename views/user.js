@@ -6,7 +6,6 @@ export default ({render, Params, form, modal}) => {
   const s = {
     ...schema.items,
     readOnly: true,
-    writeOnly: false,
     css: 'container card my-5 p-3',
     close: () => {history.back()},
     title: user.name,

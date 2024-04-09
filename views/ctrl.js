@@ -13,8 +13,7 @@ const ctrl = {
       },
       css: 'container card my-5 p-3 pb-0',
       default: data,
-      readOnly: true,
-      writeOnly: false
+      readOnly: true
     }
   },
   update: (err, data) => {

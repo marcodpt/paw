@@ -29,7 +29,7 @@ export default ({
   const l = lang()
   const t = schema.type
   const ui = schema.ui
-  const isStatic = readOnly === true && writeOnly === false
+  const isStatic = readOnly && !writeOnly
   const isText = t == 'string' && (ui == 'text' || ui == 'info')
   const isRadio = ui == 'link' && !isStatic
   var isCheckbox = false
