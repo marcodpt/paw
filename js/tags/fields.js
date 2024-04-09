@@ -59,6 +59,7 @@ export default ({
     }, K.map(k => ({
       ...P[k],
       name: k,
+      title: typeof P[k].title != 'string' ? k : P[k].title,
       default: D[k] == null ? P[k].default : D[k],
       href: interpolate(P[k].href, D)
     })).map(schema => ({
@@ -73,24 +74,24 @@ export default ({
       div({
         class: `col-${col || 12} `+
           (size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2')+
-          (title != null ? ' row' : '')+
+          (title ? ' row' : '')+
           (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
       }, [
-        title == null ? null : div({
+        !title ? null : div({
           class: 'col-md-3'
         }, [
           label({
             class: 'form-label fw-bold',
             title: description
           }, [
-            text(title ? title+':' : '')
+            text(title+':')
           ])
         ]),
         ctrl({
           ...schema,
           title: name,
-          description: title == null ? description : null,
-          css: title == null ? null : 'col-md-9',
+          description: !title ? description : null,
+          css: !title ? null : 'col-md-9',
           update: (err, v) => {
             Data[name] = v
             Err[name] = !!err
