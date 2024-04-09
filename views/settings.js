@@ -1,6 +1,6 @@
 import {download} from './lib.js'
 
-export default ({render, e, form}) => {
+export default ({render, form}) => {
   const getNav = doc => doc.body.querySelector('nav.navbar')
   const getCss = nav => nav.getAttribute('class')
     .split(' ')
@@ -23,52 +23,47 @@ export default ({render, e, form}) => {
     )
   }
 
-  return render(e(({div}) =>
-    div({
-      class: 'container my-5'
-    }, [
-      form({
-        title: 'Settings',
-        type: 'object',
-        properties: {
-          title: {
-            title: 'Title',
-            type: 'string',
-            default: document.title,
-            minLength: 1
-          },
-          lang: {
-            title: 'Lang',
-            type: 'string',
-            ui: 'lang',
-            default: document.documentElement.lang
-          },
-          theme: {
-            title: 'Theme',
-            type: 'string',
-            ui: 'theme',
-            default: document.getElementById('theme').getAttribute('href')
-          },
-          navbar: {
-            title: 'Navbar',
-            type: 'string',
-            ui: 'navbar',
-            default: getCss(getNav(document))
-          }
-        },
-        update: (err, Data) => err ? null : rebuild(document, Data),
-        submit: Data => fetch(document.location.href)
-          .then(response => response.text())
-          .then(pageSource => {
-            const parser = new DOMParser()
-            const doc = parser.parseFromString(pageSource, "text/html")
-            rebuild(doc, Data)
-            download(
-              '<!DOCTYPE html>\n'+doc.documentElement.outerHTML,
-              'index.html'
-            )
-          })
+  return render(form({
+    css: 'container my-5',
+    title: 'Settings',
+    type: 'object',
+    properties: {
+      title: {
+        title: 'Title',
+        type: 'string',
+        default: document.title,
+        minLength: 1
+      },
+      lang: {
+        title: 'Lang',
+        type: 'string',
+        ui: 'lang',
+        default: document.documentElement.lang
+      },
+      theme: {
+        title: 'Theme',
+        type: 'string',
+        ui: 'theme',
+        default: document.getElementById('theme').getAttribute('href')
+      },
+      navbar: {
+        title: 'Navbar',
+        type: 'string',
+        ui: 'navbar',
+        default: getCss(getNav(document))
+      }
+    },
+    update: (err, Data) => err ? null : rebuild(document, Data),
+    submit: Data => fetch(document.location.href)
+      .then(response => response.text())
+      .then(pageSource => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(pageSource, "text/html")
+        rebuild(doc, Data)
+        download(
+          '<!DOCTYPE html>\n'+doc.documentElement.outerHTML,
+          'index.html'
+        )
       })
-    ])
-  ))
+  }))
 }
