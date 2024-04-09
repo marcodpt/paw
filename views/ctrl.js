@@ -1,7 +1,26 @@
 const d = new Date()
-export default {
+const ctrl = {
   type: 'object',
   title: 'Controls Showcase',
+  css: 'container my-5',
+  submit: data => {
+    console.log(data)
+    return {
+      ...ctrl,
+      submit: null,
+      close: () => {
+        location.reload()
+      },
+      css: 'container card my-5 p-3 pb-0',
+      default: data,
+      readOnly: true,
+      writeOnly: false
+    }
+  },
+  update: (err, data) => {
+    console.log(err)
+    console.log(JSON.stringify(data, undefined, 2))
+  },
   properties: {
     bool: {
       title: 'Boolean',
@@ -142,3 +161,4 @@ export default {
     }
   }
 }
+export default ({render, form}) => render(form(ctrl))
