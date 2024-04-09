@@ -36,8 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
- - unify row and form
- - unify modal and form
 
 ## Contributing
 It's a very simple project.

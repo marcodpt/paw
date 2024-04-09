@@ -21,7 +21,7 @@ const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
     e, modal,
-    table, form, row, settings, chart, graph, spinner,
+    form, row, settings, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }
 

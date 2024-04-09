@@ -7,7 +7,6 @@ import {linkify, iconify, interpolate, getTarget} from '../lib.js'
 const builder = ({
   css,
   update,
-  ui,
   submit,
   links,
   ...schema
@@ -21,7 +20,7 @@ const builder = ({
   var Data = schema.default || {}
   var err = false
 
-  const target = e(({
+  var target = e(({
     div,
     form,
     fieldset,
@@ -41,23 +40,19 @@ const builder = ({
         ev.preventDefault()
         ev.stopPropagation()
         if (typeof submit == 'function' && !err) {
-          btn.run(() => submit(Data))
-            .catch(err => ({
-              description: err.toString(),
-              error: err,
-              ui: 'danger'
-            })).then(response => {
-              if (response && typeof response == 'object') {
-                target.replaceWith(builder({
-                  title: schema.title,
-                  icon: schema.icon,
-                  ...response
-                }))
-                if (response.error) {
-                  throw description
-                }
-              }
-            })
+          btn.run(() => submit(Data)).then(response => {
+            if (response && typeof response == 'object') {
+              const r = builder({
+                title: schema.title,
+                icon: schema.icon,
+                ...response
+              })
+              target.replaceWith(r)
+              target = r
+            } else if (typeof response == 'function') {
+              response()
+            }
+          })
         }
       }
     }, [
@@ -74,7 +69,8 @@ const builder = ({
       }),
       (links || submit) && (!links || links.length) ? hr() : null,
       !links ? !submit ? null : btn : !links.length ? null : div({
-        class: 'row g-2 align-items-center'
+        class: 'row g-2 align-items-center justify-content-'+
+          (schema.close == 'modal' ? 'end' : 'start')
       }, (links || []).map(({href, link, icon, title, description}) => 
         div({
           class: 'col-auto'
@@ -82,8 +78,9 @@ const builder = ({
           href == null ? btn : a({
             class: linkify(link)+btnCss,
             title: description,
-            href: typeof href == 'string' ?
+            href: typeof href == 'string' && href != 'modal' ?
               interpolate(href, Data) : 'javascript:;',
+            dataBsDismiss: href == 'modal' ? href : null,
             onclick: typeof href != 'function' ? null : () => href(Data),
             target: getTarget(href)
           }, [

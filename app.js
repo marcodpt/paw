@@ -5,10 +5,10 @@ import ctrl from './data/ctrl.js'
 
 const delay = 500
 
-const wait = message => new Promise(resolve => {
+const wait = (message, time) => new Promise(resolve => {
   setTimeout(() => {
     resolve(message)
-  }, delay)
+  }, time || delay)
 })
 
 nav({
@@ -135,10 +135,10 @@ app({
           users.splice(i, 1)
           tbl.setData(users)
         }
-        return {
+        return wait({
           ui: 'success',
           description: `User ${user.name} was removed!`
-        }
+        }, 2000)
       }
     })
     schema.items.links[1].href = user => {

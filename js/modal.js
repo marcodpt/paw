@@ -1,88 +1,58 @@
 import e from './e.js'
-import fields from './tags/fields.js'
-import button from './tags/submit.js'
-import {link, icon as ic, iconify, lang, rm} from './lib.js'
+import form from './comp/form.js'
+import {link, icon as ic, lang, rm} from './lib.js'
 
 const showModal = ({
-  update,
   submit,
+  links,
   ...schema
 }) => {
   const l = lang()
-  const btn = typeof submit == 'function' ? button() : null
-  const K = Object.keys(schema.properties || {})
-  var Data = {}
-  var err = false
 
-  const modal = e(({div, button, form, text, i}) => 
+  const modal = e(({div}) => 
     div({
       class: 'modal fade',
       tabindex: '-1'
     }, [
       div({
-        class: 'modal-dialog'+(K.length ? ' modal-lg' : ' modal-sm')
+        class: [
+          'modal-dialog',
+          Object.keys(schema.properties || {}).length ? 'modal-lg' : 'modal-sm'
+        ].join(' ')
       }, [
-        form({
-          class: 'modal-content',
-          novalidate: !btn ? null : true,
-          onsubmit: !btn ? null : ev => {
-            ev.preventDefault()
-            ev.stopPropagation()
-            if (typeof submit == 'function' && !err) {
-              btn.run(() => submit(Data))
-                .catch(err => ({
-                  description: err.toString(),
-                  error: err,
-                  ui: 'danger'
-                })).then(response => {
-                  if (response && typeof response == 'object') {
-                    modal.addEventListener('hidden.bs.modal', () => {
-                      showModal({
-                        title: schema.title,
-                        icon: schema.icon,
-                        ...response
-                      })
-                    })
-                  }
-                  M.hide()
-                })
-            }
-          }
+        div({
+          class: 'modal-content'
         }, [
-          div({
-            class: 'modal-body'
-          }, [
-            fields({
-              ...schema,
-              ui: schema.ui || 'info',
-              close: 'modal',
-              update: (error, data) => {
-                Data = data
-                err = error
-                if (btn) {
-                  btn.setStatus(err)
+          form({
+            ...schema,
+            css: 'modal-body',
+            ui: schema.ui || 'info',
+            close: 'modal',
+            submit: typeof submit != 'function' ? null : Data => 
+              Promise.resolve().then(() => submit(Data)).then(response => {
+                if (response && typeof response == 'object') {
+                  reopen = {
+                    title: schema.title,
+                    icon: schema.icon,
+                    ...response
+                  }
                 }
-                if (typeof update == 'function') {
-                  update(err, Data)
-                }
-              } 
-            })
-          ]),
-          div({
-            class: 'modal-footer'
-          }, [
-            button({
-              type: 'button',
-              class: link.close,
-              dataBsDismiss: 'modal'
-            }, [
-              i({
-                class: ic.close
+                isVisible ? M.hide() : showModal(reopen)
               }),
-              text(' '+l.close)
-            ]),
-            typeof submit == 'function' ? btn : null
-          ])
+            links: [
+              {
+                link: link.close,
+                icon: ic.close,
+                title: l.close,
+                href: 'modal'
+              }
+            ]
+              .concat(links || [])
+              .concat(typeof submit != 'function' ? null : {
+                href: null
+              })
+              .filter(x => x)
+          })
         ])
       ])
     ])
@@ -90,12 +60,18 @@ const showModal = ({
 
   modal.addEventListener('hidden.bs.modal', () => {
     rm(modal)
+    isVisible = false
+    if (reopen) {
+      showModal(reopen)
+    }
   })
 
   document.body.appendChild(modal)
 
   const M = new bootstrap.Modal(modal)
 
+  var isVisible = true
+  var reopen = null
   M.show()
 }
 

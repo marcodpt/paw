@@ -26,8 +26,6 @@ export default ({
   var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
   const hasErr = () => Object.keys(Err)
     .reduce((err, k) => err || Err[k], false)
-  console.log(ui)
-  console.log(description)
 
   return e(({
     div,
