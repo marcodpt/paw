@@ -1,6 +1,6 @@
 import {wait} from './lib.js'
-import users from '../data/users.js'
-import schema from '../data/schema.js'
+import users from './data/users.js'
+import schema from './data/schema.js'
 
 export default ({render, table, modal}) => {
   schema.links[0].href = () => {

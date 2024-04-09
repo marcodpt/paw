@@ -1,5 +1,5 @@
-import users from '../data/users.js'
-import schema from '../data/schema.js'
+import users from './data/users.js'
+import schema from './data/schema.js'
 
 export default ({render, Params, form, modal}) => {
   const user = users.filter(({id}) => id == Params.id)[0]

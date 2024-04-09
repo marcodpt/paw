@@ -1,5 +1,5 @@
 import {app, nav} from './index.js'
-import menu from './data/menu.js'
+import menu from './views/data/menu.js'
 import lazy from './views/lazy.js'
 import error from './views/error.js'
 import settings from './views/settings.js'
