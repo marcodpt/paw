@@ -1,10 +1,12 @@
 import e from '../e.js'
 import ctrl from '../tags/ctrl.js'
+import style from '../config/style.js'
 import {iconify, interpolate} from '../lib.js'
 
 export default ({
   title,
   description,
+  ui,
   icon,
   close,
   properties,
@@ -24,6 +26,8 @@ export default ({
   var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
   const hasErr = () => Object.keys(Err)
     .reduce((err, k) => err || Err[k], false)
+  console.log(ui)
+  console.log(description)
 
   return e(({
     div,
@@ -36,7 +40,7 @@ export default ({
     button
   }) => fieldset({}, [
     !close && !title && !icon ? null : legend({
-      title: description,
+      title: ui != null ? null : description,
       class: 'fw-bold clearfix '+
         (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
     }, [
@@ -98,6 +102,13 @@ export default ({
           }
         })
       ])
-    ))
+    )),
+    !ui || !description ? null : div({
+      class: 'alert alert-'+ui,
+      role: 'alert',
+      style: style.text
+    }, [
+      text(description)
+    ])
   ]))
 }

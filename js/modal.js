@@ -1,5 +1,4 @@
 import e from './e.js'
-import alert from './tags/alert.js'
 import fields from './tags/fields.js'
 import button from './tags/submit.js'
 import {link, icon as ic, iconify, lang, rm} from './lib.js'
@@ -7,8 +6,6 @@ import {link, icon as ic, iconify, lang, rm} from './lib.js'
 const showModal = ({
   update,
   submit,
-  description,
-  ui,
   ...schema
 }) => {
   const l = lang()
@@ -17,7 +14,7 @@ const showModal = ({
   var Data = {}
   var err = false
 
-  const modal = e(({div, h5, button, form, text, i}) => 
+  const modal = e(({div, button, form, text, i}) => 
     div({
       class: 'modal fade',
       tabindex: '-1'
@@ -57,6 +54,7 @@ const showModal = ({
           }, [
             fields({
               ...schema,
+              ui: schema.ui || 'info',
               close: 'modal',
               update: (error, data) => {
                 Data = data
@@ -68,8 +66,7 @@ const showModal = ({
                   update(err, Data)
                 }
               } 
-            }),
-            alert(description, ui || 'info')
+            })
           ]),
           div({
             class: 'modal-footer'

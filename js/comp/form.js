@@ -1,5 +1,4 @@
 import e from '../e.js'
-import alert from '../tags/alert.js'
 import style from '../config/style.js'
 import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
@@ -7,7 +6,6 @@ import {linkify, iconify, interpolate, getTarget} from '../lib.js'
 
 const builder = ({
   css,
-  description,
   update,
   ui,
   submit,
@@ -65,7 +63,6 @@ const builder = ({
     }, [
       fields({
         ...schema,
-        description: ui ? null : description,
         update: (error, data) => {
           Data = data
           err = error
@@ -75,7 +72,6 @@ const builder = ({
           }
         } 
       }),
-      !ui ? null : alert(description, ui),
       (links || submit) && (!links || links.length) ? hr() : null,
       !links ? !submit ? null : btn : !links.length ? null : div({
         class: 'row g-2 align-items-center'
