@@ -110,18 +110,26 @@ export default ({
     delayValue = null
     const v = parse(value)
     const err = validate(v)
-    target.classList.remove(`is-invalid`)
-    target.classList.remove(`is-valid`)
-    if ((err || !noValid) && !(E && oldValue == null && !E.length)) {
-      target.classList.add(`is-${err ? 'in' : ''}valid`)
+    if (target.classList) {
+      target.classList.remove(`is-invalid`)
+      target.classList.remove(`is-valid`)
+      if ((err || !noValid) && !(E && oldValue == null && !E.length)) {
+        target.classList.add(`is-${err ? 'in' : ''}valid`)
+      }
     }
-    wrapper.querySelector('.invalid-feedback').textContent = err
+    const feedback = wrapper.querySelector('.invalid-feedback')
+    if (feedback) {
+      feedback.textContent = err
+    }
     if (typeof update == 'function') {
       update(err, v, label, wrapper)
     }
   }
   const target = e(({input, textarea}) => 
-    isStatic ? output(schema) : 
+    isStatic ? output({
+      ...schema,
+      default: parse(schema.default)
+    }) : 
     isText ? textarea({
       name: title,
       disabled: !!readOnly,
@@ -245,8 +253,8 @@ export default ({
       }
       if (!isRadio && !isStatic) {
         change()
-      } else if (!isStatic) {
-        update('', v, v, wrapper)
+      } else if (typeof update == 'function') {
+        resolve(v, v)
       }
       return wrapper
     }

@@ -54,6 +54,15 @@ const ctrl = {
       minimum: 0,
       ui: 'num.2'
     },
+    static: {
+      title: 'Fixed ($)',
+      description: 'A static field that needs parsing with precision (ui: num.2)',
+      type: 'number',
+      minimum: 0,
+      ui: 'num.2',
+      readOnly: true,
+      default: '12345.6789'
+    },
     intnum: {
       title: 'Integer currency ($) (ui: num.2)',
       description: 'Integer representing a currency',
