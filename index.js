@@ -3,7 +3,6 @@ import render from './js/render.js'
 import modal from './js/modal.js'
 import table from './js/comp/table.js'
 import form from './js/comp/form.js'
-import row from './js/comp/row.js'
 import chart from './js/comp/chart.js'
 import graph from './js/comp/graph.js'
 import spinner from './js/comp/spinner.js'
@@ -20,7 +19,7 @@ const app = routes => {
   const root = document.body.querySelector('main')
   const components = {
     e, modal,
-    form, row, table, chart, graph, spinner,
+    form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }
 
