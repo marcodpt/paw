@@ -105,7 +105,8 @@ export default ({
       ])
     )),
     !ui || !description ? null : div({
-      class: 'alert alert-'+ui+' my-0',
+      class: 'alert alert-'+ui+' my-0 '+
+        (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
       role: 'alert',
       style: style.text
     }, [
