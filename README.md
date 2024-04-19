@@ -36,6 +36,17 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
+ - input type = null at html attrs
+ - submit button change properties (link, icon, title)
+ - remove form and modal rebuild
+ - lg, sm form should affect alert description text
+ - table sizing
+ - generalize all form links with promise function to be pending
+ - link as a self standing component
+ - link href falsy block
+ - allow link with options (pagination)
+ - review tree nav to match cirrus (w/ transition)
+ - allow options to directly passed on schema
 
 ## Contributing
 It's a very simple project.

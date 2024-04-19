@@ -53,7 +53,9 @@ export default ({
         dataBsDismiss: typeof close != 'string' ? null : close 
       })
     ]),
-    !close && !title && !icon ? null : hr(),
+    !close && !title && !icon ? null : hr({
+      class: 'my-2'
+    }),
     !K.length ? null : div({
       class: 'row'
     }, K.map(k => ({
@@ -103,7 +105,7 @@ export default ({
       ])
     )),
     !ui || !description ? null : div({
-      class: 'alert alert-'+ui,
+      class: 'alert alert-'+ui+' my-0',
       role: 'alert',
       style: style.text
     }, [

@@ -17,6 +17,7 @@ const builder = ({
     css: (links == null ? 'w-100' : '')+btnCss
   })
   const K = Object.keys(schema.properties || {})
+  const hasAlert = schema.ui && schema.description
   var Data = schema.default || {}
   var err = false
 
@@ -67,7 +68,10 @@ const builder = ({
           }
         } 
       }),
-      (links || submit) && (!links || links.length) ? hr() : null,
+      (links || submit) && (!links || links.length) && (K.length || hasAlert) ?
+        hr({
+          class: 'my-2'
+        }) : null,
       !links ? !submit ? null : btn : !links.length ? null : div({
         class: 'row g-2 align-items-center justify-content-'+
           (schema.close == 'modal' ? 'end' : 'start')
