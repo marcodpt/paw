@@ -94,7 +94,10 @@ const app = routes => {
 
     const hash = '#'+url
     document.body.querySelectorAll('[data-app-active]').forEach(p => {
-      p.classList.remove(p.getAttribute('data-app-active'))
+      p.getAttribute('data-app-active').split(' ')
+        .map(c => c.trim()).filter(c => c).forEach(c => {
+          p.classList.remove(c)
+        })
     })
     const href = Array.from(
       document.body.querySelectorAll('[data-app-path] > a[href]')
@@ -115,7 +118,10 @@ const app = routes => {
         const p = l.getAttribute('data-app-active') ? l :
           l.querySelector('[data-app-active]')
         if (p) {
-          p.classList.add(p.getAttribute('data-app-active'))
+          p.getAttribute('data-app-active').split(' ')
+            .map(c => c.trim()).filter(c => c).forEach(c => {
+              p.classList.add(c)
+            })
         }
         l = l.parentNode
       }

@@ -1,7 +1,7 @@
 export default {
   menu: 'bars',
-  isOpen: 'angle-up',
-  isClosed: 'angle-down',
+  isOpen: 'angle-down',
+  isClosed: 'angle-right',
   loading: 'spinner fa-spin fa-5x',
   pending: 'spinner fa-spin',
   submit: 'check',

@@ -44,8 +44,10 @@ minimum effort and maximum customization.
  - link as a self standing component
  - link href falsy block
  - allow link with options (pagination)
- - review tree nav to match cirrus (w/ transition)
+ - nav sizing
  - allow options to directly passed on schema
+ - carousel
+ - maps
 
 ## Contributing
 It's a very simple project.

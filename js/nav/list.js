@@ -8,9 +8,8 @@ const list = ({children}) => {
       class: 'list-group'
     }, (children || []).map(({children, href, icon, title}) => 
       li({
-        class: 'list-group-item',
-        dataAppPath: title,
-        dataAppActive: 'active'
+        class: 'list-group-item border-0',
+        dataAppPath: title
       }, [
         a({
           class: 'text-decoration-none text-reset',
@@ -23,13 +22,14 @@ const list = ({children}) => {
             i.setAttribute('class',
               i.getAttribute('class') == isClosed ? isOpen : isClosed
             )
-          }
+          },
+          dataAppActive: 'fw-bold'
         }, [
+          children ? i({class: isClosed}) : null,
+          children ? text(' ') : null,
           icon ? i({class: iconify(icon)}) : null,
           icon && title ? text(' ') : null,
-          text(title),
-          children ? text(' ') : null,
-          children ? i({class: isClosed}) : null
+          text(title)
         ]),
         !children ? null : div({
           class: 'mt-2 d-none'
