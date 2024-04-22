@@ -44,7 +44,7 @@ minimum effort and maximum customization.
  - link as a self standing component
  - link href falsy block
  - allow link with options (pagination)
- - allow options to directly passed on schema
+ - allow options to be passed directly on schema
  - remove data-ctrl
  - carousel
  - maps

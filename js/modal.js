@@ -37,7 +37,9 @@ const showModal = ({
                     ...response
                   }
                 }
-                isVisible ? M.hide() : showModal(reopen)
+                if (isVisible) {
+                  M.hide()
+                }
               }),
             links: [
               {
