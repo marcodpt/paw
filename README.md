@@ -45,6 +45,7 @@ minimum effort and maximum customization.
  - link href falsy block
  - allow link with options (pagination)
  - allow options to directly passed on schema
+ - remove data-ctrl
  - carousel
  - maps
 

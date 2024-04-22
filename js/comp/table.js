@@ -159,20 +159,16 @@ export default ({
     filter: {
       label: ['', '', '']
     },
-    filters: []
+    filters: [],
+    css: (config.table || 'bordered center striped hover').split(' ')
+      .map(c => c.trim()).filter(c => c).map(c => 'table-'+c).join(' ')
   }
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, i, text, button, ul
   }) =>
     table({
-      class: config.class || [
-        'table',
-        'table-bordered',
-        'table-center',
-        'table-striped',
-        'table-hover'
-      ].join(' '),
+      class: 'table '+state.css,
       style: config.style
     }, [
       thead({}, [

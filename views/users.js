@@ -66,7 +66,8 @@ export default ({render, table, modal}) => {
     noGroup: false,
     noCheck: false,
     noSort: false,
-    exporter: null
+    exporter: null,
+    table: ''
   }
   const tbl = table(schema)
   render(tbl)
