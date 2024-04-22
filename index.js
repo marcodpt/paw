@@ -23,6 +23,13 @@ const app = routes => {
     render: (view, el) => render(view, el || root)
   }
 
+  const setClass = (el, attr, fn) =>
+    (el.getAttribute(`data-app-${attr}`) || '').split(' ')
+      .map(c => c.trim())
+      .filter(c => c).forEach(c => {
+        el.classList[fn](c)
+      })
+
   const router = () => {
     const url = (window.location.hash || '#/').substr(1)
     const Url = url.split('?')
@@ -93,11 +100,12 @@ const app = routes => {
     }
 
     const hash = '#'+url
-    document.body.querySelectorAll('[data-app-active]').forEach(p => {
-      p.getAttribute('data-app-active').split(' ')
-        .map(c => c.trim()).filter(c => c).forEach(c => {
-          p.classList.remove(c)
-        })
+    document.body.querySelectorAll([
+      '[data-app-active]',
+      '[data-app-inactive]'
+    ].join(', ')).forEach(p => {
+      setClass(p, 'active', 'remove')
+      setClass(p, 'inactive', 'add')
     })
     const href = Array.from(
       document.body.querySelectorAll('[data-app-path] > a[href]')
@@ -118,10 +126,8 @@ const app = routes => {
         const p = l.getAttribute('data-app-active') ? l :
           l.querySelector('[data-app-active]')
         if (p) {
-          p.getAttribute('data-app-active').split(' ')
-            .map(c => c.trim()).filter(c => c).forEach(c => {
-              p.classList.add(c)
-            })
+          setClass(p, 'active', 'add')
+          setClass(p, 'inactive', 'remove')
         }
         l = l.parentNode
       }
