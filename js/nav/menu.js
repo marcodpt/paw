@@ -1,7 +1,9 @@
 import e from '../e.js'
-import {icon} from '../lib.js'
+import fa from '../comp/fa.js'
 
-export default ({target}) => e(({ul, li, a, i}) => 
+const icon = 'bars'
+
+export default ({target}) => e(({ul, li, a}) => 
   ul({
     class: 'navbar-nav',
     dataApp: 'nav'
@@ -16,7 +18,7 @@ export default ({target}) => e(({ul, li, a, i}) =>
         role: 'button',
         ariaControls: 'sidebar'
       }, [
-        i({class: icon.menu})
+        fa({name: icon})
       ])
     ])
   ])

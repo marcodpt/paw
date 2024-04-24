@@ -2,13 +2,39 @@ import e from '../e.js'
 import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
-  rm, copy, link, icon, linkify, iconify, parser,
+  rm, copy, linkify, parser,
   interpolate, lang, formatter, download, getTarget
 } from '../lib.js'
-import spinner from '../comp/spinner.js'
+import spinner from './spinner.js'
+import fa from './fa.js'
 import output from '../tags/output.js'
 import ctrl from '../tags/ctrl.js'
+import link from '../tags/link.js'
 import style from '../config/style.js'
+
+const btns = {
+  close: 'secondary',
+  pagination: 'secondary',
+  filter: linkify('info'),
+  group: linkify('warning'),
+  exporter: 'secondary',
+  check: 'success'
+}
+
+const icons = {
+  first: 'fast-backward',
+  previous: 'step-backward',
+  next: 'step-forward',
+  last: 'fast-forward',
+  close: 'times',
+  filter: 'filter',
+  group: 'th',
+  exporter: 'file',
+  check: 'check',
+  sort: 'sort',
+  sortAsc: 'sort-down',
+  sortDesc: 'sort-up'
+}
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
 
@@ -165,7 +191,7 @@ export default ({
   }
 
   const tbl = e(({
-    table, thead, tbody, tr, th, td, div, a, i, text, button, ul
+    table, thead, tbody, tr, th, td, div, a, text, button, ul
   }) =>
     table({
       class: 'table '+state.css,
@@ -188,28 +214,14 @@ export default ({
           }, [
             div({
               class: 'row gx-1 justify-content-center'
-            }, (links || []).map(({
-              href,
-              link,
-              icon,
-              title
-            }) =>
+            }, (links || []).map(X =>
               div({
                 class: 'col-auto'
               }, [
-                a({
-                  href: typeof href != 'function' ? href : 'javascript:;',
-                  class: linkify(link),
-                  onclick: typeof href != 'function' ? null :
-                    () => href(state.checked),
-                  target: getTarget(href)
-                }, [
-                  i({
-                    class: iconify(icon)
-                  }),
-                  text(' '),
-                  text(title)
-                ])
+                link({
+                  ...X,
+                  data: () => state.checked
+                })
               ])
             ))
           ])
@@ -225,34 +237,26 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.pagination,
-                  dataCtx: 'first',
-                  onclick: () => {
+                state.first = link({
+                  href: () => {
                     state.page = 1
                     update()
-                  }
-                }, [
-                  i({
-                    class: icon.first
-                  })
-                ])
+                  },
+                  link: btns.pagination,
+                  icon: icons.first
+                })
               ]),
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.pagination,
-                  dataCtx: 'previous',
-                  onclick: () => {
+                state.previous = link({
+                  href: () => {
                     state.page--
                     update()
-                  }
-                }, [
-                  i({
-                    class: icon.previous
-                  })
-                ])
+                  },
+                  link: btns.pagination,
+                  icon: icons.previous
+                })
               ]),
               div({
                 class: 'col-auto',
@@ -273,34 +277,26 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.pagination,
-                  dataCtx: 'next',
-                  onclick: () => {
+                state.next = link({
+                  href: () => {
                     state.page++
                     update()
-                  }
-                }, [
-                  i({
-                    class: icon.next
-                  })
-                ])
+                  },
+                  link: btns.pagination,
+                  icon: icons.next
+                })
               ]),
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.pagination,
-                  dataCtx: 'last',
-                  onclick: () => {
+                state.last = link({
+                  href: () => {
                     state.page = state.pages
                     update()
-                  }
-                }, [
-                  i({
-                    class: icon.last
-                  })
-                ])
+                  },
+                  link: btns.pagination,
+                  icon: icons.last
+                })
               ])
             ])
           ])
@@ -319,17 +315,15 @@ export default ({
               state.noSearch ? null : div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.close,
-                  disabled: true,
-                  dataCtx: 'clear',
-                  onclick: () => {
+                state.clear = link({
+                  title: '',
+                  href: () => {
                     state.search = ''
                     update()
-                  }
-                }, [
-                  i({class: icon.close})
-                ])
+                  },
+                  link: btns.close,
+                  icon: icons.close
+                })
               ]),
               state.noSearch ? null : div({
                 class: 'col-auto',
@@ -355,25 +349,25 @@ export default ({
                 dataCtx: 'filters'
               }, [
                 button({
-                  class: link.filter,
+                  class: btns.filter,
                   onclick: () => {
                     const f = tbl.querySelector('[data-ctx=filter]')
                     f.classList.toggle('d-none')
                     f.querySelector('[data-ctrl="field"]').setValue()
                     f.querySelector('[data-ctrl="operator"]').setValue()
                     f.querySelector('[data-ctrl="value"]').setValue()
-                    f.querySelector('button[class="'+link.filter+'"]')
+                    f.querySelector('button[class="'+btns.filter+'"]')
                       .disabled = true
                   }
                 }, [
-                  i({class: icon.filter}),
+                  fa({name: icons.filter}),
                   text(' '+l.filter)
                 ]),
                 button({
                   dataBsToggle: 'dropdown',
                   ariaExpanded: 'false',
                   class: 'dropdown-toggle dropdown-toggle-split d-none '+
-                    link.filter
+                    btns.filter
                 }),
                 ul({
                   class: 'dropdown-menu d-none'
@@ -383,12 +377,12 @@ export default ({
                 class: 'col-auto'
               }, [
                 button({
-                  class: link.group,
+                  class: btns.group,
                   onclick: ev => {
                     const i = ev.target.closest('button').querySelector('i')
                     if (state.group) {
                       state.group = null
-                      i.setAttribute('class', icon.group)
+                      i.replaceWith(fa({name: icons.group}))
                     } else {
                       state.group = Array.from(tbl.querySelectorAll(
                         '[data-ctx^="field:"].text-'+rawlink.group
@@ -398,21 +392,20 @@ export default ({
                         e.classList.remove('text-'+rawlink.group)
                         return G
                       }, [])
-                      i.setAttribute('class', icon.close)
+                      i.replaceWith(fa({name: icons.close}))
                     }
                     update()
                   }
                 }, [
-                  i({class: icon.group}),
+                  fa({name: icons.group}),
                   text(' '+l.group)
                 ])
               ]),
               !state.exporter ? null : div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.exporter,
-                  onclick: () => {
+                link({
+                  href: () => {
                     const nl = '\n'
                     const sep = '\t'
                     
@@ -423,11 +416,11 @@ export default ({
                       .join(nl)
 
                     download(data, state.exporter)
-                  }
-                }, [
-                  i({class: icon.exporter}),
-                  text(' '+l.exporter)
-                ])
+                  },
+                  link: btns.exporter,
+                  icon: icons.exporter,
+                  title: l.exporter
+                })
               ])
             ])
           ])
@@ -462,7 +455,7 @@ export default ({
                 })
               }
             }
-            f.querySelector('button[class="'+link.filter+'"]')
+            f.querySelector('button[class="'+btns.filter+'"]')
               .disabled = field == null || operator == null || value == null
           }
         }, [
@@ -476,15 +469,14 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: link.close,
-                  onclick: () => {
+                link({
+                  href: () => {
                     tbl.querySelector('[data-ctx=filter]')
                       .classList.add('d-none')
-                  }
-                }, [
-                  i({class: icon.close})
-                ])
+                  },
+                  link: btns.close,
+                  icon: icons.close
+                })
               ]),
               div({
                 class: 'col-auto'
@@ -552,7 +544,7 @@ export default ({
                 class: 'col-auto'
               }, [
                 button({
-                  class: link.filter,
+                  class: btns.filter,
                   onclick: () => {
                     const {field, operator, value} = state.filter
                     if (
@@ -573,7 +565,7 @@ export default ({
                       ul.classList.remove('d-none')
                       btn.classList.remove('d-none')
                       f.classList.add('btn-group')
-                      ul.appendChild(e(({li, a, i, text}) => 
+                      ul.appendChild(e(({li, a, text}) => 
                         li({}, [
                           a({
                             class: 'dropdown-item',
@@ -590,9 +582,7 @@ export default ({
                               update()
                             }
                           }, [
-                            i({
-                              class: icon.close
-                            }),
+                            fa({name: icons.close}),
                             text(' '+F.label)
                           ])
                         ])
@@ -601,7 +591,7 @@ export default ({
                     }
                   }
                 }, [
-                  i({class: icon.filter}),
+                  fa({name: icons.filter}),
                   text(' '+l.filter)
                 ])
               ])
@@ -636,7 +626,7 @@ export default ({
                 update()
               }
             }, [
-              i({class: icon.check})
+              fa({name: icons.check})
             ])
           ])
         ].concat(rowLinks.map(({icon, title}) =>
@@ -644,8 +634,8 @@ export default ({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
-            icon ? i({
-              class: iconify(icon)
+            icon ? fa({
+              name: icon
             }) : text(title)
           ])
         )).concat(K.map(k =>
@@ -669,17 +659,13 @@ export default ({
             ]),
             state.noSort ? null : text(' '),
             state.noSort ? null : a({
+              dataCtx: 'sort:'+k,
               href: 'javascript:;',
               onclick: () => {
                 state.sort = (state.sort == k ? '-' : '')+k
                 update()
               }
-            }, [
-              i({
-                dataCtx: 'sort:'+k,
-                class: icon.sort
-              })
-            ])
+            })
           ])
         )))
       ]),
@@ -707,12 +693,14 @@ export default ({
       }
       const view = run(pager(state.page, state.limit))(state.rows)
 
-      tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(i => {
-        const k = i.getAttribute('data-ctx').substr(5)
+      tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
+        const k = f.getAttribute('data-ctx').substr(5)
         const s = state.sort
-        i.setAttribute('class',
-          icon['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
-        )
+        const i = f.querySelector('i')
+        const e = fa({
+          name: icons['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
+        })
+        i ? i.replaceWith(e) : f.appendChild(e)
       })
 
       tbl.querySelectorAll('[data-ctrl="pager"]').forEach(e => {
@@ -723,21 +711,12 @@ export default ({
         .setValue(state.page)
       })
 
-      tbl.querySelectorAll(
-        '[data-ctx="first"], [data-ctx="previous"]'
-      ).forEach(btn => {
-        btn.disabled = state.page <= 1
-      })
+      state.first.disabled = state.page <= 1
+      state.previous.disabled = state.page <= 1
+      state.next.disabled = state.page >= state.pages
+      state.last.disabled = state.page >= state.pages
 
-      tbl.querySelectorAll(
-        '[data-ctx="next"], [data-ctx="last"]'
-      ).forEach(btn => {
-        btn.disabled = state.page >= state.pages
-      })
-
-      tbl.querySelectorAll('[data-ctx="clear"]').forEach(e => {
-        e.disabled = !state.search
-      })
+      state.clear.disabled = !state.search
       tbl.querySelectorAll('[data-ctrl="search"]').forEach(e => {
         e.setValue(state.search)
       })
@@ -767,7 +746,7 @@ export default ({
       })
 
       view.forEach(row => {
-        x.appendChild(e(({tr, td, i, a, text}) =>
+        x.appendChild(e(({tr, td, a, text}) =>
           tr({
             title: I.map(k => row[k]).join('\n')
           }, [
@@ -798,8 +777,8 @@ export default ({
                 onclick: typeof href != 'function' ? null : () => href(row),
                 target: getTarget(href)
               }, [
-                icon ? i({
-                  class: iconify(icon)
+                icon ? fa({
+                  name: icon
                 }) : text(title)
               ])
             ])

@@ -1,9 +1,11 @@
 import e from '../e.js'
-import {iconify, icon} from '../lib.js'
+import fa from '../comp/fa.js'
+
+const isOpen = 'angle-down'
+const isClosed = 'angle-right'
 
 const list = ({children}) => {
-  const {isClosed, isOpen} = icon 
-  return e(({div, ul, li, a, i, text}) => 
+  return e(({div, ul, li, a, text}) => 
     ul({
       class: 'list-group'
     }, (children || []).map(({children, href, icon, title}) => 
@@ -15,19 +17,19 @@ const list = ({children}) => {
           class: 'text-decoration-none text-reset',
           href: children ? 'javascript:;' : href,
           onclick: !children ? null : ev => {
-            ev.target.closest('.list-group-item')
-              .querySelector('div').classList.toggle('d-none')
-            const i = ev.target.closest('a')
-              .querySelector('i[class="'+isClosed+'"], i[class="'+isOpen+'"]')
-            i.setAttribute('class',
-              i.getAttribute('class') == isClosed ? isOpen : isClosed
-            )
+            const t = ev.target
+            const l = t.closest('.list-group-item').querySelector('div')
+            l.classList.toggle('d-none')
+            const i = ev.target.closest('a').querySelector('i')
+            i.replaceWith(fa({
+              name: l.classList.contains('d-none') ? isClosed : isOpen
+            }))
           },
           dataAppActive: 'fw-bold'
         }, [
-          children ? i({class: isClosed}) : null,
+          children ? fa({name: isClosed}) : null,
           children ? text(' ') : null,
-          icon ? i({class: iconify(icon)}) : null,
+          icon ? fa({name: icon}) : null,
           icon && title ? text(' ') : null,
           text(title)
         ]),

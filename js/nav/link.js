@@ -1,5 +1,5 @@
 import e from '../e.js'
-import {iconify} from '../lib.js'
+import fa from '../comp/fa.js'
 
 export default ({children}) => e(({div, a, ul, li, i, text}) => 
   div({
@@ -20,7 +20,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
           role: 'button',
           ariaExpanded: 'false'
         }, [
-          icon ? i({class: iconify(icon)}) : null,
+          icon ? fa({name: icon}) : null,
           icon && title ? text(' ') : null,
           text(title)
         ]),
@@ -35,7 +35,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
               dataAppActive: 'active',
               href
             }, [
-              icon ? i({class: iconify(icon)}) : null,
+              icon ? fa({name: icon}) : null,
               icon && title ? text(' ') : null,
               text(title)
             ])
@@ -50,7 +50,7 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
           dataAppActive: 'active',
           href
         }, [
-          icon ? i({class: iconify(icon)}) : null,
+          icon ? fa({name: icon}) : null,
           icon && title ? text(' ') : null,
           text(title)
         ])

@@ -2,7 +2,8 @@ import e from '../e.js'
 import style from '../config/style.js'
 import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
-import {linkify, iconify, interpolate, getTarget} from '../lib.js'
+import fa from './fa.js'
+import {linkify, interpolate, getTarget} from '../lib.js'
 
 const builder = ({
   css,
@@ -28,7 +29,6 @@ const builder = ({
     legend,
     label,
     text,
-    i,
     a,
     hr
   }) => div({
@@ -88,8 +88,8 @@ const builder = ({
             onclick: typeof href != 'function' ? null : () => href(Data),
             target: getTarget(href)
           }, [
-            i({
-              class: iconify(icon)
+            fa({
+              name: icon
             }),
             text(' '),
             text(title || '')

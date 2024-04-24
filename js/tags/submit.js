@@ -1,12 +1,18 @@
 import e from '../e.js'
-import {link, icon, lang} from '../lib.js'
+import fa from '../comp/fa.js'
+import {link, lang} from '../lib.js'
 import pending from '../tags/pending.js'
+
+const icons = {
+  submit: 'check',
+  error: 'exclamation'
+}
 
 export default X => {
   const l = lang()
   X = X || {}
   const css = typeof X.css == 'string' ? (' '+X.css.trim()) : ''
-  const btn = e(({button, i, text}) =>
+  const btn = e(({button, text}) =>
     button({
       type: 'submit',
       class: link.submit+css,
@@ -15,11 +21,15 @@ export default X => {
         if (err) {
           btn.disabled = true
           btn.setAttribute('class', link.error+css)
-          ic.setAttribute('class', icon.error)
+          ic.replaceWith(fa({
+            name: icons.error
+          }))
         } else {
           btn.disabled = false
           btn.setAttribute('class', link.submit+css)
-          ic.setAttribute('class', icon.submit)
+          ic.replaceWith(fa({
+            name: icons.submit
+          }))
         }
       },
       run: callback => {
@@ -31,22 +41,22 @@ export default X => {
           .then(() => callback())
           .then(result => {
             btn.disabled = false
-            p.replaceWith(e(({i}) => i({
-              class: icon.submit
-            })))
+            p.replaceWith(fa({
+              name: icons.submit
+            }))
             return result
           })
           .catch(err => {
             btn.setAttribute('class', link.error+css)
-            p.replaceWith(e(({i}) => i({
-              class: icon.error
-            })))
+            p.replaceWith(fa({
+              name: icons.error
+            }))
             throw err
           })
       }
     }, [
-      i({
-        class: icon.submit
+      fa({
+        name: icons.submit
       }),
       text(' '),
       text(l.submit)

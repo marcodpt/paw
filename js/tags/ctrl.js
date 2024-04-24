@@ -1,7 +1,8 @@
 import e from '../e.js'
+import fa from '../comp/fa.js'
 import {
   lang, validator, parser, setOptions, hasStep, getStep, readFiles,
-  iconify, linkify, rm
+  linkify, rm
 } from '../lib.js'
 import opt from '../options.js'
 import output from './output.js'
@@ -90,7 +91,9 @@ export default ({
       } else if (schema.ui == 'icon') {
         const g = target.closest('.input-group')
         if (g) {
-          g.querySelector('i').setAttribute('class', iconify(target.value))
+          g.querySelector('i').replaceWith(fa({
+            name: target.value || '_'
+          }))
         }
       }
       resolve(value, label)

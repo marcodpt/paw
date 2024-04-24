@@ -1,7 +1,8 @@
 import e from '../e.js'
 import ctrl from '../tags/ctrl.js'
 import style from '../config/style.js'
-import {iconify, interpolate} from '../lib.js'
+import fa from '../comp/fa.js'
+import {interpolate} from '../lib.js'
 
 export default ({
   title,
@@ -32,7 +33,6 @@ export default ({
     fieldset,
     legend,
     label,
-    i,
     text,
     hr,
     button
@@ -42,8 +42,8 @@ export default ({
       class: 'fw-bold clearfix '+
         (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
     }, [
-      !icon ? null : i({
-        class: iconify(icon)
+      !icon ? null : fa({
+        name: icon
       }),
       text((title && icon ? ' ' : '')+(title || '')),
       !close ? null : button({

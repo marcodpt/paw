@@ -1,11 +1,12 @@
 import e from '../e.js'
-import {iconify, linkify, lang, formatter, getTarget} from '../lib.js'
+import fa from '../comp/fa.js'
+import {linkify, lang, formatter, getTarget} from '../lib.js'
 import style from '../config/style.js'
 
 export default ({href, link, ...schema}) => {
   const data = formatter(schema)(schema.default)
   const p = typeof data == 'number' && data > 100 ? 100 : data
-  return e(({a, div, span, i, text}) =>
+  return e(({a, div, span, text}) =>
     href ? a({
       href: typeof href == 'function' ? 'javascript:;' : href,
       onclick: typeof href == 'function' ? href : null,
@@ -36,7 +37,7 @@ export default ({href, link, ...schema}) => {
       class: 'h-100 w-100'
     }) :
     schema.ui == 'icon' ? span({}, [
-      i({class: data}),
+      fa({name: data}),
       text(' '+schema.default)
     ]) : 
     schema.ui == 'link' ? a({

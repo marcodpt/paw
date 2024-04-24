@@ -1,5 +1,4 @@
 import raw_link from './config/link.js'
-import raw_icon from './config/icon.js'
 import pt from './lang/pt.js'
 import en from './lang/en.js'
 
@@ -13,9 +12,6 @@ const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
 
-const iconify = x => !x || typeof x != 'string' ? '' : 
-  x.substr(0, 1) == '@' ? `fa-brands fa-${x.substr(1)}` : `fa-solid fa-${x}`
-
 const linkify = (x, size) => x || size ? `btn${
   ['lg', 'sm'].indexOf(size) >= 0 ? ' btn-'+size : ''
 } btn-${x ? x : 'link'}` : ''
@@ -23,11 +19,6 @@ const linkify = (x, size) => x || size ? `btn${
 const link = Object.keys(raw_link).reduce((link, k) => ({
   ...link,
   [k]: linkify(raw_link[k])
-}), {})
-
-const icon = Object.keys(raw_icon).reduce((icon, k) => ({
-  ...icon,
-  [k]: iconify(raw_icon[k])
 }), {})
 
 const lang = () => {
@@ -122,8 +113,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
     }
   } else if (ui == 'link') {
     return link => linkify(link, 'sm')
-  } else if (ui == 'icon') {
-    return iconify
   } else if (type == 'integer' || type == 'number') {
     const l = lang()
     return x => typeof x != 'number' ? x == null ? '' : x :
@@ -264,10 +253,9 @@ export {
   rm,
   copy,
   setOptions,
-  iconify,
   linkify,
   link,
-  icon,
+  link as btns,
   lang,
   interpolate,
   queryString,

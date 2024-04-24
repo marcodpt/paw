@@ -1,6 +1,6 @@
 import e from './e.js'
 import form from './comp/form.js'
-import {link, icon as ic, lang, rm} from './lib.js'
+import {link, lang, rm} from './lib.js'
 
 const showModal = ({
   submit,
@@ -44,7 +44,7 @@ const showModal = ({
             links: [
               {
                 link: link.close,
-                icon: ic.close,
+                icon: 'times',
                 title: l.close,
                 href: 'modal'
               }
