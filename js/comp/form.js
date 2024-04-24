@@ -2,7 +2,7 @@ import e from '../e.js'
 import style from '../config/style.js'
 import fields from '../tags/fields.js'
 import button from '../tags/submit.js'
-import fa from './fa.js'
+import tag from './tag.js'
 import {linkify, interpolate, getTarget} from '../lib.js'
 
 const builder = ({
@@ -75,24 +75,19 @@ const builder = ({
       !links ? !submit ? null : btn : !links.length ? null : div({
         class: 'row g-2 align-items-center justify-content-'+
           (schema.close == 'modal' ? 'end' : 'start')
-      }, (links || []).map(({href, link, icon, title, description}) => 
+      }, (links || []).map(({href, link, ...meta}) => 
         div({
           class: 'col-auto'
         }, [
           href == null ? btn : a({
             class: linkify(link)+btnCss,
-            title: description,
             href: typeof href == 'string' && href != 'modal' ?
               interpolate(href, Data) : 'javascript:;',
             dataBsDismiss: href == 'modal' ? href : null,
             onclick: typeof href != 'function' ? null : () => href(Data),
             target: getTarget(href)
           }, [
-            fa({
-              name: icon
-            }),
-            text(' '),
-            text(title || '')
+            tag(meta)
           ])
         ])
       ))

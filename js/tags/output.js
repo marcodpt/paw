@@ -1,5 +1,5 @@
 import e from '../e.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 import {linkify, lang, formatter, getTarget} from '../lib.js'
 import style from '../config/style.js'
 
@@ -36,10 +36,10 @@ export default ({href, link, ...schema}) => {
       title: schema.default,
       class: 'h-100 w-100'
     }) :
-    schema.ui == 'icon' ? span({}, [
-      fa({name: data}),
-      text(' '+schema.default)
-    ]) : 
+    schema.ui == 'icon' ? tag({
+      icon: data,
+      title: schema.default
+    }) : 
     schema.ui == 'link' ? a({
       class: data,
       href: 'javascript:;'

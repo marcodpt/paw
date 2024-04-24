@@ -1,7 +1,9 @@
 const d = new Date()
 const ctrl = {
   type: 'object',
+  icon: 'gamepad',
   title: 'Controls Showcase',
+  description: 'A showcase of all controls available',
   css: 'container my-5',
   submit: data => {
     console.log(data)

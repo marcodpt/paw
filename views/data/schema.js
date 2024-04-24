@@ -1,4 +1,5 @@
 export default {
+  icon: 'user',
   title: 'Users',
   description: 'List of available users',
   type: 'array',

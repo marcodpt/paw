@@ -1,5 +1,5 @@
 import e from '../e.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 
 const icon = 'bars'
 
@@ -18,7 +18,7 @@ export default ({target}) => e(({ul, li, a}) =>
         role: 'button',
         ariaControls: 'sidebar'
       }, [
-        fa({name: icon})
+        tag({icon})
       ])
     ])
   ])

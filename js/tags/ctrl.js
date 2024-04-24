@@ -1,5 +1,5 @@
 import e from '../e.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 import {
   lang, validator, parser, setOptions, hasStep, getStep, readFiles,
   linkify, rm
@@ -90,9 +90,11 @@ export default ({
         value = E[i]
       } else if (schema.ui == 'icon') {
         const g = target.closest('.input-group')
+          .querySelector('.input-group-text')
         if (g) {
-          g.querySelector('i').replaceWith(fa({
-            name: target.value || '_'
+          g.innerHTML = ''
+          g.appendChild(tag({
+            icon: target.value
           }))
         }
       }

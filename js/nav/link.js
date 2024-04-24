@@ -1,14 +1,14 @@
 import e from '../e.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 
-export default ({children}) => e(({div, a, ul, li, i, text}) => 
+export default ({children}) => e(({div, a, ul, li}) => 
   div({
     class: 'collapse navbar-collapse',
     dataApp: 'nav'
   }, [
     ul({
       class: 'navbar-nav ms-auto'
-    }, children.map(({children, href, icon, title}) => children ?
+    }, children.map(({children, href, title, ...meta}) => children ?
       li({
         class: 'nav-item dropdown',
         dataAppPath: title
@@ -20,13 +20,14 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
           role: 'button',
           ariaExpanded: 'false'
         }, [
-          icon ? fa({name: icon}) : null,
-          icon && title ? text(' ') : null,
-          text(title)
+          tag({
+            ...meta,
+            title
+          })
         ]),
         ul({
           class: 'dropdown-menu'
-        }, children.map(({href, icon, title}) => 
+        }, children.map(({href, title, ...meta}) => 
           li({
             dataAppPath: title
           }, [
@@ -35,9 +36,10 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
               dataAppActive: 'active',
               href
             }, [
-              icon ? fa({name: icon}) : null,
-              icon && title ? text(' ') : null,
-              text(title)
+              tag({
+                ...meta,
+                title
+              })
             ])
           ])
         ))
@@ -50,9 +52,10 @@ export default ({children}) => e(({div, a, ul, li, i, text}) =>
           dataAppActive: 'active',
           href
         }, [
-          icon ? fa({name: icon}) : null,
-          icon && title ? text(' ') : null,
-          text(title)
+          tag({
+            ...meta,
+            title
+          })
         ])
       ])
     ))

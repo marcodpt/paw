@@ -1,5 +1,5 @@
 import e from '../e.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 
 const isOpen = 'angle-down'
 const isClosed = 'angle-right'
@@ -8,7 +8,7 @@ const list = ({children}) => {
   return e(({div, ul, li, a, text}) => 
     ul({
       class: 'list-group'
-    }, (children || []).map(({children, href, icon, title}) => 
+    }, (children || []).map(({children, href, title, ...meta}) => 
       li({
         class: 'list-group-item border-0',
         dataAppPath: title
@@ -21,17 +21,18 @@ const list = ({children}) => {
             const l = t.closest('.list-group-item').querySelector('div')
             l.classList.toggle('d-none')
             const i = ev.target.closest('a').querySelector('i')
-            i.replaceWith(fa({
-              name: l.classList.contains('d-none') ? isClosed : isOpen
+            i.replaceWith(tag({
+              icon: l.classList.contains('d-none') ? isClosed : isOpen
             }))
           },
           dataAppActive: 'fw-bold'
         }, [
-          children ? fa({name: isClosed}) : null,
+          children ? tag({icon: isClosed}) : null,
           children ? text(' ') : null,
-          icon ? fa({name: icon}) : null,
-          icon && title ? text(' ') : null,
-          text(title)
+          tag({
+            ...meta,
+            title
+          })
         ]),
         !children ? null : div({
           class: 'mt-2 d-none'

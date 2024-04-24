@@ -25,7 +25,9 @@ export default ({render, form}) => {
 
   return render(form({
     css: 'container my-5',
+    icon: 'cog',
     title: 'Settings',
+    description: 'Setup your preferences!',
     type: 'object',
     properties: {
       title: {

@@ -1,7 +1,7 @@
 import e from '../e.js'
 import ctrl from '../tags/ctrl.js'
 import style from '../config/style.js'
-import fa from '../comp/fa.js'
+import tag from '../comp/tag.js'
 import {interpolate} from '../lib.js'
 
 export default ({
@@ -38,14 +38,14 @@ export default ({
     button
   }) => fieldset({}, [
     !close && !title && !icon ? null : legend({
-      title: ui != null ? null : description,
       class: 'fw-bold clearfix '+
         (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
     }, [
-      !icon ? null : fa({
-        name: icon
+      tag({
+        icon,
+        title,
+        description
       }),
-      text((title && icon ? ' ' : '')+(title || '')),
       !close ? null : button({
         type: 'button',
         class: 'btn-close float-end',

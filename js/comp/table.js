@@ -6,7 +6,7 @@ import {
   interpolate, lang, formatter, download, getTarget
 } from '../lib.js'
 import spinner from './spinner.js'
-import fa from './fa.js'
+import tag from './tag.js'
 import output from '../tags/output.js'
 import ctrl from '../tags/ctrl.js'
 import link from '../tags/link.js'
@@ -124,7 +124,6 @@ const filter = (Filters, F) => data => Filters.reduce((data, {
 
 export default ({
   title,
-  description,
   links,
   items,
   config,
@@ -201,10 +200,12 @@ export default ({
         !title ? null : tr({}, [
           th({
             class: 'text-center',
-            colspan: '100%',
-            title: description
+            colspan: '100%'
           }, [
-            text(title)
+            tag({
+              ...schema,
+              title
+            })
           ])
         ]),
         !links || !links.length ? null : tr({}, [
@@ -360,8 +361,10 @@ export default ({
                       .disabled = true
                   }
                 }, [
-                  fa({name: icons.filter}),
-                  text(' '+l.filter)
+                  tag({
+                    icon: icons.filter,
+                    title: l.filter
+                  })
                 ]),
                 button({
                   dataBsToggle: 'dropdown',
@@ -379,10 +382,9 @@ export default ({
                 button({
                   class: btns.group,
                   onclick: ev => {
-                    const i = ev.target.closest('button').querySelector('i')
+                    const b = ev.target.closest('button')
                     if (state.group) {
                       state.group = null
-                      i.replaceWith(fa({name: icons.group}))
                     } else {
                       state.group = Array.from(tbl.querySelectorAll(
                         '[data-ctx^="field:"].text-'+rawlink.group
@@ -392,13 +394,19 @@ export default ({
                         e.classList.remove('text-'+rawlink.group)
                         return G
                       }, [])
-                      i.replaceWith(fa({name: icons.close}))
                     }
+                    b.innerHTML = ''
+                    b.appendChild(tag({
+                      title: l.group,
+                      icon: state.group ? icons.close : icons.group
+                    }))
                     update()
                   }
                 }, [
-                  fa({name: icons.group}),
-                  text(' '+l.group)
+                  tag({
+                    icon: icons.group,
+                    title: l.group
+                  })
                 ])
               ]),
               !state.exporter ? null : div({
@@ -582,8 +590,10 @@ export default ({
                               update()
                             }
                           }, [
-                            fa({name: icons.close}),
-                            text(' '+F.label)
+                            tag({
+                              icon: icons.close,
+                              title: F.label
+                            })
                           ])
                         ])
                       ))
@@ -591,8 +601,10 @@ export default ({
                     }
                   }
                 }, [
-                  fa({name: icons.filter}),
-                  text(' '+l.filter)
+                  tag({
+                    icon: icons.filter,
+                    title: l.filter
+                  })
                 ])
               ])
             ])
@@ -626,7 +638,9 @@ export default ({
                 update()
               }
             }, [
-              fa({name: icons.check})
+              tag({
+                icon: icons.check
+              })
             ])
           ])
         ].concat(rowLinks.map(({icon, title}) =>
@@ -634,9 +648,10 @@ export default ({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
-            icon ? fa({
-              name: icon
-            }) : text(title)
+            tag({
+              icon,
+              title: icon ? '' : title
+            })
           ])
         )).concat(K.map(k =>
           th({
@@ -696,11 +711,10 @@ export default ({
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
         const s = state.sort
-        const i = f.querySelector('i')
-        const e = fa({
-          name: icons['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
-        })
-        i ? i.replaceWith(e) : f.appendChild(e)
+        f.innerHTML = ''
+        f.appendChild(tag({
+          icon: icons['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
+        }))
       })
 
       tbl.querySelectorAll('[data-ctrl="pager"]').forEach(e => {
@@ -777,9 +791,10 @@ export default ({
                 onclick: typeof href != 'function' ? null : () => href(row),
                 target: getTarget(href)
               }, [
-                icon ? fa({
-                  name: icon
-                }) : text(title)
+                tag({
+                  icon,
+                  title: icon ? '' : title
+                })
               ])
             ])
           )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>

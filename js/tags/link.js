@@ -1,5 +1,5 @@
 import e from '../e.js'
-import info from './info.js'
+import tag from '../comp/tag.js'
 
 const links = [
   'link',
@@ -27,10 +27,6 @@ export default ({
   const isBtn = typeof href == "boolean" || typeof href == 'function'
   const type = href === true ? 'submit' : isBtn ? 'button' : null
   const isDisabled = !href
-  const msg = info({
-    ...extra,
-    hasPending: typeof href == 'function'
-  })
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   link = links.indexOf(link) >= 0 ? link :
     isBtn ? 'primary' :
@@ -47,7 +43,8 @@ export default ({
     '_blank' : null
   const toggle = pending => {
     btn.classList[pending ? 'add' : 'remove']('disabled')
-    msg.toggle(pending)
+    btn.querySelector('.spinner-border')
+      .classList[pending ? 'remove' : 'add']('d-none')
   }
   const onclick = !run ? null : () => {
     Promise.resolve().then(() => {
@@ -61,12 +58,18 @@ export default ({
     })
   }
 
-  const btn = e(({button, a}) => (isBtn ? button : a)({
+  const btn = e(({button, a, span}) => (isBtn ? button : a)({
     class: link,
     type,
     onclick,
     href
-  }, [msg])) 
+  }, [
+    !run ? null : span({
+      class: 'spinner-border spinner-border-sm me-2 d-none',
+      ariaHidden: 'true'
+    }),
+    tag(extra)
+  ])) 
 
   return btn
 }
