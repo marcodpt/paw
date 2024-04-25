@@ -1,7 +1,8 @@
 import e from '../e.js'
 import tag from '../comp/tag.js'
-import {link, lang} from '../lib.js'
+import {link} from '../lib.js'
 import pending from '../tags/pending.js'
+import T from '../lang/index.js'
 
 const icons = {
   submit: 'check',
@@ -9,10 +10,9 @@ const icons = {
 }
 
 export default X => {
-  const l = lang()
   X = X || {}
   const css = typeof X.css == 'string' ? (' '+X.css.trim()) : ''
-  const title = l.submit
+  const title = T('submit')
   var icon = icons.submit
   const btn = e(({button, text}) =>
     button({

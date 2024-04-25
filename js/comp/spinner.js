@@ -1,12 +1,11 @@
 import e from '../e.js'
-import {lang} from '../lib.js'
 import style from '../config/style.js'
+import T from '../lang/index.js'
 
-export default () => {
-  const l = lang()
-  return e(({div, span, text}) => div({
+export default () => e(({div, span, text}) =>
+  div({
     class: 'd-flex justify-content-center p-5',
-    title: l.loading
+    title: T('loading')
   }, [
     div({
       class: 'spinner-border',
@@ -16,8 +15,8 @@ export default () => {
       span({
         class: 'visually-hidden'
       }, [
-        text(l.loading)
+        text(T('loading'))
       ])
     ])
-  ]))
-}
+  ])
+)

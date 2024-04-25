@@ -1,11 +1,12 @@
 import e from '../e.js'
 import tag from '../comp/tag.js'
 import {
-  lang, validator, parser, setOptions, hasStep, getStep, readFiles,
+  validator, parser, setOptions, hasStep, getStep, readFiles,
   linkify, rm
 } from '../lib.js'
 import opt from '../options.js'
 import output from './output.js'
+import T from '../lang/index.js'
 
 const loader = ({type, ui}, data) => data == null ? data :
   (type == 'integer' || type == 'number') && ui == 'date' ?
@@ -27,7 +28,6 @@ export default ({
   ...schema
 }) => {
   size = ['lg', 'sm'].indexOf(size) >= 0 ? ' form-control-'+size : ''
-  const l = lang()
   const t = schema.type
   const ui = schema.ui
   const isStatic = readOnly && !writeOnly
@@ -37,8 +37,8 @@ export default ({
   var E = schema.enum
   var O = E instanceof Array ? setOptions(E) :
     (t == 'integer' || t == 'number') && schema.ui == 'bool' ? [
-      {value: 0, label: l.boolFalse},
-      {value: 1, label: l.boolTrue}
+      {value: 0, label: T('boolFalse')},
+      {value: 1, label: T('boolTrue')}
     ] : opt[schema.ui]
   var validate = validator(schema)
   const parse = parser(schema)
@@ -203,7 +203,7 @@ export default ({
       }
       if (options === true) {
         target.disabled = true
-        target.setAttribute('placeholder', l.loading)
+        target.setAttribute('placeholder', T('loading'))
         target.value = ''
       } else {
         target.disabled = !!readOnly

@@ -3,7 +3,7 @@ import modal from '../modal.js'
 import rawlink from '../config/link.js'
 import {
   rm, copy, linkify, parser,
-  interpolate, lang, formatter, download, getTarget
+  interpolate, formatter, download, getTarget
 } from '../lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
@@ -11,6 +11,7 @@ import output from '../tags/output.js'
 import ctrl from '../tags/ctrl.js'
 import link from '../tags/link.js'
 import style from '../config/style.js'
+import T from '../lang/index.js'
 
 const btns = {
   close: 'secondary',
@@ -76,17 +77,17 @@ const Aggregates = {
 
 const group = (Fields, Methods) => data => {
   const notEqual = cmp(Fields)
-  const T = sort(Fields)(data)
+  const D = sort(Fields)(data)
   const K = Object.keys(Methods).reduce((K, k) => {
     if (K.indexOf(k) < 0) {
       K.push(k)
     }
     return K
   }, copy(Fields))
-  return T.reduce((T, row) => {
-    const X = T[T.length - 1]
+  return D.reduce((D, row) => {
+    const X = D[D.length - 1]
     if (X == null || notEqual(row, X)) {
-      T.push(K.reduce((R, k) => ({
+      D.push(K.reduce((R, k) => ({
         ...R,
         [k]: Fields.indexOf(k) < 0 ? [row[k]] : row[k]
       }), {}))
@@ -95,7 +96,7 @@ const group = (Fields, Methods) => data => {
         X[k].push(row[k])
       })
     }
-    return T
+    return D
   }, []).map(row => K
     .filter(k => Fields.indexOf(k) < 0)
     .reduce((R, k) => ({
@@ -131,7 +132,6 @@ export default ({
 }) => {
   config = config || {}
 
-  const l = lang()
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
@@ -149,9 +149,9 @@ export default ({
     }
     return M
   }, {})
-  const T = Object.keys(M)
-  const hasTotals = T.length > 0
-  const O = Object.keys(l.operators)
+  const U = Object.keys(M)
+  const hasTotals = U.length > 0
+  const O = Object.keys(T('operators'))
   const S = ['ct', 'nc']
   const Z = Y.reduce((Z, k) => ({
     ...Z,
@@ -332,7 +332,7 @@ export default ({
               }, [
                 ctrl({
                   type: 'string',
-                  description: l.search,
+                  description: T('search'),
                   noValid: true,
                   title: 'search',
                   default: state.search,
@@ -363,7 +363,7 @@ export default ({
                 }, [
                   tag({
                     icon: icons.filter,
-                    title: l.filter
+                    title: T('filter')
                   })
                 ]),
                 button({
@@ -397,7 +397,7 @@ export default ({
                     }
                     b.innerHTML = ''
                     b.appendChild(tag({
-                      title: l.group,
+                      title: T('group'),
                       icon: state.group ? icons.close : icons.group
                     }))
                     update()
@@ -405,7 +405,7 @@ export default ({
                 }, [
                   tag({
                     icon: icons.group,
-                    title: l.group
+                    title: T('group')
                   })
                 ])
               ]),
@@ -427,7 +427,7 @@ export default ({
                   },
                   link: btns.exporter,
                   icon: icons.exporter,
-                  title: l.exporter
+                  title: T('exporter')
                 })
               ])
             ])
@@ -527,7 +527,7 @@ export default ({
                   }
                 }).setOptions(O.map(o => ({
                   value: o,
-                  label: l.operators[o]
+                  label: T('operators')[o]
                 })))
               ]),
               div({
@@ -603,7 +603,7 @@ export default ({
                 }, [
                   tag({
                     icon: icons.filter,
-                    title: l.filter
+                    title: T('filter')
                   })
                 ])
               ])
@@ -720,7 +720,7 @@ export default ({
       tbl.querySelectorAll('[data-ctrl="pager"]').forEach(e => {
         e.setOptions(Array(state.pages).fill().map((v, i) => ({
           value: i + 1,
-          label: l.pagination(i + 1, state.pages)
+          label: T('pagination')(i + 1, state.pages)
         })))
         .setValue(state.page)
       })
@@ -741,7 +741,7 @@ export default ({
         })
 
       const H = K.filter(
-        k => state.group && state.group.indexOf(k) < 0 && T.indexOf(k) < 0 
+        k => state.group && state.group.indexOf(k) < 0 && U.indexOf(k) < 0 
       )
       K.forEach(k => {
         tbl.querySelectorAll(

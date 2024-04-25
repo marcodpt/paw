@@ -1,14 +1,13 @@
 import e from './e.js'
 import form from './comp/form.js'
-import {link, lang, rm} from './lib.js'
+import {link, rm} from './lib.js'
+import T from './lang/index.js'
 
 const showModal = ({
   submit,
   links,
   ...schema
 }) => {
-  const l = lang()
-
   const modal = e(({div}) => 
     div({
       class: 'modal fade',
@@ -45,7 +44,7 @@ const showModal = ({
               {
                 link: link.close,
                 icon: 'times',
-                title: l.close,
+                title: T('close'),
                 href: 'modal'
               }
             ]

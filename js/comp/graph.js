@@ -1,10 +1,9 @@
 import e from '../e.js'
 import style from '../config/style.js'
 import spinner from '../comp/spinner.js'
-import {lang} from '../lib.js'
+import T from '../lang/index.js'
 
 export default ({data}) => {
-  const l = lang()
   const graph = e(({
     div, p, h5, i, text
   }) =>
@@ -29,7 +28,7 @@ export default ({data}) => {
                 h5({
                   class: 'card-title'
                 }, [
-                  text(l.noOption)
+                  text(T('noOption'))
                 ]),
                 p({
                   style: style.text,
@@ -102,7 +101,7 @@ export default ({data}) => {
         return
       }
       const D = ev.target.data()
-      label.textContent = D.label || l.noOption
+      label.textContent = D.label || T('noOption')
 
       if (typeof D.info != 'function') {
         info.textContent = D.info

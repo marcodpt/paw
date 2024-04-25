@@ -1,6 +1,5 @@
 import raw_link from './config/link.js'
-import pt from './lang/pt.js'
-import en from './lang/en.js'
+import T from './lang/index.js'
 
 const rm = el => {
   if (el && el.parentNode) {
@@ -20,15 +19,6 @@ const link = Object.keys(raw_link).reduce((link, k) => ({
   ...link,
   [k]: linkify(raw_link[k])
 }), {})
-
-const lang = () => {
-  const lang = document.documentElement.lang
-  const l = lang.split('-')[0]
-  return {
-    ...(l == 'pt' ? pt : en),
-    lang
-  }
-}
 
 const interpolate = (str, X) => {
   if (typeof str != 'string') {
@@ -59,10 +49,8 @@ const formatter = ({type, ui, maximum, minimum}) => {
   if (ui == 'password') {
     return () => '********'
   } else if (type == 'boolean' || ui == 'bool') {
-    const l = lang()
-    return x => x ? l.boolTrue : l.boolFalse
+    return x => x ? T('boolTrue') : T('boolFalse')
   } else if (ui == 'date') {
-    const l = lang()
     return x => {
       if (typeof x == 'number' && x) {
         x = (x < 0 ? x+1 : x) * 1000
@@ -75,14 +63,13 @@ const formatter = ({type, ui, maximum, minimum}) => {
       }
 
       const d = new Date(x)
-      return d.toLocaleDateString(l.lang)
+      return d.toLocaleDateString(T('lang'))
     }
   } else if (/^num\.[1-9][0-9]*$/.test(ui)) {
-    const l = lang()
     const precision = parseInt(ui.substr(4))
     const pow = 10 ** precision
     return x => typeof x != 'number' ? x == null ? '' : x : 
-      (type == 'integer' ? (x / pow) : x).toLocaleString(l.lang, {
+      (type == 'integer' ? (x / pow) : x).toLocaleString(T('lang'), {
         minimumFractionDigits: precision,
         maximumFractionDigits: precision
       })
@@ -114,9 +101,8 @@ const formatter = ({type, ui, maximum, minimum}) => {
   } else if (ui == 'link') {
     return link => linkify(link, 'sm')
   } else if (type == 'integer' || type == 'number') {
-    const l = lang()
     return x => typeof x != 'number' ? x == null ? '' : x :
-      (type == 'integer' ? Math.round(x) : x).toLocaleString(l.lang)
+      (type == 'integer' ? Math.round(x) : x).toLocaleString(T('lang'))
   } else if (type != 'string') {
     return x => JSON.stringify(x, undefined, 2)
   } else {
@@ -125,7 +111,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
 }
 
 const validator = schema => data => {
-  const l = lang()
   const {
     type,
     minLength,
@@ -138,7 +123,7 @@ const validator = schema => data => {
   if (
     schema.enum instanceof Array && schema.enum.indexOf(data) < 0
   ) {
-    error = l.enum(schema.enum)
+    error = T('enum')(schema.enum)
   } else if (
     (type == 'null' && data !== null) ||
     (type == 'boolean' && data !== false && data !== true) ||
@@ -150,22 +135,22 @@ const validator = schema => data => {
     (type == 'number' && typeof data != 'number') ||
     (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
   ) {
-    error = l.type(type)
+    error = T('type')(type)
   } else if (typeof data == 'string') {
     if (minLength != null && data.length < minLength) {
-      error = l.minLength(minLength)
+      error = T('minLength')(minLength)
     } else if (maxLength != null && data.length > maxLength) {
-      error = l.maxLength(maxLength)
+      error = T('maxLength')(maxLength)
     } else if (pattern != null && !(new RegExp(pattern)).test(data)) {
-      error = l.pattern(pattern)
+      error = T('pattern')(pattern)
     }
   } else if (typeof data == 'number') {
   }
   if (!error) {
     if (minimum != null && data < minimum) {
-      error = l.minimum(formatter(schema)(minimum))
+      error = T('minimum')(formatter(schema)(minimum))
     } else if (maximum != null && data > maximum) {
-      error = l.maximum(formatter(schema)(maximum))
+      error = T('maximum')(formatter(schema)(maximum))
     }
   }
   return error
@@ -256,7 +241,6 @@ export {
   linkify,
   link,
   link as btns,
-  lang,
   interpolate,
   queryString,
   formatter,

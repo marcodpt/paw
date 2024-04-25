@@ -1,6 +1,6 @@
 import spinner from './comp/spinner.js'
 import form from './comp/form.js'
-import {lang} from './lib.js'
+import T from './lang/index.js'
 
 export default (resolve, root) => {
   const render = view => {
@@ -19,9 +19,8 @@ export default (resolve, root) => {
       .then(() => typeof resolve == 'function' ? resolve() : resolve)
       .then(view => render(view))
       .catch(err => {
-        const l = lang()
         render(form({
-          title: l.error,
+          title: T('error'),
           description: err.toString(),
           ui: 'danger',
           css: 'mx-auto my-5'

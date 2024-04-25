@@ -1,6 +1,6 @@
 import e from '../e.js'
 import tag from '../comp/tag.js'
-import {linkify, lang, formatter, getTarget} from '../lib.js'
+import {linkify, formatter, getTarget} from '../lib.js'
 import style from '../config/style.js'
 
 export default ({href, link, ...schema}) => {
