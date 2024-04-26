@@ -1,10 +1,6 @@
 import e from '../e.js'
 import modal from '../modal.js'
-import rawlink from '../config/link.js'
-import {
-  rm, copy, linkify, parser,
-  interpolate, formatter, download, getTarget
-} from '../lib.js'
+import {rm, copy, parser, formatter, download} from '../lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
 import output from '../tags/output.js'
@@ -16,8 +12,8 @@ import T from '../lang/index.js'
 const btns = {
   close: 'secondary',
   pagination: 'secondary',
-  filter: linkify('info'),
-  group: linkify('warning'),
+  filter: 'info',
+  group: 'warning',
   exporter: 'secondary',
   check: 'success'
 }
@@ -349,28 +345,23 @@ export default ({
                 class: 'col-auto',
                 dataCtx: 'filters'
               }, [
-                button({
-                  class: btns.filter,
-                  onclick: () => {
+                state.filter.x = link({
+                  title: T('filter'),
+                  link: btns.filter,
+                  icon: icons.filter,
+                  href: () => {
                     const f = tbl.querySelector('[data-ctx=filter]')
                     f.classList.toggle('d-none')
                     f.querySelector('[data-ctrl="field"]').setValue()
                     f.querySelector('[data-ctrl="operator"]').setValue()
                     f.querySelector('[data-ctrl="value"]').setValue()
-                    f.querySelector('button[class="'+btns.filter+'"]')
-                      .disabled = true
                   }
-                }, [
-                  tag({
-                    icon: icons.filter,
-                    title: T('filter')
-                  })
-                ]),
+                }),
                 button({
                   dataBsToggle: 'dropdown',
                   ariaExpanded: 'false',
                   class: 'dropdown-toggle dropdown-toggle-split d-none '+
-                    btns.filter
+                    state.filter.x.getAttribute('class')
                 }),
                 ul({
                   class: 'dropdown-menu d-none'
@@ -379,35 +370,31 @@ export default ({
               !hasTotals || state.noGroup ? null : div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: btns.group,
-                  onclick: ev => {
-                    const b = ev.target.closest('button')
+                state.bgrp = link({
+                  title: T('group'),
+                  link: btns.group,
+                  icon: icons.group,
+                  href: () => {
                     if (state.group) {
                       state.group = null
                     } else {
                       state.group = Array.from(tbl.querySelectorAll(
-                        '[data-ctx^="field:"].text-'+rawlink.group
+                        '[data-ctx^="field:"].text-'+btns.group
                       )).reduce((G, e) => {
                         G.push(e.getAttribute('data-ctx').substr(6))
                         e.classList.add('text-reset')
-                        e.classList.remove('text-'+rawlink.group)
+                        e.classList.remove('text-'+btns.group)
                         return G
                       }, [])
                     }
-                    b.innerHTML = ''
-                    b.appendChild(tag({
+                    state.bgrp.innerHTML = ''
+                    state.bgrp.appendChild(tag({
                       title: T('group'),
                       icon: state.group ? icons.close : icons.group
                     }))
                     update()
                   }
-                }, [
-                  tag({
-                    icon: icons.group,
-                    title: T('group')
-                  })
-                ])
+                })
               ]),
               !state.exporter ? null : div({
                 class: 'col-auto'
@@ -463,8 +450,8 @@ export default ({
                 })
               }
             }
-            f.querySelector('button[class="'+btns.filter+'"]')
-              .disabled = field == null || operator == null || value == null
+            state.filter.e.disabled =
+              field == null || operator == null || value == null
           }
         }, [
           th({
@@ -551,9 +538,11 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                button({
-                  class: btns.filter,
-                  onclick: () => {
+                state.filter.e = link({
+                  title: T('filter'),
+                  link: btns.filter,
+                  icon: icons.filter,
+                  href: () => {
                     const {field, operator, value} = state.filter
                     if (
                       field != null && operator != null && value != null &&
@@ -600,12 +589,7 @@ export default ({
                       update()
                     }
                   }
-                }, [
-                  tag({
-                    icon: icons.filter,
-                    title: T('filter')
-                  })
-                ])
+                })
               ])
             ])
           ])
@@ -629,19 +613,17 @@ export default ({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
-            button({
-              class: linkify(rawlink.check, 'sm'),
-              onclick: () => {
+            link({
+              size: 'sm',
+              link: btns.check,
+              icon: icons.check,
+              href: () => {
                 (state.base || []).forEach(row => {
                   row.checked = !row.checked
                 })
                 update()
               }
-            }, [
-              tag({
-                icon: icons.check
-              })
-            ])
+            })
           ])
         ].concat(rowLinks.map(({icon, title}) =>
           th({
@@ -666,7 +648,7 @@ export default ({
                 if (state.group == null) {
                   const a = ev.target.closest('a')
                   a.classList.toggle('text-reset')
-                  a.classList.toggle('text-'+rawlink.group)
+                  a.classList.toggle('text-'+btns.group)
                 }
               }
             }, [
@@ -779,23 +761,16 @@ export default ({
                 }
               })
             ])
-          ].concat(rowLinks.map(({link, icon, title, href}) =>
+          ].concat(rowLinks.map(L =>
             state.group ? null : td({
               class: 'text-center align-middle'
             }, [
-              a({
-                class: linkify(link, 'sm'),
-                title,
-                href: typeof href != 'function' ?
-                  interpolate(href, row) : 'javascript:;',
-                onclick: typeof href != 'function' ? null : () => href(row),
-                target: getTarget(href)
-              }, [
-                tag({
-                  icon,
-                  title: icon ? '' : title
-                })
-              ])
+              link({
+                ...L,
+                size: 'sm',
+                title: L.icon ? '' : L.title,
+                data: row
+              })
             ])
           )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>
             td({
@@ -808,9 +783,9 @@ export default ({
             }, [
               P[k].ui == 'color' ? null : output({
                 ...P[k],
-                href: state.group ? null : typeof P[k].href == 'function' ?
-                  P[k].href(row) : interpolate(P[k].href, row),
-                default: row[k]
+                href: state.group ? null : P[k].href,
+                default: row[k],
+                data: row
               })
             ])
           )))

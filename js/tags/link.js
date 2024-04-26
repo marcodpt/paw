@@ -1,4 +1,5 @@
 import e from '../e.js'
+import {interpolate} from '../lib.js'
 import tag from '../comp/tag.js'
 
 const links = [
@@ -38,13 +39,20 @@ export default ({
   }
   const run = typeof href == 'function' ? href : null
   const resolve = () => typeof data == 'function' ? data() : data
+  var dataBsDismiss = null
+  if (href == 'modal') {
+    dataBsDismiss = 'modal'
+    href = null
+  }
   href = !isBtn ? interpolate(href, resolve()) || 'javascript:;' : null
   const target = typeof href == 'string' && href.indexOf('://') > 0 ?
     '_blank' : null
   const toggle = pending => {
     btn.classList[pending ? 'add' : 'remove']('disabled')
-    btn.querySelector('.spinner-border')
-      .classList[pending ? 'remove' : 'add']('d-none')
+    const p = btn.querySelector('.spinner-border')
+    if (p) {
+      p.classList[pending ? 'remove' : 'add']('d-none')
+    }
   }
   const onclick = !run ? null : () => {
     Promise.resolve().then(() => {
@@ -62,7 +70,8 @@ export default ({
     class: link,
     type,
     onclick,
-    href
+    href,
+    dataBsDismiss
   }, [
     !run ? null : span({
       class: 'spinner-border spinner-border-sm me-2 d-none',

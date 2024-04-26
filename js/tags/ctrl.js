@@ -1,11 +1,11 @@
 import e from '../e.js'
 import tag from '../comp/tag.js'
 import {
-  validator, parser, setOptions, hasStep, getStep, readFiles,
-  linkify, rm
+  validator, parser, setOptions, hasStep, getStep, readFiles, rm
 } from '../lib.js'
 import opt from '../options.js'
 import output from './output.js'
+import link from './link.js'
 import T from '../lang/index.js'
 
 const loader = ({type, ui}, data) => data == null ? data :
@@ -27,7 +27,7 @@ export default ({
   size,
   ...schema
 }) => {
-  size = ['lg', 'sm'].indexOf(size) >= 0 ? ' form-control-'+size : ''
+  const sizeCss = ['lg', 'sm'].indexOf(size) >= 0 ? ' form-control-'+size : ''
   const t = schema.type
   const ui = schema.ui
   const isStatic = readOnly && !writeOnly
@@ -138,7 +138,7 @@ export default ({
     isText ? textarea({
       name: title,
       disabled: !!readOnly,
-      class: 'form-control'+size,
+      class: 'form-control'+sizeCss,
       oninput: change,
       rows: 6
     }) : input({
@@ -183,7 +183,7 @@ export default ({
       }
       isCheckbox = schema.type == 'boolean' && !options
       target.setAttribute('class',
-        isCheckbox ? 'form-check-input' : ('form-control'+size)
+        isCheckbox ? 'form-check-input' : ('form-control'+sizeCss)
       )
       target.setAttribute('type', options ? null :
         isCheckbox ? 'checkbox' :
@@ -263,26 +263,33 @@ export default ({
       }
       return wrapper
     }
-  }, isRadio ? O.map(o => [
-    input({
-      type: 'radio',
-      name: title,
-      class: 'btn-check',
-      id: title+'.'+o.value,
-      autocomplete: 'off',
-      value: o.value,
-      onclick: typeof update != 'function' ? null : () => {
-        update('', o.value, o.label, wrapper)
-      }
-    }),
-    label({
-      class: (linkify(o.value) || 'btn btn-link')+' me-2'+
-        (size.replace('form-control', 'btn')),
-      for: title+'.'+o.value
-    }, [
-      text(o.label)
-    ])
-  ]).reduce((X, V) => X.concat(V), []) : [
+  }, isRadio ? O.map(o => {
+    const l = link({
+      link: o.value,
+      title: o.label,
+      size,
+      href: 'javascript:;'
+    })
+    return [
+      input({
+        type: 'radio',
+        name: title,
+        class: 'btn-check',
+        id: title+'.'+o.value,
+        autocomplete: 'off',
+        value: o.value,
+        onclick: typeof update != 'function' ? null : () => {
+          update('', o.value, o.label, wrapper)
+        }
+      }),
+      label({
+        class: l.getAttribute('class')+' me-2',
+        for: title+'.'+o.value
+      }, [
+        text(l.textContent)
+      ])
+    ]
+  }).reduce((X, V) => X.concat(V), []) : [
     schema.ui == 'icon' && !isStatic ? 
       div({
         class: 'input-group'

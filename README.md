@@ -36,6 +36,7 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
+ - table filter, group, exporter to user space
  - input type = null at html attrs
  - submit button change properties (link, icon, title)
  - remove form and modal rebuild
@@ -46,6 +47,9 @@ minimum effort and maximum customization.
  - allow link with options (pagination)
  - allow options to be passed directly on schema
  - remove data-ctrl
+ - test module with docs
+ - modal as a promise
+ - offcanvas as a promise
  - carousel
  - maps
 

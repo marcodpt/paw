@@ -1,6 +1,6 @@
 import e from './e.js'
 import form from './comp/form.js'
-import {link, rm} from './lib.js'
+import {rm} from './lib.js'
 import T from './lang/index.js'
 
 const showModal = ({
@@ -42,7 +42,7 @@ const showModal = ({
               }),
             links: [
               {
-                link: link.close,
+                link: 'secondary',
                 icon: 'times',
                 title: T('close'),
                 href: 'modal'

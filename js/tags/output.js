@@ -1,20 +1,19 @@
 import e from '../e.js'
 import tag from '../comp/tag.js'
-import {linkify, formatter, getTarget} from '../lib.js'
+import link from './link.js'
+import {formatter} from '../lib.js'
 import style from '../config/style.js'
 
-export default ({href, link, ...schema}) => {
+export default schema => {
   const data = formatter(schema)(schema.default)
   const p = typeof data == 'number' && data > 100 ? 100 : data
   return e(({a, div, span, text}) =>
-    href ? a({
-      href: typeof href == 'function' ? 'javascript:;' : href,
-      onclick: typeof href == 'function' ? href : null,
-      class: linkify(link),
-      target: getTarget(href)
-    }, [
-      text(data)
-    ]) :
+    schema.href ? link({
+      ...schema,
+      title: data,
+      description: null,
+      icon: null
+    }) :
     schema.ui == 'progress' ? div({
       style: 'min-width:100px;background-color:lightgrey',
       class: 'rounded',
@@ -40,12 +39,12 @@ export default ({href, link, ...schema}) => {
       icon: data,
       title: schema.default
     }) : 
-    schema.ui == 'link' ? a({
-      class: data,
-      href: 'javascript:;'
-    }, [
-      text(schema.default)
-    ]) : 
+    schema.ui == 'link' ? link({
+      title: data,
+      link: data,
+      href: 'javascript:;',
+      size: 'sm'
+    }) : 
     schema.ui == 'text' || schema.ui == 'info' ? span({
       style: style.text
     }, [

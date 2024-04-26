@@ -1,4 +1,3 @@
-import raw_link from './config/link.js'
 import T from './lang/index.js'
 
 const rm = el => {
@@ -10,15 +9,6 @@ const rm = el => {
 const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
-
-const linkify = (x, size) => x || size ? `btn${
-  ['lg', 'sm'].indexOf(size) >= 0 ? ' btn-'+size : ''
-} btn-${x ? x : 'link'}` : ''
-
-const link = Object.keys(raw_link).reduce((link, k) => ({
-  ...link,
-  [k]: linkify(raw_link[k])
-}), {})
 
 const interpolate = (str, X) => {
   if (typeof str != 'string') {
@@ -98,8 +88,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
       x = x < 0 ? 0 : x
       return 100 * x
     }
-  } else if (ui == 'link') {
-    return link => linkify(link, 'sm')
   } else if (type == 'integer' || type == 'number') {
     return x => typeof x != 'number' ? x == null ? '' : x :
       (type == 'integer' ? Math.round(x) : x).toLocaleString(T('lang'))
@@ -231,16 +219,10 @@ const download = (data, name) => {
   rm(link)
 }
 
-const getTarget = href => typeof href == 'string' && href.indexOf('://') > 0 ?
-  '_blank' : null
-
 export {
   rm,
   copy,
   setOptions,
-  linkify,
-  link,
-  link as btns,
   interpolate,
   queryString,
   formatter,
@@ -249,6 +231,5 @@ export {
   getStep,
   parser,
   readFiles,
-  download,
-  getTarget
+  download
 }
