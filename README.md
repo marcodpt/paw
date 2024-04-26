@@ -52,6 +52,7 @@ minimum effort and maximum customization.
  - offcanvas as a promise
  - carousel
  - maps
+ - api with startup methods
 
 ## Contributing
 It's a very simple project.

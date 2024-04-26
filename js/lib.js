@@ -10,21 +10,6 @@ const copy = X => JSON.parse(JSON.stringify(X))
 
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
 
-const interpolate = (str, X) => {
-  if (typeof str != 'string') {
-    return str
-  }
-  str = str.replace(/{([^{}]*)}/g, (a, b) => X &&
-    (typeof X[b] == 'string' || typeof X[b] == 'number') ? X[b] : '{}'
-  )
-
-  if (str.indexOf('{}') >= 0) {
-    str = ''
-  }
-
-  return str
-}
-
 const queryString = Params => Object.keys(Params)
   .reduce((P, key) => P.concat(Params[key] instanceof Array ?
     Params[key].map(value => ({key: `${key}[]`, value})) :
@@ -223,7 +208,6 @@ export {
   rm,
   copy,
   setOptions,
-  interpolate,
   queryString,
   formatter,
   validator,

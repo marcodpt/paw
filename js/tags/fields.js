@@ -2,7 +2,6 @@ import e from '../e.js'
 import ctrl from '../tags/ctrl.js'
 import style from '../config/style.js'
 import tag from '../comp/tag.js'
-import {interpolate} from '../lib.js'
 
 export default ({
   title,
@@ -63,7 +62,7 @@ export default ({
       name: k,
       title: typeof P[k].title != 'string' ? k : P[k].title,
       default: D[k] == null ? P[k].default : D[k],
-      href: interpolate(P[k].href, D)
+      data: D
     })).map(schema => ({
       delay,
       noValid,

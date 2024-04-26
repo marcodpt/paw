@@ -1,5 +1,4 @@
 import e from '../e.js'
-import {interpolate} from '../lib.js'
 import tag from '../comp/tag.js'
 
 const links = [
@@ -13,10 +12,6 @@ const links = [
   'light',
   'dark'
 ]
-
-const refs = {
-  submit: 'primary'
-}
 
 export default ({
   link,
@@ -44,7 +39,17 @@ export default ({
     dataBsDismiss = 'modal'
     href = null
   }
-  href = !isBtn ? interpolate(href, resolve()) || 'javascript:;' : null
+
+  if (isBtn) {
+    href = null
+  } else if (typeof href != 'string' || !href) {
+    href = 'javascript:;'
+  } else {
+    const X = resolve()
+    href = href.replace(/{([^{}]*)}/g, (a, b) => X &&
+      (typeof X[b] == 'string' || typeof X[b] == 'number') ? X[b] : a
+    )
+  }
   const target = typeof href == 'string' && href.indexOf('://') > 0 ?
     '_blank' : null
   const toggle = pending => {
