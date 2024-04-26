@@ -6,9 +6,12 @@ export default ({render, table, modal}) => {
   schema.links[0].href = () => {
     const P = {...schema.items.properties}
     delete P.id
-    modal({
+    const H = {
       icon: schema.links[0].icon,
-      title: 'Insert',
+      title: 'Insert'
+    }
+    modal({
+      ...H,
       properties: P,
       submit: user => {
         users.push({
@@ -18,44 +21,57 @@ export default ({render, table, modal}) => {
           , 0)
         })
         tbl.setData(users)
-        return {
+        modal({
+          ...H,
           ui: 'success',
           description: 'New user inserted!'
-        }
+        })
       }
     })
   }
-  schema.items.links[0].href = user => modal({
-    icon: schema.items.links[0].icon,
-    title: 'Delete: '+user.name,
-    description: 'Do you want to delete this row?',
-    submit: () => {
-      const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
-      if (i >= 0) {
-        users.splice(i, 1)
-        tbl.setData(users)
-      }
-      return wait(2000).then(() => ({
-        ui: 'success',
-        description: `User ${user.name} was removed!`
-      }))
+  schema.items.links[0].href = user => {
+    const H = {
+      icon: schema.items.links[0].icon,
+      title: 'Delete: '+user.name
     }
-  })
+    modal({
+      ...H,
+      description: 'Do you want to delete this row?',
+      submit: () => {
+        const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
+        if (i >= 0) {
+          users.splice(i, 1)
+          tbl.setData(users)
+        }
+        return wait(2000).then(() => {
+          modal({
+            ...H,
+            ui: 'success',
+            description: `User ${user.name} was removed!`
+          })
+        })
+      }
+    })
+  }
   schema.items.links[1].href = user => {
     const P = {...schema.items.properties}
     delete P.id
-    modal({
+    const H = {
       icon: schema.items.links[1].icon,
-      title: 'Edit: '+user.name,
+      title: 'Edit: '+user.name
+    }
+    modal({
+      ...H,
       properties: P,
       default: user,
       submit: data => {
         Object.assign(users.filter(({id}) => id == user.id)[0], data)
         tbl.setData(users)
-        return {
+        modal({
+          ...H,
           ui: 'success',
           description: `User ${user.name} was edited!`
-        }
+        })
       }
     })
   }

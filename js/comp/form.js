@@ -40,19 +40,7 @@ const builder = ({
         ev.preventDefault()
         ev.stopPropagation()
         if (typeof submit == 'function' && !err) {
-          btn.run(() => submit(Data)).then(response => {
-            if (response && typeof response == 'object') {
-              const r = builder({
-                title: schema.title,
-                icon: schema.icon,
-                ...response
-              })
-              target.replaceWith(r)
-              target = r
-            } else if (typeof response == 'function') {
-              response()
-            }
-          })
+          btn.run(() => submit(Data))
         }
       }
     }, [

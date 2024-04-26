@@ -36,10 +36,8 @@ minimum effort and maximum customization.
 
 ## TODO
  - documentation
- - table filter, group, exporter to user space
  - input type = null at html attrs
  - submit button change properties (link, icon, title)
- - remove form and modal rebuild
  - table sizing
  - generalize all form links with promise function to be pending
  - link as a self standing component
@@ -50,6 +48,7 @@ minimum effort and maximum customization.
  - test module with docs
  - modal as a promise
  - offcanvas as a promise
+ - table filter, group, exporter to user space
  - carousel
  - maps
  - api with startup methods

@@ -26,19 +26,23 @@ export default ({render, Params, form, modal}) => {
   s.links[1].href = () => {
     const P = {...schema.items.properties}
     delete P.id
-    modal({
+    const H = {
       icon: s.links[1].icon,
-      title: 'Edit: '+user.name,
+      title: 'Edit: '+user.name
+    }
+    modal({
+      ...H,
       properties: P,
       default: user,
       submit: data => {
         const name = user.name
         Object.assign(user, data)
         render(form(s))
-        return {
+        modal({
+          ...H,
           ui: 'success',
           description: `User ${name} was edited!`
-        }
+        })
       }
     })
   }

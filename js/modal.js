@@ -29,13 +29,6 @@ const showModal = ({
             close: 'modal',
             submit: typeof submit != 'function' ? null : Data => 
               Promise.resolve().then(() => submit(Data)).then(response => {
-                if (response && typeof response == 'object') {
-                  reopen = {
-                    title: schema.title,
-                    icon: schema.icon,
-                    ...response
-                  }
-                }
                 if (isVisible) {
                   M.hide()
                 }
@@ -62,9 +55,6 @@ const showModal = ({
   modal.addEventListener('hidden.bs.modal', () => {
     rm(modal)
     isVisible = false
-    if (reopen) {
-      showModal(reopen)
-    }
   })
 
   document.body.appendChild(modal)
@@ -72,7 +62,6 @@ const showModal = ({
   const M = new bootstrap.Modal(modal)
 
   var isVisible = true
-  var reopen = null
   M.show()
 }
 
