@@ -35,7 +35,12 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - allow link with options (pagination)
+ - reduce lib to minimum size
+ - reduce tags
+ - move nav comps
+ - generalize ctrl
+ - api with startup methods
+ - allow link with options (dropdown)
  - allow options to be passed directly on schema
  - remove data-ctrl
  - test module
@@ -45,7 +50,6 @@ minimum effort and maximum customization.
  - table filter, group, exporter to user space
  - carousel
  - maps
- - api with startup methods
 
 ## Contributing
 It's a very simple project.

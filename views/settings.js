@@ -1,5 +1,3 @@
-import {download} from './lib.js'
-
 export default ({render, form}) => {
   const getNav = doc => doc.body.querySelector('nav.navbar')
   const getCss = nav => nav.getAttribute('class')
@@ -63,10 +61,10 @@ export default ({render, form}) => {
         const parser = new DOMParser()
         const doc = parser.parseFromString(pageSource, "text/html")
         rebuild(doc, Data)
-        download(
-          '<!DOCTYPE html>\n'+doc.documentElement.outerHTML,
-          'index.html'
-        )
+        return {
+          name: 'index.html',
+          data: '<!DOCTYPE html>\n'+doc.documentElement.outerHTML
+        }
       })
   }))
 }

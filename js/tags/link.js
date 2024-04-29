@@ -81,6 +81,18 @@ export default ({
       return run(resolve())
     }) .then(res => {
       toggle(false)
+      if (res && typeof res == 'object' && res.name && res.data) {
+        const {name, data} = res
+        const link = document.createElement("a")
+        link.setAttribute('href',
+          'data:text/plain;charset=utf-8,'+encodeURIComponent(data)
+        ) 
+        link.setAttribute('download', name)
+
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+      }
     }).catch(err => {
       toggle(false)
       throw err

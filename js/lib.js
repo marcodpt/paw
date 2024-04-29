@@ -6,19 +6,7 @@ const rm = el => {
   }
 }
 
-const copy = X => JSON.parse(JSON.stringify(X))
-
 const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
-
-const queryString = Params => Object.keys(Params)
-  .reduce((P, key) => P.concat(Params[key] instanceof Array ?
-    Params[key].map(value => ({key: `${key}[]`, value})) :
-    {key, value: Params[key]}
-  ), [])
-  .filter(({value}) => typeof value == "number" || typeof value == "string")
-  .map(({key, value}) =>
-    encodeURIComponent(key)+'='+encodeURIComponent(value)
-  ).join("&")
 
 const formatter = ({type, ui, maximum, minimum}) => {
   if (ui == 'password') {
@@ -190,30 +178,13 @@ const readFiles = Files => {
   return Promise.all(P)
 }
 
-const download = (data, name) => {
-  data = 'data:text/plain;charset=utf-8,'+
-    encodeURIComponent(data)
-  const link = document.createElement("a")
-  link.setAttribute('href', data) 
-  if (name) {
-    link.setAttribute('download', name)
-  }
-
-  document.body.appendChild(link)
-  link.click()
-  rm(link)
-}
-
 export {
   rm,
-  copy,
   setOptions,
-  queryString,
   formatter,
   validator,
   hasStep,
   getStep,
   parser,
-  readFiles,
-  download
+  readFiles
 }

@@ -1,6 +1,6 @@
 import e from '../e.js'
 import modal from '../modal.js'
-import {rm, copy, parser, formatter, download} from '../lib.js'
+import {rm, parser, formatter} from '../lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
 import output from '../tags/output.js'
@@ -32,6 +32,8 @@ const icons = {
   sortAsc: 'sort-down',
   sortDesc: 'sort-up'
 }
+
+const copy = X => JSON.parse(JSON.stringify(X))
 
 const run = (...F) => data => F.reduce((data, F) => F(data), data)
 
@@ -410,7 +412,7 @@ export default ({
                       .map(row => K.map(k => F[k](row[k])).join(sep))
                       .join(nl)
 
-                    download(data, state.exporter)
+                    return {data, name: state.exporter}
                   },
                   link: btns.exporter,
                   icon: icons.exporter,
