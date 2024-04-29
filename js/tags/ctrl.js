@@ -143,6 +143,7 @@ export default ({
       rows: 6
     }) : input({
       name: title,
+      type: 'text',
       disabled: !!readOnly,
       oninput: change,
       onfocus,
@@ -192,7 +193,7 @@ export default ({
           'password',
           'range',
           'file'
-        ].indexOf(schema.ui) >= 0 ? schema.ui : null
+        ].indexOf(schema.ui) >= 0 ? schema.ui : 'text'
       )
       if (schema.ui == 'file' &&
         (schema.type == 'array' || schema.type == 'FileList')

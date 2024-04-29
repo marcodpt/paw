@@ -35,7 +35,6 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - input type = null at html attrs
  - allow link with options (pagination)
  - allow options to be passed directly on schema
  - remove data-ctrl
