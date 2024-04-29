@@ -90,7 +90,8 @@ export default ({render, table, modal}) => {
     noCheck: false,
     noSort: false,
     exporter: null,
-    table: ''
+    table: '',
+    css: ''
   }
   const tbl = table(schema)
   render(tbl)

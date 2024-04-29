@@ -184,15 +184,15 @@ export default ({
     },
     filters: [],
     css: (config.table || 'bordered center striped hover').split(' ')
-      .map(c => c.trim()).filter(c => c).map(c => 'table-'+c).join(' ')
+      .map(c => c.trim()).filter(c => c).map(c => 'table-'+c).join(' ')+
+      (config.css ? ' '+config.css : '')
   }
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul
   }) =>
     table({
-      class: 'table '+state.css,
-      style: config.style
+      class: 'table '+state.css
     }, [
       thead({}, [
         !title ? null : tr({}, [
