@@ -709,12 +709,16 @@ export default ({
         .setValue(state.page)
       })
 
-      state.first.disabled = state.page <= 1
-      state.previous.disabled = state.page <= 1
-      state.next.disabled = state.page >= state.pages
-      state.last.disabled = state.page >= state.pages
+      if (state.limit) {
+        state.first.disabled = state.page <= 1
+        state.previous.disabled = state.page <= 1
+        state.next.disabled = state.page >= state.pages
+        state.last.disabled = state.page >= state.pages
+      }
 
-      state.clear.disabled = !state.search
+      if (!state.noSearch) {
+        state.clear.disabled = !state.search
+      }
       tbl.querySelectorAll('[data-ctrl="search"]').forEach(e => {
         e.setValue(state.search)
       })

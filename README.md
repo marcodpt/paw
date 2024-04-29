@@ -39,13 +39,13 @@ minimum effort and maximum customization.
  - reduce tags
  - move nav comps
  - generalize ctrl
+ - offcanvas as a promise
  - api with startup methods
  - allow link with options (dropdown)
  - allow options to be passed directly on schema
  - remove data-ctrl
  - test module
  - extend test module to support docs
- - offcanvas as a promise
  - table sizing
  - table filter, group, exporter to user space
  - carousel
