@@ -29,6 +29,15 @@ export default ({render, table, modal}) => {
       }
     })
   }
+  schema.links[1].href = rows => wait(1000).then(() => {
+    const msg = `Hello!\n${!rows ? 0 : rows.length} user(s) checked!`
+    modal({
+      title: schema.links[1].title,
+      icon: schema.links[1].icon,
+      ui: schema.links[1].link,
+      description: msg
+    })
+  })
   schema.items.links[0].href = user => {
     const H = {
       icon: schema.items.links[0].icon,

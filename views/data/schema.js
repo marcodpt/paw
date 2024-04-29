@@ -63,6 +63,11 @@ export default {
       icon: 'pencil',
       title: 'Insert',
       href: '#/insert/users'
+    }, {
+      link: 'info',
+      icon: 'info-circle',
+      title: 'Counter',
+      href: '#/counter/users'
     }
   ]
 }

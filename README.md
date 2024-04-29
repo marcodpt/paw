@@ -35,17 +35,14 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - documentation
  - input type = null at html attrs
  - submit button change properties (link, icon, title)
  - table sizing
- - generalize all form links with promise function to be pending
- - link as a self standing component
- - link href falsy block
  - allow link with options (pagination)
  - allow options to be passed directly on schema
  - remove data-ctrl
- - test module with docs
+ - test module
+ - extend test module to support docs
  - modal as a promise
  - offcanvas as a promise
  - table filter, group, exporter to user space

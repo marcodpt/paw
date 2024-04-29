@@ -52,11 +52,28 @@ export default ({
   }
   const target = typeof href == 'string' && href.indexOf('://') > 0 ?
     '_blank' : null
+
+  const spinner = !run ? null : e(({span}) =>
+    span({
+      class: 'spinner-border spinner-border-sm',
+      ariaHidden: 'true'
+    })
+  )
   const toggle = pending => {
     btn.classList[pending ? 'add' : 'remove']('disabled')
-    const p = btn.querySelector('.spinner-border')
-    if (p) {
-      p.classList[pending ? 'remove' : 'add']('d-none')
+
+    if (pending) {
+      if (icon) {
+        icon.replaceWith(spinner)
+      } else {
+        btn.prepend(spinner)
+      }
+    } else {
+      if (icon) {
+        spinner.replaceWith(icon)
+      } else {
+        btn.removeChild(spinner)
+      }
     }
   }
   const onclick = !run ? null : () => {
@@ -78,12 +95,9 @@ export default ({
     href,
     dataBsDismiss
   }, [
-    !run ? null : span({
-      class: 'spinner-border spinner-border-sm me-2 d-none',
-      ariaHidden: 'true'
-    }),
     tag(extra)
   ])) 
+  const icon = btn.querySelector('i')
 
   return btn
 }
