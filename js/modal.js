@@ -3,11 +3,12 @@ import form from './comp/form.js'
 import {rm} from './lib.js'
 import T from './lang/index.js'
 
-const showModal = ({
+export default ({
   submit,
   links,
   ...schema
-}) => {
+}) => new Promise (resolve => {
+  var result = null
   const modal = e(({div}) => 
     div({
       class: 'modal fade',
@@ -31,6 +32,9 @@ const showModal = ({
               Promise.resolve().then(() => submit(Data)).then(response => {
                 if (isVisible) {
                   M.hide()
+                  result = response
+                } else {
+                  resolve(response)
                 }
               }),
             links: [
@@ -55,6 +59,7 @@ const showModal = ({
   modal.addEventListener('hidden.bs.modal', () => {
     rm(modal)
     isVisible = false
+    resolve(result)
   })
 
   document.body.appendChild(modal)
@@ -63,6 +68,4 @@ const showModal = ({
 
   var isVisible = true
   M.show()
-}
-
-export default showModal
+})

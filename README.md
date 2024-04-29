@@ -40,7 +40,6 @@ minimum effort and maximum customization.
  - remove data-ctrl
  - test module
  - extend test module to support docs
- - modal as a promise
  - offcanvas as a promise
  - table sizing
  - table filter, group, exporter to user space
