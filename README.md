@@ -36,8 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - input type = null at html attrs
- - submit button change properties (link, icon, title)
- - table sizing
  - allow link with options (pagination)
  - allow options to be passed directly on schema
  - remove data-ctrl
@@ -45,6 +43,7 @@ minimum effort and maximum customization.
  - extend test module to support docs
  - modal as a promise
  - offcanvas as a promise
+ - table sizing
  - table filter, group, exporter to user space
  - carousel
  - maps

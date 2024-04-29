@@ -29,6 +29,7 @@ export default ({render, form}) => {
     title: 'Settings',
     description: 'Setup your preferences!',
     type: 'object',
+    block: true,
     properties: {
       title: {
         title: 'Title',

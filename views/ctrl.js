@@ -170,7 +170,8 @@ export default ({render, form}) => {
         ui: 'ui',
         default: 'ui'
       }
-    }
+    },
+    block: true
   }
   render(form(ctrl))
 }

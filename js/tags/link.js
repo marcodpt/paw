@@ -18,20 +18,19 @@ export default ({
   href,
   size,
   data,
+  block,
   ...extra
 }) => {
-  const isBtn = typeof href == "boolean" || typeof href == 'function'
-  const type = href === true ? 'submit' : isBtn ? 'button' : null
+  const isBtn = typeof href != 'string'
+  const type = isBtn ? 'button' : null
   const isDisabled = !href
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   link = links.indexOf(link) >= 0 ? link :
     isBtn ? 'primary' :
       size ? 'link' : ''
-  link = link ? 'btn btn-'+link+(size ? ' btn-'+size : '') : ''
+  link = (link ? 'btn btn-'+link+(size ? ' btn-'+size : '') : '')+
+    (isDisabled ? ' disabled' : '')
 
-  if (isDisabled) {
-    link += ' disabled'
-  }
   const run = typeof href == 'function' ? href : null
   const resolve = () => typeof data == 'function' ? data() : data
   var dataBsDismiss = null

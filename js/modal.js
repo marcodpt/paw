@@ -43,7 +43,7 @@ const showModal = ({
             ]
               .concat(links || [])
               .concat(typeof submit != 'function' ? null : {
-                href: null
+                href: 'submit'
               })
               .filter(x => x)
           })
