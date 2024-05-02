@@ -11,7 +11,10 @@ import graph from './views/graph.js'
 
 window.stop = app({
   build: ({nav}) => {
-    nav(menu)
+    nav({
+      target: document.body.querySelector('nav > .container-fluid'),
+      ...menu
+    })
     const home = document.body.querySelector('main').innerHTML
     return {home}
   },
