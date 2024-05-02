@@ -43,8 +43,8 @@ minimum effort and maximum customization.
  - remove data-ctrl
  - table filter, group, exporter to user space
 
+ - example module with docs
  - test module
- - extend test module to support docs
  - carousel
  - maps
 

@@ -1,7 +1,8 @@
 import e from '../e.js'
 import style from '../config/style.js'
-import fields from '../tags/fields.js'
+import ctrl from '../tags/ctrl.js'
 import link from '../tags/link.js'
+import tag from './tag.js'
 import T from '../lang/index.js'
 
 export default ({
@@ -10,20 +11,34 @@ export default ({
   submit,
   links,
   block,
+  properties,
+  title,
+  description,
+  ui,
+  icon,
+  close,
+  delay,
+  noValid,
+  size,
+  col,
+  readOnly,
+  writeOnly,
   ...schema
 }) => {
-  const K = Object.keys(schema.properties || {})
-  const hasAlert = schema.ui && schema.description
+  const P = properties || {}
+  const K = Object.keys(P)
+  const hasAlert = ui && description
   var Data = schema.default || {}
-  var err = false
+  var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
+  var hasErr = false
   var submitter = null
-  const run = () => typeof submit != 'function' || err ? null : submit(Data)
+  const run = () => typeof submit != 'function' || hasErr ? null : submit(Data)
 
   links = links instanceof Array ? links :
     typeof submit != 'function' ? [] : [{href: 'submit'}]
   links = links.map(l => {
     l.data = Data
-    l.size = schema.size
+    l.size = size
     if (l.href === 'submit') {
       l.title = l.title == null ? T('submit') : l.title
       l.link = l.link == null ? 'primary' : l.link
@@ -43,7 +58,7 @@ export default ({
     legend,
     label,
     text,
-    a,
+    button,
     hr
   }) => div({
     class: css,
@@ -57,19 +72,89 @@ export default ({
         submitter ? submitter.click() : run()
       }
     }, [
-      fields({
-        ...schema,
-        update: (error, data) => {
-          Data = data
-          err = error
-          if (submitter) {
-            submitter.disabled = !!err
-          }
-          if (typeof update == 'function') {
-            update(err, Data)
-          }
-        } 
-      }),
+      fieldset({}, [
+        !close && !title && !icon ? null : legend({
+          class: 'fw-bold clearfix '+
+            (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
+        }, [
+          tag({
+            icon,
+            title,
+            description
+          }),
+          !close ? null : button({
+            type: 'button',
+            class: 'btn-close float-end',
+            onclick: typeof close != 'function' ? null : close,
+            dataBsDismiss: typeof close != 'string' ? null : close 
+          })
+        ]),
+        !close && !title && !icon ? null : hr({
+          class: 'my-2'
+        }),
+        !K.length ? null : div({
+          class: 'row'
+        }, K.map(k => ({
+          ...P[k],
+          name: k,
+          title: typeof P[k].title != 'string' ? k : P[k].title,
+          default: Data[k] == null ? P[k].default : Data[k],
+          data: Data
+        })).map(schema => ({
+          delay,
+          noValid,
+          size,
+          col,
+          readOnly,
+          writeOnly,
+          ...schema
+        })).map(({title, description, name, col, ...schema}) =>
+          div({
+            class: `col-${col || 12} `+
+              (size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2')+
+              (title ? ' row' : '')+
+              (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
+          }, [
+            !title ? null : div({
+              class: 'col-md-3'
+            }, [
+              label({
+                class: 'form-label fw-bold',
+                title: description
+              }, [
+                text(title+':')
+              ])
+            ]),
+            ctrl({
+              ...schema,
+              title: name,
+              description: !title ? description : null,
+              css: !title ? null : 'col-md-9',
+              update: (err, v) => {
+                Data[name] = v
+                Err[name] = !!err
+                hasErr = Object.keys(Err).reduce(
+                  (err, k) => err || Err[k]
+                , false)
+                if (submitter) {
+                  submitter.disabled = !!hasErr
+                }
+                if (typeof update == 'function') {
+                  update(hasErr, Data)
+                }
+              }
+            })
+          ])
+        )),
+        !ui || !description ? null : div({
+          class: 'alert alert-'+ui+' my-0 '+
+            (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
+          role: 'alert',
+          style: style.text
+        }, [
+          text(description)
+        ])
+      ]),
       !links.length || (!K.length && !hasAlert) ? null : hr({
         class: 'my-2'
       }),
@@ -77,7 +162,7 @@ export default ({
         class: 'btn-group w-100'
       }, links) : div({
         class: 'row g-2 align-items-center justify-content-'+
-          (schema.close == 'modal' ? 'end' : 'start')
+          (close == 'modal' ? 'end' : 'start')
       }, links.map(L => 
         div({
           class: 'col-auto'
