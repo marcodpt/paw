@@ -35,18 +35,17 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
+ - offcanvas as a promise
+ - move nav comps
+
  - reduce lib to minimum size
  - reduce tags
- - move nav comps
  - generalize ctrl
- - offcanvas as a promise
- - api with startup methods
  - allow link with options (dropdown)
  - allow options to be passed directly on schema
  - remove data-ctrl
  - test module
  - extend test module to support docs
- - table sizing
  - table filter, group, exporter to user space
  - carousel
  - maps

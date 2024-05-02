@@ -16,6 +16,10 @@ export default {
           title: 'Controls',
           icon: 'gamepad',
           href: '#/ctrl'
+        }, {
+          title: 'Stop Router',
+          icon: 'stop',
+          href: 'javascript:stop()'
         }
       ]
     }, {

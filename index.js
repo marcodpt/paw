@@ -6,21 +6,24 @@ import form from './js/comp/form.js'
 import chart from './js/comp/chart.js'
 import graph from './js/comp/graph.js'
 import spinner from './js/comp/spinner.js'
-import offcanvas from './js/nav/offcanvas.js'
-import menu from './js/nav/menu.js'
-import toggler from './js/nav/toggler.js'
-import link from './js/nav/link.js'
-import list from './js/nav/list.js'
-import {rm} from './js/lib.js'
+import nav from './js/comp/nav.js'
 
-var stop = null
-var old = null
-const app = routes => {
-  const root = document.body.querySelector('main')
-  const components = {
-    e, modal,
+export default ({build, root, routes}) => {
+  root = root || document.body
+  routes = routes || {}
+
+  var stop = null
+  var old = null
+  var components = {
+    e, modal, nav,
     form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
+  }
+  if (typeof build === 'function') {
+    components = {
+      ...components,
+      ...(build(components) || {})
+    }
   }
 
   const setClass = (el, attr, fn) =>
@@ -145,29 +148,8 @@ const app = routes => {
 
   window.addEventListener('hashchange', router)
   router()
-}
 
-const nav = ({links, sidebar}) => {
-  const nav = document.body.querySelector('nav > .container-fluid')
-
-  rm(document.getElementById('sidebar'))
-  nav.querySelectorAll('[data-app="nav"]').forEach(e => rm(e))
-
-  if (links && links instanceof Array) {
-    nav.appendChild(toggler())
-    nav.appendChild(link({children: links}))
-  }
-  if (sidebar && sidebar instanceof Array) {
-    nav.prepend(menu({target: '#sidebar'}))
-
-    document.body.appendChild(
-      offcanvas({
-        id: 'sidebar'
-      }, [
-        list({children: sidebar})
-      ])
-    )
+  return () => {
+    window.removeEventListener('hashchange', router)
   }
 }
-
-export {app, nav}
