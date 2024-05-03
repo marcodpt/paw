@@ -790,7 +790,8 @@ export default ({
                 readOnly: true,
                 href: state.group ? null : P[k].href,
                 default: row[k],
-                data: row
+                data: row,
+                size: P[k].href && !state.group && P[k].link ? 'sm' : null
               })
             ])
           )))

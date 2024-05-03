@@ -36,8 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - reduce lib to minimum size
- - reduce tags
- - generalize ctrl
  - allow link with options (dropdown)
  - allow options to be passed directly on schema
  - remove data-ctrl
