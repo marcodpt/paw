@@ -46,7 +46,8 @@ minimum effort and maximum customization.
  - example module with docs
  - test module
  - carousel
- - maps
+ - maps with local storage example
+ - user create it own interface with local storage
 
 ## Contributing
 It's a very simple project.

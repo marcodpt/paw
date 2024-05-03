@@ -1,7 +1,6 @@
 import e from '../e.js'
 import style from '../config/style.js'
-import ctrl from '../tags/ctrl.js'
-import link from '../tags/link.js'
+import ctrl from './ctrl/index.js'
 import tag from './tag.js'
 import T from '../lang/index.js'
 
@@ -44,10 +43,10 @@ export default ({
       l.link = l.link == null ? 'primary' : l.link
       l.icon = l.icon == null ? 'check' : l.icon
       l.href = typeof submit != 'function' ? null : run
-      submitter = link(l)
+      submitter = ctrl(l)
       return submitter
     } else {
-      return link(l)
+      return ctrl(l)
     }
   })
 

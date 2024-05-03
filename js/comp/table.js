@@ -3,9 +3,7 @@ import modal from '../modal.js'
 import {rm, parser, formatter} from '../lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
-import output from '../tags/output.js'
-import ctrl from '../tags/ctrl.js'
-import link from '../tags/link.js'
+import ctrl from './ctrl/index.js'
 import style from '../config/style.js'
 import T from '../lang/index.js'
 
@@ -217,7 +215,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                link({
+                ctrl({
                   ...X,
                   data: () => state.checked
                 })
@@ -236,7 +234,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                state.first = link({
+                state.first = ctrl({
                   href: () => {
                     state.page = 1
                     update()
@@ -248,7 +246,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                state.previous = link({
+                state.previous = ctrl({
                   href: () => {
                     state.page--
                     update()
@@ -276,7 +274,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                state.next = link({
+                state.next = ctrl({
                   href: () => {
                     state.page++
                     update()
@@ -288,7 +286,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                state.last = link({
+                state.last = ctrl({
                   href: () => {
                     state.page = state.pages
                     update()
@@ -314,7 +312,7 @@ export default ({
               state.noSearch ? null : div({
                 class: 'col-auto'
               }, [
-                state.clear = link({
+                state.clear = ctrl({
                   title: '',
                   href: () => {
                     state.search = ''
@@ -347,7 +345,7 @@ export default ({
                 class: 'col-auto',
                 dataCtx: 'filters'
               }, [
-                state.filter.x = link({
+                state.filter.x = ctrl({
                   title: T('filter'),
                   link: btns.filter,
                   icon: icons.filter,
@@ -372,7 +370,7 @@ export default ({
               !hasTotals || state.noGroup ? null : div({
                 class: 'col-auto'
               }, [
-                state.bgrp = link({
+                state.bgrp = ctrl({
                   title: T('group'),
                   link: btns.group,
                   icon: icons.group,
@@ -401,7 +399,7 @@ export default ({
               !state.exporter ? null : div({
                 class: 'col-auto'
               }, [
-                link({
+                ctrl({
                   href: () => {
                     const nl = '\n'
                     const sep = '\t'
@@ -466,7 +464,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                link({
+                ctrl({
                   href: () => {
                     tbl.querySelector('[data-ctx=filter]')
                       .classList.add('d-none')
@@ -540,7 +538,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                state.filter.e = link({
+                state.filter.e = ctrl({
                   title: T('filter'),
                   link: btns.filter,
                   icon: icons.filter,
@@ -615,7 +613,7 @@ export default ({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
-            link({
+            ctrl({
               size: 'sm',
               link: btns.check,
               icon: icons.check,
@@ -771,7 +769,7 @@ export default ({
             state.group ? null : td({
               class: 'text-center align-middle'
             }, [
-              link({
+              ctrl({
                 ...L,
                 size: 'sm',
                 title: L.icon ? '' : L.title,
@@ -787,8 +785,9 @@ export default ({
                   'background-color:'+F[k](row[k]) : null,
               title: P[k].ui == 'color' ? row[k] : null
             }, [
-              P[k].ui == 'color' ? null : output({
+              P[k].ui == 'color' ? null : ctrl({
                 ...P[k],
+                readOnly: true,
                 href: state.group ? null : P[k].href,
                 default: row[k],
                 data: row

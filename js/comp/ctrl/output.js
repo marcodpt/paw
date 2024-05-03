@@ -1,8 +1,8 @@
-import e from '../e.js'
-import tag from '../comp/tag.js'
+import e from '../../e.js'
+import tag from '../tag.js'
 import link from './link.js'
-import {formatter} from '../lib.js'
-import style from '../config/style.js'
+import {formatter} from '../../lib.js'
+import style from '../../config/style.js'
 
 export default schema => {
   const data = formatter(schema)(schema.default)

@@ -1,14 +1,26 @@
-import {setOptions} from './lib.js'
-const bootswatch = Themes => Themes.map(theme => ({
-  value: 'https://cdn.jsdelivr.net/npm/'+(theme == 'Default' ?
-    'bootstrap@5.3.2/dist/css' :
-    'bootswatch@5.3.2/dist/'+theme.toLowerCase()
-  )+'/bootstrap.min.css',
-  label: theme
-}))
+import T from '../../lang/index.js'
 
-export default {
-  ui: setOptions([
+const UI = {
+  bool: [
+    {value: 0, label: T('boolFalse')},
+    {value: 1, label: T('boolTrue')}
+  ],
+  lang: [
+    {value: 'en', label: 'English'},
+    {value: 'pt', label: 'Português'}
+  ],
+  link: [
+    'link',
+    'primary',
+    'secondary',
+    'success',
+    'danger',
+    'warning',
+    'info',
+    'light',
+    'dark'
+  ],
+  ui: [
     '',
     'date',
     'bool',
@@ -35,18 +47,7 @@ export default {
     'theme',
     'lang',
     'ui'
-  ]),
-  link: setOptions([
-    '',
-    'primary',
-    'secondary',
-    'success',
-    'danger',
-    'warning',
-    'info',
-    'light',
-    'dark'
-  ]),
+  ],
   navbar: [
     {value: 'bg-dark navbar-dark', label: 'Dark'},
     {value: 'bg-dark navbar-light', label: 'Dark Inverted'},
@@ -65,7 +66,7 @@ export default {
     {value: 'bg-info navbar-dark', label: 'Info'},
     {value: 'bg-info navbar-light', label: 'Info Inverted'},
   ],
-  theme: bootswatch([
+  theme: [
     "Default",
     "Cerulean",
     "Cosmo",
@@ -92,9 +93,20 @@ export default {
     "Vapor",
     "Yeti",
     "Zephyr"
-  ]),
-  lang: [
-    {value: 'en', label: 'English'},
-    {value: 'pt', label: 'Português'}
-  ]
+  ].map(theme => ({
+    value: 'https://cdn.jsdelivr.net/npm/'+(theme == 'Default' ?
+      'bootstrap@5.3.2/dist/css' :
+      'bootswatch@5.3.2/dist/'+theme.toLowerCase()
+    )+'/bootstrap.min.css',
+    label: theme
+  }))
 }
+
+const toOpt = V => !(V instanceof Array) ? null :
+  V.map(v => typeof v == 'object' ? v : ({
+    value: v,
+    label: v != null && String(v) ? String(v) : '_'
+  }))
+
+export default (K, raw) => raw ? UI[K] :
+  toOpt(K) || toOpt(UI[K])

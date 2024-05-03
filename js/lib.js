@@ -6,8 +6,6 @@ const rm = el => {
   }
 }
 
-const setOptions = V => V.map(v => ({value: v, label: v ? v : '_'}))
-
 const formatter = ({type, ui, maximum, minimum}) => {
   if (ui == 'password') {
     return () => '********'
@@ -180,7 +178,6 @@ const readFiles = Files => {
 
 export {
   rm,
-  setOptions,
   formatter,
   validator,
   hasStep,

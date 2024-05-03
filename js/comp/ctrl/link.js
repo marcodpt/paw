@@ -1,31 +1,19 @@
-import e from '../e.js'
-import tag from '../comp/tag.js'
-
-const links = [
-  'link',
-  'primary',
-  'secondary',
-  'success',
-  'danger',
-  'warning',
-  'info',
-  'light',
-  'dark'
-]
+import e from '../../e.js'
+import tag from '../tag.js'
+import opt from './options.js'
 
 export default ({
   link,
   href,
   size,
   data,
-  block,
   ...extra
 }) => {
   const isBtn = typeof href != 'string'
   const type = isBtn ? 'button' : null
   const isDisabled = !href
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
-  link = links.indexOf(link) >= 0 ? link :
+  link = opt('link', true).indexOf(link) >= 0 ? link :
     isBtn ? 'primary' :
       size ? 'link' : ''
   link = (link ? 'btn btn-'+link+(size ? ' btn-'+size : '') : '')+

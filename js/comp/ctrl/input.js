@@ -1,12 +1,10 @@
-import e from '../e.js'
-import tag from '../comp/tag.js'
-import {
-  validator, parser, setOptions, hasStep, getStep, readFiles, rm
-} from '../lib.js'
-import opt from '../options.js'
+import e from '../../e.js'
+import tag from '../tag.js'
+import {validator, parser, hasStep, getStep, readFiles, rm} from '../../lib.js'
+import opt from './options.js'
 import output from './output.js'
 import link from './link.js'
-import T from '../lang/index.js'
+import T from '../../lang/index.js'
 
 const loader = ({type, ui}, data) => data == null ? data :
   (type == 'integer' || type == 'number') && ui == 'date' ?
@@ -35,11 +33,7 @@ export default ({
   const isRadio = ui == 'link' && !isStatic
   var isCheckbox = false
   var E = schema.enum
-  var O = E instanceof Array ? setOptions(E) :
-    (t == 'integer' || t == 'number') && schema.ui == 'bool' ? [
-      {value: 0, label: T('boolFalse')},
-      {value: 1, label: T('boolTrue')}
-    ] : opt[schema.ui]
+  var O = E instanceof Array ? opt(E) : opt(schema.ui)
   var validate = validator(schema)
   const parse = parser(schema)
   var oldValue = null
