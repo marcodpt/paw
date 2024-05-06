@@ -16,6 +16,7 @@ export default ({
   delay,
   noValid,
   size,
+  options,
   ...schema
 }) => {
   const sizeCss = ['lg', 'sm'].indexOf(size) >= 0 ? ' form-control-'+size : ''
@@ -26,7 +27,8 @@ export default ({
   const isRadio = ui == 'link' && !isStatic
   var isCheckbox = false
   var E = schema.enum
-  var O = E instanceof Array ? opt(E) : opt(schema.ui)
+  var O = options instanceof Array ? options :
+    E instanceof Array ? opt(E) : opt(schema.ui)
   var validate = validator(schema)
   const parse = parser(schema)
   var oldValue = null

@@ -479,6 +479,10 @@ export default ({
                   title: 'field',
                   noValid: true,
                   default: K[0],
+                  options: K.map(k => ({
+                    value: k,
+                    label: P[k].title || k
+                  })),
                   update: (err, v, label, wrapper) => {
                     state.filter.field = err ? null : v
                     state.filter.label[0] = label
@@ -487,10 +491,7 @@ export default ({
                       f.update(f, S.indexOf(state.filter.operator) < 0)
                     }
                   }
-                }).setOptions(K.map(k => ({
-                  value: k,
-                  label: P[k].title || k
-                })))
+                })
               ]),
               div({
                 class: 'col-auto'

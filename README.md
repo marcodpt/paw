@@ -35,9 +35,7 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
- - reduce lib to minimum size
  - allow link with options (dropdown)
- - allow options to be passed directly on schema
  - remove data-ctrl
  - table filter, group, exporter to user space
 
