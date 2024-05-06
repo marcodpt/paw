@@ -1,8 +1,7 @@
-import e from '../../e.js'
+import e from '../e.js'
 import tag from '../tag.js'
 import link from './link.js'
-import {formatter} from '../../lib.js'
-import style from '../../config/style.js'
+import {formatter} from '../lib.js'
 
 export default schema => {
   const data = formatter(schema)(schema.default)
@@ -46,7 +45,7 @@ export default schema => {
       size: 'sm'
     }) : 
     schema.ui == 'text' || schema.ui == 'info' ? span({
-      style: style.text
+      style: 'white-space: pre-wrap;'
     }, [
       text(data)
     ]) : 

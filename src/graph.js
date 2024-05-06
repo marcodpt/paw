@@ -1,7 +1,7 @@
-import e from '../e.js'
-import style from '../config/style.js'
-import spinner from '../comp/spinner.js'
-import T from '../lang/index.js'
+import e from './e.js'
+import spinner from './spinner.js'
+import ctrl from './ctrl/index.js'
+import T from './lang/index.js'
 
 export default ({data}) => {
   const graph = e(({
@@ -31,7 +31,6 @@ export default ({data}) => {
                   text(T('noOption'))
                 ]),
                 p({
-                  style: style.text,
                   class: 'card-text'
                 })
               ])
@@ -113,7 +112,13 @@ export default ({data}) => {
       info.appendChild(spinner())
             
       Promise.resolve().then(D.info).then(text => {
-        info.textContent = text
+        info.innerHTML = ''
+        info.appendChild(ctrl({
+          type: 'string',
+          ui: 'text',
+          default: text,
+          readOnly: true
+        }))
         pending = false
       })
     })

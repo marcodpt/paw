@@ -7,7 +7,7 @@ export default ({render, graph}) => render(graph({
       id: 'v1',
       label: 'John',
       color: 'black',
-      info: () => wait(delay).then(() => 'I am john!')
+      info: () => wait(delay).then(() => 'I am john!\nI am very   nice!')
     }, {
       id: 'v2',
       label: 'Paul',

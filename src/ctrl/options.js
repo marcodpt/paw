@@ -1,4 +1,4 @@
-import T from '../../lang/index.js'
+import T from '../lang/index.js'
 
 const UI = {
   bool: [

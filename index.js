@@ -1,12 +1,14 @@
-import e from './js/e.js'
-import render from './js/render.js'
-import modal from './js/modal.js'
-import table from './js/comp/table.js'
-import form from './js/comp/form.js'
-import chart from './js/comp/chart.js'
-import graph from './js/comp/graph.js'
-import spinner from './js/comp/spinner.js'
-import nav from './js/comp/nav.js'
+import e from './src/e.js'
+import modal from './src/modal.js'
+import nav from './src/nav.js'
+import tag from './src/tag.js'
+import ctrl from './src/ctrl/index.js'
+import form from './src/form.js'
+import table from './src/table.js'
+import chart from './src/chart.js'
+import graph from './src/graph.js'
+import spinner from './src/spinner.js'
+import render from './src/render.js'
 
 export default ({build, root, routes}) => {
   root = root || document.body
@@ -15,7 +17,7 @@ export default ({build, root, routes}) => {
   var stop = null
   var old = null
   var components = {
-    e, modal, nav,
+    e, modal, nav, tag, ctrl,
     form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }

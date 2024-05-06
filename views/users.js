@@ -45,7 +45,10 @@ export default ({render, table, modal}) => {
     }
     return modal({
       ...H,
-      description: 'Do you want to delete this row?',
+      description: [
+        'Do you want to delete this row?',
+        'This decision cannot be undone.'
+      ].join('\n'),
       submit: () => wait(2000).then(() => {
         const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
         if (i >= 0) {

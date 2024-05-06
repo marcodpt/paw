@@ -1,11 +1,9 @@
-import e from '../e.js'
-import modal from '../modal.js'
-import {rm, parser, formatter} from '../lib.js'
+import e from './e.js'
+import {rm, parser, formatter} from './lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
 import ctrl from './ctrl/index.js'
-import style from '../config/style.js'
-import T from '../lang/index.js'
+import T from './lang/index.js'
 
 const btns = {
   close: 'secondary',
@@ -780,8 +778,7 @@ export default ({
             td({
               class: 'align-middle text-'+
                 (P[k].ui == 'text' ? 'left' : 'center'),
-              style: P[k].ui == 'text' ? style.text :
-                P[k].ui == 'color' && row[k] && typeof row[k] == 'string' ?
+              style: P[k].ui == 'color' && row[k] && typeof row[k] == 'string' ?
                   'background-color:'+F[k](row[k]) : null,
               title: P[k].ui == 'color' ? row[k] : null
             }, [

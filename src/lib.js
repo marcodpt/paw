@@ -122,6 +122,13 @@ const hasStep = ui => /^num\.[1-9][0-9]*$/.test(ui)
 
 const getStep = ui => !hasStep(ui) ? 1 : 1 / (10 ** parseInt(ui.substr(4)))
 
+const loader = ({type, ui}, data) => data == null ? data :
+  (type == 'integer' || type == 'number') && ui == 'date' ?
+    data ?
+      new Date(data < 0 ? data + 1 : data * 1000).toISOString().substr(0, 10) :
+      '' :
+  type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
+
 const parser = ({type, ui}) => data => {
   var value = null
 
@@ -182,6 +189,7 @@ export {
   validator,
   hasStep,
   getStep,
+  loader,
   parser,
   readFiles
 }

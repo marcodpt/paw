@@ -1,8 +1,7 @@
-import e from '../e.js'
-import style from '../config/style.js'
+import e from './e.js'
 import ctrl from './ctrl/index.js'
 import tag from './tag.js'
-import T from '../lang/index.js'
+import T from './lang/index.js'
 
 export default ({
   css,
@@ -61,7 +60,7 @@ export default ({
     hr
   }) => div({
     class: css,
-    style: K.length ? null : style.alert
+    style: K.length ? null : 'max-width: 600px;'
   }, [
     form({
       novalidate: true,
@@ -148,10 +147,14 @@ export default ({
         !ui || !description ? null : div({
           class: 'alert alert-'+ui+' my-0 '+
             (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
-          role: 'alert',
-          style: style.text
+          role: 'alert'
         }, [
-          text(description)
+          ctrl({
+            type: 'string',
+            ui: 'text',
+            default: description,
+            readOnly: true
+          })
         ])
       ]),
       !links.length || (!K.length && !hasAlert) ? null : hr({

@@ -1,5 +1,5 @@
-import spinner from './comp/spinner.js'
-import form from './comp/form.js'
+import spinner from './spinner.js'
+import form from './form.js'
 import T from './lang/index.js'
 
 export default (resolve, root) => {

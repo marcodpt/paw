@@ -1,17 +1,10 @@
-import e from '../../e.js'
+import e from '../e.js'
 import tag from '../tag.js'
-import {validator, parser, hasStep, getStep, readFiles, rm} from '../../lib.js'
+import {validator, parser, loader, getStep, readFiles, rm} from '../lib.js'
 import opt from './options.js'
 import output from './output.js'
 import link from './link.js'
-import T from '../../lang/index.js'
-
-const loader = ({type, ui}, data) => data == null ? data :
-  (type == 'integer' || type == 'number') && ui == 'date' ?
-    data ?
-      new Date(data < 0 ? data + 1 : data * 1000).toISOString().substr(0, 10) :
-      '' :
-  type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
+import T from '../lang/index.js'
 
 export default ({
   title,

@@ -1,6 +1,5 @@
-import e from '../e.js'
-import style from '../config/style.js'
-import T from '../lang/index.js'
+import e from './e.js'
+import T from './lang/index.js'
 
 export default () => e(({div, span, text}) =>
   div({
@@ -9,7 +8,7 @@ export default () => e(({div, span, text}) =>
   }, [
     div({
       class: 'spinner-border',
-      style: style.spinner,
+      style: 'width: 5rem; height: 5rem;',
       role: 'status'
     }, [
       span({

@@ -1,4 +1,4 @@
-import e from '../e.js'
+import e from './e.js'
 
 export default ({
   title,

@@ -1,6 +1,6 @@
-import e from '../e.js'
+import e from './e.js'
 import tag from './tag.js'
-import {rm} from '../lib.js'
+import {rm} from './lib.js'
 
 export default ({target, links, sidebar}) => {
   rm(document.getElementById('sidebar'))
