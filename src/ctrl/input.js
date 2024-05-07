@@ -27,7 +27,7 @@ export default ({
   const isRadio = ui == 'link' && !isStatic
   var isCheckbox = false
   var E = schema.enum
-  var O = options instanceof Array ? options :
+  var O = options ? options :
     E instanceof Array ? opt(E) : opt(schema.ui)
   var validate = validator(schema)
   const parse = parser(schema)
@@ -145,7 +145,6 @@ export default ({
     div, datalist, option, span, i, input, label, text
   }) => div({
     class: css,
-    dataCtrl: title,
     setOptions: isText || isStatic ? null : (options, S) => {
       Object.keys(S || {}).forEach(k => {
         schema[k] = S[k]

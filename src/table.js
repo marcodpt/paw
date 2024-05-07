@@ -2,6 +2,8 @@ import e from './e.js'
 import {rm, parser, formatter} from './lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
+import form from './form.js'
+import modal from './modal.js'
 import ctrl from './ctrl/index.js'
 import T from './lang/index.js'
 
@@ -157,6 +159,8 @@ export default ({
       [k]: Z[k](row[k])
     }), row)) : null
 
+  const refs = {}
+
   const state = {
     data: parseData(schema.default),
     base: null,
@@ -226,74 +230,55 @@ export default ({
             class: 'text-center',
             colspan: '100%'
           }, [
-            div({
-              class: 'row gx-1 justify-content-center'
-            }, [
-              div({
-                class: 'col-auto'
-              }, [
-                state.first = ctrl({
+            form({
+              links: [
+                {
                   href: () => {
                     state.page = 1
                     update()
                   },
                   link: btns.pagination,
-                  icon: icons.first
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                state.previous = ctrl({
+                  icon: icons.first,
+                  init: el => refs.first = el
+                }, {
                   href: () => {
                     state.page--
                     update()
                   },
                   link: btns.pagination,
-                  icon: icons.previous
-                })
-              ]),
-              div({
-                class: 'col-auto',
-                dataCtx: 'pager'
-              }, [
-                ctrl({
+                  icon: icons.previous,
+                  init: el => refs.previous = el
+                }, {
                   type: 'integer',
-                  title: 'pager',
+                  title: '',
                   noValid: true,
+                  options: true,
                   update: (err, v) => {
                     if (!err && v && v != state.page) {
                       state.page = v
                       update()
                     }
-                  }
-                }).setOptions(true)
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                state.next = ctrl({
+                  },
+                  init: el => refs.pager = el
+                }, {
                   href: () => {
                     state.page++
                     update()
                   },
                   link: btns.pagination,
-                  icon: icons.next
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                state.last = ctrl({
+                  icon: icons.next,
+                  init: el => refs.next = el
+                }, {
                   href: () => {
                     state.page = state.pages
                     update()
                   },
                   link: btns.pagination,
-                  icon: icons.last
-                })
-              ])
-            ])
+                  icon: icons.last,
+                  init: el => refs.last = el
+                }
+              ] 
+            })
           ])
         ]),
         state.noSearch &&
@@ -310,14 +295,15 @@ export default ({
               state.noSearch ? null : div({
                 class: 'col-auto'
               }, [
-                state.clear = ctrl({
+                ctrl({
                   title: '',
                   href: () => {
                     state.search = ''
                     update()
                   },
                   link: btns.close,
-                  icon: icons.close
+                  icon: icons.close,
+                  init: el => refs.clear = el
                 })
               ]),
               state.noSearch ? null : div({
@@ -336,7 +322,8 @@ export default ({
                       state.search = v
                       update()
                     }
-                  }
+                  },
+                  init: el => refs.search = el
                 })
               ]),
               state.noFilter ? null : div({
@@ -350,9 +337,9 @@ export default ({
                   href: () => {
                     const f = tbl.querySelector('[data-ctx=filter]')
                     f.classList.toggle('d-none')
-                    f.querySelector('[data-ctrl="field"]').setValue()
-                    f.querySelector('[data-ctrl="operator"]').setValue()
-                    f.querySelector('[data-ctrl="value"]').setValue()
+                    refs.field.setValue()
+                    refs.operator.setValue()
+                    refs.value.setValue()
                   }
                 }),
                 button({
@@ -424,7 +411,6 @@ export default ({
           update: (f, run) => {
             const {field, operator, value} = state.filter
             if (run) {
-              const target = f.querySelector('[data-ctrl=value]')
               if (
                 field != null && operator != null &&
                 S.indexOf(operator) < 0 &&
@@ -435,14 +421,14 @@ export default ({
                   label: F[field](row[field])
                 }))
                 Opt.sort(cmp(['value']))
-                target.setOptions(Opt.filter(
+                refs.value.setOptions(Opt.filter(
                   (o, i) => !i || o.value != Opt[i - 1].value
                 ), {
                   type: P[field].type,
                   minLength: null
                 })
               } else {
-                target.setOptions(false, {
+                refs.value.setOptions(false, {
                   type: 'string',
                   minLength: 1
                 })
@@ -490,7 +476,8 @@ export default ({
                     if (f) {
                       f.update(f, S.indexOf(state.filter.operator) < 0)
                     }
-                  }
+                  },
+                  init: el => refs.field = el
                 })
               ]),
               div({
@@ -501,6 +488,10 @@ export default ({
                   title: 'operator',
                   noValid: true,
                   default: O[0],
+                  options: O.map(o => ({
+                    value: o,
+                    label: T('operators')[o]
+                  })),
                   update: (err, v, label, wrapper) => {
                     const change = (S.indexOf(v) < 0) !==
                       (S.indexOf(state.filter.operator) < 0)
@@ -510,11 +501,9 @@ export default ({
                     if (f) {
                       f.update(f, change)
                     }
-                  }
-                }).setOptions(O.map(o => ({
-                  value: o,
-                  label: T('operators')[o]
-                })))
+                  },
+                  init: el => refs.operator = el
+                })
               ]),
               div({
                 class: 'col-auto'
@@ -531,7 +520,8 @@ export default ({
                     if (f) {
                       f.update(f)
                     }
-                  }
+                  },
+                  init: el => refs.value = el
                 })
               ]),
               div({
@@ -698,27 +688,21 @@ export default ({
         }))
       })
 
-      tbl.querySelectorAll('[data-ctrl="pager"]').forEach(e => {
-        e.setOptions(Array(state.pages).fill().map((v, i) => ({
+      if (state.limit) {
+        refs.pager.setOptions(Array(state.pages).fill().map((v, i) => ({
           value: i + 1,
           label: T('pagination')(i + 1, state.pages)
-        })))
-        .setValue(state.page)
-      })
-
-      if (state.limit) {
-        state.first.disabled = state.page <= 1
-        state.previous.disabled = state.page <= 1
-        state.next.disabled = state.page >= state.pages
-        state.last.disabled = state.page >= state.pages
+        }))).setValue(state.page)
+        refs.first.disabled = state.page <= 1
+        refs.previous.disabled = state.page <= 1
+        refs.next.disabled = state.page >= state.pages
+        refs.last.disabled = state.page >= state.pages
       }
 
       if (!state.noSearch) {
-        state.clear.disabled = !state.search
+        refs.clear.disabled = !state.search
+        refs.search.setValue(state.search)
       }
-      tbl.querySelectorAll('[data-ctrl="search"]').forEach(e => {
-        e.setValue(state.search)
-      })
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')
         .forEach(g => {
