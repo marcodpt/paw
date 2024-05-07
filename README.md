@@ -37,7 +37,9 @@ minimum effort and maximum customization.
 ## TODO
  - allow link with options (dropdown)
  - remove data-ctrl
- - table filter, group, exporter to user space
+ - table exporter to user space
+ - table group to user space
+ - table filter to user space
 
  - example module with docs
  - test module

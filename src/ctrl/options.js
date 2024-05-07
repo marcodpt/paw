@@ -95,8 +95,8 @@ const UI = {
     "Zephyr"
   ].map(theme => ({
     value: 'https://cdn.jsdelivr.net/npm/'+(theme == 'Default' ?
-      'bootstrap@5.3.2/dist/css' :
-      'bootswatch@5.3.2/dist/'+theme.toLowerCase()
+      'bootstrap@5.3.3/dist/css' :
+      'bootswatch@5.3.3/dist/'+theme.toLowerCase()
     )+'/bootstrap.min.css',
     label: theme
   }))
