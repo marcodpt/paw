@@ -35,11 +35,12 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
+ - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
- - table filter with modal
  - table group to user space
  - table filter to user space
  - table exporter to user space
+ - table search, pagination and sort to user space
 
  - example module with docs
  - test module

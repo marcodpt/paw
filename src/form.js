@@ -27,11 +27,13 @@ export default ({
   const K = Object.keys(P)
   const hasAlert = ui && description
   const hasLegend = close || title || icon
-  var Data = schema.default || {}
+  const Data = schema.default || {}
+  const Label = {}
   var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
   var hasErr = false
   var submitter = null
-  const run = () => typeof submit != 'function' || hasErr ? null : submit(Data)
+  const run = () => typeof submit != 'function' || hasErr ? null :
+    submit(Data, Label)
 
   links = links instanceof Array ? links :
     typeof submit != 'function' ? [] : [{href: 'submit'}]
@@ -127,8 +129,9 @@ export default ({
             title: name,
             description: !title ? description : null,
             css: !title ? null : 'col-md-9',
-            update: (err, v) => {
+            update: (err, v, label) => {
               Data[name] = v
+              Label[name] = label
               Err[name] = !!err
               hasErr = Object.keys(Err).reduce(
                 (err, k) => err || Err[k]
@@ -137,7 +140,7 @@ export default ({
                 submitter.disabled = !!hasErr
               }
               if (typeof update == 'function') {
-                update(hasErr, Data)
+                update(hasErr, Data, Label)
               }
             }
           })

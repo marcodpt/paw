@@ -26,6 +26,9 @@ export default {
   boolFalse: 'No',
   boolTrue: 'Yes',
 
+  field: 'Field',
+  operator: 'Operator',
+  value: 'Value',
   operators: {
     ct: 'Contains',
     nc: 'Not contains',

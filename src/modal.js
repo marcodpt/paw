@@ -28,15 +28,17 @@ export default ({
             css: 'modal-body',
             ui: schema.ui || 'info',
             close: 'modal',
-            submit: typeof submit != 'function' ? null : Data => 
-              Promise.resolve().then(() => submit(Data)).then(response => {
-                if (isVisible) {
-                  M.hide()
-                  result = response
-                } else {
-                  resolve(response)
-                }
-              }),
+            submit: typeof submit != 'function' ? null : (Data, Label) => 
+              Promise.resolve()
+                .then(() => submit(Data, Label))
+                .then(response => {
+                  if (isVisible) {
+                    M.hide()
+                    result = response
+                  } else {
+                    resolve(response)
+                  }
+                }),
             links: [
               {
                 link: 'secondary',

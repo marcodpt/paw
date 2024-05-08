@@ -297,6 +297,7 @@ export default ({
     })
   ]))
 
-  return isRadio || isText || isStatic ?
+  isRadio || isText || isStatic ?
     wrapper.setValue(schema.default) : wrapper.setOptions(O)
+  return isStatic ? target : wrapper
 }
