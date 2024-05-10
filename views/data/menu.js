@@ -1,3 +1,5 @@
+import spec from '../../spec/index.js'
+
 export default {
   links: [
     {
@@ -49,6 +51,10 @@ export default {
           href: '#/render/error'
         }
       ]
+    }, {
+      icon: 'box',
+      title: 'Components',
+      children: spec
     }
   ]
 }

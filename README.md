@@ -35,18 +35,25 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
+ - form width to user space, very intrusive
+ - href target blank not working
+ - allow build be a promise
+ - navbar allow href as function
+ - group bug empty result
+ - select list
+ - radio list
+ - checkbox multiple list
+ - group as a modal
  - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
- - table group to user space
- - table filter to user space
- - table exporter to user space
- - table search, pagination and sort to user space
+ - move table engine to user space
 
- - example module with docs
  - test module
  - carousel
  - maps with local storage example
+
  - user create it own interface with local storage
+ - bootstrap style crawling and remove dep
 
 ## Contributing
 It's a very simple project.

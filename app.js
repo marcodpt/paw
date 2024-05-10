@@ -8,6 +8,7 @@ import users from './views/users.js'
 import user from './views/user.js'
 import chart from './views/chart.js'
 import graph from './views/graph.js'
+import docs from './views/docs.js'
 
 window.stop = app({
   build: ({nav}) => {
@@ -28,6 +29,7 @@ window.stop = app({
     '/users': users,
     '/users/:id': user,
     '/chart': chart,
-    '/graph': graph
+    '/graph': graph,
+    '/docs/:component': docs
   }
 })

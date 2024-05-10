@@ -91,6 +91,18 @@ export default ({
       !hasLegend ? null : hr({
         class: 'my-2'
       }),
+      !hasAlert ? null : div({
+        class: 'alert alert-'+ui+' my-0 '+
+          (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
+        role: 'alert'
+      }, [
+        ctrl({
+          type: 'string',
+          ui: 'text',
+          default: description,
+          readOnly: true
+        })
+      ]),
       !K.length ? null : div({
         class: 'row'
       }, K.map(k => ({
@@ -145,19 +157,7 @@ export default ({
             }
           })
         ])
-      )),
-      !hasAlert ? null : div({
-        class: 'alert alert-'+ui+' my-0 '+
-          (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
-        role: 'alert'
-      }, [
-        ctrl({
-          type: 'string',
-          ui: 'text',
-          default: description,
-          readOnly: true
-        })
-      ])
+      ))
     ]),
     !links.length || (!K.length && !hasAlert) ? null : hr({
       class: 'my-2'
