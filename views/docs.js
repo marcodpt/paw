@@ -4,7 +4,9 @@ const normalizeDesc = desc => (desc || '').trim().split('\n')
 export default X => {
   const {render, Params, form, e} = X
   return render(import(`../spec/${Params.component}.js`).then(mod => {
-    const base = mod.default
+    const base = {
+      ...mod.default
+    }
     base.readOnly = true
     base.ui = 'info'
     base.description = normalizeDesc(base.description)

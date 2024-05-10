@@ -35,15 +35,8 @@ export default ({
           description: ''
         }, {
           icon: 'check',
-          description: 'some description'
-        }, {
-          icon: 'check',
           title: '',
           description: ''
-        }, {
-          icon: 'check',
-          title: '',
-          description: 'some description'
         }
       ],
       html: `<i class="fa-solid fa-check"></i>`
@@ -61,18 +54,24 @@ export default ({
           description: ''
         }, {
           icon: '@github',
-          description: 'some description'
-        }, {
-          icon: '@github',
           title: '',
           description: ''
-        }, {
-          icon: '@github',
-          title: '',
-          description: 'some description'
         }
       ],
       html: `<i class="fa-brands fa-github"></i>`
+    }, {
+      title: 'A FontAwesome icon with description',
+      data: [
+        {
+          icon: '@github',
+          description: '@github'
+        }, {
+          icon: '@github',
+          title: '',
+          description: '@github'
+        }
+      ],
+      html: `<i class="fa-brands fa-github" title="@github"></i>`
     }, {
       title: 'A standalone label',
       data: [

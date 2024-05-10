@@ -17,9 +17,11 @@ export default ({
     !title ? null : text(title)
   ].filter(c => c != null)
 
-  const e = children.length == 1 ? children[0] : span({
-    title: description
-  }, children)
+  const n = children.length
+  const e = !n ? text('') :
+    n == 1 && (icon || !description) ? children[0] : span({
+      title: description || null
+    }, children)
 
   if (children.length == 1 && icon && description) {
     e.setAttribute('title', description)
