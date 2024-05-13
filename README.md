@@ -33,7 +33,9 @@ popular icon library, essential for creating intuitive user interfaces.
  - [JSON Schema](https://github.com/json-schema-org/json-schema-spec): A level
 of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
+
 ## TODO
+ - no default option fail to expose error message
  - form width to user space, very intrusive
  - href target blank not working
  - allow build be a promise

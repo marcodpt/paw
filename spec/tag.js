@@ -1,6 +1,9 @@
+import tag from '../src/tag.js'
+
 export default ({
   icon: 'tag',
   title: 'tag',
+  component: tag,
   description: 'FontAwesome 6 icons and labels',
   properties: {
     icon: {
