@@ -44,7 +44,10 @@ export default ({
                 link: 'secondary',
                 icon: 'times',
                 title: T('close'),
-                href: 'modal'
+                href: 'javascript:;',
+                init: el => {
+                  el.setAttribute('data-bs-dismiss', 'modal')
+                }
               }
             ]
               .concat(links || [])

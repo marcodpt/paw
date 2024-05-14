@@ -22,11 +22,6 @@ export default ({
 
   const run = typeof href == 'function' ? href : null
   const resolve = () => typeof data == 'function' ? data() : data
-  var dataBsDismiss = null
-  if (href == 'modal') {
-    dataBsDismiss = 'modal'
-    href = null
-  }
 
   if (isBtn) {
     href = null
@@ -94,8 +89,7 @@ export default ({
     type,
     onclick,
     href,
-    target,
-    dataBsDismiss
+    target
   }, [
     tag(extra)
   ])) 
