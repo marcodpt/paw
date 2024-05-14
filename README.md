@@ -36,7 +36,6 @@ minimum effort and maximum customization.
 
 ## TODO
  - no default option fail to expose error message
- - form width to user space, very intrusive
  - group bug empty result
  - select list
  - radio list

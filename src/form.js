@@ -63,7 +63,6 @@ export default ({
     hr
   }) => form({
     class: css,
-    style: K.length || !hasAlert ? null : 'max-width: 600px;',
     novalidate: true,
     onsubmit: ev => {
       ev.preventDefault()

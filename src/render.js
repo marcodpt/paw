@@ -23,7 +23,7 @@ export default (resolve, root) => {
           title: T('error'),
           description: err.toString(),
           ui: 'danger',
-          css: 'mx-auto my-5'
+          css: 'd-flex justify-content-center my-5'
         }))
         throw err
       })
