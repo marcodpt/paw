@@ -1,7 +1,5 @@
-import {wait} from './lib.js'
-
 const delay = 500
-export default ({render, graph}) => render(graph({
+export default ({render, graph, wait}) => render(graph({
   data: [
     {
       id: 'v1',

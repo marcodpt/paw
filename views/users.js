@@ -1,8 +1,7 @@
-import {wait} from './lib.js'
 import users from './data/users.js'
 import schema from './data/schema.js'
 
-export default ({render, table, modal}) => {
+export default ({render, table, modal, wait}) => {
   schema.links[0].href = () => {
     const P = {...schema.items.properties}
     delete P.id
