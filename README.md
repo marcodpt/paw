@@ -37,9 +37,7 @@ minimum effort and maximum customization.
 ## TODO
  - no default option fail to expose error message
  - form width to user space, very intrusive
- - href target blank not working
  - allow build be a promise
- - navbar allow href as function
  - group bug empty result
  - select list
  - radio list
@@ -48,6 +46,9 @@ minimum effort and maximum customization.
  - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
  - move table engine to user space
+ - separate docs and examples
+ - allow children in docs and examples (ctrl case)
+ - print functions in examples
 
 ### Tests and docs
  - link
@@ -68,10 +69,6 @@ minimum effort and maximum customization.
  - barcode
  - carousel
  - maps
-
-### Future
- - user create it own interface with local storage
- - bootstrap style crawling and remove dep
 
 ## Contributing
 It's a very simple project.

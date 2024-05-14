@@ -63,7 +63,11 @@ export default {
     }, {
       icon: 'flask',
       title: 'Tests',
-      href: 'spec/index.html'
+      href: location.href.split('#')[0]+'spec/index.html'
+    }, {
+      icon: 'smile',
+      title: 'Say Hi!',
+      href: () => window.alert('Hi!')
     }
   ]
 }

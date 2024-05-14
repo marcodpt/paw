@@ -1,5 +1,6 @@
 import e from './e.js'
 import tag from './tag.js'
+import ctrl from './ctrl/index.js'
 import {rm} from './lib.js'
 
 export default ({target, links, sidebar}) => {
@@ -31,50 +32,49 @@ export default ({target, links, sidebar}) => {
             class: 'nav-item dropdown',
             dataAppPath: title
           }, [
-            a({
-              class: 'nav-link dropdown-toggle',
-              dataAppActive: 'active',
-              dataBsToggle: 'dropdown',
-              role: 'button',
-              ariaExpanded: 'false'
-            }, [
-              tag({
-                ...meta,
-                title
-              })
-            ]),
+            ctrl({
+              init: el => {
+                el.setAttribute('class', 'nav-link dropdown-toggle')
+                el.setAttribute('data-app-active', 'active')
+                el.setAttribute('data-bs-toggle', 'dropdown')
+                el.setAttribute('role', 'button')
+                el.setAttribute('ariaExpanded', 'false')
+                el.removeAttribute('href')
+              },
+              href: 'dropdown',
+              title,
+              ...meta
+            }),
             ul({
               class: 'dropdown-menu'
             }, children.map(({href, title, ...meta}) => 
               li({
                 dataAppPath: title
               }, [
-                a({
-                  class: 'dropdown-item',
-                  dataAppActive: 'active',
-                  href
-                }, [
-                  tag({
-                    ...meta,
-                    title
-                  })
-                ])
+                ctrl({
+                  href,
+                  title,
+                  init: el => {
+                    el.setAttribute('class', 'dropdown-item')
+                    el.setAttribute('data-app-active', 'active')
+                  },
+                  ...meta
+                })
               ])
             ))
           ]) : li({
             class: 'nav-item',
             dataAppPath: title
           }, [
-            a({
-              class: 'nav-link',
-              dataAppActive: 'active',
-              href
-            }, [
-              tag({
-                ...meta,
-                title
-              })
-            ])
+            ctrl({
+              init: el => {
+                el.setAttribute('class', 'nav-link')
+                el.setAttribute('data-app-active', 'active')
+              },
+              title,
+              href,
+              ...meta
+            })
           ])
         ))
       ])
@@ -93,27 +93,31 @@ export default ({target, links, sidebar}) => {
             class: 'list-group-item border-0',
             dataAppPath: title
           }, [
-            a({
-              class: 'text-decoration-none text-reset',
-              href: children ? 'javascript:;' : href,
-              onclick: !children ? null : ev => {
-                const t = ev.target
-                const l = t.closest('.list-group-item').querySelector('div')
-                l.classList.toggle('d-none')
-                const i = ev.target.closest('a').querySelector('i')
-                i.replaceWith(tag({
-                  icon: l.classList.contains('d-none') ? isClosed : isOpen
-                }))
+            ctrl({
+              init: el => {
+                el.setAttribute('class', 'text-decoration-none text-reset'),
+                el.setAttribute('data-app-active', 'fw-bold')
+                if (children) {
+                  el.prepend(text(' '))
+                  el.prepend(tag({icon: isClosed}))
+                  el.addEventListener('click', () => {
+                    const l = el.closest('.list-group-item')
+                      .querySelector('div')
+                    l.classList.toggle('d-none')
+                    const i = el.querySelector('i')
+                    i.replaceWith(tag({
+                      icon: l.classList.contains('d-none') ? isClosed : isOpen
+                    }))
+                  })
+                } else if (typeof href == 'function') {
+                  el.addEventListener('click', href)
+                }
               },
-              dataAppActive: 'fw-bold'
-            }, [
-              children ? tag({icon: isClosed}) : null,
-              children ? text(' ') : null,
-              tag({
-                ...meta,
-                title
-              })
-            ]),
+              href: !children && typeof href == 'string' ?
+                href : 'javascript:;',
+              title,
+              ...meta
+            }),
             !children ? null : div({
               class: 'mt-2 d-none'
             }, [
@@ -132,15 +136,16 @@ export default ({target, links, sidebar}) => {
         li({
           class: 'nav-item'
         }, [
-          a({
-            class: 'nav-link',
-            dataBsToggle: 'offcanvas',
+          ctrl({
             href: '#sidebar',
-            role: 'button',
-            ariaControls: 'sidebar'
-          }, [
-            tag({icon: 'bars'})
-          ])
+            icon: 'bars',
+            init: el => {
+              el.setAttribute('class', 'nav-link')
+              el.setAttribute('data-bs-toggle', 'offcanvas')
+              el.setAttribute('role', 'button')
+              el.setAttribute('aria-controls', 'sidebar')
+            }
+          })
         ])
       ])
     ))
