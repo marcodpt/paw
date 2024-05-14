@@ -37,7 +37,6 @@ minimum effort and maximum customization.
 ## TODO
  - no default option fail to expose error message
  - form width to user space, very intrusive
- - allow build be a promise
  - group bug empty result
  - select list
  - radio list

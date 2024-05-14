@@ -14,6 +14,7 @@ export default ({build, root, routes}) => {
   root = root || document.body
   routes = routes || {}
 
+  var active = null
   var stop = null
   var old = null
   var components = {
@@ -21,12 +22,19 @@ export default ({build, root, routes}) => {
     form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }
-  if (typeof build === 'function') {
-    components = {
-      ...components,
-      ...(build(components) || {})
-    }
-  }
+
+  Promise.resolve()
+    .then(() => typeof build === 'function' ? build(components) : null)
+    .then(addons => {
+      components = {
+        ...components,
+        ...(addons || {})
+      }
+      if (active == null) {
+        active = true
+      }
+      router()
+    })
 
   const setClass = (el, attr, fn) =>
     (el.getAttribute(`data-app-${attr}`) || '').split(' ')
@@ -36,6 +44,9 @@ export default ({build, root, routes}) => {
       })
 
   const router = () => {
+    if (!active) {
+      return
+    }
     const url = (window.location.hash || '#/').substr(1)
     const Url = url.split('?')
     const path = Url.shift()
@@ -149,9 +160,8 @@ export default ({build, root, routes}) => {
   }
 
   window.addEventListener('hashchange', router)
-  router()
-
   return () => {
+    active = false
     window.removeEventListener('hashchange', router)
   }
 }
