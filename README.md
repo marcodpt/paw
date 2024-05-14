@@ -35,11 +35,9 @@ of abstraction to bring user-defined tables and forms to the application with
 minimum effort and maximum customization.
 
 ## TODO
+
+### Bugs and improvements
  - no default option fail to expose error message
- - group bug empty result
- - select list
- - radio list
- - checkbox multiple list
  - group as a modal
  - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
@@ -47,6 +45,11 @@ minimum effort and maximum customization.
  - separate docs and examples
  - allow children in docs and examples (ctrl case)
  - print functions in examples
+
+### New Controls
+ - select list
+ - radio list
+ - checkbox multiple list
 
 ### Tests and docs
  - link

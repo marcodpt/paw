@@ -141,7 +141,7 @@ export default ({
   const A = Object.keys(Aggregates)
   const M = K.reduce((M, k) => {
     if (A.indexOf(P[k].totals) >= 0) {
-      M[k] = V => F[k](Aggregates[P[k].totals](V))
+      M[k] = V => Aggregates[P[k].totals](V)
     }
     return M
   }, {})
@@ -648,7 +648,15 @@ export default ({
       const C = state.checked.length ? state.checked : state.base
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
-        t.textContent = M[k] ? M[k](C.map(row => row[k])) : '' 
+        t.innerHTML = ''
+        if (M[k]) {
+          t.appendChild(ctrl({
+            ...P[k],
+            readOnly: true,
+            href: null,
+            default: M[k](C.map(row => row[k]))
+          }))
+        }
       })
 
       view.forEach(row => {
