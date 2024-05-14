@@ -1,8 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-export default X => {
-  const {render, Params, form, e} = X
+export default ({render, Params, form, e}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const base = {
       ...mod.default
@@ -16,7 +15,11 @@ export default X => {
       ...Q,
       [k]: {
         title: `${k}${R.indexOf(k) >= 0 ? '*' : ''} (${P[k].type})`,
-        default: normalizeDesc(P[k].description),
+        default: [
+          normalizeDesc(P[k].description),
+          P[k].enum instanceof Array ?
+            'Possible values: ['+P[k].enum.join(', ')+'].' : ''
+        ].filter(d => d).join('\n'),
         type: 'string',
         ui: 'text'
       }
@@ -60,7 +63,10 @@ export default X => {
             text(desc)
           ]),
           hr(),
-          X[Params.component](data[0]),
+          base.component(data[0]),
+          div({
+            id: 'result'
+          }),
           hr(),
           code({
             class: 'card-text',

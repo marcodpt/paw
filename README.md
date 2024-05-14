@@ -49,9 +49,27 @@ minimum effort and maximum customization.
  - allow link with options (dropdown)
  - move table engine to user space
 
- - carousel
- - maps with local storage example
+### Tests and docs
+ - link
+ - output
+ - input
+ - form
+ - modal
+ - table
+ - chart
+ - graph
+ - nav
+ - render
+ - e
+ - core router
 
+### New components
+ - footer
+ - barcode
+ - carousel
+ - maps
+
+### Future
  - user create it own interface with local storage
  - bootstrap style crawling and remove dep
 

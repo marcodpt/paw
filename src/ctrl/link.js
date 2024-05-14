@@ -7,6 +7,7 @@ export default ({
   href,
   size,
   data,
+  description,
   ...extra
 }) => {
   const isBtn = typeof href != 'string'
@@ -88,10 +89,12 @@ export default ({
   }
 
   const btn = e(({button, a, span}) => (isBtn ? button : a)({
-    class: link,
+    class: link || null,
+    title: description || null,
     type,
     onclick,
     href,
+    target,
     dataBsDismiss
   }, [
     tag(extra)
