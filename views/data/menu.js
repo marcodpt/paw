@@ -58,7 +58,20 @@ export default {
         icon,
         title,
         description,
-        href: '#/docs/'+title
+        children: [{
+          icon: 'book',
+          title: 'Documentation',
+          href: '#/docs/'+title
+        }]
+      }))
+    }, {
+      icon: 'box',
+      title: 'Examples',
+      children: spec.map(({icon, title, description}) => ({
+        icon,
+        title,
+        description,
+        href: '#/examples/'+title
       }))
     }, {
       icon: 'flask',
