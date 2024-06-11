@@ -16,7 +16,7 @@ export default ({
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   link = opt('link', true).indexOf(link) >= 0 ? link :
     isBtn ? 'primary' :
-      size ? 'link' : ''
+      size || isDisabled ? 'link' : ''
   link = (link ? 'btn btn-'+link+(size ? ' btn-'+size : '') : '')+
     (isDisabled ? ' disabled' : '')
 

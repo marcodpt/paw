@@ -2,6 +2,7 @@ import ctrl from '../src/ctrl/index.js'
 import opt from '../src/ctrl/options.js'
 import tag from './tag.js'
 
+var ref = null
 export default ({
   icon: 'link',
   title: 'link',
@@ -90,11 +91,84 @@ export default ({
         {
           title: 'Hi!',
           href: () => {
-            document.getElementById('result').textContent = 'hello!'
+            console.log('clicked')
+            ref.closest('div').innerHTML = '<h1>Hello!</h1>'
+          },
+          init: btn => {
+            ref = btn
           }
         }
       ],
-      html: `<button class="btn btn-primary" type="button">Hi!</button>`
+      html: `<button class="btn btn-primary" type="button">Hi!</button>`,
+      click: '<h1>Hello!</h1>'
+    }, {
+      title: 'A blocked default link!',
+      data: [
+        {
+          icon: 'times',
+          title: 'No action!',
+          href: ''
+        }
+      ],
+      html: 
+`<a
+  class="btn btn-link disabled"
+  href="javascript:;"
+><span><i class="fa-solid fa-times"></i> No action!</span></a>`
+    }, {
+      title: 'A blocked default button!',
+      data: [
+        {
+          icon: 'times',
+          title: 'No action!'
+        }
+      ],
+      html: 
+`<button
+  class="btn btn-primary disabled"
+  type="button"
+><span><i class="fa-solid fa-times"></i> No action!</span></button>`
+    }, {
+      title: 'A link with data, size and description!',
+      data: [
+        {
+          icon: 'house',
+          title: 'Home',
+          href: '#/?user={user}&id={id}',
+          data: {
+            user: 'josh',
+            id: 34
+          },
+          size: 'sm'
+        }
+      ],
+      html: 
+`<a
+  class="btn btn-link btn-sm"
+  href="#/?user=josh&amp;id=34"
+><span><i class="fa-solid fa-house"></i> Home</span></a>`
+    }, {
+      title: 'A button with data, size, link and description!',
+      data: [
+        {
+          icon: 'face-smile',
+          link: 'warning',
+          title: 'Greetings',
+          href: data => {
+            ref.closest('div').innerHTML = '<h1>Hello '+data+'!</h1>'
+          },
+          init: btn => {
+            ref = btn
+          },
+          data: 'josh',
+          size: 'lg'
+        }
+      ],
+      html: 
+`<button
+  class="btn btn-warning btn-lg"
+  type="button"
+><span><i class="fa-solid fa-face-smile"></i> Greetings</span></button>`
     }
   ]
 })

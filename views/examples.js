@@ -29,10 +29,9 @@ export default ({render, Params, form, e}) => {
             text(desc)
           ]),
           hr(),
-          M.component(data[0]),
-          div({
-            id: 'result'
-          }),
+          div({}, [
+            M.component(data[0])
+          ]),
           hr(),
           code({
             class: 'card-text',
