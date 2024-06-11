@@ -54,24 +54,24 @@ export default {
     }, {
       icon: 'box',
       title: 'Components',
-      children: spec.map(({icon, title, description}) => ({
+      children: spec.map(({icon, title, description, examples}) => ({
         icon,
         title,
         description,
-        children: [{
-          icon: 'book',
-          title: 'Documentation',
-          href: '#/docs/'+title
-        }]
-      }))
-    }, {
-      icon: 'box',
-      title: 'Examples',
-      children: spec.map(({icon, title, description}) => ({
-        icon,
-        title,
-        description,
-        href: '#/examples/'+title
+        children: [
+          {
+            icon: 'book',
+            title: 'Documentation',
+            href: '#/docs/'+title
+          }, {
+            icon: 'box',
+            title: 'Examples',
+            children: examples.map((E, i) => ({
+              title: E.title,
+              href: '#/examples/'+title+'/'+i
+            }))
+          }
+        ]
       }))
     }, {
       icon: 'flask',

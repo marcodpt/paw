@@ -25,6 +25,6 @@ window.stop = app({
     '/chart': chart,
     '/graph': graph,
     '/docs/:component': docs,
-    '/examples/:component': examples
+    '/examples/:component/:index': examples
   }
 })

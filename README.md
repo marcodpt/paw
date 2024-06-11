@@ -42,7 +42,6 @@ minimum effort and maximum customization.
  - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
  - move table engine to user space
- - separate docs and examples
  - allow children in docs and examples (ctrl case)
  - print functions in examples
 
