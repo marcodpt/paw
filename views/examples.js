@@ -6,7 +6,18 @@ export default ({render, Params, form, e}) => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
     const desc = normalizeDesc(description)
-    const print = X => JSON.stringify(X, undefined, 2)
+    const mark = '*****'
+    const fnStr = X => {
+      if (typeof X == 'object') {
+        Object.keys(X).forEach(k => {
+          X[k] = fnStr(X[k])
+        })
+      }
+      return typeof X == 'function' ? mark+X.toString()+mark : X
+    }
+    const print = X => JSON.stringify(fnStr(X), undefined, 2)
+      .replaceAll('"'+mark, '').replaceAll(mark+'"', '')
+      .replaceAll('\\n        ', '\n')
     const style = 'white-space:pre-wrap'
     return e(({div, h5, p, hr, text, code}) => div({
       class: 'container my-5 mx-auto'

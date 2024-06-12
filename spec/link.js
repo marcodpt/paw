@@ -91,7 +91,6 @@ export default ({
         {
           title: 'Hi!',
           href: () => {
-            console.log('clicked')
             ref.closest('div').innerHTML = '<h1>Hello!</h1>'
           },
           init: btn => {

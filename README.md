@@ -43,7 +43,6 @@ minimum effort and maximum customization.
  - allow link with options (dropdown)
  - move table engine to user space
  - allow children in docs and examples (ctrl case)
- - print functions in examples
 
 ### New Controls
  - select list
@@ -51,16 +50,16 @@ minimum effort and maximum customization.
  - checkbox multiple list
 
 ### Tests and docs
+ - chart
+ - graph
+ - render
  - link
  - output
  - input
  - form
  - modal
  - table
- - chart
- - graph
  - nav
- - render
  - e
  - core router
 
@@ -69,7 +68,6 @@ minimum effort and maximum customization.
  - barcode
  - carousel
  - maps
- - code
 
 ## Contributing
 It's a very simple project.
