@@ -69,6 +69,7 @@ minimum effort and maximum customization.
  - barcode
  - carousel
  - maps
+ - code
 
 ## Contributing
 It's a very simple project.

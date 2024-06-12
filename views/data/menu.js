@@ -7,6 +7,22 @@ export default {
       icon: 'tools',
       children: [
         {
+          title: 'Users',
+          icon: 'user',
+          href: '#/users'
+        }, {
+          title: 'Render',
+          icon: 'image',
+          children: [
+            {
+              title: 'Lazy String',
+              href: '#/render/lazy'
+            }, {
+              title: 'Error',
+              href: '#/render/error'
+            }
+          ]
+        }, {
           title: 'Flowchart',
           icon: 'project-diagram',
           href: '#/graph'
@@ -19,68 +35,48 @@ export default {
           icon: 'gamepad',
           href: '#/ctrl'
         }, {
+          title: 'Settings',
+          icon: 'cog',
+          href: '#/settings'
+        }, {
+          icon: 'smile',
+          title: 'Say Hi!',
+          href: () => window.alert('Hi!')
+        }, {
           title: 'Stop Router',
           icon: 'stop',
           href: 'javascript:stop()'
         }
       ]
     }, {
-      title: 'Settings',
-      icon: 'cog',
-      href: '#/settings'
-    }, {
       title: 'Repository',
       icon: '@github',
       href: 'https://github.com/marcodpt/app'
     }
   ],
-  sidebar: [
+  sidebar: spec.map(({icon, title, description, examples}) => ({
+    icon,
+    title,
+    description,
+    children: [
+      {
+        icon: 'book',
+        title: 'Documentation',
+        href: '#/docs/'+title
+      }, {
+        icon: 'box',
+        title: 'Examples',
+        children: examples.map((E, i) => ({
+          title: E.title,
+          href: '#/examples/'+title+'/'+i
+        }))
+      }
+    ]
+  })).concat([
     {
-      title: 'Users',
-      icon: 'user',
-      href: '#/users'
-    }, {
-      title: 'Render',
-      icon: 'image',
-      children: [
-        {
-          title: 'Lazy String',
-          href: '#/render/lazy'
-        }, {
-          title: 'Error',
-          href: '#/render/error'
-        }
-      ]
-    }, {
-      icon: 'box',
-      title: 'Components',
-      children: spec.map(({icon, title, description, examples}) => ({
-        icon,
-        title,
-        description,
-        children: [
-          {
-            icon: 'book',
-            title: 'Documentation',
-            href: '#/docs/'+title
-          }, {
-            icon: 'box',
-            title: 'Examples',
-            children: examples.map((E, i) => ({
-              title: E.title,
-              href: '#/examples/'+title+'/'+i
-            }))
-          }
-        ]
-      }))
-    }, {
       icon: 'flask',
       title: 'Tests',
       href: location.href.split('#')[0]+'spec/index.html'
-    }, {
-      icon: 'smile',
-      title: 'Say Hi!',
-      href: () => window.alert('Hi!')
     }
-  ]
+  ])
 }
