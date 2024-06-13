@@ -1,7 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-export default ({render, Params, form, e}) => {
+export default ({render, Params, e}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
@@ -9,9 +9,15 @@ export default ({render, Params, form, e}) => {
     const mark = '*****'
     const fnStr = X => {
       if (typeof X == 'object') {
-        Object.keys(X).forEach(k => {
-          X[k] = fnStr(X[k])
-        })
+        if (X.nodeType === 1) {
+          X = mark+X.outerHTML+mark
+        } else if (X.nodeType === 3) {
+          X = mark+"document.createTextNode('"+X.textContent+"')"+mark
+        } else {
+          Object.keys(X).forEach(k => {
+            X[k] = fnStr(X[k])
+          })
+        }
       }
       return typeof X == 'function' ? mark+X.toString()+mark : X
     }

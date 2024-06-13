@@ -11,18 +11,6 @@ export default {
           icon: 'user',
           href: '#/users'
         }, {
-          title: 'Render',
-          icon: 'image',
-          children: [
-            {
-              title: 'Lazy String',
-              href: '#/render/lazy'
-            }, {
-              title: 'Error',
-              href: '#/render/error'
-            }
-          ]
-        }, {
           title: 'Flowchart',
           icon: 'project-diagram',
           href: '#/graph'

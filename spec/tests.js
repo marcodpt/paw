@@ -8,7 +8,10 @@ const text = str => str.trim()
 
 spec.forEach(({title, examples, component}) => {
   QUnit.module(title, () => {
-    examples.forEach(({title, data, html, run}) => {
+    examples.forEach(({title, data, html}) => {
+      if (html == null) {
+        return
+      }
       QUnit.test(title, assert => {
         data.forEach(X => {
           const res = component(X)

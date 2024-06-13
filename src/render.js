@@ -3,6 +3,7 @@ import form from './form.js'
 import T from './lang/index.js'
 
 export default (resolve, root) => {
+  root = root || document.createElement('div')
   const render = view => {
     root.innerHTML = typeof view == 'string' ? view : ''
     if (view && typeof view == 'object') {
@@ -30,4 +31,5 @@ export default (resolve, root) => {
   } else {
     render(resolve)
   }
+  return root
 }
