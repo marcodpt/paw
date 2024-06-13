@@ -1,10 +1,5 @@
 import render from '../src/render.js'
-
-const wait = time => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(time)
-  }, time)
-})
+import wait from './wait.js'
 
 export default ({
   icon: 'box-open',

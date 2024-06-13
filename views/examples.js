@@ -9,6 +9,7 @@ export default ({render, Params, e}) => {
     const mark = '*****'
     const fnStr = X => {
       if (typeof X == 'object') {
+        X = X instanceof Array ? [...X] : {...X}
         if (X.nodeType === 1) {
           X = mark+X.outerHTML+mark
         } else if (X.nodeType === 3) {

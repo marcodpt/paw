@@ -11,14 +11,6 @@ export default {
           icon: 'user',
           href: '#/users'
         }, {
-          title: 'Flowchart',
-          icon: 'project-diagram',
-          href: '#/graph'
-        }, {
-          title: 'Chart',
-          icon: 'chart-line',
-          href: '#/chart'
-        }, {
           title: 'Controls',
           icon: 'gamepad',
           href: '#/ctrl'
