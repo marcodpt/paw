@@ -43,6 +43,9 @@ minimum effort and maximum customization.
  - allow link with options (dropdown)
  - move table engine to user space
  - allow children in docs and examples (ctrl case)
+ - remove lang support
+ - remove bootstrap options support, minimize options and review settings
+ - remove base64 file support
 
 ### New Controls
  - select list

@@ -1,7 +1,6 @@
 import app from './index.js'
 import build from './views/build.js'
 import settings from './views/settings.js'
-import ctrl from './views/ctrl.js'
 import users from './views/users.js'
 import user from './views/user.js'
 import docs from './views/docs.js'
@@ -13,7 +12,6 @@ window.stop = app({
   routes: {
     '*': ({render, home}) => render(home),
     '/settings': settings,
-    '/ctrl': ctrl,
     '/users': users,
     '/users/:id': user,
     '/docs/:component': docs,

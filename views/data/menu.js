@@ -11,10 +11,6 @@ export default {
           icon: 'user',
           href: '#/users'
         }, {
-          title: 'Controls',
-          icon: 'gamepad',
-          href: '#/ctrl'
-        }, {
           title: 'Settings',
           icon: 'cog',
           href: '#/settings'
