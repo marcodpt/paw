@@ -4,7 +4,7 @@ export default ({
   icon: 'location-arrow',
   title: 'nav',
   description: 'Navigation with navbar and offcanvas.',
-  comp: nav,
+  component: nav,
   properties: {},
   examples: []
 })

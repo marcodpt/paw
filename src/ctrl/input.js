@@ -145,7 +145,7 @@ export default ({
     div, datalist, option, span, i, input, label, text
   }) => div({
     class: css,
-    setOptions: isText || isStatic ? null : (options, S) => {
+    setOptions: isText || isStatic ? null : (el, options, S) => {
       Object.keys(S || {}).forEach(k => {
         schema[k] = S[k]
       })
@@ -218,7 +218,7 @@ export default ({
 
       return options !== true ? wrapper.setValue(schema.default) : wrapper
     },
-    setValue: v => {
+    setValue: (el, v) => {
       const t = schema.type
       if (v == null) {
         v = schema.default != null ? schema.default :

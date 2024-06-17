@@ -63,7 +63,6 @@ minimum effort and maximum customization.
  - modal
  - table
  - nav
- - e
  - core router
 
 ### New components
@@ -71,6 +70,7 @@ minimum effort and maximum customization.
  - barcode
  - carousel
  - maps
+ - code
 
 ## Contributing
 It's a very simple project.

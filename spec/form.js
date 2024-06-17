@@ -4,7 +4,14 @@ export default ({
   icon: 'square-check',
   title: 'form',
   description: 'Form with validation.',
-  comp: form,
+  component: form,
   properties: {},
-  examples: []
+  examples: [
+    {
+      title: 'Empty',
+      data: [
+        {}
+      ]
+    }
+  ]
 })

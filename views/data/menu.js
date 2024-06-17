@@ -15,6 +15,10 @@ export default {
           icon: 'cog',
           href: '#/settings'
         }, {
+          icon: 'flask',
+          title: 'Tests',
+          href: location.href.split('#')[0]+'spec/index.html'
+        }, {
           icon: 'smile',
           title: 'Say Hi!',
           href: () => window.alert('Hi!')
@@ -48,11 +52,5 @@ export default {
         }))
       }
     ]
-  })).concat([
-    {
-      icon: 'flask',
-      title: 'Tests',
-      href: location.href.split('#')[0]+'spec/index.html'
-    }
-  ])
+  }))
 }

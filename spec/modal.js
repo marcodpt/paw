@@ -4,7 +4,14 @@ export default ({
   icon: 'window-restore',
   title: 'modal',
   description: 'Modal alerts and forms.',
-  comp: modal,
+  component: modal,
   properties: {},
-  examples: []
+  examples: [
+    {
+      title: 'Empty',
+      data: [
+        {}
+      ]
+    }
+  ]
 })

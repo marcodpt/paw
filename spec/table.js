@@ -4,7 +4,14 @@ export default ({
   icon: 'table',
   title: 'table',
   description: 'Table with many integrated functionalities.',
-  comp: table,
+  component: table,
   properties: {},
-  examples: []
+  examples: [
+    {
+      title: 'Empty',
+      data: [
+        {}
+      ]
+    }
+  ]
 })

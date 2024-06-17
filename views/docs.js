@@ -14,7 +14,8 @@ export default ({render, Params, form, e}) => {
     base.properties = Object.keys(P).reduce((Q, k) => ({
       ...Q,
       [k]: {
-        title: `${k}${R.indexOf(k) >= 0 ? '*' : ''} (${P[k].type})`,
+        title: P[k].title ||
+          `${k}${R.indexOf(k) >= 0 ? '*' : ''} (${P[k].type})`,
         default: [
           normalizeDesc(P[k].description),
           P[k].enum instanceof Array ?

@@ -1,119 +1,4 @@
-const selfClosing = [
-  'area',
-  'base',
-  'br',
-  'col',
-  'embed',
-  'hr',
-  'img',
-  'input',
-  'link',
-  'meta',
-  'param',
-  'source',
-  'track',
-  'wbr'
-]
-
-const normalTags = [
-  'a',
-  'abbr',
-  'address',
-  'article',
-  'aside',
-  'audio',
-  'b',
-  'bdi',
-  'bdo',
-  'blockquote',
-  'body',
-  'button',
-  'canvas',
-  'caption',
-  'cite',
-  'code',
-  'colgroup',
-  'data',
-  'datalist',
-  'dd',
-  'del',
-  'details',
-  'dfn',
-  'dialog',
-  'div',
-  'dl',
-  'dt',
-  'em',
-  'fieldset',
-  'figcaption',
-  'figure',
-  'footer',
-  'form',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'head',
-  'header',
-  'html',
-  'i',
-  'iframe',
-  'ins',
-  'kbd',
-  'label',
-  'legend',
-  'li',
-  'main',
-  'map',
-  'mark',
-  'meter',
-  'nav',
-  'noscript',
-  'object',
-  'ol',
-  'optgroup',
-  'option',
-  'output',
-  'p',
-  'picture',
-  'pre',
-  'progress',
-  'q',
-  'rp',
-  'rt',
-  'ruby',
-  's',
-  'samp',
-  'script',
-  'section',
-  'select',
-  'small',
-  'span',
-  'strong',
-  'style',
-  'sub',
-  'summary',
-  'sup',
-  'svg',
-  'table',
-  'tbody',
-  'td',
-  'template',
-  'textarea',
-  'tfoot',
-  'th',
-  'thead',
-  'time',
-  'title',
-  'tr',
-  'u',
-  'ul',
-  'var',
-  'video'
-]
-
+import {selfClosing, normalTags} from './lib.js'
 
 const camelToKebab = string => string
   .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
@@ -129,10 +14,36 @@ const h = (tagName, attributes, children) => {
       if (k.substr(0, 2) == 'on') {
         e.addEventListener(k.substr(2), v)
       } else {
-        e[key] = v
+        e[key] = (...args) => v(e, ...args)
       }
-    } else if (v != null && v !== false) {
+    } else if (typeof v === 'string' || typeof v === 'number') {
       e.setAttribute(k, v)
+    } else if (k === 'style' && v && typeof v === 'object') {
+      const style = Object.keys(v).reduce((style, k) => {
+        if (typeof v[k] == 'number' || typeof v[k] == 'string') {
+          const s = String(v[k]).trim()
+          if (s) {
+            style += (style ? '; ' : '')+camelToKebab(k)+': '+s
+          }
+        }
+        return style
+      }, "")
+
+      if (style) {
+        e.setAttribute('style', style)
+      }
+    } else if (k === 'class' && (v instanceof Array)) {
+      const css = v
+        .filter(c => typeof c == "string")
+        .map(c => c.trim())
+        .filter(c => c)
+        .join(" ")
+
+      if (css) {
+        e.setAttribute('class', css)
+      }
+    } else if (v === true) {
+      e.setAttribute(k, '')
     }
   })
 
@@ -144,7 +55,12 @@ const h = (tagName, attributes, children) => {
 }
 
 const Tags = {
-  text: str => document.createTextNode(str)
+  text: str => document.createTextNode(
+    typeof str === 'string' ? str :
+    str === undefined ? '' : 
+    typeof str === 'function' ? str.toString() : 
+      JSON.stringify(str, undefined, 2)
+  )
 }
 
 selfClosing.forEach(tag => {

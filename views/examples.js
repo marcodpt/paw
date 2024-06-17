@@ -26,7 +26,10 @@ export default ({render, Params, e}) => {
       .replaceAll('"'+mark, '').replaceAll(mark+'"', '')
       .replaceAll('\\n        ', '\n')
     const style = 'white-space:pre-wrap'
-    return e(({div, h5, p, hr, text, code}) => div({
+    setTimeout(() => {
+      hljs.highlightAll()
+    }, 100)
+    return e(({div, h5, p, hr, text, pre, code}) => div({
       class: 'container my-5 mx-auto'
     }, [
       div({
@@ -51,18 +54,32 @@ export default ({render, Params, e}) => {
             M.component(data[0])
           ]),
           hr(),
-          code({
-            class: 'card-text',
-            style
+          p({
+            class: 'card-text'
           }, [
-            text(Params.component+'('+print(data[0])+')')
+            pre({
+              class: 'mb-0'
+            }, [
+              code({
+                class: 'language-js py-0'
+              }, [
+                text(Params.component+'('+print(data[0])+')')
+              ])
+            ])
           ]),
           !html ? null : hr(),
-          !html ? null : code({
-            class: 'card-text',
-            style
+          !html ? null : p({
+            class: 'card-text'
           }, [
-            text(html)
+            pre({
+              class: 'mb-0'
+            }, [
+              code({
+                class: 'language-html py-0'
+              }, [
+                text(html)
+              ])
+            ])
           ])
         ])
       ])

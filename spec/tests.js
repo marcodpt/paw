@@ -8,7 +8,7 @@ const text = str => str.trim()
 
 spec.forEach(({title, examples, component}) => {
   QUnit.module(title, () => {
-    examples.forEach(({title, data, html}) => {
+    examples.forEach(({title, data, html, test}) => {
       if (html == null) {
         return
       }
@@ -19,6 +19,9 @@ spec.forEach(({title, examples, component}) => {
             text(res.nodeType === 3 ? res.textContent : res.outerHTML),
             text(html)
           )
+          if (typeof test === 'function') {
+            test(res, assert)
+          }
         })
       })
     })

@@ -4,7 +4,7 @@ export default ({
   icon: 'rocket',
   title: 'app',
   description: 'A dashboard application.',
-  comp: app,
+  component: app,
   properties: {},
   examples: []
 })
