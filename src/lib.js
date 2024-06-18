@@ -29,11 +29,23 @@ const formatter = ({type, ui, maximum, minimum}) => {
   } else if (/^num\.[1-9][0-9]*$/.test(ui)) {
     const precision = parseInt(ui.substr(4))
     const pow = 10 ** precision
-    return x => typeof x != 'number' ? x == null ? '' : x : 
-      (type == 'integer' ? (x / pow) : x).toLocaleString(T('lang'), {
-        minimumFractionDigits: precision,
-        maximumFractionDigits: precision
-      })
+
+    return x => {
+      if (isNum(x)) {
+        if (type == 'number' ||
+          (typeof x == 'string' && x.indexOf('.') >= 0)
+        ) {
+          x = parseFloat(x)
+        } else {
+          x = parseInt(x) / pow
+        }
+        return x.toLocaleString(T('lang'), {
+          minimumFractionDigits: precision,
+          maximumFractionDigits: precision
+        })
+      }
+      return x == null ? '' : x
+    }
   } else if (/^len:[1-9][0-9]*$/.test(ui)) {
     const len = parseInt(ui.substr(4))
     return x => {
@@ -51,7 +63,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
   } else if (ui == 'progress') {
     return x => {
       if (typeof x != 'number') {
-        return x == null ? 0 : x
+        return x == null || !isNum(x) ? 0 : x
       }
       const a = minimum == null ? 0 : minimum
       const b = maximum == null ? (type == 'number' ? 1 : 100) : maximum

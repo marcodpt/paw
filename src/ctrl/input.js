@@ -122,8 +122,7 @@ export default ({
   const target = e(({input, textarea}) => 
     isStatic ? output({
       ...schema,
-      size,
-      default: parse(schema.default)
+      size
     }) : 
     isText ? textarea({
       name: title,

@@ -14,26 +14,41 @@ export default schema => {
       icon: null
     }) :
     schema.ui == 'progress' ? div({
-      style: 'min-width:100px;background-color:lightgrey',
+      style: {
+        minWidth: '100px',
+        backgroundColor: 'lightgrey'
+      },
       class: 'rounded',
       title: data.toFixed(1)+'%'
     }, [
       div({
-        class: 'text-center rounded text-white overflow-x-hidden',
-        style: `width:${p}%;background-color:hsl(${[
-          ((100 - p) / 100 * 240).toFixed(1),
-          '100%',
-          (p / 4 + 25).toFixed(1)+'%'
-        ].join(',')})`
+        class: [
+          'rounded',
+          'text-white',
+          'overflow-visible',
+          'd-flex',
+          'flex-row',
+          'justify-content-center'
+        ],
+        style: {
+          width: p+'%',
+          backgroundColor: `hsl(${[
+            ((100 - p) / 100 * 240).toFixed(1),
+            '100%',
+            (p / 4 + 25).toFixed(1)+'%'
+          ].join(',')})`
+        }
       }, [
-        text(data.toFixed(1)+'%')
+        text('\u2007\u2007\u2007\u2007'+data.toFixed(1)+'%')
       ])
     ]) : 
     schema.ui == 'color' ? div({
       style: data ? 'background-color:'+data : null,
-      title: schema.default,
+      title: data,
       class: 'h-100 w-100'
-    }) :
+    }, [
+      text('\uFEFF')
+    ]) :
     schema.ui == 'icon' ? tag({
       icon: data,
       title: schema.default
