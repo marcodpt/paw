@@ -9,6 +9,15 @@ const UI = {
     {value: 'en', label: 'English'},
     {value: 'pt', label: 'Português'}
   ],
+  types: [
+    'string',
+    'number',
+    'integer',
+    'object',
+    'array',
+    'boolean',
+    'null'
+  ],
   link: [
     'link',
     'primary',

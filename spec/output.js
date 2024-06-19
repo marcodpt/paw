@@ -1,34 +1,76 @@
 import ctrl from '../src/ctrl/index.js'
+import opt from '../src/ctrl/options.js'
 
 export default ({
   icon: 'font',
   title: 'output',
   description: 'Formatted outputs.',
   component: ctrl,
-  properties: {},
+  properties: {
+    readOnly: {
+      type: 'boolean',
+      description: 'The value must always be true.'
+    },
+    type: {
+      type: 'string',
+      description: 'One of the allowed types of the JSON schema.',
+      enum: opt('types', true)
+    },
+    default: {
+      description: `The value associated with this output.`
+    },
+    ui: {
+      type: 'string',
+      description: 'One of the available UIs.',
+      enum: opt('ui', true)
+    },
+    href: {
+      type: 'string',
+      description: `Used to create links in static content.`
+    },
+    link: {
+      type: 'string',
+      enum: opt('link', true),
+      description: `
+        One of the bootstrap 5 button variants.
+        It only makes sense when href is present.
+        The default value is: link.
+      `
+    },
+    minimum: {
+      type: 'number',
+      description: `
+        Used in progress bars to determine the starting value of the scale.
+        The default value is: 0.
+      `
+    },
+    maximum: {
+      type: 'number',
+      description: `
+        Used in progress bars to determine the final scale value.
+        The default value is: 100 (type: integer) or 1 (type: number).
+      `
+    }
+  },
   examples: [
     {
-      title: 'Password',
+      title: 'Empty',
       data: [
         {
-          default: 'secret password',
-          ui: 'password',
           readOnly: true
         }, {
           type: 'string',
-          default: 'another password',
-          ui: 'password',
+          default: null,
           readOnly: true
         }, {
-          default: 3.14,
-          ui: 'password',
+          default: undefined,
           readOnly: true
         }, {
-          ui: 'password',
+          default: '',
           readOnly: true
         }
       ],
-      html: `********`
+      html: ''
     }, {
       title: 'Boolean False',
       data: [
@@ -86,6 +128,178 @@ export default ({
         }
       ],
       html: `Yes`
+    }, {
+      title: 'Integer',
+      data: [
+        {
+          default: 1234,
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: 1234,
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: '1234',
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: 1233.6,
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: 1233.5,
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: 1234.4,
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: '1233.5',
+          readOnly: true
+        }, {
+          type: 'integer',
+          default: '1234.4',
+          readOnly: true
+        }
+      ],
+      html: '1,234'
+    }, {
+      title: 'Number',
+      data: [
+        {
+          default: 1234.56789,
+          readOnly: true
+        }, {
+          type: 'number',
+          default: 1234.56789,
+          readOnly: true
+        }, {
+          type: 'number',
+          default: '1234.56789',
+          readOnly: true
+        }
+      ],
+      html: '1,234.568'
+    }, {
+      title: 'String',
+      data: [
+        {
+          default: 'test\nme',
+          readOnly: true
+        }, {
+          type: 'string',
+          default: 'test\nme',
+          readOnly: true
+        }
+      ],
+      html: 'test\nme'
+    }, {
+      title: 'Text',
+      data: [
+        {
+          ui: 'text',
+          default: 'test\nme',
+          readOnly: true
+        }, {
+          ui: 'text',
+          type: 'string',
+          default: 'test\nme',
+          readOnly: true
+        }, {
+          ui: 'info',
+          default: 'test\nme',
+          readOnly: true
+        }, {
+          ui: 'info',
+          type: 'string',
+          default: 'test\nme',
+          readOnly: true
+        }
+      ],
+      html: '<span style="white-space: pre-wrap">test\nme</span>'
+    }, {
+      title: 'JSON Object',
+      data: [
+        {
+          default: {
+            x: 1,
+            test: 'me'
+          },
+          readOnly: true
+        }
+      ],
+      html: 
+`<span
+  style="white-space: pre-wrap"
+>{
+  "x": 1,
+  "test": "me"
+}</span>`
+    }, {
+      title: 'JSON Array',
+      data: [
+        {
+          default: [
+            'dog',
+            'cat',
+            'bird'
+          ],
+          readOnly: true
+        }
+      ],
+      html: 
+`<span
+  style="white-space: pre-wrap"
+>[
+  "dog",
+  "cat",
+  "bird"
+]</span>`
+    }, {
+      title: 'Link Raw',
+      data: [
+        {
+          default: 'google',
+          href: 'https://www.google.com',
+          readOnly: true
+        }
+      ],
+      html: `<a href="https://www.google.com" target="_blank">google</a>`
+    }, {
+      title: 'Link Info',
+      data: [
+        {
+          default: 'test',
+          href: '#',
+          link: 'info',
+          readOnly: true
+        }
+      ],
+      html: `<a class="btn btn-info" href="#">test</a>`
+    }, {
+      title: 'Password',
+      data: [
+        {
+          default: 'secret password',
+          ui: 'password',
+          readOnly: true
+        }, {
+          type: 'string',
+          default: 'another password',
+          ui: 'password',
+          readOnly: true
+        }, {
+          default: 3.14,
+          ui: 'password',
+          readOnly: true
+        }, {
+          ui: 'password',
+          readOnly: true
+        }
+      ],
+      html: `********`
     }, {
       title: 'Date Positive',
       data: [
@@ -217,11 +431,65 @@ export default ({
   class="h-100 w-100"
 ></div>`
     }, {
+      title: 'Icon check',
+      data: [
+        {
+          ui: 'icon',
+          default: 'check',
+          readOnly: true
+        }
+      ],
+      html: '<span><i class="fa-solid fa-check"></i> check</span>'
+    }, {
+      title: 'Icon github',
+      data: [
+        {
+          ui: 'icon',
+          default: '@github',
+          readOnly: true
+        }
+      ],
+      html: '<span><i class="fa-brands fa-github"></i> @github</span>'
+    }, {
+      title: 'Link primary',
+      data: [
+        {
+          ui: 'link',
+          default: 'primary',
+          readOnly: true
+        }
+      ], 
+      html: 
+`<a
+  class="btn btn-primary btn-sm"
+  href="javascript:;"
+>primary</a>`
+    }, {
+      title: 'Link link',
+      data: [
+        {
+          ui: 'link',
+          default: 'link',
+          readOnly: true
+        }
+      ],
+      html: 
+`<a
+  class="btn btn-link btn-sm"
+  href="javascript:;"
+>link</a>`
+    }, {
       title: 'Progress 0%',
       data: [
         {
           ui: 'progress',
           default: 0,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          minimum: -200,
+          maximum: 80,
+          default: -200,
           readOnly: true
         }
       ],
@@ -243,6 +511,22 @@ export default ({
           ui: 'progress',
           default: 1,
           readOnly: true
+        }, {
+          ui: 'progress',
+          default: 0.01,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 52,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: -990,
+          minimum: -1000,
+          maximum: 0,
+          readOnly: true
         }
       ],
       html:
@@ -262,6 +546,22 @@ export default ({
         {
           ui: 'progress',
           default: 25,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 0.25,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 100,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: -750,
+          minimum: -1000,
+          maximum: 0,
           readOnly: true
         }
       ],
@@ -283,6 +583,22 @@ export default ({
           ui: 'progress',
           default: 50,
           readOnly: true
+        }, {
+          ui: 'progress',
+          default: 0.5,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 150,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: -500,
+          minimum: -1000,
+          maximum: 0,
+          readOnly: true
         }
       ],
       html: 
@@ -302,6 +618,22 @@ export default ({
         {
           ui: 'progress',
           default: 75,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 0.75,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 200,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: -250,
+          minimum: -1000,
+          maximum: 0,
           readOnly: true
         }
       ],
@@ -323,6 +655,23 @@ export default ({
           ui: 'progress',
           default: 100,
           readOnly: true
+        }, {
+          type: 'number',
+          ui: 'progress',
+          default: 1,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 250,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 0,
+          minimum: -1000,
+          maximum: 0,
+          readOnly: true
         }
       ],
       html:
@@ -342,6 +691,22 @@ export default ({
         {
           ui: 'progress',
           default: 125,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 1.25,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 300,
+          minimum: 50,
+          maximum: 250,
+          readOnly: true
+        }, {
+          ui: 'progress',
+          default: 250,
+          minimum: -1000,
+          maximum: 0,
           readOnly: true
         }
       ],

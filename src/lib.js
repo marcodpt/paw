@@ -72,8 +72,9 @@ const formatter = ({type, ui, maximum, minimum}) => {
       return 100 * x
     }
   } else if (type == 'integer' || type == 'number') {
-    return x => typeof x != 'number' ? x == null ? '' : x :
-      (type == 'integer' ? Math.round(x) : x).toLocaleString(T('lang'))
+    return x => !isNum(x) ? x == null ? '' : x :
+      (type == 'integer' ? Math.round(x) : parseFloat(x))
+        .toLocaleString(T('lang'))
   } else if (type != 'string') {
     return x => JSON.stringify(x, undefined, 2)
   } else {

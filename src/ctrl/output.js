@@ -59,8 +59,14 @@ export default schema => {
       href: 'javascript:;',
       size: 'sm'
     }) : 
-    schema.ui == 'text' || schema.ui == 'info' ? span({
-      style: 'white-space: pre-wrap;'
+    schema.ui == 'text' || schema.ui == 'info' || (
+      schema.ui != 'bool' && (
+        schema.type == 'object' || schema.type == 'array'
+      )
+    ) ? span({
+      style: {
+        whiteSpace: 'pre-wrap'
+      }
     }, [
       text(data)
     ]) : 

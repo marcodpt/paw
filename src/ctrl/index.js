@@ -21,7 +21,8 @@ export default ({
 
   const ctrl = schema.type == null &&
     schema.default == null &&
-    schema.ui == null ?
+    schema.ui == null &&
+    schema.readOnly == null ?
       link(schema) : input(schema)
 
   if (typeof init == 'function') {

@@ -37,15 +37,20 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
+ - remove setOptions and setValue, replace ctrl instead
+ - remove readOnly use update instead, use readOnly instead of writeOnly
  - no default option fail to expose error message
  - group as a modal
  - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
  - move table engine to user space
  - allow children in docs and examples (ctrl case)
+ - print goes with JSON and not as a raw function
+ - allow to see other tests variants
  - remove lang support
- - remove bootstrap options support, minimize options and review settings
+ - remove non bootstrap options support, minimize options and review settings
  - remove base64 file support
+ - emoji support on icons
 
 ### New Controls
  - select list
@@ -57,7 +62,6 @@ minimum effort and maximum customization.
  - graph
  - render
  - link
- - output
  - input
  - form
  - modal

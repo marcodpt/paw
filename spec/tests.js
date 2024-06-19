@@ -8,7 +8,21 @@ const text = str => str.trim()
 
 spec.forEach(({title, examples, component}) => {
   QUnit.module(title, () => {
+    const aggregate = {
+      max: 0,
+      props: []
+    }
     examples.forEach(({title, data, html, test}) => {
+      aggregate.max += data.length
+      data.forEach(X => {
+        if (typeof X === 'object') {
+          Object.keys(X).forEach(k => {
+            if (aggregate.props.indexOf(k) < 0) {
+              aggregate.props.push(k)
+            }
+          })
+        }
+      })
       if (html == null) {
         return
       }
@@ -25,5 +39,7 @@ spec.forEach(({title, examples, component}) => {
         })
       })
     })
+    console.log('\n\n****** '+title+' *******')
+    console.log(aggregate)
   })
 })

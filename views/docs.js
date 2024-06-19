@@ -15,7 +15,8 @@ export default ({render, Params, form, e}) => {
       ...Q,
       [k]: {
         title: P[k].title ||
-          `${k}${R.indexOf(k) >= 0 ? '*' : ''} (${P[k].type})`,
+          `${k}${R.indexOf(k) >= 0 ? '*' : ''}`+
+          (P[k].type ? ` (${P[k].type})` : ''),
         default: [
           normalizeDesc(P[k].description),
           P[k].enum instanceof Array ?
