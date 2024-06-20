@@ -1,6 +1,8 @@
 import e from '../e.js'
 import tag from '../tag.js'
-import {validator, parser, loader, getStep, readFiles, rm} from '../lib.js'
+import {
+  validator, parser, loader, hasStep, getStep, readFiles, rm
+} from '../lib.js'
 import opt from './options.js'
 import output from './output.js'
 import link from './link.js'
@@ -155,18 +157,33 @@ export default ({
       ) {
         step = getStep(schema.ui)
       }
-      if (step != null) {
+      if (
+        step != null &&
+        !options &&
+        (schema.type == 'integer' || step < 0.5)
+      ) {
         target.setAttribute('step', step)
       } else {
         target.removeAttribute('step')
       }
+      const fixed = hasStep(schema.ui) ? parseInt(schema.ui.substr(4)) : 0
       if (schema.minimum != null) {
-        target.setAttribute('min', loader(schema, schema.minimum))
+        const min = loader(schema, schema.minimum)
+        if (fixed) {
+          target.setAttribute('min', min.toFixed(fixed))
+        } else {
+          target.setAttribute('min', min)
+        }
       } else {
         target.removeAttribute('min')
       }
       if (schema.maximum != null) {
-        target.setAttribute('max', loader(schema, schema.maximum))
+        const max = loader(schema, schema.maximum)
+        if (fixed) {
+          target.setAttribute('max', max.toFixed(fixed))
+        } else {
+          target.setAttribute('max', max)
+        }
       } else {
         target.removeAttribute('max')
       }
@@ -174,7 +191,7 @@ export default ({
       target.setAttribute('class',
         isCheckbox ? 'form-check-input' : ('form-control'+sizeCss)
       )
-      target.setAttribute('type', options ? null :
+      target.setAttribute('type', options ? 'text' :
         isCheckbox ? 'checkbox' :
         step ? 'number' : [
           'date',
@@ -196,14 +213,16 @@ export default ({
         target.value = ''
       } else {
         target.disabled = !!readOnly
-        target.setAttribute('placeholder', description || '')
+        if (description) {
+          target.setAttribute('placeholder', description)
+        }
       }
       var list = wrapper.querySelector('datalist')
       rm(list)
       if (options instanceof Array) {
-        target.setAttribute('list', `app.data.${title}`)
+        target.setAttribute('list', `app.data.${title || 'list'}`)
         wrapper.appendChild(e(({datalist, option}) => datalist({
-          id: `app.data.${title}`
+          id: `app.data.${title || 'list'}`
         }, options.map(({label}) => option({value: label})))))
       } else {
         target.removeAttribute('list')

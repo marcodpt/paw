@@ -1,10 +1,16 @@
 import ctrl from '../src/ctrl/index.js'
 
-const update = (err, v) => {
-            console.log(err)
-            console.log(v)
-          }
 const d = new Date()
+const iso = d.toISOString().substr(0, 10)
+const iso_min = d.getFullYear()+'-'+('0'+(d.getMonth() + 1)).slice(-2)+'-01'
+const unix = Math.round(d.getTime() / 1000)
+const unix_min = (d.getTime() - 24 * 60 * 60 * 1000) / 1000
+const unix_max = (d.getTime() + 7 * 24 * 60 * 60 * 1000) / 1000
+
+const update = (err, v) => {
+  console.log(err)
+  console.log(v)
+}
 export default ({
   icon: 'pencil',
   title: 'input',
@@ -20,7 +26,12 @@ export default ({
           default: true,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input type="checkbox" class="form-check-input is-valid">
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Raw String',
       data: [
@@ -31,7 +42,15 @@ export default ({
           maxLength: 5,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="text"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Raw Integer',
       data: [
@@ -40,7 +59,16 @@ export default ({
           default: 7,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="number"
+    step="1"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Raw Number',
       data: [
@@ -49,7 +77,15 @@ export default ({
           default: 2.7,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="number"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'A currency example with precision',
       data: [
@@ -59,7 +95,17 @@ export default ({
           ui: 'num.2',
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="number"
+    step="0.01"
+    min="0.00"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Integer representing a currency',
       data: [
@@ -71,7 +117,18 @@ export default ({
           maximum: 710,
           update
         }
-      ]
+      ],
+      html:
+`<div>
+  <input
+    type="number"
+    step="0.01"
+    min="6.98"
+    max="7.10"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'A boolean with integer type',
       data: [
@@ -81,30 +138,62 @@ export default ({
           default: 1,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="text"
+    class="form-control is-valid"
+    list="app.data.list"
+  >
+  <div class="invalid-feedback"></div>
+  <datalist id="app.data.list">
+    <option value="No"></option>
+    <option value="Yes"></option>
+  </datalist>
+</div>`
     }, {
       title: 'A date string using ISO dates',
       data: [
         {
           type: 'string',
           ui: 'date',
-          default: d.toISOString().substr(0, 10),
-          minimum: d.getFullYear()+'-'+('0'+(d.getMonth() + 1)).slice(-2)+'-01',
+          default: iso,
+          minimum: iso_min,
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    type="date"
+    min="${iso_min}"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'A date integer using Unix timestamp',
       data: [
         {
           type: 'integer',
           ui: 'date',
-          default: Math.round(d.getTime() / 1000),
-          minimum: (d.getTime() - 24 * 60 * 60 * 1000) / 1000,
-          maximum: (d.getTime() + 7 * 24 * 60 * 60 * 1000) / 1000,
+          default: unix,
+          minimum: unix_min,
+          maximum: unix_max,
           update
         }
-      ]
+      ],
+      html:
+`<div>
+  <input
+    type="date"
+    min="${new Date(unix_min * 1000).toISOString().substr(0, 10)}"
+    max="${new Date(unix_max * 1000).toISOString().substr(0, 10)}"
+    class="form-control is-valid"
+  >
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'A multiline text string',
       data: [
@@ -114,8 +203,22 @@ export default ({
           default: 'Text is used for store multiline text!\nAs you can see it!',
           minLength: 1,
           update
+        }, {
+          type: 'string',
+          ui: 'info',
+          default: 'Text is used for store multiline text!\nAs you can see it!',
+          minLength: 1,
+          update
         }
-      ]
+      ],
+      html:
+`<div>
+  <textarea
+    class="form-control is-valid"
+    rows="6"
+  ></textarea>
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'A password string',
       data: [
