@@ -283,7 +283,7 @@ export default ({
         type: 'radio',
         name: title,
         class: 'btn-check',
-        id: title+'.'+o.value,
+        id: (title || 'app.radio')+'.'+o.value,
         autocomplete: 'off',
         value: o.value,
         onclick: typeof update != 'function' ? null : () => {
@@ -292,7 +292,7 @@ export default ({
       }),
       label({
         class: l.getAttribute('class')+' me-2',
-        for: title+'.'+o.value
+        for: (title || 'app.radio')+'.'+o.value
       }, [
         text(l.textContent)
       ])
