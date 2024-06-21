@@ -49,6 +49,7 @@ minimum effort and maximum customization.
  - allow to see other tests variants
  - remove lang support
  - remove non bootstrap options support, minimize options and review settings
+ - nav as offcanvas and move all nav configuration to settings
  - remove base64 file support
  - emoji support on icons
 
