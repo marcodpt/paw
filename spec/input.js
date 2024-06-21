@@ -368,113 +368,6 @@ export default ({
   <div class="invalid-feedback"></div>
 </div>`
     }, {
-      title: 'Bootstrap navbar class string',
-      data: [
-        {
-          type: 'string',
-          ui: 'navbar',
-          default: 'Dark',
-          update
-        }
-      ],
-      html: 
-`<div>
-  <input
-    type="text"
-    class="form-control is-valid"
-    list="app.data.list"
-  >
-  <div class="invalid-feedback"></div>
-  <datalist id="app.data.list">
-    <option value="Dark"></option>
-    <option value="Dark Inverted"></option>
-    <option value="Light"></option>
-    <option value="Light Inverted"></option>
-    <option value="Primary"></option>
-    <option value="Primary Inverted"></option>
-    <option value="Secondary"></option>
-    <option value="Secondary Inverted"></option>
-    <option value="Success"></option>
-    <option value="Success Inverted"></option>
-    <option value="Danger"></option>
-    <option value="Danger Inverted"></option>
-    <option value="Warning"></option>
-    <option value="Warning Inverted"></option>
-    <option value="Info"></option>
-    <option value="Info Inverted"></option>
-  </datalist>
-</div>`
-    }, {
-      title: 'Bootswatch theme string',
-      data: [
-        {
-          type: 'string',
-          ui: 'theme',
-          default: 'Simplex',
-          update
-        }
-      ],
-      html: 
-`<div>
-  <input
-    type="text"
-    class="form-control is-valid"
-    list="app.data.list"
-  >
-  <div class="invalid-feedback"></div>
-  <datalist id="app.data.list">
-    <option value="Default"></option>
-    <option value="Cerulean"></option>
-    <option value="Cosmo"></option>
-    <option value="Cyborg"></option>
-    <option value="Darkly"></option>
-    <option value="Flatly"></option>
-    <option value="Journal"></option>
-    <option value="Litera"></option>
-    <option value="Lumen"></option>
-    <option value="Lux"></option>
-    <option value="Materia"></option>
-    <option value="Minty"></option>
-    <option value="Morph"></option>
-    <option value="Pulse"></option>
-    <option value="Quartz"></option>
-    <option value="Sandstone"></option>
-    <option value="Simplex"></option>
-    <option value="Sketchy"></option>
-    <option value="Slate"></option>
-    <option value="Solar"></option>
-    <option value="Spacelab"></option>
-    <option value="Superhero"></option>
-    <option value="United"></option>
-    <option value="Vapor"></option>
-    <option value="Yeti"></option>
-    <option value="Zephyr"></option>
-  </datalist>
-</div>`
-    }, {
-      title: 'Lang string',
-      data: [
-        {
-          type: 'string',
-          ui: 'lang',
-          default: 'pt',
-          update
-        }
-      ],
-      html: 
-`<div>
-  <input
-    type="text"
-    class="form-control is-valid"
-    list="app.data.list"
-  >
-  <div class="invalid-feedback"></div>
-  <datalist id="app.data.list">
-    <option value="English"></option>
-    <option value="Português"></option>
-  </datalist>
-</div>`
-    }, {
       title: 'UI string',
       data: [
         {
@@ -515,9 +408,6 @@ export default ({
     <option value="progress"></option>
     <option value="link"></option>
     <option value="icon"></option>
-    <option value="navbar"></option>
-    <option value="theme"></option>
-    <option value="lang"></option>
     <option value="ui"></option>
   </datalist>
 </div>`

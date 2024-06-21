@@ -65,12 +65,13 @@ export default ({render, form, home}) => {
     .filter(css => /^bg-[a-z]+$/.test(css) || /^navbar-[a-z]+$/.test(css))
     .join(' ')
 
-  const rebuild = (doc, {title, lang, theme, navbar}) => {
+  const rebuild = (doc, {title, description, lang, theme, navbar}) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-app-text=title]').forEach(e => {
-        if (e.textContent == document.title) {
-          e.textContent = title
-        }
+        e.textContent = title
+      })
+      e.querySelectorAll('[data-app-text=description]').forEach(e => {
+        e.textContent = description
       })
     })
     document.title = title
@@ -96,6 +97,12 @@ export default ({render, form, home}) => {
         default: document.title,
         minLength: 1
       },
+      description: {
+        title: 'Description',
+        type: 'string',
+        default: home
+          .querySelector('[data-app-text="description"]')?.textContent
+      },
       lang: {
         title: 'Lang',
         type: 'string',
@@ -116,7 +123,7 @@ export default ({render, form, home}) => {
       }
     },
     update: (err, Data) => err ? null : rebuild(document, Data),
-    submit: ({theme, lang, title, navbar}) => ({
+    submit: ({theme, lang, title, description, navbar}) => ({
       name: 'index.html',
       data: 
 `<!DOCTYPE html>
@@ -143,7 +150,10 @@ export default ({render, form, home}) => {
     <main>
       <div class="container my-5">
         <h1 data-app-text="title">${title}</h1>
-        <p class="lead text-body-secondary">A dashboard application</p>
+        <p
+          class="lead text-body-secondary"
+          data-app-text="description"
+        >${description}</p>
       </div>
     </main>
     <script type="module" src="app.js"></script>
