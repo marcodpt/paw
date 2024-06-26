@@ -34,6 +34,7 @@ export default ({
   var submitter = null
   const run = () => typeof submit != 'function' || hasErr ? null :
     submit(Data, Label)
+  const ref = {}
 
   links = links instanceof Array ? links :
     typeof submit != 'function' ? [] : [{href: 'submit'}]
@@ -52,13 +53,11 @@ export default ({
     }
   })
 
-  return e(({
+  const target = e(({
     div,
     form,
     fieldset,
     legend,
-    label,
-    text,
     button,
     hr
   }) => form({
@@ -104,59 +103,7 @@ export default ({
       ]),
       !K.length ? null : div({
         class: 'row'
-      }, K.map(k => ({
-        ...P[k],
-        name: k,
-        title: typeof P[k].title != 'string' ? k : P[k].title,
-        default: Data[k] == null ? P[k].default : Data[k],
-        data: Data
-      })).map(schema => ({
-        delay,
-        noValid,
-        size,
-        col,
-        readOnly,
-        writeOnly,
-        ...schema
-      })).map(({title, description, name, col, ...schema}) =>
-        div({
-          class: `col-${col || 12} `+
-            (size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2')+
-            (title ? ' row' : '')+
-            (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
-        }, [
-          !title ? null : div({
-            class: 'col-md-3'
-          }, [
-            label({
-              class: 'form-label fw-bold',
-              title: description
-            }, [
-              text(title+':')
-            ])
-          ]),
-          ctrl({
-            ...schema,
-            title: name,
-            description: !title ? description : null,
-            css: !title ? null : 'col-md-9',
-            update: (err, v, label) => {
-              Data[name] = v
-              Label[name] = label
-              Err[name] = !!err
-              hasErr = Object.keys(Err).reduce(
-                (err, k) => err || Err[k]
-              , false)
-              if (submitter) {
-                submitter.disabled = !!hasErr
-              }
-              if (typeof update == 'function') {
-                update(hasErr, Data, Label)
-              }
-            }
-          })
-        ])
-      ))
+      })
     ]),
     !links.length || (!K.length && !hasAlert) ? null : hr({
       class: 'my-2'
@@ -174,4 +121,88 @@ export default ({
       }, [L])
     ))
   ]))
+
+  if (K.length) {
+    target.setProp = P => {
+      var done = false
+      const K = Object.keys(P)
+      K.forEach((k, index) => {
+        done = K.length - 1 == index
+        if (P[k] == null) {
+          ref[k]?.parentNode.removeChild(ref[k])
+          delete Data[k]
+          delete Label[k]
+          delete Err[k]
+          return
+        }
+
+        col = P[k].col || col
+        const {title, description, ...schema} = {
+          delay,
+          noValid,
+          size,
+          readOnly,
+          writeOnly,
+          ...P[k],
+          title: typeof P[k].title != 'string' ? k : P[k].title,
+          default: Data[k] == null ? P[k].default : Data[k],
+          data: Data
+        }
+        const el = e(({
+          div,
+          label,
+          text,
+          button,
+        }) =>
+          div({
+            class: `col-${col || 12} `+
+              (size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2')+
+              (title ? ' row' : '')+
+              (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
+          }, [
+            !title ? null : div({
+              class: 'col-md-3'
+            }, [
+              label({
+                class: 'form-label fw-bold',
+                title: description
+              }, [
+                text(title+':')
+              ])
+            ]),
+            ctrl({
+              ...schema,
+              title: k,
+              description: !title ? description : null,
+              css: !title ? null : 'col-md-9',
+              update: (err, v, label) => {
+                Data[k] = v
+                Label[k] = label
+                Err[k] = !!err
+                hasErr = Object.keys(Err).reduce(
+                  (err, k) => err || Err[k]
+                , false)
+                if (submitter) {
+                  submitter.disabled = !!hasErr
+                }
+                if (typeof update == 'function' && done) {
+                  update(hasErr, Data, Label, target)
+                }
+              }
+            })
+          ])
+        )
+
+        if (ref[k] != null) {
+          ref[k].replaceWith(el)
+        } else {
+          target.querySelector('fieldset').querySelector('.row').appendChild(el)
+        }
+        ref[k] = el
+      })
+    }
+    target.setProp(P)
+  }
+
+  return target
 } 

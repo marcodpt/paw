@@ -57,6 +57,7 @@ minimum effort and maximum customization.
  - select list
  - radio list
  - checkbox multiple list
+ - array of itens
 
 ### Tests and docs
  - chart
