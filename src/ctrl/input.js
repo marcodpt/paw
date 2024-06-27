@@ -145,132 +145,7 @@ export default ({
   const wrapper = e(({
     div, datalist, option, span, i, input, label, text
   }) => div({
-    class: css,
-    setOptions: isText || isStatic ? null : (el, options, S) => {
-      Object.keys(S || {}).forEach(k => {
-        schema[k] = S[k]
-      })
-      var step = null
-      if (
-        ['integer', 'number'].indexOf(schema.type) >= 0 &&
-        schema.ui != 'date'
-      ) {
-        step = getStep(schema.ui)
-      }
-      if (
-        step != null &&
-        !options &&
-        (schema.type == 'integer' || step < 0.5)
-      ) {
-        target.setAttribute('step', step)
-      } else {
-        target.removeAttribute('step')
-      }
-      const fixed = hasStep(schema.ui) ? parseInt(schema.ui.substr(4)) : 0
-      if (schema.minimum != null) {
-        const min = loader(schema, schema.minimum)
-        if (fixed) {
-          target.setAttribute('min', min.toFixed(fixed))
-        } else {
-          target.setAttribute('min', min)
-        }
-      } else {
-        target.removeAttribute('min')
-      }
-      if (schema.maximum != null) {
-        const max = loader(schema, schema.maximum)
-        if (fixed) {
-          target.setAttribute('max', max.toFixed(fixed))
-        } else {
-          target.setAttribute('max', max)
-        }
-      } else {
-        target.removeAttribute('max')
-      }
-      isCheckbox = schema.type == 'boolean' && !options
-      target.setAttribute('class',
-        isCheckbox ? 'form-check-input' : ('form-control'+sizeCss)
-      )
-      target.setAttribute('type', options ? 'text' :
-        isCheckbox ? 'checkbox' :
-        step ? 'number' : [
-          'date',
-          'password',
-          'range',
-          'file'
-        ].indexOf(schema.ui) >= 0 ? schema.ui : 'text'
-      )
-      if (schema.ui == 'file' &&
-        (schema.type == 'array' || schema.type == 'FileList')
-      ) {
-        target.setAttribute('multiple', true)
-      } else {
-        target.removeAttribute('multiple')
-      }
-      if (options === true) {
-        target.disabled = true
-        target.setAttribute('placeholder', T('loading'))
-        target.value = ''
-      } else {
-        target.disabled = !!readOnly
-        if (description) {
-          target.setAttribute('placeholder', description)
-        }
-      }
-      var list = wrapper.querySelector('datalist')
-      rm(list)
-      if (options instanceof Array) {
-        target.setAttribute('list', `app.data.${title || 'list'}`)
-        wrapper.appendChild(e(({datalist, option}) => datalist({
-          id: `app.data.${title || 'list'}`
-        }, options.map(({label}) => option({value: label})))))
-      } else {
-        target.removeAttribute('list')
-      }
-      O = options
-      E = options instanceof Array ? options.map(({value}) => value) : null
-      validate = validator({
-        ...schema,
-        enum: E
-      })
-
-      return options !== true ? wrapper.setValue(schema.default) : wrapper
-    },
-    setValue: (el, v) => {
-      const t = schema.type
-      if (v == null) {
-        v = schema.default != null ? schema.default :
-          t == 'integer' || t == 'number' ? 0 :
-          t == 'boolean' ? false : ''
-      } else {
-        v = loader(schema, v)
-      }
-      if (O instanceof Array) {
-        const x = O.reduce((x, {value, label}) =>
-          x == null && value == v ? label : x
-        , null)
-        if (isRadio) {
-          wrapper.querySelectorAll('input').forEach(e => {
-            e.checked = e.value == x
-            if (e.checked) {
-              e.click()
-            }
-          })
-        } else {
-          target.value = x == null ? v : x
-        }
-      } else if (isCheckbox) {
-        target.checked = !!v
-      } else if (schema.ui != 'file') {
-        target.value = v
-      }
-      if (!isRadio && !isStatic) {
-        change()
-      } else if (typeof update == 'function') {
-        resolve(v, v)
-      }
-      return wrapper
-    }
+    class: css
   }, isRadio ? O.map(o => {
     const l = link({
       link: o.value,
@@ -315,7 +190,125 @@ export default ({
     })
   ]))
 
-  isRadio || isText || isStatic ?
-    wrapper.setValue(schema.default) : wrapper.setOptions(O)
+  if (!isRadio && !isText && !isStatic) {
+    var step = null
+    if (
+      ['integer', 'number'].indexOf(schema.type) >= 0 &&
+      schema.ui != 'date'
+    ) {
+      step = getStep(schema.ui)
+    }
+    if (
+      step != null &&
+      !O &&
+      (schema.type == 'integer' || step < 0.5)
+    ) {
+      target.setAttribute('step', step)
+    } else {
+      target.removeAttribute('step')
+    }
+    const fixed = hasStep(schema.ui) ? parseInt(schema.ui.substr(4)) : 0
+    if (schema.minimum != null) {
+      const min = loader(schema, schema.minimum)
+      if (fixed) {
+        target.setAttribute('min', min.toFixed(fixed))
+      } else {
+        target.setAttribute('min', min)
+      }
+    } else {
+      target.removeAttribute('min')
+    }
+    if (schema.maximum != null) {
+      const max = loader(schema, schema.maximum)
+      if (fixed) {
+        target.setAttribute('max', max.toFixed(fixed))
+      } else {
+        target.setAttribute('max', max)
+      }
+    } else {
+      target.removeAttribute('max')
+    }
+    isCheckbox = schema.type == 'boolean' && !O
+    target.setAttribute('class',
+      isCheckbox ? 'form-check-input' : ('form-control'+sizeCss)
+    )
+    target.setAttribute('type', O ? 'text' :
+      isCheckbox ? 'checkbox' :
+      step ? 'number' : [
+        'date',
+        'password',
+        'range',
+        'file'
+      ].indexOf(schema.ui) >= 0 ? schema.ui : 'text'
+    )
+    if (schema.ui == 'file' &&
+      (schema.type == 'array' || schema.type == 'FileList')
+    ) {
+      target.setAttribute('multiple', true)
+    } else {
+      target.removeAttribute('multiple')
+    }
+    if (O === true) {
+      target.disabled = true
+      target.setAttribute('placeholder', T('loading'))
+      target.value = ''
+    } else {
+      target.disabled = !!readOnly
+      if (description) {
+        target.setAttribute('placeholder', description)
+      }
+    }
+    var list = wrapper.querySelector('datalist')
+    rm(list)
+    if (O instanceof Array) {
+      target.setAttribute('list', `app.data.${title || 'list'}`)
+      wrapper.appendChild(e(({datalist, option}) => datalist({
+        id: `app.data.${title || 'list'}`
+      }, O.map(({label}) => option({value: label})))))
+    } else {
+      target.removeAttribute('list')
+    }
+    E = O instanceof Array ? O.map(({value}) => value) : null
+    validate = validator({
+      ...schema,
+      enum: E
+    })
+  }
+  if (O !== true) {
+    var v = schema.default
+    const t = schema.type
+    if (v == null) {
+      v = schema.default != null ? schema.default :
+        t == 'integer' || t == 'number' ? 0 :
+        t == 'boolean' ? false : ''
+    } else {
+      v = loader(schema, v)
+    }
+    if (O instanceof Array) {
+      const x = O.reduce((x, {value, label}) =>
+        x == null && value == v ? label : x
+      , null)
+      if (isRadio) {
+        wrapper.querySelectorAll('input').forEach(e => {
+          e.checked = e.value == x
+          if (e.checked) {
+            e.click()
+          }
+        })
+      } else {
+        target.value = x == null ? v : x
+      }
+    } else if (isCheckbox) {
+      target.checked = !!v
+    } else if (schema.ui != 'file') {
+      target.value = v
+    }
+    if (!isRadio && !isStatic) {
+      change()
+    } else if (typeof update == 'function') {
+      resolve(v, v)
+    }
+  }
+
   return isStatic && !css ? target : wrapper
 }

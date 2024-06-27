@@ -148,7 +148,6 @@ export default ({
   const U = Object.keys(M)
   const hasTotals = U.length > 0
   const O = Object.keys(T('operators'))
-  const S = ['ct', 'nc']
   const Z = Y.reduce((Z, k) => ({
     ...Z,
     [k]: parser(P[k])
@@ -253,12 +252,6 @@ export default ({
                   title: '',
                   noValid: true,
                   options: true,
-                  update: (err, v) => {
-                    if (!err && v && v != state.page) {
-                      state.page = v
-                      update()
-                    }
-                  },
                   init: el => refs.pager = el
                 }, {
                   href: () => {
@@ -299,6 +292,7 @@ export default ({
                   title: '',
                   href: () => {
                     state.search = ''
+                    refs.search.querySelector('input').value = ''
                     update()
                   },
                   link: btns.close,
@@ -362,11 +356,10 @@ export default ({
                           type: 'string',
                           minLength: 1,
                           title: T('value'),
-                          noValid: true,
-                          init: el => refs.value = el
+                          noValid: true
                         }
                       },
-                      update: (err, Data, Label) => {
+                      update: (err, Data, Label, form) => {
                         const X = state.filter
                         const {field, operator, value} = Data
                         const isFixed = op => ['ct', 'nc'].indexOf(op) < 0
@@ -375,23 +368,31 @@ export default ({
                           fixed !== isFixed(X.operator)
                         X.field = field
                         X.operator = operator
-                        if (changed && refs.value) {
+                        if (changed) {
                           if (fixed) {
                             const Opt = state.data.map(row => ({
                               value: row[field],
                               label: F[field](row[field])
                             }))
                             Opt.sort(cmp(['value']))
-                            refs.value.setOptions(Opt.filter(
-                              (o, i) => !i || o.value != Opt[i - 1].value
-                            ), {
-                              type: P[field].type,
-                              minLength: null
+                            form.setProp({
+                              value: {
+                                type: P[field].type,
+                                title: T('value'),
+                                noValid: true,
+                                options: Opt.filter(
+                                  (o, i) => !i || o.value != Opt[i - 1].value
+                                )
+                              }
                             })
                           } else {
-                            refs.value.setOptions(false, {
-                              type: 'string',
-                              minLength: 1
+                            form.setProp({
+                              value: {
+                                type: 'string',
+                                title: T('value'),
+                                noValid: true,
+                                minLength: 1
+                              }
                             })
                           }
                         }
@@ -399,7 +400,6 @@ export default ({
                       submit: (Data, {field, operator, value}) => {
                         state.filter.field = K[0]
                         state.filter.operator = O[0]
-                        refs.value = null
                         Data.label = `${field} ${operator} ${value}`
                         state.filters.push(Data)
                         const f = tbl.querySelector('[data-ctx=filters]')
@@ -582,7 +582,7 @@ export default ({
     ])
   )
 
-  const update = () => {
+  const update = (prevent) => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
     if (state.data instanceof Array) {
@@ -612,10 +612,25 @@ export default ({
       })
 
       if (state.limit) {
-        refs.pager.setOptions(Array(state.pages).fill().map((v, i) => ({
-          value: i + 1,
-          label: T('pagination')(i + 1, state.pages)
-        }))).setValue(state.page)
+        if (!prevent) {
+          refs.pager.replaceWith(ctrl({
+            type: 'integer',
+            title: '',
+            noValid: true,
+            default: state.page,
+            options: Array(state.pages).fill().map((v, i) => ({
+              value: i + 1,
+              label: T('pagination')(i + 1, state.pages)
+            })),
+            update: (err, v) => {
+              if (!err && v && v != state.page) {
+                state.page = v
+                update(true)
+              }
+            },
+            init: el => refs.pager = el
+          }))
+        }
         refs.first.disabled = state.page <= 1
         refs.previous.disabled = state.page <= 1
         refs.next.disabled = state.page >= state.pages
@@ -624,7 +639,6 @@ export default ({
 
       if (!state.noSearch) {
         refs.clear.disabled = !state.search
-        refs.search.setValue(state.search)
       }
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')

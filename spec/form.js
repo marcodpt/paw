@@ -316,7 +316,6 @@ export default ({
               'ct', 'nc'
             ].indexOf(operator) >= 0
 
-            console.log(Data)
             if (!anyValue(oldData) && anyValue(Data)) {
               oldData = {...Data}
               form.setProp({

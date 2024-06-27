@@ -136,6 +136,10 @@ export default ({
           return
         }
 
+        if (P[k].default !== undefined && Data[k] !== undefined) {
+          delete Data[k]
+        }
+
         col = P[k].col || col
         const {title, description, ...schema} = {
           delay,
