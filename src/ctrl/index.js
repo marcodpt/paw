@@ -1,5 +1,6 @@
 import link from './link.js'
-import input from './input.js'
+import output from './output.js'
+import input from './inputs/index.js'
 
 export default ({
   init,
@@ -19,11 +20,14 @@ export default ({
     }
   }
 
+  schema.size = ['lg', 'sm'].indexOf(schema.size) >= 0 ? schema.size : null
+
   const ctrl = schema.type == null &&
     schema.default == null &&
     schema.ui == null &&
-    schema.readOnly == null ?
-      link(schema) : input(schema)
+    schema.href != null ?
+      link(schema) :
+    schema.update == null ? output(schema) : input(schema)
 
   if (typeof init == 'function') {
     init(ctrl)

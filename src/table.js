@@ -252,6 +252,7 @@ export default ({
                   title: '',
                   noValid: true,
                   options: true,
+                  update: () => {},
                   init: el => refs.pager = el
                 }, {
                   href: () => {

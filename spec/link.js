@@ -119,7 +119,8 @@ export default ({
       data: [
         {
           icon: 'times',
-          title: 'No action!'
+          title: 'No action!',
+          href: false
         }
       ],
       html: 

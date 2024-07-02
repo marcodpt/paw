@@ -427,6 +427,30 @@ export default ({
     </div>
   </div>
 </form>`
+    }, {
+      title: 'Edit form',
+      data: [
+        {
+          properties: {
+            id: {
+              default: 27,
+              readOnly: true
+            }, 
+            name: {
+              default: 'Josh',
+              minLength: 2
+            }, 
+            age: {
+              default: 30,
+              readOnly: true,
+              writeOnly: true
+            }
+          },
+          submit: data => {
+            console.log(data)
+          }
+        }
+      ]
     }
   ]
 })

@@ -82,65 +82,12 @@ const formatter = ({type, ui, maximum, minimum}) => {
   }
 }
 
-const validator = schema => data => {
-  const {
-    type,
-    minLength,
-    maxLength,
-    pattern,
-    minimum,
-    maximum
-  } = schema 
-  var error = ''
-  if (
-    schema.enum instanceof Array && schema.enum.indexOf(data) < 0
-  ) {
-    error = T('enum')(schema.enum)
-  } else if (
-    (type == 'null' && data !== null) ||
-    (type == 'boolean' && data !== false && data !== true) ||
-    (type == 'object' && (
-      typeof data != 'object' || data == null || data instanceof Array
-    )) ||
-    (type == 'array' && !(data instanceof Array)) ||
-    (type == 'string' && typeof data != 'string') ||
-    (type == 'number' && typeof data != 'number') ||
-    (type == 'integer' && (typeof data != 'number' || data % 1 !== 0))
-  ) {
-    error = T('type')(type)
-  } else if (typeof data == 'string') {
-    if (minLength != null && data.length < minLength) {
-      error = T('minLength')(minLength)
-    } else if (maxLength != null && data.length > maxLength) {
-      error = T('maxLength')(maxLength)
-    } else if (pattern != null && !(new RegExp(pattern)).test(data)) {
-      error = T('pattern')(pattern)
-    }
-  } else if (typeof data == 'number') {
-  }
-  if (!error) {
-    if (minimum != null && data < minimum) {
-      error = T('minimum')(formatter(schema)(minimum))
-    } else if (maximum != null && data > maximum) {
-      error = T('maximum')(formatter(schema)(maximum))
-    }
-  }
-  return error
-}
-
 const isNum = x =>
   x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
 const hasStep = ui => /^num\.[1-9][0-9]*$/.test(ui)
 
 const getStep = ui => !hasStep(ui) ? 1 : 1 / (10 ** parseInt(ui.substr(4)))
-
-const loader = ({type, ui}, data) => data == null ? data :
-  (type == 'integer' || type == 'number') && ui == 'date' ?
-    data ?
-      new Date(data < 0 ? data + 1 : data * 1000).toISOString().substr(0, 10) :
-      '' :
-  type == 'integer' && hasStep(ui) ? data * getStep(ui) : data
 
 const parser = ({type, ui}) => data => {
   var value = null
@@ -171,29 +118,6 @@ const parser = ({type, ui}) => data => {
   }
 
   return value
-}
-
-const readFiles = Files => {
-  const reader = (file, bin) => new Promise((resolve, reject) => {
-    const r = new FileReader()
-    const end = data => resolve({
-      data: bin && data != null ? btoa(data) : data,
-      name: file.name,
-      mime: file.type,
-      is_base64: bin ? 1 : 0
-    })
-    r.onloadend = () => {
-      !r.error ? end(r.result) : 
-        bin ? end(null) : reader(file, true)
-    }
-    bin ? r.readAsBinaryString(file) : r.readAsText(file, 'UTF-8')
-  })
-  
-  const P = []
-  for (var i = 0; i < Files.length; i++) {
-    P.push(reader(Files[i], Files[i].type.indexOf('text/') < 0))
-  }
-  return Promise.all(P)
 }
 
 const selfClosing = [
@@ -307,12 +231,9 @@ const normalTags = [
 export {
   rm,
   formatter,
-  validator,
   hasStep,
   getStep,
-  loader,
   parser,
-  readFiles,
   selfClosing,
   normalTags
 }

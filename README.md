@@ -37,8 +37,6 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
- - remove setOptions and setValue, replace ctrl instead
- - remove readOnly use update instead, use readOnly instead of writeOnly
  - no default option fail to expose error message
  - group as a modal
  - all update functionality centralized in ctrl 
@@ -50,7 +48,6 @@ minimum effort and maximum customization.
  - remove lang support
  - remove non bootstrap options support, minimize options and review settings
  - nav as offcanvas and move all nav configuration to settings
- - remove base64 file support
  - emoji support on icons
 
 ### New Controls

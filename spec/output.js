@@ -7,10 +7,6 @@ export default ({
   description: 'Formatted outputs.',
   component: ctrl,
   properties: {
-    readOnly: {
-      type: 'boolean',
-      description: 'The value must always be true.'
-    },
     type: {
       type: 'string',
       description: 'One of the allowed types of the JSON schema.',
@@ -56,18 +52,13 @@ export default ({
     {
       title: 'Empty',
       data: [
-        {
-          readOnly: true
-        }, {
+        {}, {
           type: 'string',
-          default: null,
-          readOnly: true
+          default: null
         }, {
-          default: undefined,
-          readOnly: true
+          default: undefined
         }, {
-          default: '',
-          readOnly: true
+          default: ''
         }
       ],
       html: ''
@@ -75,27 +66,21 @@ export default ({
       title: 'Boolean False',
       data: [
         {
-          default: false,
-          readOnly: true
+          default: false
         }, {
           type: 'boolean',
-          default: false,
-          readOnly: true
+          default: false
         }, {
           ui: 'bool',
-          default: 0,
-          readOnly: true
+          default: 0
         }, {
           ui: 'bool',
-          default: null,
-          readOnly: true
+          default: null
+        }, {
+          ui: 'bool'
         }, {
           ui: 'bool',
-          readOnly: true
-        }, {
-          ui: 'bool',
-          default: '',
-          readOnly: true
+          default: ''
         }
       ],
       html: `No`
@@ -103,28 +88,22 @@ export default ({
       title: 'Boolean True',
       data: [
         {
-          default: true,
-          readOnly: true
+          default: true
         }, {
           type: 'boolean',
-          default: true,
-          readOnly: true
+          default: true
         }, {
           ui: 'bool',
-          default: 1,
-          readOnly: true
+          default: 1
         }, {
           ui: 'bool',
-          default: {},
-          readOnly: true
+          default: {}
         }, {
           ui: 'bool',
-          default: [],
-          readOnly: true
+          default: []
         }, {
           ui: 'bool',
-          default: '0',
-          readOnly: true
+          default: '0'
         }
       ],
       html: `Yes`
@@ -132,36 +111,28 @@ export default ({
       title: 'Integer',
       data: [
         {
-          default: 1234,
-          readOnly: true
+          default: 1234
         }, {
           type: 'integer',
-          default: 1234,
-          readOnly: true
+          default: 1234
         }, {
           type: 'integer',
-          default: '1234',
-          readOnly: true
+          default: '1234'
         }, {
           type: 'integer',
-          default: 1233.6,
-          readOnly: true
+          default: 1233.6
         }, {
           type: 'integer',
-          default: 1233.5,
-          readOnly: true
+          default: 1233.5
         }, {
           type: 'integer',
-          default: 1234.4,
-          readOnly: true
+          default: 1234.4
         }, {
           type: 'integer',
-          default: '1233.5',
-          readOnly: true
+          default: '1233.5'
         }, {
           type: 'integer',
-          default: '1234.4',
-          readOnly: true
+          default: '1234.4'
         }
       ],
       html: '1,234'
@@ -169,16 +140,13 @@ export default ({
       title: 'Number',
       data: [
         {
-          default: 1234.56789,
-          readOnly: true
+          default: 1234.56789
         }, {
           type: 'number',
-          default: 1234.56789,
-          readOnly: true
+          default: 1234.56789
         }, {
           type: 'number',
-          default: '1234.56789',
-          readOnly: true
+          default: '1234.56789'
         }
       ],
       html: '1,234.568'
@@ -186,12 +154,10 @@ export default ({
       title: 'String',
       data: [
         {
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }, {
           type: 'string',
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }
       ],
       html: 'test\nme'
@@ -200,22 +166,18 @@ export default ({
       data: [
         {
           ui: 'text',
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }, {
           ui: 'text',
           type: 'string',
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }, {
           ui: 'info',
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }, {
           ui: 'info',
           type: 'string',
-          default: 'test\nme',
-          readOnly: true
+          default: 'test\nme'
         }
       ],
       html: '<span style="white-space: pre-wrap">test\nme</span>'
@@ -226,8 +188,7 @@ export default ({
           default: {
             x: 1,
             test: 'me'
-          },
-          readOnly: true
+          }
         }
       ],
       html: 
@@ -245,8 +206,7 @@ export default ({
             'dog',
             'cat',
             'bird'
-          ],
-          readOnly: true
+          ]
         }
       ],
       html: 
@@ -262,8 +222,7 @@ export default ({
       data: [
         {
           default: 'google',
-          href: 'https://www.google.com',
-          readOnly: true
+          href: 'https://www.google.com'
         }
       ],
       html: `<a href="https://www.google.com" target="_blank">google</a>`
@@ -273,8 +232,7 @@ export default ({
         {
           default: 'test',
           href: '#',
-          link: 'info',
-          readOnly: true
+          link: 'info'
         }
       ],
       html: `<a class="btn btn-info" href="#">test</a>`
@@ -283,20 +241,16 @@ export default ({
       data: [
         {
           default: 'secret password',
-          ui: 'password',
-          readOnly: true
+          ui: 'password'
         }, {
           type: 'string',
           default: 'another password',
-          ui: 'password',
-          readOnly: true
+          ui: 'password'
         }, {
           default: 3.14,
-          ui: 'password',
-          readOnly: true
+          ui: 'password'
         }, {
-          ui: 'password',
-          readOnly: true
+          ui: 'password'
         }
       ],
       html: `********`
@@ -305,16 +259,13 @@ export default ({
       data: [
         {
           default: '2007-12-10',
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
           default: '2007-12-10T14:39:25+0000',
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
           default: 1197310577,
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }
       ],
       html: '12/10/2007'
@@ -323,16 +274,13 @@ export default ({
       data: [
         {
           default: '1968-10-04',
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
           default: '1968-10-04T14:39:25+0000',
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
           default: -39159823,
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }
       ],
       html: '10/4/1968'
@@ -341,15 +289,12 @@ export default ({
       data: [
         {
           default: '',
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }, {
           default: 0,
-          ui: 'date',
-          readOnly: true
+          ui: 'date'
         }
       ],
       html: ''
@@ -358,11 +303,9 @@ export default ({
       data: [
         {
           ui: 'num.2',
-          readOnly: true,
           default: 12345.6789
         }, {
           ui: 'num.2',
-          readOnly: true,
           default: '12345.6789'
         }
       ],
@@ -372,11 +315,9 @@ export default ({
       data: [
         {
           ui: 'num.2',
-          readOnly: true,
           default: -5
         }, {
           ui: 'num.2',
-          readOnly: true,
           default: '-5'
         }
       ],
@@ -386,7 +327,6 @@ export default ({
       data: [
         {
           ui: 'len:4',
-          readOnly: true,
           default: 5
         }
       ],
@@ -396,7 +336,6 @@ export default ({
       data: [
         {
           ui: 'len:5',
-          readOnly: true,
           default: 3.14
         }
       ],
@@ -406,7 +345,6 @@ export default ({
       data: [
         {
           ui: 'len:5',
-          readOnly: true,
           default: 'test'
         }
       ],
@@ -416,11 +354,9 @@ export default ({
       data: [
         {
           ui: 'color',
-          readOnly: true,
           default: '#0000FF'
         }, {
           ui: 'color',
-          readOnly: true,
           default: '0000FF'
         }
       ],
@@ -435,8 +371,7 @@ export default ({
       data: [
         {
           ui: 'icon',
-          default: 'check',
-          readOnly: true
+          default: 'check'
         }
       ],
       html: '<span><i class="fa-solid fa-check"></i> check</span>'
@@ -445,8 +380,7 @@ export default ({
       data: [
         {
           ui: 'icon',
-          default: '@github',
-          readOnly: true
+          default: '@github'
         }
       ],
       html: '<span><i class="fa-brands fa-github"></i> @github</span>'
@@ -455,8 +389,7 @@ export default ({
       data: [
         {
           ui: 'link',
-          default: 'primary',
-          readOnly: true
+          default: 'primary'
         }
       ], 
       html: 
@@ -469,8 +402,7 @@ export default ({
       data: [
         {
           ui: 'link',
-          default: 'link',
-          readOnly: true
+          default: 'link'
         }
       ],
       html: 
@@ -483,14 +415,12 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 0,
-          readOnly: true
+          default: 0
         }, {
           ui: 'progress',
           minimum: -200,
           maximum: 80,
-          default: -200,
-          readOnly: true
+          default: -200
         }
       ],
       html:
@@ -509,24 +439,20 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 1,
-          readOnly: true
+          default: 1
         }, {
           ui: 'progress',
-          default: 0.01,
-          readOnly: true
+          default: 0.01
         }, {
           ui: 'progress',
           default: 52,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: -990,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html:
@@ -545,24 +471,20 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 25,
-          readOnly: true
+          default: 25
         }, {
           ui: 'progress',
-          default: 0.25,
-          readOnly: true
+          default: 0.25
         }, {
           ui: 'progress',
           default: 100,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: -750,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html:
@@ -581,24 +503,20 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 50,
-          readOnly: true
+          default: 50
         }, {
           ui: 'progress',
-          default: 0.5,
-          readOnly: true
+          default: 0.5
         }, {
           ui: 'progress',
           default: 150,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: -500,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html: 
@@ -617,24 +535,20 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 75,
-          readOnly: true
+          default: 75
         }, {
           ui: 'progress',
-          default: 0.75,
-          readOnly: true
+          default: 0.75
         }, {
           ui: 'progress',
           default: 200,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: -250,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html:
@@ -653,25 +567,21 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 100,
-          readOnly: true
+          default: 100
         }, {
           type: 'number',
           ui: 'progress',
-          default: 1,
-          readOnly: true
+          default: 1
         }, {
           ui: 'progress',
           default: 250,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: 0,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html:
@@ -690,24 +600,20 @@ export default ({
       data: [
         {
           ui: 'progress',
-          default: 125,
-          readOnly: true
+          default: 125
         }, {
           ui: 'progress',
-          default: 1.25,
-          readOnly: true
+          default: 1.25
         }, {
           ui: 'progress',
           default: 300,
           minimum: 50,
-          maximum: 250,
-          readOnly: true
+          maximum: 250
         }, {
           ui: 'progress',
           default: 250,
           minimum: -1000,
-          maximum: 0,
-          readOnly: true
+          maximum: 0
         }
       ],
       html:
