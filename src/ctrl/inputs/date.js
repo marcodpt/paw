@@ -1,6 +1,7 @@
 import wrapper from './wrapper.js'
 
 export default ({
+  type,
   title,
   description,
   minimum,

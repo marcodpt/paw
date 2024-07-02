@@ -12,12 +12,12 @@ export default ({
   size,
   value
 }) => {
-  var step = 1
+  var step = type == 'integer' ? 1 : null
   var fixed = 0
 
   if (/^num\.[1-9][0-9]*$/.test(ui)) {
     fixed = parseInt(ui.substr(4))
-    step = 1 / (10 ** fixed)
+    step = type == 'integer' || fixed ? 1 / (10 ** fixed) : null
   }
 
   const isNum = x =>
@@ -46,7 +46,7 @@ export default ({
       value: loader(value),
       min: loader(minimum),
       max: loader(maximum),
-      step,
+      step: fixed && step ? step.toFixed(fixed) : step,
       placeholder: description,
       disabled: readOnly,
       oninput: ev => {

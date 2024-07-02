@@ -21,6 +21,7 @@ export default ({
     ]),
     input({
       class: [
+        'validate',
         'form-control',
         size ? 'form-control-'+size : ''
       ],

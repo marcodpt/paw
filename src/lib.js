@@ -85,41 +85,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
 const isNum = x =>
   x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
-const hasStep = ui => /^num\.[1-9][0-9]*$/.test(ui)
-
-const getStep = ui => !hasStep(ui) ? 1 : 1 / (10 ** parseInt(ui.substr(4)))
-
-const parser = ({type, ui}) => data => {
-  var value = null
-
-  if (ui == 'date' && (type == 'integer' || type == 'number')) {
-    if (!data) {
-      value = 0
-    } else {
-      var d = new Date(data+'T12:00').getTime() / 1000
-      d = d <= 0 ? d-1 : d
-      if (type == 'integer') {
-        d = Math.round(d)
-      }
-      value = d
-    }
-  } else if (type == 'integer' && isNum(data)) {
-    value = parseInt(Math.round(data / getStep(ui)))
-  } else if (type == 'number' && isNum(data)) {
-    value = parseFloat(data)
-  } else if (type == 'boolean') {
-    value = !!(isNum(data) ? parseInt(data) : data)
-  } else if (type != 'string' && ui != 'file') {
-    try {
-      value = JSON.parse(data)
-    } catch (err) {}
-  } else {
-    value = data
-  }
-
-  return value
-}
-
 const selfClosing = [
   'area',
   'br',
@@ -231,9 +196,6 @@ const normalTags = [
 export {
   rm,
   formatter,
-  hasStep,
-  getStep,
-  parser,
   selfClosing,
   normalTags
 }

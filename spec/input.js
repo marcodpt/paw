@@ -29,7 +29,11 @@ export default ({
       ],
       html: 
 `<div>
-  <input type="checkbox" class="form-check-input is-valid">
+  <input
+    class="validate form-check-input is-valid"
+    type="checkbox"
+    checked=""
+  >
   <div class="invalid-feedback"></div>
 </div>`
     }, {
@@ -46,8 +50,9 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="text"
-    class="form-control is-valid"
+    value="test"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -63,9 +68,10 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="number"
+    value="7"
     step="1"
-    class="form-control is-valid"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -81,8 +87,9 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="number"
-    class="form-control is-valid"
+    value="2.7"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -99,10 +106,11 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="number"
-    step="0.01"
+    value="0.00"
     min="0.00"
-    class="form-control is-valid"
+    step="0.01"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -121,11 +129,12 @@ export default ({
       html:
 `<div>
   <input
+    class="validate form-control is-valid"
     type="number"
-    step="0.01"
+    value="6.99"
     min="6.98"
     max="7.10"
-    class="form-control is-valid"
+    step="0.01"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -142,15 +151,16 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="text"
-    class="form-control is-valid"
+    value="Yes"
     list="app.data.list"
   >
-  <div class="invalid-feedback"></div>
   <datalist id="app.data.list">
     <option value="No"></option>
     <option value="Yes"></option>
   </datalist>
+  <div class="invalid-feedback"></div>
 </div>`
     }, {
       title: 'A date string using ISO dates',
@@ -166,9 +176,10 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="date"
+    value="${iso}"
     min="${iso_min}"
-    class="form-control is-valid"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -187,10 +198,11 @@ export default ({
       html:
 `<div>
   <input
+    class="validate form-control is-valid"
     type="date"
+    value="${new Date(unix * 1000).toISOString().substr(0, 10)}"
     min="${new Date(unix_min * 1000).toISOString().substr(0, 10)}"
     max="${new Date(unix_max * 1000).toISOString().substr(0, 10)}"
-    class="form-control is-valid"
   >
   <div class="invalid-feedback"></div>
 </div>`
@@ -214,9 +226,9 @@ export default ({
       html:
 `<div>
   <textarea
-    class="form-control is-valid"
+    class="validate form-control is-valid"
     rows="6"
-  ></textarea>
+  >Text is used for store multiline text!\nAs you can see it!</textarea>
   <div class="invalid-feedback"></div>
 </div>`
     }, {
@@ -233,7 +245,11 @@ export default ({
       ],
       html:
 `<div>
-  <input type="password" class="form-control is-valid">
+  <input
+    class="validate form-control is-valid"
+    type="password"
+    value="secret"
+  >
   <div class="invalid-feedback"></div>
 </div>`
     }, {
@@ -247,21 +263,29 @@ export default ({
       ],
       html:
 `<div>
-  <input type="file" class="form-control" multiple="true">
+  <input
+    class="validate form-control is-valid"
+    type="file"
+    multiple=""
+  >
   <div class="invalid-feedback"></div>
 </div>`
     }, {
       title: 'Raw FileList',
       data: [
         {
-          ui: 'file',
-          type: 'FileList',
+          ui: 'File',
+          type: 'array',
           update
         }
       ],
       html:
 `<div>
-  <input type="file" class="form-control is-valid" multiple="true">
+  <input
+    class="validate form-control is-valid"
+    type="file"
+    multiple=""
+  >
   <div class="invalid-feedback"></div>
 </div>`
     }, {
@@ -290,6 +314,7 @@ export default ({
     id="app.radio.primary"
     autocomplete="off"
     value="primary"
+    checked=""
   >
   <label class="btn btn-primary me-2" for="app.radio.primary">primary</label>
   <input
@@ -348,6 +373,7 @@ export default ({
     value="dark"
   >
   <label class="btn btn-dark me-2" for="app.radio.dark">dark</label>
+  <div class="invalid-feedback"></div>
 </div>`
     }, {
       title: 'FontAwesome icon string',
@@ -363,7 +389,7 @@ export default ({
 `<div>
   <div class="input-group">
     <span class="input-group-text"><i class="fa-solid fa-check"></i></span>
-    <input type="text" class="form-control is-valid">
+    <input class="validate form-control is-valid" type="text">
   </div>
   <div class="invalid-feedback"></div>
 </div>`
@@ -380,11 +406,11 @@ export default ({
       html: 
 `<div>
   <input
+    class="validate form-control is-valid"
     type="text"
-    class="form-control is-valid"
+    value="ui"
     list="app.data.list"
   >
-  <div class="invalid-feedback"></div>
   <datalist id="app.data.list">
     <option value="_"></option>
     <option value="date"></option>
@@ -410,6 +436,7 @@ export default ({
     <option value="icon"></option>
     <option value="ui"></option>
   </datalist>
+  <div class="invalid-feedback"></div>
 </div>`
     }
   ]

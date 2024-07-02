@@ -103,9 +103,10 @@ export default ({
       <div class="col-12 my-3 fs-5">
         <div>
           <input
-            name="name"
+            class="validate form-control form-control-lg is-valid"
             type="text"
-            class="form-control form-control-lg is-valid"
+            name="name"
+            value=""
             placeholder="Username"
           >
           <div class="invalid-feedback"></div>
@@ -114,9 +115,10 @@ export default ({
       <div class="col-12 my-3 fs-5">
         <div>
           <input
-            name="pass"
+            class="validate form-control form-control-lg is-valid"
             type="password"
-            class="form-control form-control-lg is-valid"
+            name="pass"
+            value=""
             placeholder="Password"
           >
           <div class="invalid-feedback"></div>
@@ -183,9 +185,10 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="name"
+            class="validate form-control form-control-sm is-valid"
             type="text"
-            class="form-control form-control-sm is-valid"
+            name="name"
+            value=""
           >
           <div class="invalid-feedback"></div>
         </div>
@@ -196,9 +199,10 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="email"
+            class="validate form-control form-control-sm is-valid"
             type="text"
-            class="form-control form-control-sm is-valid"
+            name="email"
+            value=""
           >
           <div class="invalid-feedback"></div>
         </div>
@@ -209,10 +213,11 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="age"
+            class="validate form-control form-control-sm is-valid"
             type="number"
+            name="age"
+            value="0"
             step="1"
-            class="form-control form-control-sm is-valid"
           >
           <div class="invalid-feedback"></div>
         </div>
@@ -223,19 +228,20 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="language"
+            class="validate form-control form-control-sm is-invalid"
             type="text"
-            class="form-control form-control-sm is-invalid"
+            name="language"
+            value=""
             list="app.data.language"
           >
-          <div
-            class="invalid-feedback"
-          >Must be one of the possible options.</div>
           <datalist id="app.data.language">
             <option value="English"></option>
             <option value="Spanish"></option>
             <option value="Chinese"></option>
           </datalist>
+          <div
+            class="invalid-feedback"
+          >Must be one of the possible options.</div>
         </div>
       </div>
       <div class="col-12 my-1 row small">
@@ -244,9 +250,9 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="news"
+            class="validate form-check-input is-valid"
             type="checkbox"
-            class="form-check-input is-valid"
+            name="news"
           >
           <div class="invalid-feedback"></div>
         </div>
@@ -257,8 +263,8 @@ export default ({
         </div>
         <div class="col-md-9">
           <textarea
+            class="validate form-control form-control-sm is-valid"
             name="bio"
-            class="form-control form-control-sm is-valid"
             rows="6"
           ></textarea>
           <div class="invalid-feedback"></div>
@@ -361,18 +367,19 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="field"
+            class="validate form-control is-valid"
             type="text"
-            class="form-control is-valid"
+            name="field"
+            value="Id"
             list="app.data.field"
           >
-          <div class="invalid-feedback"></div>
           <datalist id="app.data.field">
             <option value="Id"></option>
             <option value="Name"></option>
             <option value="Age (Y)"></option>
             <option value="Balance ($)"></option>
           </datalist>
+          <div class="invalid-feedback"></div>
         </div>
       </div>
       <div class="col-12 my-2 row">
@@ -381,14 +388,12 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="operator"
+            class="validate form-control is-valid"
             type="text"
-            class="form-control is-valid"
+            name="operator"
+            value="Contains"
             list="app.data.operator"
           >
-          <div
-            class="invalid-feedback"
-          ></div>
           <datalist id="app.data.operator">
             <option value="Contains"></option>
             <option value="Not contains"></option>
@@ -399,6 +404,7 @@ export default ({
             <option value="Less than"></option>
             <option value="Less than or equals"></option>
           </datalist>
+          <div class="invalid-feedback"></div>
         </div>
       </div>
       <div class="col-12 my-2 row">
@@ -407,9 +413,10 @@ export default ({
         </div>
         <div class="col-md-9">
           <input
-            name="value"
+            class="validate form-control is-invalid"
             type="text"
-            class="form-control is-invalid"
+            name="value"
+            value=""
           >
           <div
             class="invalid-feedback"

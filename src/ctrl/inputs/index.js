@@ -130,7 +130,7 @@ export default ({
   const wrapper = (
     s.ui == 'link' ? link :
     s.options ? typeahead :
-    s.ui == 'file' ? file :
+    s.ui == 'file' || s.ui == 'File' ? file :
     s.ui == 'text' || s.ui == 'info' ? textarea :
     s.ui == 'icon' ? icon :
     s.ui == 'date' ? date :

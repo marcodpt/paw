@@ -1,5 +1,5 @@
 import e from './e.js'
-import {rm, parser, formatter} from './lib.js'
+import {rm, formatter} from './lib.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
 import form from './form.js'
@@ -150,7 +150,17 @@ export default ({
   const O = Object.keys(T('operators'))
   const Z = Y.reduce((Z, k) => ({
     ...Z,
-    [k]: parser(P[k])
+    [k]: data => {
+      if (P[k].type == 'integer') {
+        return parseInt(data)
+      } else if (P[k].type == 'number') {
+        return parseFloat(data)
+      } else if (P[k].type == 'boolean') {
+        return !!data
+      } else {
+        return data
+      }
+    }
   }), {})
   const parseData = D => D instanceof Array ?
     D.map(row => Y.reduce((R, k) => ({
