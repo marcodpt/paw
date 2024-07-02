@@ -11,8 +11,10 @@ export default ({
   label
 }) => {
   const clear = ev => {
-    value = ev.target.value
-    ev.target.value = ''
+    if (ev.target.value) {
+      value = ev.target.value
+      ev.target.value = ''
+    }
   }
 
   const change = (ev, blur) => {
