@@ -154,9 +154,9 @@ export default ({
     class="validate form-control is-valid"
     type="text"
     value="Yes"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>No</option>
     <option>Yes</option>
   </datalist>
@@ -303,76 +303,103 @@ export default ({
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.link"
+    id="app_radio_000001"
     autocomplete="off"
     value="link"
   >
-  <label class="btn btn-link me-2" for="app.radio.link">link</label>
+  <label
+    class="btn btn-link me-2"
+    for="app_radio_000001"
+  >link</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.primary"
+    id="app_radio_000002"
     autocomplete="off"
     value="primary"
     checked=""
   >
-  <label class="btn btn-primary me-2" for="app.radio.primary">primary</label>
+  <label
+    class="btn btn-primary me-2"
+    for="app_radio_000002"
+  >primary</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.secondary"
+    id="app_radio_000003"
     autocomplete="off"
     value="secondary"
   >
-  <label class="btn btn-secondary me-2" for="app.radio.secondary">secondary</label>
+  <label
+    class="btn btn-secondary me-2"
+    for="app_radio_000003"
+  >secondary</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.success"
+    id="app_radio_000004"
     autocomplete="off"
     value="success"
   >
-  <label class="btn btn-success me-2" for="app.radio.success">success</label>
+  <label
+    class="btn btn-success me-2"
+    for="app_radio_000004"
+  >success</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.danger"
+    id="app_radio_000005"
     autocomplete="off"
     value="danger"
   >
-  <label class="btn btn-danger me-2" for="app.radio.danger">danger</label>
+  <label
+    class="btn btn-danger me-2"
+    for="app_radio_000005"
+  >danger</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.warning"
+    id="app_radio_000006"
     autocomplete="off"
     value="warning"
   >
-  <label class="btn btn-warning me-2" for="app.radio.warning">warning</label>
+  <label
+    class="btn btn-warning me-2"
+    for="app_radio_000006"
+  >warning</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.info"
+    id="app_radio_000007"
     autocomplete="off"
     value="info"
   >
-  <label class="btn btn-info me-2" for="app.radio.info">info</label>
+  <label
+    class="btn btn-info me-2"
+    for="app_radio_000007"
+  >info</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.light"
+    id="app_radio_000008"
     autocomplete="off"
     value="light"
   >
-  <label class="btn btn-light me-2" for="app.radio.light">light</label>
+  <label
+    class="btn btn-light me-2"
+    for="app_radio_000008"
+  >light</label>
   <input
     type="radio"
     class="btn-check"
-    id="app.radio.dark"
+    id="app_radio_000009"
     autocomplete="off"
     value="dark"
   >
-  <label class="btn btn-dark me-2" for="app.radio.dark">dark</label>
+  <label
+    class="btn btn-dark me-2"
+    for="app_radio_000009"
+  >dark</label>
   <div class="invalid-feedback"></div>
 </div>`
     }, {
@@ -409,9 +436,9 @@ export default ({
     class="validate form-control is-valid"
     type="text"
     value="ui"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>_</option>
     <option>date</option>
     <option>bool</option>
@@ -484,9 +511,9 @@ export default ({
     class="validate form-control form-control-sm is-invalid"
     type="text"
     value="0"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>Dog</option>
     <option>Cat</option>
     <option>Bird</option>
@@ -525,9 +552,9 @@ export default ({
     class="validate form-control"
     type="text"
     value="Dog"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>Dog</option>
     <option>Cat</option>
     <option>Bird</option>
@@ -566,9 +593,9 @@ export default ({
     class="validate form-control form-control-lg is-valid"
     type="text"
     value="Cat"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>Dog</option>
     <option>Cat</option>
     <option>Bird</option>
@@ -596,9 +623,9 @@ export default ({
     class="validate form-control is-invalid"
     type="text"
     value="0"
-    list="app.data.list"
+    list="app_list_000000"
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>Dog</option>
   </datalist>
   <div class="invalid-feedback">Must be one of the possible options.</div>
@@ -618,10 +645,10 @@ export default ({
     class="validate form-control is-invalid"
     type="text"
     value="0"
-    list="app.data.list"
+    list="app_list_000000"
     disabled=""
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
   </datalist>
   <div class="invalid-feedback">Must be one of the possible options.</div>
 </div>`
@@ -646,10 +673,10 @@ export default ({
     class="validate form-control is-valid"
     type="text"
     value="Dog"
-    list="app.data.list"
+    list="app_list_000000"
     disabled=""
   >
-  <datalist id="app.data.list">
+  <datalist id="app_list_000000">
     <option>Dog</option>
   </datalist>
   <div class="invalid-feedback"></div>

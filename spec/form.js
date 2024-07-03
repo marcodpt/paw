@@ -232,9 +232,9 @@ export default ({
             type="text"
             name="language"
             value=""
-            list="app.data.language"
+            list="app_list_000000"
           >
-          <datalist id="app.data.language">
+          <datalist id="app_list_000000">
             <option>English</option>
             <option>Spanish</option>
             <option>Chinese</option>
@@ -371,9 +371,9 @@ export default ({
             type="text"
             name="field"
             value="Id"
-            list="app.data.field"
+            list="app_list_000000"
           >
-          <datalist id="app.data.field">
+          <datalist id="app_list_000000">
             <option>Id</option>
             <option>Name</option>
             <option>Age (Y)</option>
@@ -392,9 +392,9 @@ export default ({
             type="text"
             name="operator"
             value="Contains"
-            list="app.data.operator"
+            list="app_list_000000"
           >
-          <datalist id="app.data.operator">
+          <datalist id="app_list_000000">
             <option>Contains</option>
             <option>Not contains</option>
             <option>Equals</option>

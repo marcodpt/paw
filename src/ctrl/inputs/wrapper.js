@@ -1,5 +1,11 @@
 import e from '../../e.js'
 
+const id = {}
+const uid =  usage => {
+  id[usage] = id[usage] ? id[usage] + 1 : 1
+  return `app_${usage}_${String(id[usage]).padStart(6, '0')}`
+}
+
 export default (target, noValidate) => e(({div}) =>
   div({
     validate: noValidate ? () => {} : (el, error) => {
@@ -14,7 +20,7 @@ export default (target, noValidate) => e(({div}) =>
       })
       el.querySelector('.invalid-feedback').textContent = error || ''
     }
-  }, [].concat(e(X => target(X))).concat(noValidate ? [] : [
+  }, [].concat(e(X => target({...X, uid}))).concat(noValidate ? [] : [
     div({
       class: 'invalid-feedback'
     })

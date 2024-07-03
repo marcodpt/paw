@@ -5,6 +5,7 @@ const text = str => str.trim()
     .replace(/>\s+</g, () => '><')
     .replace(/"\s+>/g, () => '">')
     .replace(/\s+/g, () => ' ')
+    .replace(/app_list_[0-9]{6}/g, 'app_list_000000')
 
 spec.forEach(({title, examples, component}) => {
   QUnit.module(title, () => {

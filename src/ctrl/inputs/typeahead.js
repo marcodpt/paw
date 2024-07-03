@@ -9,7 +9,7 @@ export default ({
   options,
   value,
   label
-}) => {
+}) => wrapper(({input, datalist, option, text, uid}) => {
   const clear = ev => {
     if (ev.target.value) {
       value = ev.target.value
@@ -33,9 +33,9 @@ export default ({
     }
   }
 
-  const list = `app.data.${title || 'list'}`
+  const id = uid('list')
 
-  return wrapper(({input, datalist, option, text}) => [
+  return [
     input({
       class: [
         'validate',
@@ -46,7 +46,7 @@ export default ({
       name: title,
       value: label,
       placeholder: description,
-      list,
+      list: id,
       disabled: readOnly || !options.length ||
         (options.length == 1 && options[0].value == value),
       oninput: change,
@@ -55,11 +55,11 @@ export default ({
       onblur: ev => change(ev, true)
     }),
     datalist({
-      id: list
+      id
     }, options.map(o =>
       option({}, [
         text(o.label)
       ])
     ))
-  ])
-}
+  ]
+})

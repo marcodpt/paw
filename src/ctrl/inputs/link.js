@@ -1,42 +1,41 @@
 import wrapper from './wrapper.js'
-import link from '../link.js'
-import opt from '../options.js'
 
 export default ({
   title,
   description,
   readOnly,
   update,
+  options,
   size,
   value
-}) => wrapper(({input, label, text}) => 
-  opt('link', true).map(btn => {
-    const l = link({
-      link: btn,
-      title: btn,
-      size,
-      href: 'javascript:;'
-    })
+}) => wrapper(({input, label, text, uid}) => 
+  options.map(o => {
+    const id = uid('radio')
     return [
       input({
         type: 'radio',
         name: title,
         title: description,
         class: 'btn-check',
-        id: (title || 'app.radio')+'.'+btn,
+        id,
         autocomplete: 'off',
-        value: btn,
-        checked: btn == value,
+        value: o.value,
+        checked: o.value == value,
         disabled: readOnly,
         onclick: ev => {
           update(ev.target.value)
         }
       }),
       label({
-        class: l.getAttribute('class')+' me-2',
-        for: (title || 'app.radio')+'.'+btn
+        class: [
+          'btn',
+          'btn-'+o.value,
+          size ? 'btn-'+size : '',
+          'me-2'
+        ],
+        for: id
       }, [
-        text(l.textContent)
+        text(o.label)
       ])
     ]
   }).reduce((X, V) => X.concat(V), [])
