@@ -258,11 +258,7 @@ export default ({
                   icon: icons.previous,
                   init: el => refs.previous = el
                 }, {
-                  type: 'integer',
-                  title: '',
-                  noValid: true,
-                  ui: 'typeahead',
-                  update: () => {},
+                  ui: 'pending',
                   init: el => refs.pager = el
                 }, {
                   href: () => {

@@ -27,7 +27,9 @@ export default ({
     schema.ui == null &&
     schema.href != null ?
       link(schema) :
-    schema.update == null ? output(schema) : input(schema)
+    schema.update == null && schema.ui != 'pending' ?
+      output(schema) :
+      input(schema)
 
   if (typeof init == 'function') {
     init(ctrl)

@@ -2,6 +2,7 @@ import opt from '../options.js'
 import output from '../output.js'
 import T from '../../lang/index.js'
 import link from './link.js'
+import pending from './pending.js'
 import typeahead from './typeahead.js'
 import file from './file.js'
 import textarea from './textarea.js'
@@ -45,17 +46,6 @@ export default ({
 
   s.options = s.options ? s.options :
     s.enum instanceof Array ? opt(s.enum) : opt(s.ui)
-
-  if (!(s.options instanceof Array) &&
-    (s.ui == 'typeahead' || s.ui == 'select')
-  ) {
-    s.options = [
-      {
-        value: s.value,
-        label: '⏳'
-      }
-    ]
-  }
 
   if (s.options instanceof Array) {
     s.enum = s.enum || s.options.map(({value}) => value)
@@ -130,6 +120,7 @@ export default ({
   }
 
   const wrapper = (
+    s.ui == 'pending' ? pending :
     s.ui == 'link' ? link :
     s.options instanceof Array ?
       s.ui == 'radio' ? radio :

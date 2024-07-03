@@ -1,8 +1,8 @@
 import e from '../../e.js'
 
-export default target => e(({div}) =>
+export default (target, noValidate) => e(({div}) =>
   div({
-    validate: (el, error) => {
+    validate: noValidate ? () => {} : (el, error) => {
       el.querySelectorAll('.validate').forEach(ctrl => {
         ctrl.classList.remove('is-valid')
         ctrl.classList.remove('is-invalid')
@@ -14,7 +14,7 @@ export default target => e(({div}) =>
       })
       el.querySelector('.invalid-feedback').textContent = error || ''
     }
-  }, [].concat(e(X => target(X))).concat([
+  }, [].concat(e(X => target(X))).concat(noValidate ? [] : [
     div({
       class: 'invalid-feedback'
     })
