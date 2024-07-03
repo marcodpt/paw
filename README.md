@@ -37,6 +37,8 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
+ - semantic html tests, no string cmp
+ - use unique ids
  - separate input and output options
  - no default option fail to expose error message
  - group as a modal

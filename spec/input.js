@@ -477,7 +477,23 @@ export default ({
           size: 'sm',
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control form-control-sm is-invalid"
+    type="text"
+    value="0"
+    list="app.data.list"
+  >
+  <datalist id="app.data.list">
+    <option>Dog</option>
+    <option>Cat</option>
+    <option>Bird</option>
+    <option>Horse</option>
+  </datalist>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
     }, {
       title: 'Typeahead Right without valid',
       data: [
@@ -502,7 +518,23 @@ export default ({
           update,
           noValid: true
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control"
+    type="text"
+    value="Dog"
+    list="app.data.list"
+  >
+  <datalist id="app.data.list">
+    <option>Dog</option>
+    <option>Cat</option>
+    <option>Bird</option>
+    <option>Horse</option>
+  </datalist>
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Typeahead Right Lg',
       data: [
@@ -527,7 +559,23 @@ export default ({
           size: 'lg',
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control form-control-lg is-valid"
+    type="text"
+    value="Cat"
+    list="app.data.list"
+  >
+  <datalist id="app.data.list">
+    <option>Dog</option>
+    <option>Cat</option>
+    <option>Bird</option>
+    <option>Horse</option>
+  </datalist>
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Typeahead Wrong single',
       data: [
@@ -541,7 +589,20 @@ export default ({
           ],
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control is-invalid"
+    type="text"
+    value="0"
+    list="app.data.list"
+  >
+  <datalist id="app.data.list">
+    <option>Dog</option>
+  </datalist>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
     }, {
       title: 'Typeahead Wrong none',
       data: [
@@ -550,7 +611,20 @@ export default ({
           options: [],
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control is-invalid"
+    type="text"
+    value="0"
+    list="app.data.list"
+    disabled=""
+  >
+  <datalist id="app.data.list">
+  </datalist>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
     }, {
       title: 'Typeahead right single',
       data: [
@@ -565,7 +639,21 @@ export default ({
           ],
           update
         }
-      ]
+      ],
+      html: 
+`<div>
+  <input
+    class="validate form-control is-valid"
+    type="text"
+    value="Dog"
+    list="app.data.list"
+    disabled=""
+  >
+  <datalist id="app.data.list">
+    <option>Dog</option>
+  </datalist>
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Select',
       data: []
