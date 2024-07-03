@@ -37,6 +37,7 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
+ - separate input and output options
  - no default option fail to expose error message
  - group as a modal
  - all update functionality centralized in ctrl 
@@ -55,6 +56,7 @@ minimum effort and maximum customization.
  - radio list
  - checkbox multiple list
  - array of itens
+ - form as object
 
 ### Tests and docs
  - chart

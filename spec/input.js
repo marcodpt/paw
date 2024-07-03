@@ -438,6 +438,143 @@ export default ({
   </datalist>
   <div class="invalid-feedback"></div>
 </div>`
+    }, {
+      title: 'Pending',
+      data: [
+        {
+          ui: 'pending'
+        }
+      ],
+      html:
+`<div>
+  <input
+    class="form-control text-center"
+    type="text"
+    value="⏳"
+    disabled=""
+  >
+</div>`
+    }, {
+      title: 'Typeahead Wrong sm',
+      data: [
+        {
+          type: 'integer',
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'sm',
+          update
+        }
+      ]
+    }, {
+      title: 'Typeahead Right without valid',
+      data: [
+        {
+          type: 'integer',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          update,
+          noValid: true
+        }
+      ]
+    }, {
+      title: 'Typeahead Right Lg',
+      data: [
+        {
+          type: 'integer',
+          default: 2,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'lg',
+          update
+        }
+      ]
+    }, {
+      title: 'Typeahead Wrong single',
+      data: [
+        {
+          type: 'integer',
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ]
+    }, {
+      title: 'Typeahead Wrong none',
+      data: [
+        {
+          type: 'integer',
+          options: [],
+          update
+        }
+      ]
+    }, {
+      title: 'Typeahead right single',
+      data: [
+        {
+          type: 'integer',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ]
+    }, {
+      title: 'Select',
+      data: []
+    }, {
+      title: 'Radio',
+      data: []
+    }, {
+      title: 'Checkbox',
+      data: []
     }
   ]
 })

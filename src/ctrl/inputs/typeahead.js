@@ -25,6 +25,9 @@ export default ({
     if (i >= 0) {
       value = ev.target.value
       update(options[i].value, options[i].label)
+      if (options.length == 1) {
+        ev.target.disabled = true
+      }
     } else if (blur) {
       ev.target.value = value
     }
@@ -44,7 +47,8 @@ export default ({
       value: label,
       placeholder: description,
       list,
-      disabled: readOnly || options.length <= 1,
+      disabled: readOnly || !options.length ||
+        (options.length == 1 && options[0].value == value),
       oninput: change,
       onfocus: clear,
       onmousedown: clear,
