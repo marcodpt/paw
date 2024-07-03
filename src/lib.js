@@ -6,6 +6,9 @@ const rm = el => {
   }
 }
 
+const isNum = x =>
+  x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
+
 const formatter = ({type, ui, maximum, minimum}) => {
   if (ui == 'password') {
     return () => '********'
@@ -81,9 +84,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
     return x => x == null ? '' : x
   }
 }
-
-const isNum = x =>
-  x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
 const selfClosing = [
   'area',

@@ -261,7 +261,7 @@ export default ({
                   type: 'integer',
                   title: '',
                   noValid: true,
-                  options: true,
+                  ui: 'typeahead',
                   update: () => {},
                   init: el => refs.pager = el
                 }, {

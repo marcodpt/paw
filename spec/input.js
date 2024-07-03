@@ -157,8 +157,8 @@ export default ({
     list="app.data.list"
   >
   <datalist id="app.data.list">
-    <option value="No"></option>
-    <option value="Yes"></option>
+    <option>No</option>
+    <option>Yes</option>
   </datalist>
   <div class="invalid-feedback"></div>
 </div>`
@@ -412,29 +412,29 @@ export default ({
     list="app.data.list"
   >
   <datalist id="app.data.list">
-    <option value="_"></option>
-    <option value="date"></option>
-    <option value="bool"></option>
-    <option value="text"></option>
-    <option value="info"></option>
-    <option value="num.1"></option>
-    <option value="num.2"></option>
-    <option value="num.3"></option>
-    <option value="len:2"></option>
-    <option value="len:3"></option>
-    <option value="len:4"></option>
-    <option value="len:5"></option>
-    <option value="len:6"></option>
-    <option value="len:7"></option>
-    <option value="len:8"></option>
-    <option value="len:9"></option>
-    <option value="password"></option>
-    <option value="file"></option>
-    <option value="color"></option>
-    <option value="progress"></option>
-    <option value="link"></option>
-    <option value="icon"></option>
-    <option value="ui"></option>
+    <option>_</option>
+    <option>date</option>
+    <option>bool</option>
+    <option>text</option>
+    <option>info</option>
+    <option>num.1</option>
+    <option>num.2</option>
+    <option>num.3</option>
+    <option>len:2</option>
+    <option>len:3</option>
+    <option>len:4</option>
+    <option>len:5</option>
+    <option>len:6</option>
+    <option>len:7</option>
+    <option>len:8</option>
+    <option>len:9</option>
+    <option>password</option>
+    <option>file</option>
+    <option>color</option>
+    <option>progress</option>
+    <option>link</option>
+    <option>icon</option>
+    <option>ui</option>
   </datalist>
   <div class="invalid-feedback"></div>
 </div>`

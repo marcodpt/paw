@@ -32,7 +32,7 @@ export default ({
 
   const list = `app.data.${title || 'list'}`
 
-  return wrapper(({input, datalist, option}) => [
+  return wrapper(({input, datalist, option, text}) => [
     input({
       class: [
         'validate',
@@ -53,9 +53,9 @@ export default ({
     datalist({
       id: list
     }, options.map(o =>
-      option({
-        value: o.label
-      })
+      option({}, [
+        text(o.label)
+      ])
     ))
   ])
 }

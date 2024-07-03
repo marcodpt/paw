@@ -46,7 +46,9 @@ export default ({
   s.options = s.options ? s.options :
     s.enum instanceof Array ? opt(s.enum) : opt(s.ui)
 
-  if (s.options === true) {
+  if (!(s.options instanceof Array) &&
+    (s.ui == 'typeahead' || s.ui == 'select')
+  ) {
     s.options = [
       {
         value: s.value,
@@ -129,14 +131,18 @@ export default ({
 
   const wrapper = (
     s.ui == 'link' ? link :
-    s.options ? typeahead :
+    s.options instanceof Array ?
+      s.ui == 'radio' ? radio :
+      s.ui == 'select' ? select :
+        typeahead :
     s.ui == 'file' || s.ui == 'File' ? file :
     s.ui == 'text' || s.ui == 'info' ? textarea :
     s.ui == 'icon' ? icon :
     s.ui == 'date' ? date :
     s.type == 'boolean' || s.ui == 'bool' ? check :
     s.type == 'number' || s.type == 'integer' ||
-      /^num\.[1-9][0-9]*$/.test(s.ui) ? number : text
+      /^num\.[1-9][0-9]*$/.test(s.ui) ? number :
+      text
   )(s)
 
   s.update(s.value, s.label)

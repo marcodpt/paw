@@ -235,9 +235,9 @@ export default ({
             list="app.data.language"
           >
           <datalist id="app.data.language">
-            <option value="English"></option>
-            <option value="Spanish"></option>
-            <option value="Chinese"></option>
+            <option>English</option>
+            <option>Spanish</option>
+            <option>Chinese</option>
           </datalist>
           <div
             class="invalid-feedback"
@@ -374,10 +374,10 @@ export default ({
             list="app.data.field"
           >
           <datalist id="app.data.field">
-            <option value="Id"></option>
-            <option value="Name"></option>
-            <option value="Age (Y)"></option>
-            <option value="Balance ($)"></option>
+            <option>Id</option>
+            <option>Name</option>
+            <option>Age (Y)</option>
+            <option>Balance ($)</option>
           </datalist>
           <div class="invalid-feedback"></div>
         </div>
@@ -395,14 +395,14 @@ export default ({
             list="app.data.operator"
           >
           <datalist id="app.data.operator">
-            <option value="Contains"></option>
-            <option value="Not contains"></option>
-            <option value="Equals"></option>
-            <option value="Not equals"></option>
-            <option value="Greater than"></option>
-            <option value="Greater than or equals"></option>
-            <option value="Less than"></option>
-            <option value="Less than or equals"></option>
+            <option>Contains</option>
+            <option>Not contains</option>
+            <option>Equals</option>
+            <option>Not equals</option>
+            <option>Greater than</option>
+            <option>Greater than or equals</option>
+            <option>Less than</option>
+            <option>Less than or equals</option>
           </datalist>
           <div class="invalid-feedback"></div>
         </div>
