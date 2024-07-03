@@ -655,8 +655,187 @@ export default ({
   <div class="invalid-feedback"></div>
 </div>`
     }, {
-      title: 'Select',
-      data: []
+      title: 'Select Wrong sm',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          description: 'Choose one option!',
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'sm',
+          update
+        }
+      ],
+      html: 
+`<div>
+  <select
+    class="validate form-control form-control-sm is-invalid"
+  >
+    <option value="1">Dog</option>
+    <option value="2">Cat</option>
+    <option value="3">Bird</option>
+    <option value="4">Horse</option>
+    <option value="0" disabled="" selected="">Choose one option!</option>
+  </select>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
+    }, {
+      title: 'Select Right without valid',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          update,
+          noValid: true
+        }
+      ],
+      html: 
+`<div>
+  <select
+    class="validate form-control"
+  >
+    <option value="1" selected="">Dog</option>
+    <option value="2">Cat</option>
+    <option value="3">Bird</option>
+    <option value="4">Horse</option>
+  </select>
+  <div class="invalid-feedback"></div>
+</div>`
+    }, {
+      title: 'Select Right Lg',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          default: 2,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'lg',
+          update
+        }
+      ],
+      html: 
+`<div>
+  <select class="validate form-control form-control-lg is-valid">
+    <option value="1">Dog</option>
+    <option value="2" selected="">Cat</option>
+    <option value="3">Bird</option>
+    <option value="4">Horse</option>
+  </select>
+  <div class="invalid-feedback"></div>
+</div>`
+    }, {
+      title: 'Select Wrong single',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <select class="validate form-control is-invalid">
+    <option value="1">Dog</option>
+    <option value="0" disabled="" selected="">0</option>
+  </select>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
+    }, {
+      title: 'Select Wrong none',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          options: [],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <select
+    class="validate form-control is-invalid"
+    disabled=""
+  >
+    <option value="0" disabled="" selected="">0</option>
+  </select>
+  <div class="invalid-feedback">Must be one of the possible options.</div>
+</div>`
+    }, {
+      title: 'Select right single',
+      data: [
+        {
+          type: 'integer',
+          ui: 'select',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <select
+    class="validate form-control is-valid"
+    disabled=""
+  >
+    <option value="1" selected="">Dog</option>
+  </select>
+  <div class="invalid-feedback"></div>
+</div>`
     }, {
       title: 'Radio',
       data: []
