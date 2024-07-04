@@ -40,9 +40,6 @@ minimum effort and maximum customization.
  - merge spec with source
  - semantic html tests, no string cmp
  - separate input and output options
- - no default option fail to expose error message
- - group as a modal
- - all update functionality centralized in ctrl 
  - allow link with options (dropdown)
  - move table engine to user space
  - allow children in docs and examples (ctrl case)

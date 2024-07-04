@@ -198,7 +198,7 @@ export default ({
   }
 
   const tbl = e(({
-    table, thead, tbody, tr, th, td, div, a, text, button, ul
+    table, thead, tbody, tr, th, td, div, a, text, button, ul, span
   }) =>
     table({
       class: 'table '+state.css
@@ -470,22 +470,39 @@ export default ({
                   href: () => {
                     if (state.group) {
                       state.group = null
+                      state.bgrp.innerHTML = ''
+                      state.bgrp.appendChild(tag({
+                        title: T('group'),
+                        icon: icons.group
+                      }))
+                      update()
                     } else {
-                      state.group = Array.from(tbl.querySelectorAll(
-                        '[data-ctx^="field:"].text-'+btns.group
-                      )).reduce((G, e) => {
-                        G.push(e.getAttribute('data-ctx').substr(6))
-                        e.classList.add('text-reset')
-                        e.classList.remove('text-'+btns.group)
-                        return G
-                      }, [])
+                      modal({
+                        title: T('group'),
+                        icon: icons.group,
+                        properties: {
+                          fields: {
+                            type: 'array',
+                            title: '',
+                            noValid: true,
+                            default: [],
+                            options: K.map(k => ({
+                              value: k,
+                              label: P[k].title || k
+                            }))
+                          }
+                        },
+                        submit: ({fields}) => {
+                          state.group = fields
+                          state.bgrp.innerHTML = ''
+                          state.bgrp.appendChild(tag({
+                            title: T('group'),
+                            icon: icons.close
+                          }))
+                          update()
+                        }
+                      })
                     }
-                    state.bgrp.innerHTML = ''
-                    state.bgrp.appendChild(tag({
-                      title: T('group'),
-                      icon: state.group ? icons.close : icons.group
-                    }))
-                    update()
                   }
                 })
               ]),
@@ -558,18 +575,9 @@ export default ({
           th({
             class: 'text-center align-middle'
           }, [
-            a({
-              class: 'text-decoration-none text-reset',
+            span({
               title: P[k].description,
-              href:  state.noGroup ? null : 'javascript:;',
-              dataCtx: 'field:'+k,
-              onclick: state.noGroup ? null : ev => {
-                if (state.group == null) {
-                  const a = ev.target.closest('a')
-                  a.classList.toggle('text-reset')
-                  a.classList.toggle('text-'+btns.group)
-                }
-              }
+              dataCtx: 'field:'+k
             }, [
               text(P[k].title || k)
             ]),
