@@ -6,21 +6,28 @@ const uid =  usage => {
   return `app_${usage}_${String(id[usage]).padStart(6, '0')}`
 }
 
-export default (target, noValidate) => e(({div}) =>
+export default (target, noFeedback) => e(({div}) =>
   div({
-    validate: noValidate ? () => {} : (el, error) => {
+    validate: (el, error) => {
+      el.querySelectorAll('.invalid-feedback').forEach(feedback => {
+        feedback.textContent = ''
+      })
+      el.querySelectorAll('.is-valid, .is-invalid').forEach(ctrl => {
+        ctrl.classList.remove('is-valid', 'is-invalid')
+      })
       el.querySelectorAll('.validate').forEach(ctrl => {
-        ctrl.classList.remove('is-valid')
-        ctrl.classList.remove('is-invalid')
         if (error) {
           ctrl.classList.add('is-invalid')
         } else if (error === '') {
           ctrl.classList.add('is-valid')
         }
+        const feedback = ctrl.parentNode.querySelector('.invalid-feedback')
+        if (feedback) {
+          feedback.textContent = error || ''
+        }
       })
-      el.querySelector('.invalid-feedback').textContent = error || ''
     }
-  }, [].concat(e(X => target({...X, uid}))).concat(noValidate ? [] : [
+  }, [].concat(e(X => target({...X, uid}))).concat(noFeedback ? [] : [
     div({
       class: 'invalid-feedback'
     })

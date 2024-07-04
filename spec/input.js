@@ -864,11 +864,390 @@ export default ({
   <div class="invalid-feedback"></div>
 </div>`
     }, {
-      title: 'Radio',
-      data: []
+      title: 'Radio Wrong sm',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          description: 'Choose one option!',
+          maximum: 2,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'sm',
+          update
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="1"
+      id="app_radio_000003"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000003"
+    >Dog</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="2"
+      id="app_radio_000004"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000004"
+    >Cat</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="3"
+      id="app_radio_000005"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000005"
+    >Bird</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="4"
+      id="app_radio_000006"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000006"
+    >Horse</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input is-invalid"
+      type="radio"
+      name="app_radio_000001"
+      value="0"
+      id="app_radio_000002"
+      checked=""
+      disabled=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000002"
+    >Choose one option!</label>
+    <div class="invalid-feedback">Must be one of the possible options.</div>
+  </div>
+</div>`
     }, {
-      title: 'Checkbox',
-      data: []
+      title: 'Radio Right without valid',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          update,
+          noValid: true
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="1"
+      id="app_radio_000003"
+      checked=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000003"
+    >Dog</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="2"
+      id="app_radio_000004"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000004"
+    >Cat</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="3"
+      id="app_radio_000005"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000005"
+    >Bird</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="4"
+      id="app_radio_000006"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000006"
+    >Horse</label>
+    <div class="invalid-feedback"></div>
+  </div>
+</div>`
+    }, {
+      title: 'Radio Right Lg',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          default: 2,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }, {
+              value: 2,
+              label: 'Cat'
+            }, {
+              value: 3,
+              label: 'Bird'
+            }, {
+              value: 4,
+              label: 'Horse'
+            }
+          ],
+          size: 'lg',
+          update
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="1"
+      id="app_radio_000003"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000003"
+    >Dog</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input is-valid"
+      type="radio"
+      name="app_radio_000001"
+      value="2"
+      id="app_radio_000004"
+      checked=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000004"
+    >Cat</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="3"
+      id="app_radio_000005"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000005"
+    >Bird</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="4"
+      id="app_radio_000006"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000006"
+    >Horse</label>
+    <div class="invalid-feedback"></div>
+  </div>
+</div>`
+    }, {
+      title: 'Radio Wrong single',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="form-check-input"
+      type="radio"
+      name="app_radio_000001"
+      value="1"
+      id="app_radio_000003"
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000003"
+    >Dog</label>
+    <div class="invalid-feedback"></div>
+  </div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input is-invalid"
+      type="radio"
+      name="app_radio_000001"
+      value="0"
+      id="app_radio_000002"
+      checked=""
+      disabled=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000002"
+    >0</label>
+    <div class="invalid-feedback">Must be one of the possible options.</div>
+  </div>
+</div>`
+    }, {
+      title: 'Radio Wrong none',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          options: [],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input is-invalid"
+      type="radio"
+      name="app_radio_000001"
+      value="0"
+      id="app_radio_000002"
+      checked=""
+      disabled=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000002"
+    >0</label>
+    <div class="invalid-feedback">Must be one of the possible options.</div>
+  </div>
+</div>`
+    }, {
+      title: 'Radio right single',
+      data: [
+        {
+          type: 'integer',
+          ui: 'radio',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog'
+            }
+          ],
+          update
+        }
+      ],
+      html: 
+`<div>
+  <div class="form-check">
+    <input 
+      class="validate form-check-input is-valid"
+      type="radio"
+      name="app_radio_000001"
+      value="1"
+      id="app_radio_000003"
+      checked=""
+    >
+    <label
+      class="form-check-label"
+      for="app_radio_000003"
+    >Dog</label>
+    <div class="invalid-feedback"></div>
+  </div>
+</div>`
     }
   ]
 })
