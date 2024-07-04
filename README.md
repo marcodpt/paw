@@ -54,8 +54,6 @@ minimum effort and maximum customization.
  - emoji support on icons
 
 ### New Controls
- - radio list
- - checkbox multiple list
  - array of itens
  - form as object
 

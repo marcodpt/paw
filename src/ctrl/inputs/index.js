@@ -7,6 +7,7 @@ import pending from './pending.js'
 import typeahead from './typeahead.js'
 import select from './select.js'
 import radio from './radio.js'
+import checkbox from './checkbox.js'
 import file from './file.js'
 import textarea from './textarea.js'
 import icon from './icon.js'
@@ -50,7 +51,7 @@ export default ({
   s.options = s.options ? s.options :
     s.enum instanceof Array ? opt(s.enum) : opt(s.ui)
 
-  if (s.options instanceof Array) {
+  if (s.options instanceof Array && s.type != 'array') {
     s.enum = s.enum || s.options.map(({value}) => value)
     const item = s.options.filter(o => o.value == s.value)[0]
     s.label = item ? item.label : s.value
@@ -126,6 +127,7 @@ export default ({
     s.ui == 'pending' ? pending :
     s.ui == 'link' ? link :
     s.options instanceof Array ?
+      s.type == 'array' ? checkbox :
       s.ui == 'radio' ? radio :
       s.ui == 'select' ? select :
         typeahead :
