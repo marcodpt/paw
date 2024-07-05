@@ -8,6 +8,8 @@ export default ({
   size,
   data,
   description,
+  download,
+  mime,
   ...extra
 }) => {
   const isBtn = typeof href != 'string'
@@ -25,7 +27,7 @@ export default ({
 
   if (isBtn) {
     href = null
-  } else if (typeof href != 'string' || !href) {
+  } else if (!href) {
     href = 'javascript:;'
   } else {
     const X = resolve()
@@ -63,19 +65,13 @@ export default ({
     Promise.resolve().then(() => {
       toggle(true)
       return run(resolve())
-    }) .then(res => {
+    }) .then(data => {
       toggle(false)
-      if (res && typeof res == 'object' && res.name && res.data) {
-        const {name, data} = res
-        const link = document.createElement("a")
-        link.setAttribute('href',
-          'data:text/plain;charset=utf-8,'+encodeURIComponent(data)
-        ) 
-        link.setAttribute('download', name)
-
-        document.body.appendChild(link)
-        link.click()
-        document.body.removeChild(link)
+      if (trigger && data) {
+        const href = trigger.getAttribute('href')
+        trigger.setAttribute('href', href+encodeURIComponent(data))
+        trigger.click()
+        trigger.setAttribute('href', href)
       }
     }).catch(err => {
       toggle(false)
@@ -91,8 +87,17 @@ export default ({
     href,
     target
   }, [
-    tag(extra)
+    tag(extra),
+    !download || !mime ? null : a({
+      class: 'd-none',
+      href: `data:${mime},`,
+      download,
+      onclick: ev => {
+        ev.stopPropagation()
+      }
+    })
   ])) 
+  const trigger = btn.querySelector('a.d-none')
   const icon = btn.querySelector('i')
 
   return btn

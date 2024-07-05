@@ -1,6 +1,7 @@
 import ctrl from '../src/ctrl/index.js'
 import opt from '../src/ctrl/options.js'
 import tag from './tag.js'
+import wait from './wait.js'
 
 var ref = null
 export default ({
@@ -154,6 +155,7 @@ export default ({
           icon: 'face-smile',
           link: 'warning',
           title: 'Greetings',
+          description: 'My hello message!',
           href: data => {
             ref.closest('div').innerHTML = '<h1>Hello '+data+'!</h1>'
           },
@@ -167,8 +169,32 @@ export default ({
       html: 
 `<button
   class="btn btn-warning btn-lg"
+  title="My hello message!"
   type="button"
 ><span><i class="fa-solid fa-face-smile"></i> Greetings</span></button>`
+    }, {
+      title: 'A download link with delay',
+      data: [
+        {
+          icon: 'database',
+          link: 'secondary',
+          title: 'Backup',
+          description: 'Sample backup!',
+          href: data => wait(1000).then(() => `Hello ${data}!`),
+          data: 'josh',
+          download: 'sample.txt',
+          mime: 'text/plain'
+        }
+      ],
+      html: 
+`<button
+  class="btn btn-secondary"
+  title="Sample backup!"
+  type="button"
+>
+  <span><i class="fa-solid fa-database"></i> Backup</span>
+  <a class="d-none" href="data:text/plain," download="sample.txt"></a>
+</button>`
     }
   ]
 })

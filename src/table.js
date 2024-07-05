@@ -520,11 +520,13 @@ export default ({
                       .map(row => K.map(k => F[k](row[k])).join(sep))
                       .join(nl)
 
-                    return {data, name: state.exporter}
+                    return data
                   },
                   link: btns.exporter,
                   icon: icons.exporter,
-                  title: T('exporter')
+                  title: T('exporter'),
+                  download: state.exporter,
+                  mime: 'text/plain; charset=UTF-8'
                 })
               ])
             ])

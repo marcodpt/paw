@@ -37,18 +37,18 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
+ - allow link with options (dropdown)
+ - move table engine to user space
+
  - merge spec with source
  - semantic html tests, no string cmp
  - separate input and output options
- - allow link with options (dropdown)
- - move table engine to user space
  - allow children in docs and examples (ctrl case)
  - print goes with JSON and not as a raw function
  - allow to see other tests variants
  - remove lang support
  - remove non bootstrap options support, minimize options and review settings
  - nav as offcanvas and move all nav configuration to settings
- - emoji support on icons
 
 ### New Controls
  - array of itens
