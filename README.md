@@ -37,8 +37,12 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
- - allow link with options (dropdown)
  - move table engine to user space
+
+ - array of itens
+ - form as object
+ - nav as offcanvas and move all nav configuration to settings
+ - footer
 
  - merge spec with source
  - semantic html tests, no string cmp
@@ -48,11 +52,6 @@ minimum effort and maximum customization.
  - allow to see other tests variants
  - remove lang support
  - remove non bootstrap options support, minimize options and review settings
- - nav as offcanvas and move all nav configuration to settings
-
-### New Controls
- - array of itens
- - form as object
 
 ### Tests and docs
  - chart
@@ -67,7 +66,6 @@ minimum effort and maximum customization.
  - core router
 
 ### New components
- - footer
  - barcode
  - carousel
  - maps

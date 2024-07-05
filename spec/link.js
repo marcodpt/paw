@@ -195,6 +195,286 @@ export default ({
   <span><i class="fa-solid fa-database"></i> Backup</span>
   <a class="d-none" href="data:text/plain," download="sample.txt"></a>
 </button>`
+    }, {
+      title: 'A dropdown button',
+      data: [
+        {
+          icon: 'flask',
+          link: 'secondary',
+          title: 'Dropdown',
+          href: '',
+          links: [
+            {
+              icon: 'face-smile',
+              title: 'Say Hi!',
+              href: () => {window.alert('Hi!')}
+            }, {
+              icon: 'home',
+              title: 'Go Home!',
+              href: '#/'
+            }, {
+              icon: 'times',
+              title: 'No Action!'
+            }
+          ]
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <button
+    class="btn btn-secondary dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span><i class="fa-solid fa-flask"></i> Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a
+        class="dropdown-item"
+        href="javascript:;"
+      >
+        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item"
+        href="#/"
+      >
+        <span><i class="fa-solid fa-home"></i> Go Home!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item disabled"
+        href="javascript:;"
+        aria-disabled="true"
+      >
+        <span><i class="fa-solid fa-times"></i> No Action!</span>
+      </a>
+    </li>
+  </ul>
+</div>`
+    }, {
+      title: 'A dropdown split button large',
+      data: [
+        {
+          icon: 'face-smile',
+          link: 'warning',
+          title: 'Say Hi!',
+          href: () => {window.alert('Hi!')},
+          size: 'lg',
+          links: [
+            {
+              icon: 'face-smile',
+              title: 'Say Hi!',
+              href: () => {window.alert('Hi!')}
+            }, {
+              icon: 'home',
+              title: 'Go Home!',
+              href: '#/'
+            }, {
+              icon: 'times',
+              title: 'No Action!'
+            }
+          ]
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <button
+    class="btn btn-warning btn-lg"
+    type="button"
+  >
+    <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
+  </button>
+  <button
+    class="btn btn-warning btn-lg dropdown-toggle dropdown-toggle-split"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a
+        class="dropdown-item"
+        href="javascript:;"
+      >
+        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item"
+        href="#/"
+      >
+        <span><i class="fa-solid fa-home"></i> Go Home!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item disabled"
+        href="javascript:;"
+        aria-disabled="true"
+      >
+        <span><i class="fa-solid fa-times"></i> No Action!</span>
+      </a>
+    </li>
+  </ul>
+</div>`
+    }, {
+      title: 'A dropdown split link small',
+      data: [
+        {
+          icon: 'home',
+          link: 'info',
+          title: 'Go Home!',
+          href: '#/',
+          size: 'sm',
+          links: [
+            {
+              icon: 'face-smile',
+              title: 'Say Hi!',
+              href: () => {window.alert('Hi!')}
+            }, {
+              icon: 'home',
+              title: 'Go Home!',
+              href: '#/'
+            }, {
+              icon: 'times',
+              title: 'No Action!'
+            }
+          ]
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <a
+    class="btn btn-info btn-sm"
+    href="#/"
+  >
+    <span><i class="fa-solid fa-home"></i> Go Home!</span>
+  </a>
+  <button
+    class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a
+        class="dropdown-item"
+        href="javascript:;"
+      >
+        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item"
+        href="#/"
+      >
+        <span><i class="fa-solid fa-home"></i> Go Home!</span>
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item disabled"
+        href="javascript:;"
+        aria-disabled="true"
+      >
+        <span><i class="fa-solid fa-times"></i> No Action!</span>
+      </a>
+    </li>
+  </ul>
+</div>`
+    }, {
+      title: 'A disabled dropdown button',
+      data: [
+        {
+          icon: 'flask',
+          link: 'secondary',
+          title: 'Dropdown',
+          href: '',
+          links: []
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <button
+    class="btn btn-secondary disabled dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span><i class="fa-solid fa-flask"></i> Dropdown</span>
+  </button>
+  <ul class="dropdown-menu">
+  </ul>
+</div>`
+    }, {
+      title: 'A disabled dropdown split button small',
+      data: [
+        {
+          icon: 'face-smile',
+          link: 'warning',
+          title: 'Say Hi!',
+          href: () => {window.alert('Hi!')},
+          size: 'sm',
+          links: []
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <button
+    class="btn btn-warning btn-sm"
+    type="button"
+  >
+    <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
+  </button>
+  <button
+    class="btn btn-warning btn-sm disabled dropdown-toggle dropdown-toggle-split"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+  </button>
+  <ul class="dropdown-menu"></ul>
+</div>`
+    }, {
+      title: 'A disabled dropdown split link large',
+      data: [
+        {
+          icon: 'home',
+          link: 'info',
+          title: 'Go Home!',
+          href: '#/',
+          size: 'lg',
+          links: []
+        }
+      ],
+      html: 
+`<div class="btn-group">
+  <a
+    class="btn btn-info btn-lg"
+    href="#/"
+  >
+    <span><i class="fa-solid fa-home"></i> Go Home!</span>
+  </a>
+  <button
+    class="btn btn-info btn-lg disabled dropdown-toggle dropdown-toggle-split"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+  </button>
+  <ul class="dropdown-menu"></ul>
+</div>`
     }
   ]
 })

@@ -10,17 +10,19 @@ export default ({
   description,
   download,
   mime,
+  links,
   ...extra
 }) => {
-  const isBtn = typeof href != 'string'
-  const type = isBtn ? 'button' : null
-  const isDisabled = !href
+  const hasDrop = links instanceof Array
+  const hasLinks = hasDrop && links.length
+  const isDisabled = !href && !hasLinks
+  const hasSplit = href && hasDrop
+  const isBtn = typeof href != 'string' || (hasDrop && !hasSplit)
+
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   link = opt('link', true).indexOf(link) >= 0 ? link :
     isBtn ? 'primary' :
       size || isDisabled ? 'link' : ''
-  link = (link ? 'btn btn-'+link+(size ? ' btn-'+size : '') : '')+
-    (isDisabled ? ' disabled' : '')
 
   const run = typeof href == 'function' ? href : null
   const resolve = () => typeof data == 'function' ? data() : data
@@ -80,12 +82,19 @@ export default ({
   }
 
   const btn = e(({button, a, span}) => (isBtn ? button : a)({
-    class: link || null,
+    class: [
+      link ? 'btn btn-'+link : '',
+      size ? 'btn-'+size : '',
+      isDisabled ? 'disabled' : '',
+      hasDrop && !hasSplit ? 'dropdown-toggle' : ''
+    ],
     title: description || null,
-    type,
+    type: isBtn ? 'button' : null,
     onclick,
     href,
-    target
+    target,
+    dataBsToggle: hasDrop && !hasSplit ? 'dropdown' : null,
+    ariaExpanded: hasDrop && !hasSplit ? 'false' : null
   }, [
     tag(extra),
     !download || !mime ? null : a({
@@ -100,5 +109,40 @@ export default ({
   const trigger = btn.querySelector('a.d-none')
   const icon = btn.querySelector('i')
 
-  return btn
+  return !hasDrop ? btn : e(({div, ul, li, a, button}) => 
+    div({
+      class: 'btn-group'
+    }, [
+      btn,
+      !hasSplit ? null : button({
+        class: [
+          link ? 'btn btn-'+link : '',
+          size ? 'btn-'+size : '',
+          !hasLinks ? 'disabled' : '',
+          'dropdown-toggle',
+          'dropdown-toggle-split'
+        ],
+        type: 'button',
+        dataBsToggle: 'dropdown',
+        ariaExpanded: 'false'
+      }),
+      ul({
+        class: 'dropdown-menu'
+      }, links.map(({href, ...extra}) => 
+        li({}, [
+          a({
+            class: [
+              'dropdown-item',
+              !href ? 'disabled' : ''
+            ],
+            href: href && typeof href == 'string' ? href : 'javascript:;',
+            onclick: typeof href != 'function' ? null : href,
+            ariaDisabled: !href ? 'true' : null
+          }, [
+            tag(extra)
+          ])
+        ])
+      ))
+    ])
+  )
 }
