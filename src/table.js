@@ -10,7 +10,6 @@ import T from './lang/index.js'
 const btns = {
   close: 'secondary',
   pagination: 'secondary',
-  group: 'warning',
   check: 'success'
 }
 
@@ -20,7 +19,6 @@ const icons = {
   next: 'step-forward',
   last: 'fast-forward',
   close: 'times',
-  group: 'th',
   check: 'check',
   sort: 'sort',
   sortAsc: 'sort-down',
@@ -126,7 +124,6 @@ export default ({
   }, {})
   const U = Object.keys(M)
   const hasTotals = U.length > 0
-  const O = Object.keys(T('operators'))
   const Z = Y.reduce((Z, k) => ({
     ...Z,
     [k]: data => {
@@ -206,7 +203,12 @@ export default ({
                   data: () => ({
                     rows: state.rows,
                     checked: state.checked,
-                    F
+                    F,
+                    group: state.group,
+                    setGroup: g => {
+                      state.group = g
+                      update()
+                    }
                   })
                 })
               ])
@@ -273,23 +275,8 @@ export default ({
                 class: 'col-auto'
               }, [
                 ctrl({
-                  title: '',
-                  href: () => {
-                    state.search = ''
-                    refs.search.querySelector('input').value = ''
-                    update()
-                  },
-                  link: btns.close,
-                  icon: icons.close,
-                  init: el => refs.clear = el
-                })
-              ]),
-              state.noSearch ? null : div({
-                class: 'col-auto'
-              }, [
-                ctrl({
                   type: 'string',
-                  description: T('search'),
+                  description: '🔎',
                   noValid: true,
                   title: 'search',
                   default: state.search,
@@ -298,53 +285,6 @@ export default ({
                     if (!err && v != state.search) {
                       state.search = v
                       update()
-                    }
-                  },
-                  init: el => refs.search = el
-                })
-              ]),
-              !hasTotals || state.noGroup ? null : div({
-                class: 'col-auto'
-              }, [
-                state.bgrp = ctrl({
-                  title: T('group'),
-                  link: btns.group,
-                  icon: icons.group,
-                  href: () => {
-                    if (state.group) {
-                      state.group = null
-                      state.bgrp.innerHTML = ''
-                      state.bgrp.appendChild(tag({
-                        title: T('group'),
-                        icon: icons.group
-                      }))
-                      update()
-                    } else {
-                      modal({
-                        title: T('group'),
-                        icon: icons.group,
-                        properties: {
-                          fields: {
-                            type: 'array',
-                            title: '',
-                            noValid: true,
-                            default: [],
-                            options: K.map(k => ({
-                              value: k,
-                              label: P[k].title || k
-                            }))
-                          }
-                        },
-                        submit: ({fields}) => {
-                          state.group = fields
-                          state.bgrp.innerHTML = ''
-                          state.bgrp.appendChild(tag({
-                            title: T('group'),
-                            icon: icons.close
-                          }))
-                          update()
-                        }
-                      })
                     }
                   }
                 })
@@ -471,10 +411,6 @@ export default ({
         refs.previous.disabled = state.page <= 1
         refs.next.disabled = state.page >= state.pages
         refs.last.disabled = state.page >= state.pages
-      }
-
-      if (!state.noSearch) {
-        refs.clear.disabled = !state.search
       }
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')

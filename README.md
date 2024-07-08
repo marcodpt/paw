@@ -44,6 +44,8 @@ minimum effort and maximum customization.
  - nav as offcanvas and move all nav configuration to settings
  - footer
 
+ - formatter should be a component?
+ - allow icon with input to avoid unicode and translation
  - merge spec with source
  - semantic html tests, no string cmp
  - separate input and output options

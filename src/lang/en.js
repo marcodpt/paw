@@ -14,13 +14,6 @@ export default {
   enum: v => `Must be one of the possible options.`,
 
   pagination: (page, pages) => `Page ${page} of ${pages}`,
-  search: 'Search',
-  group: 'Group',
-  check: 'Select',
-  sort: [
-    'Sort by this field.',
-    'Double-click to sort in descending order.'
-  ].join('\n'),
   boolFalse: 'No',
   boolTrue: 'Yes'
 }

@@ -4,7 +4,7 @@ const Info = {
   title: 'Export'
 }
 
-export default ({modal, wait}, schema, data, run) => ({
+export default (_, schema, data, run) => ({
   ...Info,
   mime: 'text/plain; charset=UTF-8',
   download: (schema.title || 'data').toLowerCase().split(' ').join('_')+'.txt',
