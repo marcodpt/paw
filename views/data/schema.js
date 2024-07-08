@@ -42,32 +42,6 @@ export default {
         ui: 'num.2',
         totals: 'sum'
       }
-    },
-    links: [
-      {
-        link: 'danger',
-        icon: 'trash',
-        title: 'Delete',
-        href: '#/delete/users/{id}'
-      }, {
-        link: 'warning',
-        icon: 'edit',
-        title: 'Edit',
-        href: '#/edit/users/{id}'
-      }
-    ]
-  },
-  links: [
-    {
-      link: 'success',
-      icon: 'pencil',
-      title: 'Insert',
-      href: '#/insert/users'
-    }, {
-      link: 'dark',
-      icon: 'info-circle',
-      title: 'Counter',
-      href: '#/counter/users'
     }
-  ]
+  }
 }

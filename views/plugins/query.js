@@ -123,11 +123,11 @@ export default ({modal, ctrl}, schema, data, run) => {
         S.operator = 'ct'
         Data.title = `${field} ${operator} ${value}`
         S.filters.push(Data)
-        buildFilter()
+        build()
       }
     })
   }
-  const buildFilter = () => {
+  const build = () => {
     S.el.replaceWith(ctrl({
       ...btnFilter,
       links: !S.filters.length ? null :
@@ -136,7 +136,7 @@ export default ({modal, ctrl}, schema, data, run) => {
           title: f.title,
           href: () => {
             S.filters.splice(i, 1)
-            buildFilter()
+            build()
           }
         }))
     }))

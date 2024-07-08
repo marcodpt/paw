@@ -27,7 +27,7 @@ export default ({
   const K = Object.keys(P)
   const hasAlert = ui && description
   const hasLegend = close || title || icon
-  const Data = schema.default || {}
+  const Data = {...schema.default} || {}
   const Label = {}
   var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
   var hasErr = false
@@ -136,9 +136,9 @@ export default ({
           return
         }
 
-        if (P[k].default !== undefined && Data[k] !== undefined) {
+        /*if (P[k].default !== undefined && Data[k] !== undefined) {
           delete Data[k]
-        }
+        }*/
 
         col = P[k].col || col
         const {title, description, ...schema} = {

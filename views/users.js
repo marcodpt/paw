@@ -1,95 +1,26 @@
 import users from './data/users.js'
 import schema from './data/schema.js'
+import post from './plugins/post.js'
+import count from './plugins/count.js'
 import query from './plugins/query.js'
+import remove from './plugins/remove.js'
+import edit from './plugins/edit.js'
 
 export default (X) => {
   const {render, table, modal, wait} = X
-  schema.links[0].href = () => {
-    const P = {...schema.items.properties}
-    delete P.id
-    const H = {
-      icon: schema.links[0].icon,
-      title: 'Insert'
-    }
-    modal({
-      ...H,
-      properties: P,
-      submit: user => {
-        users.push({
-          ...user,
-          id: users.reduce(
-            (rowid, {id}) => id >= rowid ? id + 1 : rowid
-          , 0)
-        })
-        tbl.setData(users)
-        modal({
-          ...H,
-          ui: 'success',
-          description: 'New user inserted!'
-        })
-      }
-    })
-  }
-  schema.links[1].href = rows => wait(1000).then(() => {
-    const msg = `Hello!\n${!rows ? 0 : rows.length} user(s) checked!`
-    modal({
-      title: schema.links[1].title,
-      icon: schema.links[1].icon,
-      ui: schema.links[1].link,
-      description: msg
-    })
-  })
-  schema.links.push(query(X, schema, users, data => {
+  const plugin = method => method(X, schema, users, data => {
     tbl.setData(data)
-  }))
+  })
 
-  schema.items.links[0].href = user => {
-    const H = {
-      icon: schema.items.links[0].icon,
-      title: 'Delete: '+user.name
-    }
-    return modal({
-      ...H,
-      description: [
-        'Do you want to delete this row?',
-        'This decision cannot be undone.'
-      ].join('\n'),
-      submit: () => wait(2000).then(() => {
-        const i = users.reduce((p, {id}, i) => id == user.id ? i : p, -1)
-        if (i >= 0) {
-          users.splice(i, 1)
-          tbl.setData(users)
-        }
-        modal({
-          ...H,
-          ui: 'success',
-          description: `User ${user.name} was removed!`
-        })
-      })
-    })
-  }
-  schema.items.links[1].href = user => {
-    const P = {...schema.items.properties}
-    delete P.id
-    const H = {
-      icon: schema.items.links[1].icon,
-      title: 'Edit: '+user.name
-    }
-    modal({
-      ...H,
-      properties: P,
-      default: user,
-      submit: data => {
-        Object.assign(users.filter(({id}) => id == user.id)[0], data)
-        tbl.setData(users)
-        modal({
-          ...H,
-          ui: 'success',
-          description: `User ${user.name} was edited!`
-        })
-      }
-    })
-  }
+  schema.links = []
+  schema.links.push(plugin(post))
+  schema.links.push(plugin(count))
+  schema.links.push(plugin(query))
+
+  schema.items.links = []
+  schema.items.links.push(plugin(remove))
+  schema.items.links.push(plugin(edit))
+
   schema.config = {
     limit: null,
     noSearch: false,
