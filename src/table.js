@@ -11,7 +11,6 @@ const btns = {
   close: 'secondary',
   pagination: 'secondary',
   group: 'warning',
-  exporter: 'secondary',
   check: 'success'
 }
 
@@ -22,7 +21,6 @@ const icons = {
   last: 'fast-forward',
   close: 'times',
   group: 'th',
-  exporter: 'file',
   check: 'check',
   sort: 'sort',
   sortAsc: 'sort-down',
@@ -161,9 +159,6 @@ export default ({
     noGroup: !!config.noGroup,
     noCheck: !!config.noCheck,
     noSort: !!config.noSort,
-    exporter: config.exporter == null ?
-      (title || 'data').toLowerCase().split(' ').join('_')+'.txt' :
-      config.exporter,
     sort: null,
     page: 1,
     pages: 1,
@@ -208,7 +203,11 @@ export default ({
               }, [
                 ctrl({
                   ...X,
-                  data: () => state.checked
+                  data: () => ({
+                    rows: state.rows,
+                    checked: state.checked,
+                    F
+                  })
                 })
               ])
             ))
@@ -262,8 +261,7 @@ export default ({
           ])
         ]),
         state.noSearch &&
-        (!hasTotals || state.noGroup) &&
-        !state.exporter ? null : tr({}, [
+        (!hasTotals || state.noGroup) ? null : tr({}, [
           th({
             class: 'text-center',
             colspan: '100%'
@@ -349,29 +347,6 @@ export default ({
                       })
                     }
                   }
-                })
-              ]),
-              !state.exporter ? null : div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  href: () => {
-                    const nl = '\n'
-                    const sep = '\t'
-                    
-                    var data = ''
-                    data += K.map(k => P[k].title || k).join(sep)+nl
-                    data += state.rows
-                      .map(row => K.map(k => F[k](row[k])).join(sep))
-                      .join(nl)
-
-                    return data
-                  },
-                  link: btns.exporter,
-                  icon: icons.exporter,
-                  title: T('exporter'),
-                  download: state.exporter,
-                  mime: 'text/plain; charset=UTF-8'
                 })
               ])
             ])

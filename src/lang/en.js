@@ -16,7 +16,6 @@ export default {
   pagination: (page, pages) => `Page ${page} of ${pages}`,
   search: 'Search',
   group: 'Group',
-  exporter: 'Export',
   check: 'Select',
   sort: [
     'Sort by this field.',

@@ -1,5 +1,3 @@
-import {formatter} from '../../src/lib.js'
-
 export default ({modal, ctrl}, schema, data, run) => {
   const btnFilter = {
     link: 'info',
@@ -8,10 +6,6 @@ export default ({modal, ctrl}, schema, data, run) => {
   }
   const P = schema.items.properties
   const K = Object.keys(P)
-  const F = K.reduce((F, k) => ({
-    ...F,
-    [k]: formatter(P[k])
-  }), {})
   const S = {
     el: null,
     field: null,
@@ -22,7 +16,11 @@ export default ({modal, ctrl}, schema, data, run) => {
   btnFilter.init = el => {
     S.el = el
   }
-  btnFilter.href = () => {
+  btnFilter.href = X => {
+    if (X) {
+      S.F = X.F
+    }
+    const F = S.F
     modal({
       title: btnFilter.title,
       icon: btnFilter.icon,
@@ -146,7 +144,7 @@ export default ({modal, ctrl}, schema, data, run) => {
     }) => data.filter(row => {
       const op = operator
       const v = row[field]
-      const f = F[field]
+      const f = S.F[field]
       return v == null ? false :
         op == 'ct' ? f(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
         op == 'nc' ? f(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 

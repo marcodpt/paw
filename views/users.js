@@ -3,6 +3,7 @@ import schema from './data/schema.js'
 import post from './plugins/post.js'
 import count from './plugins/count.js'
 import query from './plugins/query.js'
+import exporter from './plugins/exporter.js'
 import remove from './plugins/remove.js'
 import edit from './plugins/edit.js'
 
@@ -16,6 +17,7 @@ export default (X) => {
   schema.links.push(plugin(post))
   schema.links.push(plugin(count))
   schema.links.push(plugin(query))
+  schema.links.push(plugin(exporter))
 
   schema.items.links = []
   schema.items.links.push(plugin(remove))
@@ -27,7 +29,6 @@ export default (X) => {
     noGroup: false,
     noCheck: false,
     noSort: false,
-    exporter: null,
     table: '',
     css: ''
   }
