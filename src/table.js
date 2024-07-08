@@ -197,6 +197,106 @@ export default ({
       (config.css ? ' '+config.css : '')
   }
 
+  const buildFilter = () => ctrl({
+    title: T('filter'),
+    link: btns.filter,
+    icon: icons.filter,
+    init: el => {
+      state.filter.x = el
+    },
+    href: () => {
+      modal({
+        title: T('filter'),
+        icon: icons.filter,
+        properties: {
+          field: {
+            type: 'string',
+            title: T('field'),
+            noValid: true,
+            default: K[0],
+            options: K.map(k => ({
+              value: k,
+              label: P[k].title || k
+            }))
+          },
+          operator: {
+            type: 'string',
+            title: T('operator'),
+            noValid: true,
+            default: O[0],
+            options: O.map(o => ({
+              value: o,
+              label: T('operators')[o]
+            }))
+          },
+          value: {
+            type: 'string',
+            minLength: 1,
+            title: T('value'),
+            noValid: true
+          }
+        },
+        update: (err, Data, Label, form) => {
+          const X = state.filter
+          const {field, operator, value} = Data
+          const isFixed = op => ['ct', 'nc'].indexOf(op) < 0
+          const fixed = isFixed(operator)
+          const changed = (X.field !== field && fixed) || 
+            fixed !== isFixed(X.operator)
+          X.field = field
+          X.operator = operator
+          if (changed) {
+            if (fixed) {
+              const Opt = state.data.map(row => ({
+                value: row[field],
+                label: F[field](row[field])
+              }))
+              Opt.sort(cmp(['value']))
+              form.setProp({
+                value: {
+                  type: P[field].type,
+                  title: T('value'),
+                  noValid: true,
+                  options: Opt.filter(
+                    (o, i) => !i || o.value != Opt[i - 1].value
+                  )
+                }
+              })
+            } else {
+              form.setProp({
+                value: {
+                  type: 'string',
+                  title: T('value'),
+                  noValid: true,
+                  minLength: 1
+                }
+              })
+            }
+          }
+        },
+        submit: (Data, {field, operator, value}) => {
+          state.filter.field = K[0]
+          state.filter.operator = O[0]
+          Data.title = `${field} ${operator} ${value}`
+          state.filters.push(Data)
+          state.filter.x.replaceWith(buildFilter())
+          update()
+        }
+      })
+    },
+    links: !state.filters.length ? null : state.filters.map((f, i) =>
+      ({
+        icon: icons.close,
+        title: f.title,
+        href: () => {
+          state.filters.splice(i, 1)
+          state.filter.x.replaceWith(buildFilter())
+          update()
+        }
+      })
+    )
+  })
+
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul, span
   }) =>
@@ -330,135 +430,7 @@ export default ({
                 class: 'col-auto',
                 dataCtx: 'filters'
               }, [
-                state.filter.x = ctrl({
-                  title: T('filter'),
-                  link: btns.filter,
-                  icon: icons.filter,
-                  href: () => {
-                    modal({
-                      title: T('filter'),
-                      icon: icons.filter,
-                      properties: {
-                        field: {
-                          type: 'string',
-                          title: T('field'),
-                          noValid: true,
-                          default: K[0],
-                          options: K.map(k => ({
-                            value: k,
-                            label: P[k].title || k
-                          }))
-                        },
-                        operator: {
-                          type: 'string',
-                          title: T('operator'),
-                          noValid: true,
-                          default: O[0],
-                          options: O.map(o => ({
-                            value: o,
-                            label: T('operators')[o]
-                          }))
-                        },
-                        value: {
-                          type: 'string',
-                          minLength: 1,
-                          title: T('value'),
-                          noValid: true
-                        }
-                      },
-                      update: (err, Data, Label, form) => {
-                        const X = state.filter
-                        const {field, operator, value} = Data
-                        const isFixed = op => ['ct', 'nc'].indexOf(op) < 0
-                        const fixed = isFixed(operator)
-                        const changed = (X.field !== field && fixed) || 
-                          fixed !== isFixed(X.operator)
-                        X.field = field
-                        X.operator = operator
-                        if (changed) {
-                          if (fixed) {
-                            const Opt = state.data.map(row => ({
-                              value: row[field],
-                              label: F[field](row[field])
-                            }))
-                            Opt.sort(cmp(['value']))
-                            form.setProp({
-                              value: {
-                                type: P[field].type,
-                                title: T('value'),
-                                noValid: true,
-                                options: Opt.filter(
-                                  (o, i) => !i || o.value != Opt[i - 1].value
-                                )
-                              }
-                            })
-                          } else {
-                            form.setProp({
-                              value: {
-                                type: 'string',
-                                title: T('value'),
-                                noValid: true,
-                                minLength: 1
-                              }
-                            })
-                          }
-                        }
-                      },
-                      submit: (Data, {field, operator, value}) => {
-                        state.filter.field = K[0]
-                        state.filter.operator = O[0]
-                        Data.label = `${field} ${operator} ${value}`
-                        state.filters.push(Data)
-                        const f = tbl.querySelector('[data-ctx=filters]')
-                        const ul = f.querySelector('ul')
-                        const btn = f
-                          .querySelector('button[data-bs-toggle=dropdown]')
-                        ul.classList.remove('d-none')
-                        btn.classList.remove('d-none')
-                        f.classList.add('btn-group')
-                        ul.appendChild(e(({li, a, text}) => 
-                          li({}, [
-                            a({
-                              class: 'dropdown-item',
-                              href: 'javascript:;',
-                              onclick: ev => {
-                                const node = ev.target.closest('li')
-                                const ul = node.closest('ul')
-                                const list = ul.querySelectorAll('li')
-                                const n = Array.from(list).reduce(
-                                  (p, li, i) => p == null && li == node ? i : p
-                                , null)
-                                state.filters.splice(n, 1)
-                                rm(node)
-                                if (!state.filters.length) {
-                                  ul.classList.add('d-none')
-                                  btn.classList.add('d-none')
-                                  f.classList.remove('btn-group')
-                                }
-                                update()
-                              }
-                            }, [
-                              tag({
-                                icon: icons.close,
-                                title: Data.label
-                              })
-                            ])
-                          ])
-                        ))
-                        update()
-                      }
-                    })
-                  }
-                }),
-                button({
-                  dataBsToggle: 'dropdown',
-                  ariaExpanded: 'false',
-                  class: 'dropdown-toggle dropdown-toggle-split d-none '+
-                    state.filter.x.getAttribute('class')
-                }),
-                ul({
-                  class: 'dropdown-menu d-none'
-                })
+                buildFilter()
               ]),
               !hasTotals || state.noGroup ? null : div({
                 class: 'col-auto'

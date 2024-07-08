@@ -50,7 +50,7 @@ minimum effort and maximum customization.
  - allow children in docs and examples (ctrl case)
  - print goes with JSON and not as a raw function
  - allow to see other tests variants
- - remove lang support
+ - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
 
 ### Tests and docs

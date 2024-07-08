@@ -180,6 +180,7 @@ export default ({
               description: !title ? description : null,
               css: !title ? null : 'col-md-9',
               update: (err, v, label) => {
+                label = typeof label != 'string' ? String(v) : label
                 Data[k] = v
                 Label[k] = label
                 Err[k] = !!err
