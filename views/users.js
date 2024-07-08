@@ -28,7 +28,6 @@ export default (X) => {
   schema.config = {
     limit: null,
     noSearch: false,
-    noGroup: false,
     noCheck: false,
     noSort: false,
     table: '',
