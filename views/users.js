@@ -1,7 +1,9 @@
 import users from './data/users.js'
 import schema from './data/schema.js'
+import query from './plugins/query.js'
 
-export default ({render, table, modal, wait}) => {
+export default (X) => {
+  const {render, table, modal, wait} = X
   schema.links[0].href = () => {
     const P = {...schema.items.properties}
     delete P.id
@@ -37,6 +39,10 @@ export default ({render, table, modal, wait}) => {
       description: msg
     })
   })
+  schema.links.push(query(X, schema, users, data => {
+    tbl.setData(data)
+  }))
+
   schema.items.links[0].href = user => {
     const H = {
       icon: schema.items.links[0].icon,
@@ -87,7 +93,6 @@ export default ({render, table, modal, wait}) => {
   schema.config = {
     limit: null,
     noSearch: false,
-    noFilter: false,
     noGroup: false,
     noCheck: false,
     noSort: false,

@@ -15,7 +15,6 @@ export default {
 
   pagination: (page, pages) => `Página ${page} de ${pages}`,
   search: 'Buscar',
-  filter: 'Filtrar',
   group: 'Agrupar',
   exporter: 'Exportar',
   check: 'Selecionar',
@@ -24,19 +23,5 @@ export default {
     'Clique duas vezes para ordenar descendente.'
   ].join('\n'),
   boolFalse: 'Não',
-  boolTrue: 'Sim',
-
-  field: 'Campo',
-  operator: 'Operador',
-  value: 'Valor',
-  operators: {
-    ct: 'Contém',
-    nc: 'Não contém',
-    eq: 'É igual a',
-    ne: 'Não é igual a',
-    gt: 'Maior que',
-    ge: 'Maior ou igual a',
-    lt: 'Menor que',
-    le: 'Menor ou igual a'
-  }
+  boolTrue: 'Sim'
 }

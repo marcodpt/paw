@@ -15,7 +15,6 @@ export default {
 
   pagination: (page, pages) => `Page ${page} of ${pages}`,
   search: 'Search',
-  filter: 'Filter',
   group: 'Group',
   exporter: 'Export',
   check: 'Select',
@@ -24,19 +23,5 @@ export default {
     'Double-click to sort in descending order.'
   ].join('\n'),
   boolFalse: 'No',
-  boolTrue: 'Yes',
-
-  field: 'Field',
-  operator: 'Operator',
-  value: 'Value',
-  operators: {
-    ct: 'Contains',
-    nc: 'Not contains',
-    eq: 'Equals',
-    ne: 'Not equals',
-    gt: 'Greater than',
-    ge: 'Greater than or equals',
-    lt: 'Less than',
-    le: 'Less than or equals'
-  }
+  boolTrue: 'Yes'
 }

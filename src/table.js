@@ -10,7 +10,6 @@ import T from './lang/index.js'
 const btns = {
   close: 'secondary',
   pagination: 'secondary',
-  filter: 'info',
   group: 'warning',
   exporter: 'secondary',
   check: 'success'
@@ -22,7 +21,6 @@ const icons = {
   next: 'step-forward',
   last: 'fast-forward',
   close: 'times',
-  filter: 'filter',
   group: 'th',
   exporter: 'file',
   check: 'check',
@@ -102,23 +100,6 @@ const group = (Fields, Methods) => data => {
   )
 }
 
-const filter = (Filters, F) => data => Filters.reduce((data, {
-  field, operator, value
-}) => data.filter(row => {
-  const op = operator
-  const v = row[field]
-  const f = F[field]
-  return v == null ? false :
-    op == 'ct' ? f(v).toLowerCase().indexOf(value.toLowerCase()) >= 0 : 
-    op == 'nc' ? f(v).toLowerCase().indexOf(value.toLowerCase()) < 0 : 
-    op == 'eq' ? v == value : 
-    op == 'ne' ? v != value : 
-    op == 'gt' ? v > value : 
-    op == 'ge' ? v >= value : 
-    op == 'lt' ? v < value : 
-    op == 'le' ? v <= value : true
-}), data)
-
 export default ({
   title,
   links,
@@ -177,7 +158,6 @@ export default ({
     rows: null,
     search: '',
     noSearch: !!config.noSearch,
-    noFilter: !!config.noFilter,
     noGroup: !!config.noGroup,
     noCheck: !!config.noCheck,
     noSort: !!config.noSort,
@@ -196,106 +176,6 @@ export default ({
       .map(c => c.trim()).filter(c => c).map(c => 'table-'+c).join(' ')+
       (config.css ? ' '+config.css : '')
   }
-
-  const buildFilter = () => ctrl({
-    title: T('filter'),
-    link: btns.filter,
-    icon: icons.filter,
-    init: el => {
-      state.filter.x = el
-    },
-    href: () => {
-      modal({
-        title: T('filter'),
-        icon: icons.filter,
-        properties: {
-          field: {
-            type: 'string',
-            title: T('field'),
-            noValid: true,
-            default: K[0],
-            options: K.map(k => ({
-              value: k,
-              label: P[k].title || k
-            }))
-          },
-          operator: {
-            type: 'string',
-            title: T('operator'),
-            noValid: true,
-            default: O[0],
-            options: O.map(o => ({
-              value: o,
-              label: T('operators')[o]
-            }))
-          },
-          value: {
-            type: 'string',
-            minLength: 1,
-            title: T('value'),
-            noValid: true
-          }
-        },
-        update: (err, Data, Label, form) => {
-          const X = state.filter
-          const {field, operator, value} = Data
-          const isFixed = op => ['ct', 'nc'].indexOf(op) < 0
-          const fixed = isFixed(operator)
-          const changed = (X.field !== field && fixed) || 
-            fixed !== isFixed(X.operator)
-          X.field = field
-          X.operator = operator
-          if (changed) {
-            if (fixed) {
-              const Opt = state.data.map(row => ({
-                value: row[field],
-                label: F[field](row[field])
-              }))
-              Opt.sort(cmp(['value']))
-              form.setProp({
-                value: {
-                  type: P[field].type,
-                  title: T('value'),
-                  noValid: true,
-                  options: Opt.filter(
-                    (o, i) => !i || o.value != Opt[i - 1].value
-                  )
-                }
-              })
-            } else {
-              form.setProp({
-                value: {
-                  type: 'string',
-                  title: T('value'),
-                  noValid: true,
-                  minLength: 1
-                }
-              })
-            }
-          }
-        },
-        submit: (Data, {field, operator, value}) => {
-          state.filter.field = K[0]
-          state.filter.operator = O[0]
-          Data.title = `${field} ${operator} ${value}`
-          state.filters.push(Data)
-          state.filter.x.replaceWith(buildFilter())
-          update()
-        }
-      })
-    },
-    links: !state.filters.length ? null : state.filters.map((f, i) =>
-      ({
-        icon: icons.close,
-        title: f.title,
-        href: () => {
-          state.filters.splice(i, 1)
-          state.filter.x.replaceWith(buildFilter())
-          update()
-        }
-      })
-    )
-  })
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul, span
@@ -382,7 +262,6 @@ export default ({
           ])
         ]),
         state.noSearch &&
-        state.noFilter &&
         (!hasTotals || state.noGroup) &&
         !state.exporter ? null : tr({}, [
           th({
@@ -425,12 +304,6 @@ export default ({
                   },
                   init: el => refs.search = el
                 })
-              ]),
-              state.noFilter ? null : div({
-                class: 'col-auto',
-                dataCtx: 'filters'
-              }, [
-                buildFilter()
               ]),
               !hasTotals || state.noGroup ? null : div({
                 class: 'col-auto'
@@ -576,8 +449,7 @@ export default ({
     x.innerHTML = ''
     if (state.data instanceof Array) {
       state.base = run(
-        search(state.search),
-        filter(state.filters, F)
+        search(state.search)
       )(state.data)
       state.rows = run(
         state.group ? group(state.group, M) : identity,

@@ -64,7 +64,7 @@ export default {
       title: 'Insert',
       href: '#/insert/users'
     }, {
-      link: 'info',
+      link: 'dark',
       icon: 'info-circle',
       title: 'Counter',
       href: '#/counter/users'
