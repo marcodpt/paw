@@ -68,6 +68,8 @@ minimum effort and maximum customization.
  - core router
 
 ### New components
+ - pagination
+ - alert
  - barcode
  - carousel
  - maps

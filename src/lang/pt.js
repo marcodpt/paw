@@ -13,7 +13,6 @@ export default {
   maximum: v => `Deve ser no máximo: ${v}`,
   enum: v => `Deve ser uma das opções possíveis.`,
 
-  pagination: (page, pages) => `Página ${page} de ${pages}`,
   boolFalse: 'Não',
   boolTrue: 'Sim'
 }

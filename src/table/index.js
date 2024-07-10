@@ -2,13 +2,8 @@ import e from '../e.js'
 import {rm, formatter} from '../lib.js'
 import spinner from '../spinner.js'
 import tag from '../tag.js'
-import form from '../form.js'
-import modal from '../modal.js'
 import ctrl from '../ctrl/index.js'
-import T from '../lang/index.js'
-import {
-  group, Aggregates, search, pager, sort, identity, run
-} from './engine.js'
+import {Aggregates, engine} from './engine.js'
 
 const btns = {
   close: 'secondary',
@@ -151,9 +146,13 @@ export default ({
             class: 'text-center',
             colspan: '100%'
           }, [
-            form({
-              links: [
-                {
+            div({
+              class: 'row gx-1 justify-content-center'
+            }, [
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
                   href: () => {
                     state.page = 1
                     update()
@@ -161,7 +160,12 @@ export default ({
                   link: btns.pagination,
                   icon: icons.first,
                   init: el => refs.first = el
-                }, {
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
                   href: () => {
                     state.page--
                     update()
@@ -169,10 +173,20 @@ export default ({
                   link: btns.pagination,
                   icon: icons.previous,
                   init: el => refs.previous = el
-                }, {
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
                   ui: 'pending',
                   init: el => refs.pager = el
-                }, {
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
                   href: () => {
                     state.page++
                     update()
@@ -180,7 +194,12 @@ export default ({
                   link: btns.pagination,
                   icon: icons.next,
                   init: el => refs.next = el
-                }, {
+                })
+              ]),
+              div({
+                class: 'col-auto'
+              }, [
+                ctrl({
                   href: () => {
                     state.page = state.pages
                     update()
@@ -188,9 +207,9 @@ export default ({
                   link: btns.pagination,
                   icon: icons.last,
                   init: el => refs.last = el
-                }
-              ] 
-            })
+                })
+              ])
+            ])
           ])
         ]),
         state.noSearch && !hasTotals ? null : tr({}, [
@@ -289,25 +308,11 @@ export default ({
     ])
   )
 
-  const update = (prevent) => {
+  const update = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
-    if (state.data instanceof Array) {
-      state.base = run(
-        search(state.search)
-      )(state.data)
-      state.rows = run(
-        state.group ? group(state.group, M) : identity,
-        state.sort ? sort([state.sort]) : identity
-      )(state.base)
-      state.pages = Math.ceil(state.rows.length / state.limit) || 1
-      if (state.page > state.pages) {
-        state.page = state.pages
-      } else if (state.page < 1) {
-        state.page = 1
-      }
-      const view = run(pager(state.page, state.limit))(state.rows)
-
+    const view = engine(state, M)
+    if (view) {
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
         const s = state.sort
@@ -326,7 +331,7 @@ export default ({
             default: state.page,
             options: Array(state.pages).fill().map((v, i) => ({
               value: i + 1,
-              label: T('pagination')(i + 1, state.pages)
+              label: `${i + 1} / ${state.pages}`
             })),
             update: (err, v) => {
               if (!err && v && v != state.page) {
@@ -427,8 +432,6 @@ export default ({
         ))
       })
     } else {
-      state.base = null
-      state.rows = null
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
         t.textContent = M[k] ? '_' : '' 
