@@ -69,7 +69,8 @@ const group = (Fields, Methods) => data => {
   )
 }
 
-const engine = (state, M) => {
+export default (state, totals) => {
+  var view = null
   if (state.data instanceof Array) {
     state.base = run(
       search(state.search)
@@ -84,12 +85,29 @@ const engine = (state, M) => {
     } else if (state.page < 1) {
       state.page = 1
     }
-    return run(pager(state.page, state.limit))(state.rows)
+    view = run(pager(state.page, state.limit))(state.rows)
+
+    state.checked = state.base.filter(({checked}) => checked)
+    const C = state.checked.length ? state.checked : state.base
+
+    totals = Object.keys(totals).reduce((T, k) => {
+      const F = Aggregates[totals[k]]
+      if (F) {
+        T[k] = F(C.map(row => row[k]))
+      } else {
+        T[k] = '_'
+      }
+      return T
+    }, {})
   } else {
     state.base = null
     state.rows = null
-    return null
+    state.checked = [],
+    totals = Object.keys(totals).reduce((T, k) => {
+      T[k] = '_'
+      return T
+    }, {})
   }
-}
 
-export {Aggregates, engine}
+  return {view, totals}
+}

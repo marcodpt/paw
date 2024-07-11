@@ -3,20 +3,7 @@ import {rm, formatter} from '../lib.js'
 import spinner from '../spinner.js'
 import tag from '../tag.js'
 import ctrl from '../ctrl/index.js'
-import {Aggregates, engine} from './engine.js'
-
-const btns = {
-  close: 'secondary',
-  check: 'success'
-}
-
-const icons = {
-  close: 'times',
-  check: 'check',
-  sort: 'sort',
-  sortAsc: 'sort-down',
-  sortDesc: 'sort-up'
-}
+import engine from './engine.js'
 
 export default ({
   title,
@@ -37,10 +24,9 @@ export default ({
     ...F,
     [k]: formatter(P[k])
   }), {})
-  const A = Object.keys(Aggregates)
   const M = K.reduce((M, k) => {
-    if (A.indexOf(P[k].totals) >= 0) {
-      M[k] = V => Aggregates[P[k].totals](V)
+    if (P[k].totals) {
+      M[k] = P[k].totals
     }
     return M
   }, {})
@@ -196,8 +182,8 @@ export default ({
           }, [
             ctrl({
               size: 'sm',
-              link: btns.check,
-              icon: icons.check,
+              link: 'success',
+              icon: 'check',
               href: () => {
                 (state.base || []).forEach(row => {
                   row.checked = !row.checked
@@ -245,14 +231,14 @@ export default ({
   const update = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
-    const view = engine(state, M)
+    const {view, totals} = engine(state, M)
     if (view) {
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
         const s = state.sort
         f.innerHTML = ''
         f.appendChild(tag({
-          icon: icons['sort'+(s == k ? 'Asc' : s == '-'+k ? 'Desc' : '')]
+          icon: 'sort'+(s == k ? '-down' : s == '-'+k ? '-up' : '')
         }))
       })
 
@@ -291,17 +277,15 @@ export default ({
         })
       })
 
-      state.checked = state.base.filter(({checked}) => checked)
-      const C = state.checked.length ? state.checked : state.base
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
         t.innerHTML = ''
-        if (M[k]) {
+        if (totals[k] != null) {
           t.appendChild(ctrl({
             ...P[k],
             readOnly: true,
             href: null,
-            default: M[k](C.map(row => row[k]))
+            default: totals[k]
           }))
         }
       })
@@ -360,7 +344,8 @@ export default ({
     } else {
       tbl.querySelectorAll('[data-ctx^="totals:"]').forEach(t => {
         const k = t.getAttribute('data-ctx').substr(7)
-        t.textContent = M[k] ? '_' : '' 
+        const v = totals[k]
+        t.textContent = v != null ? v : '' 
       })
       x.appendChild(e(({tr, td}) =>
         tr({}, [
