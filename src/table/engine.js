@@ -71,6 +71,7 @@ const group = (Fields, Methods) => data => {
 
 export default (state, totals) => {
   var view = null
+  var pages = 1
   if (state.data instanceof Array) {
     state.base = run(
       search(state.search)
@@ -79,9 +80,9 @@ export default (state, totals) => {
       state.group ? group(state.group, M) : identity,
       state.sort ? sort([state.sort]) : identity
     )(state.base)
-    state.pages = Math.ceil(state.rows.length / state.limit) || 1
-    if (state.page > state.pages) {
-      state.page = state.pages
+    pages = Math.ceil(state.rows.length / state.limit) || 1
+    if (state.page > pages) {
+      state.page = pages
     } else if (state.page < 1) {
       state.page = 1
     }
@@ -109,5 +110,5 @@ export default (state, totals) => {
     }, {})
   }
 
-  return {view, totals}
+  return {view, totals, pages}
 }

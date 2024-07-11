@@ -63,7 +63,6 @@ export default ({
     last.disabled = value >= maximum
 
     if (!preserve) {
-      console.log(schema.noValid)
       const el = ctrl({
         ...schema,
         options,

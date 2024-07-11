@@ -32,30 +32,11 @@ export default ({
   }, {})
   const U = Object.keys(M)
   const hasTotals = U.length > 0
-  const Z = Y.reduce((Z, k) => ({
-    ...Z,
-    [k]: data => {
-      if (P[k].type == 'integer') {
-        return parseInt(data)
-      } else if (P[k].type == 'number') {
-        return parseFloat(data)
-      } else if (P[k].type == 'boolean') {
-        return !!data
-      } else {
-        return data
-      }
-    }
-  }), {})
-  const parseData = D => D instanceof Array ?
-    D.map(row => Y.reduce((R, k) => ({
-      ...R,
-      [k]: Z[k](row[k])
-    }), row)) : null
 
   const refs = {}
 
   const state = {
-    data: parseData(schema.default),
+    data: schema.default,
     base: null,
     checked: null,
     rows: null,
@@ -65,12 +46,7 @@ export default ({
     noSort: !!config.noSort,
     sort: null,
     page: 1,
-    pages: 1,
     limit: config.limit == null ? 10 : config.limit,
-    filter: {
-      label: ['', '', '']
-    },
-    filters: [],
     css: (config.table || 'bordered center striped hover').split(' ')
       .map(c => c.trim()).filter(c => c).map(c => 'table-'+c).join(' ')+
       (config.css ? ' '+config.css : '')
@@ -231,7 +207,7 @@ export default ({
   const update = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
-    const {view, totals} = engine(state, M)
+    const {view, totals, pages} = engine(state, M)
     if (view) {
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
@@ -248,7 +224,7 @@ export default ({
             ui: 'pagination',
             noValid: true,
             default: state.page,
-            maximum: state.pages,
+            maximum: pages,
             update: (err, v) => {
               if (!err && v && v != state.page) {
                 state.page = v
@@ -361,7 +337,7 @@ export default ({
   update()
 
   tbl.setData = data => {
-    state.data = parseData(data)
+    state.data = data
     update()
   }
 
