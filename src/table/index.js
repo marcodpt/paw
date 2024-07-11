@@ -7,15 +7,10 @@ import {Aggregates, engine} from './engine.js'
 
 const btns = {
   close: 'secondary',
-  pagination: 'secondary',
   check: 'success'
 }
 
 const icons = {
-  first: 'fast-backward',
-  previous: 'step-backward',
-  next: 'step-forward',
-  last: 'fast-forward',
   close: 'times',
   check: 'check',
   sort: 'sort',
@@ -96,7 +91,7 @@ export default ({
   }
 
   const tbl = e(({
-    table, thead, tbody, tr, th, td, div, a, text, button, ul, span
+    table, thead, tbody, tr, th, td, div, a, text, button, ul, span, label
   }) =>
     table({
       class: 'table '+state.css
@@ -146,70 +141,9 @@ export default ({
             class: 'text-center',
             colspan: '100%'
           }, [
-            div({
-              class: 'row gx-1 justify-content-center'
-            }, [
-              div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  href: () => {
-                    state.page = 1
-                    update()
-                  },
-                  link: btns.pagination,
-                  icon: icons.first,
-                  init: el => refs.first = el
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  href: () => {
-                    state.page--
-                    update()
-                  },
-                  link: btns.pagination,
-                  icon: icons.previous,
-                  init: el => refs.previous = el
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  ui: 'pending',
-                  init: el => refs.pager = el
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  href: () => {
-                    state.page++
-                    update()
-                  },
-                  link: btns.pagination,
-                  icon: icons.next,
-                  init: el => refs.next = el
-                })
-              ]),
-              div({
-                class: 'col-auto'
-              }, [
-                ctrl({
-                  href: () => {
-                    state.page = state.pages
-                    update()
-                  },
-                  link: btns.pagination,
-                  icon: icons.last,
-                  init: el => refs.last = el
-                })
-              ])
-            ])
+            refs.pager = ctrl({
+              ui: 'pagination'
+            })
           ])
         ]),
         state.noSearch && !hasTotals ? null : tr({}, [
@@ -298,7 +232,7 @@ export default ({
               href: 'javascript:;',
               onclick: () => {
                 state.sort = (state.sort == k ? '-' : '')+k
-                update()
+                update(true)
               }
             })
           ])
@@ -325,14 +259,10 @@ export default ({
       if (state.limit) {
         if (!prevent) {
           refs.pager.replaceWith(ctrl({
-            type: 'integer',
-            title: '',
+            ui: 'pagination',
             noValid: true,
             default: state.page,
-            options: Array(state.pages).fill().map((v, i) => ({
-              value: i + 1,
-              label: `${i + 1} / ${state.pages}`
-            })),
+            maximum: state.pages,
             update: (err, v) => {
               if (!err && v && v != state.page) {
                 state.page = v
@@ -342,10 +272,6 @@ export default ({
             init: el => refs.pager = el
           }))
         }
-        refs.first.disabled = state.page <= 1
-        refs.previous.disabled = state.page <= 1
-        refs.next.disabled = state.page >= state.pages
-        refs.last.disabled = state.page >= state.pages
       }
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')

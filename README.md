@@ -44,6 +44,8 @@ minimum effort and maximum customization.
  - nav as offcanvas and move all nav configuration to settings
  - footer
 
+ - options link should be renamed (variant, context ???) because conflit with json schema link and link ctrl
+ - noValid should be the default in forms
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - merge spec with source

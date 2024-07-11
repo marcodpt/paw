@@ -27,7 +27,10 @@ export default ({
     schema.ui == null &&
     schema.href != null ?
       link(schema) :
-    schema.update == null && schema.ui != 'pending' ?
+    schema.update == null && [
+      'pending',
+      'pagination'
+    ].indexOf(schema.ui) < 0 ?
       output(schema) :
       input(schema)
 

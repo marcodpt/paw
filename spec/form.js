@@ -1,11 +1,14 @@
 import form from '../src/form.js'
 import schema from '../views/data/schema.js'
 import users from '../views/data/users.js'
-import T from '../src/lang/index.js'
 
 const P = schema.items.properties
 const K = Object.keys(P)
-const O = Object.keys(T('operators'))
+const operators = {
+  'ct': 'Contains',
+  'eq': 'Equals'
+}
+const O = Object.keys(operators)
 var oldData = null
 
 export default ({
@@ -288,7 +291,7 @@ export default ({
           properties: {
             field: {
               type: 'string',
-              title: T('field'),
+              title: 'Field',
               default: K[0],
               options: K.map(k => ({
                 value: k,
@@ -297,17 +300,17 @@ export default ({
             },
             operator: {
               type: 'string',
-              title: T('operator'),
+              title: 'Operator',
               default: O[0],
               options: O.map(o => ({
                 value: o,
-                label: T('operators')[o]
+                label: operators[o]
               }))
             },
             value: {
               type: 'string',
               minLength: 1,
-              title: T('value')
+              title: 'Value' 
             }
           },
           submit: data => {
@@ -328,7 +331,7 @@ export default ({
                 value: {
                   type: 'string',
                   minLength: 1,
-                  title: T('value'),
+                  title: 'Value',
                   default: ''
                 }
               })
@@ -396,13 +399,7 @@ export default ({
           >
           <datalist id="app_list_000000">
             <option>Contains</option>
-            <option>Not contains</option>
             <option>Equals</option>
-            <option>Not equals</option>
-            <option>Greater than</option>
-            <option>Greater than or equals</option>
-            <option>Less than</option>
-            <option>Less than or equals</option>
           </datalist>
           <div class="invalid-feedback"></div>
         </div>

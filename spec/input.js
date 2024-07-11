@@ -1412,6 +1412,165 @@ export default ({
     <div class="invalid-feedback"></div>
   </div>
 </div>`
+    }, {
+      title: 'Pending pagination',
+      data: [
+        {
+          ui: 'pagination'
+        }
+      ],
+      html:
+`<div class="row gx-1 justify-content-center">
+  <div class="col-auto">
+    <button class="btn btn-secondary disabled" type="button">
+      <i class="fa-solid fa-fast-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary disabled" type="button">
+      <i class="fa-solid fa-step-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <div>
+      <input
+        class="form-control text-center"
+        type="text"
+        value="⏳"
+        disabled=""
+      >
+    </div>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary disabled" type="button">
+      <i class="fa-solid fa-step-forward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary disabled" type="button">
+      <i class="fa-solid fa-fast-forward"></i>
+    </button>
+  </div>
+</div>`
+    }, {
+      title: 'Single page pagination lg',
+      data: [
+        {
+          ui: 'pagination',
+          description: 'Page',
+          link: 'primary',
+          default: 1,
+          maximum: 1,
+          size: 'lg',
+          update
+        }
+      ],
+      html:
+`<div class="row gx-1 justify-content-center">
+  <div class="col-auto">
+    <button class="btn btn-primary btn-lg" type="button" disabled="">
+      <i class="fa-solid fa-fast-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary btn-lg" type="button" disabled="">
+      <i class="fa-solid fa-step-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <div>
+      <input
+        class="validate form-control form-control-lg is-valid"
+        type="text"
+        value="Page (1 / 1)"
+        list="app_list_000001"
+        disabled=""
+      >
+      <datalist id="app_list_000001">
+        <option>Page (1 / 1)</option>
+      </datalist>
+      <div class="invalid-feedback"></div>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary btn-lg" type="button" disabled="">
+      <i class="fa-solid fa-step-forward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary btn-lg" type="button" disabled="">
+      <i class="fa-solid fa-fast-forward"></i>
+    </button>
+  </div>
+</div>`
+    }, {
+      title: 'Multiple pages pagination sm',
+      data: [
+        {
+          ui: 'pagination',
+          minimum: -3,
+          maximum: 15,
+          default: 7,
+          size: 'sm',
+          noValid: true,
+          update
+        }
+      ],
+      html:
+`<div class="row gx-1 justify-content-center">
+  <div class="col-auto">
+    <button class="btn btn-secondary btn-sm" type="button">
+      <i class="fa-solid fa-fast-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary btn-sm" type="button">
+      <i class="fa-solid fa-step-backward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <div>
+      <input
+        class="validate form-control form-control-sm"
+        type="text"
+        value="(7 / 15)"
+        list="app_list_000001"
+      >
+      <datalist id="app_list_000001">
+        <option>(-3 / 15)</option>
+        <option>(-2 / 15)</option>
+        <option>(-1 / 15)</option>
+        <option>(0 / 15)</option>
+        <option>(1 / 15)</option>
+        <option>(2 / 15)</option>
+        <option>(3 / 15)</option>
+        <option>(4 / 15)</option>
+        <option>(5 / 15)</option>
+        <option>(6 / 15)</option>
+        <option>(7 / 15)</option>
+        <option>(8 / 15)</option>
+        <option>(9 / 15)</option>
+        <option>(10 / 15)</option>
+        <option>(11 / 15)</option>
+        <option>(12 / 15)</option>
+        <option>(13 / 15)</option>
+        <option>(14 / 15)</option>
+        <option>(15 / 15)</option>
+      </datalist>
+      <div class="invalid-feedback"></div>
+    </div>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary btn-sm" type="button">
+      <i class="fa-solid fa-step-forward"></i>
+    </button>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-secondary btn-sm" type="button">
+      <i class="fa-solid fa-fast-forward"></i>
+    </button>
+  </div>
+</div>`
     }
   ]
 })

@@ -4,6 +4,7 @@ import T from '../../lang/index.js'
 import {formatter} from '../../lib.js'
 import link from './link.js'
 import pending from './pending.js'
+import pagination from './pagination.js'
 import typeahead from './typeahead.js'
 import select from './select.js'
 import radio from './radio.js'
@@ -19,7 +20,6 @@ import text from './text.js'
 export default ({
   update,
   delay,
-  noValid,
   css,
   ...schema
 }) => {
@@ -105,6 +105,7 @@ export default ({
   }
 
   var delayValue = null
+  var wrapper = null
   s.update = (value, label) => {
     if (delay && delayValue !== value) {
       delayValue = value
@@ -116,15 +117,18 @@ export default ({
       return
     }
     const err = validate(value)
-    wrapper.validate(err ? err : noValid ? null : '')
+    if (wrapper && typeof wrapper.validate == 'function') {
+      wrapper.validate(err ? err : schema.noValid ? null : '')
+    }
 
     if (typeof update == 'function') {
       update(err, value, label, wrapper)
     }
   }
 
-  const wrapper = (
+  wrapper = (
     s.ui == 'pending' ? pending :
+    s.ui == 'pagination' ? pagination :
     s.ui == 'link' ? link :
     s.options instanceof Array ?
       s.type == 'array' ? checkbox :
@@ -143,7 +147,7 @@ export default ({
 
   s.update(s.value, s.label)
 
-  if (css) {
+  if (wrapper && css) {
     wrapper.setAttribute('class', css)
   }
 
