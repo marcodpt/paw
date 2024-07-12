@@ -15,7 +15,7 @@ const cmp = Fields => {
   , 0)
 }
 
-const sort = Fields => data => {
+const orderBy = Fields => data => {
   data.sort(cmp(Fields))
   return data
 }
@@ -23,7 +23,7 @@ const sort = Fields => data => {
 const pager = (p, limit) => data => !limit ? data :
   data.slice((p - 1) * limit, p * limit)
 
-const search = match => data => {
+const find = match => data => {
   if (match) {
     data = data.filter(row => Object.keys(row).reduce((pass, k) =>
       pass || String(row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
@@ -38,9 +38,9 @@ const Aggregates = {
   sum: X => X.reduce((s, v) => s += v, 0)
 }
 
-const group = (Fields, Methods) => data => {
+const groupBy = (Fields, Methods) => data => {
   const notEqual = cmp(Fields)
-  const D = sort(Fields)(data)
+  const D = orderBy(Fields)(data)
   const K = Object.keys(Methods).reduce((K, k) => {
     if (K.indexOf(k) < 0) {
       K.push(k)
@@ -69,41 +69,40 @@ const group = (Fields, Methods) => data => {
   )
 }
 
-export default (state, totals) => {
+export default ({
+  search, page, limit, sort, group, checked
+}, state, totals) => {
   var view = null
   var pages = 1
   if (state.data instanceof Array) {
-    state.base = run(
-      search(state.search)
-    )(state.data)
-    state.rows = run(
-      state.group ? group(state.group, M) : identity,
-      state.sort ? sort([state.sort]) : identity
-    )(state.base)
-    pages = Math.ceil(state.rows.length / state.limit) || 1
-    if (state.page > pages) {
-      state.page = pages
-    } else if (state.page < 1) {
-      state.page = 1
-    }
-    view = run(pager(state.page, state.limit))(state.rows)
-
-    state.checked = state.base.filter(({checked}) => checked)
-    const C = state.checked.length ? state.checked : state.base
-
     totals = Object.keys(totals).reduce((T, k) => {
-      const F = Aggregates[totals[k]]
-      if (F) {
-        T[k] = F(C.map(row => row[k]))
-      } else {
-        T[k] = '_'
-      }
+      T[k] = Aggregates[totals[k]] || (() => '_')
       return T
     }, {})
+    state.base = run(
+      find(search)
+    )(state.data)
+    state.rows = run(
+      group ? groupBy(group, totals) : identity,
+      sort ? orderBy([sort]) : identity
+    )(state.base)
+    pages = Math.ceil(state.rows.length / limit) || 1
+    if (page > pages) {
+      page = pages
+    } else if (page < 1) {
+      page = 1
+    }
+    view = run(pager(page, limit))(state.rows)
+
+    const C = checked.length ? checked : state.base
+
+    totals = Object.keys(totals).reduce((T, k) => {
+      T[k] = T[k](C.map(row => row[k]))
+      return T
+    }, totals)
   } else {
     state.base = null
     state.rows = null
-    state.checked = [],
     totals = Object.keys(totals).reduce((T, k) => {
       T[k] = '_'
       return T

@@ -1,4 +1,4 @@
-import table from '../src/table/index.js'
+import table from '../src/table.js'
 
 export default ({
   icon: 'table',

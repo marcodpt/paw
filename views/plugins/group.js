@@ -10,6 +10,7 @@ export default ({modal, tag}, schema, data, run) => {
   const K = Object.keys(P)
   return {
     ...Info,
+    icon: schema?.scope?.group instanceof Array ? 'close' : Info.icon,
     init: el => {
       btn = el
     },
