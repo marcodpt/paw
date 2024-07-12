@@ -8,7 +8,7 @@ export default ({
   title,
   links,
   items,
-  scope,
+  query,
   pagination,
   search,
   sort,
@@ -35,24 +35,20 @@ export default ({
   const U = Object.keys(T)
   const hasTotals = U.length > 0
 
-  scope = scope || {}
-  scope.page = typeof scope.page == 'number' && scope.page >= 1 ?
-    parseInt(scope.page) : 1
-  scope.limit = !pagination ? 0 : 
-    typeof scope.limit == 'number' && scope.limit >= 1 ?
-      parseInt(scope.limit) : 10
-  scope.search = typeof scope.search == 'string' ? scope.search : ''
-  scope.sort = typeof scope.sort == 'string' ? scope.sort : ''
-  scope.group = scope.group instanceof Array ? scope.group : null
-  scope.checked = scope.checked instanceof Array ? scope.checked : []
+  query = query || {}
+  query.page = typeof query.page == 'number' && query.page >= 1 ?
+    parseInt(query.page) : 1
+  query.limit = !pagination ? 0 : 
+    typeof query.limit == 'number' && query.limit >= 1 ?
+      parseInt(query.limit) : 10
+  query.search = typeof query.search == 'string' ? query.search : ''
+  query.sort = typeof query.sort == 'string' ? query.sort : ''
+  query.group = query.group instanceof Array ? query.group : null
+  query.checked = query.checked instanceof Array ? query.checked : []
 
   var pager = null
-
-  const state = {
-    data: schema.default,
-    base: null,
-    rows: null
-  }
+  var rows = null
+  var data = schema.default
 
   const tbl = e(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul, span, label
@@ -88,12 +84,12 @@ export default ({
                 ctrl({
                   ...X,
                   data: () => ({
-                    rows: state.rows,
-                    checked: scope.checked,
+                    rows: rows || [],
+                    checked: query.checked,
                     F,
-                    group: scope.group,
+                    group: query.group,
                     setGroup: g => {
-                      scope.group = g
+                      query.group = g
                       update()
                     }
                   })
@@ -122,11 +118,11 @@ export default ({
               description: search,
               noValid: true,
               title: 'search',
-              default: scope.search,
+              default: query.search,
               delay: 500,
               update: (err, v) => {
-                if (!err && v != scope.search) {
-                  scope.search = v
+                if (!err && v != query.search) {
+                  query.search = v
                   update()
                 }
               }
@@ -159,12 +155,12 @@ export default ({
               link: 'success',
               icon: 'check',
               href: () => {
-                (state.base || []).forEach(row => {
-                  const index = scope.checked.indexOf(row)
+                (rows || []).forEach(row => {
+                  const index = query.checked.indexOf(row)
                   if (index < 0) {
-                    scope.checked.push(row)
+                    query.checked.push(row)
                   } else {
-                    scope.checked.splice(index, 1)
+                    query.checked.splice(index, 1)
                   }
                 })
                 update()
@@ -196,7 +192,7 @@ export default ({
               dataCtx: 'sort:'+k,
               href: 'javascript:;',
               onclick: () => {
-                scope.sort = (scope.sort == k ? '-' : '')+k
+                query.sort = (query.sort == k ? '-' : '')+k
                 update(true)
               }
             })
@@ -210,11 +206,13 @@ export default ({
   const update = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
-    const {view, totals, pages} = engine ? engine({...scope}, state, T) : {}
+    const R = engine ? engine({...query}, data, T) : {}
+    rows = R.rows
+    const {view, totals, pages} = R
     if (view) {
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
-        const s = scope.sort
+        const s = query.sort
         f.innerHTML = ''
         f.appendChild(tag({
           icon: 'sort'+(s == k ? '-down' : s == '-'+k ? '-up' : '')
@@ -227,11 +225,11 @@ export default ({
             ui: 'pagination',
             noValid: true,
             description: pagination,
-            default: scope.page,
+            default: query.page,
             maximum: pages,
             update: (err, v) => {
-              if (!err && v && v != scope.page) {
-                scope.page = v
+              if (!err && v && v != query.page) {
+                query.page = v
                 update(true)
               }
             },
@@ -242,14 +240,14 @@ export default ({
 
       tbl.querySelectorAll('[data-ctx="groupHide"]')
         .forEach(g => {
-          g.classList[scope.group ? 'add' : 'remove']('d-none')
+          g.classList[query.group ? 'add' : 'remove']('d-none')
         })
 
       const H = K.filter(
-        k => scope.group && scope.group.indexOf(k) < 0 && U.indexOf(k) < 0 
+        k => query.group && query.group.indexOf(k) < 0 && U.indexOf(k) < 0 
       )
       K.forEach(k => {
-        const grouped = scope.group && scope.group.indexOf(k) >= 0
+        const grouped = query.group && query.group.indexOf(k) >= 0
         tbl.querySelectorAll(
           '[data-ctx="field:'+k+'"], [data-ctx="totals:'+k+'"]'
         ).forEach(g => {
@@ -257,7 +255,7 @@ export default ({
             .classList[H.indexOf(k) < 0 ? 'remove' : 'add']('d-none')
           if (g.getAttribute('data-ctx') == `field:${k}`) {
             g.classList.remove('text-uppercase', 'text-lowercase')
-            if (scope.group) {
+            if (query.group) {
               g.classList.add('text-'+(grouped ? 'lower' : 'upper')+'case')
             }
           }
@@ -282,21 +280,21 @@ export default ({
           tr({
             title: I.map(k => row[k]).join('\n')
           }, [
-            scope.group || !hasTotals || !check ? null : td({
+            query.group || !hasTotals || !check ? null : td({
               class: 'text-center align-middle'
             }, [
               ctrl({
                 type: 'boolean',
                 noValid: true,
-                default: scope.checked.indexOf(row) >= 0,
+                default: query.checked.indexOf(row) >= 0,
                 update: (err, v) => {
                   if (!err) {
-                    const index = scope.checked.indexOf(row)
+                    const index = query.checked.indexOf(row)
                     if (index < 0 && v) {
-                      scope.checked.push(row)
+                      query.checked.push(row)
                       update()
                     } else if (index >= 0 && !v) {
-                      scope.checked.splice(index, 1)
+                      query.checked.splice(index, 1)
                       update()
                     }
                   }
@@ -304,7 +302,7 @@ export default ({
               })
             ])
           ].concat(rowLinks.map(L =>
-            scope.group ? null : td({
+            query.group ? null : td({
               class: 'text-center align-middle'
             }, [
               ctrl({
@@ -325,10 +323,10 @@ export default ({
               P[k].ui == 'color' ? null : ctrl({
                 ...P[k],
                 readOnly: true,
-                href: scope.group ? null : P[k].href,
+                href: query.group ? null : P[k].href,
                 default: row[k],
                 data: row,
-                size: P[k].href && !scope.group && P[k].link ? 'sm' : null
+                size: P[k].href && !query.group && P[k].link ? 'sm' : null
               })
             ])
           )))
@@ -353,8 +351,8 @@ export default ({
   }
   update()
 
-  tbl.setData = data => {
-    state.data = data
+  tbl.setData = V => {
+    data = V
     update()
   }
 

@@ -71,43 +71,40 @@ const groupBy = (Fields, Methods) => data => {
 
 export default ({
   search, page, limit, sort, group, checked
-}, state, totals) => {
+}, data, totals) => {
+  var rows = null
   var view = null
   var pages = 1
-  if (state.data instanceof Array) {
+  if (data instanceof Array) {
     totals = Object.keys(totals).reduce((T, k) => {
       T[k] = Aggregates[totals[k]] || (() => '_')
       return T
     }, {})
-    state.base = run(
-      find(search)
-    )(state.data)
-    state.rows = run(
+    rows = run(
+      find(search),
       group ? groupBy(group, totals) : identity,
       sort ? orderBy([sort]) : identity
-    )(state.base)
-    pages = Math.ceil(state.rows.length / limit) || 1
+    )(data)
+    pages = Math.ceil(rows.length / limit) || 1
     if (page > pages) {
       page = pages
     } else if (page < 1) {
       page = 1
     }
-    view = run(pager(page, limit))(state.rows)
+    view = run(pager(page, limit))(rows)
 
-    const C = checked.length ? checked : state.base
+    const C = checked.length ? checked : rows
 
     totals = Object.keys(totals).reduce((T, k) => {
       T[k] = T[k](C.map(row => row[k]))
       return T
     }, totals)
   } else {
-    state.base = null
-    state.rows = null
     totals = Object.keys(totals).reduce((T, k) => {
       T[k] = '_'
       return T
     }, {})
   }
 
-  return {view, totals, pages}
+  return {view, totals, pages, rows}
 }

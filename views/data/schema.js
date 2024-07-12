@@ -7,13 +7,6 @@ export default {
   search: '🔎',
   sort: true,
   check: true,
-  scope: {
-    page: 2,
-    limit: 15,
-    search: 'a',
-    sort: '-age',
-    group: ['id', 'age']
-  },
   css: [
     'table-bordered',
     'table-striped',

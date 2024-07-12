@@ -4,13 +4,13 @@ const Info = {
   title: 'Group'
 }
 
-export default ({modal, tag}, schema, data, run) => {
+export default ({modal, tag}, schema) => {
   var btn = null
   const P = schema.items.properties
   const K = Object.keys(P)
   return {
     ...Info,
-    icon: schema?.scope?.group instanceof Array ? 'close' : Info.icon,
+    icon: schema?.query?.group instanceof Array ? 'close' : Info.icon,
     init: el => {
       btn = el
     },

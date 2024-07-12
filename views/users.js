@@ -10,7 +10,7 @@ import edit from './plugins/edit.js'
 import engine from './engine.js'
 
 export default (X) => {
-  const {render, table, modal, wait} = X
+  const {render, table, wait} = X
   const plugin = method => method(X, schema, users, data => {
     tbl.setData(data)
   })
