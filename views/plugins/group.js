@@ -4,23 +4,24 @@ const Info = {
   title: 'Group'
 }
 
-export default ({modal, tag}, schema) => {
+export default ({modal, tag}) => {
   var btn = null
-  const P = schema.items.properties
-  const K = Object.keys(P)
   return {
     ...Info,
-    icon: schema?.query?.group instanceof Array ? 'close' : Info.icon,
-    init: el => {
-      btn = el
-    },
-    href: ({group, setGroup}) => {
-      if (group) {
+    init: el => {btn = el},
+    href: () => {
+      const tbl = btn.closest('table')
+      const {query, properties} = tbl.read()
+      const P = properties
+      const K = Object.keys(P)
+
+      if (query.group) {
         btn.innerHTML = ''
         btn.appendChild(tag({
           ...Info
         }))
-        setGroup(null)
+        query.group = null
+        tbl.refresh()
       } else {
         modal({
           ...Info,
@@ -42,7 +43,8 @@ export default ({modal, tag}, schema) => {
               title: Info.title,
               icon: 'close'
             }))
-            setGroup(fields)
+            query.group = fields
+            tbl.refresh()
           }
         })
       }

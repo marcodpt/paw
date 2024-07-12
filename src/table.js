@@ -84,7 +84,7 @@ export default ({
                 ctrl({
                   ...X,
                   data: () => ({
-                    rows: rows || [],
+                    rows,
                     checked: query.checked,
                     F,
                     group: query.group,
@@ -206,9 +206,11 @@ export default ({
   const update = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
+
     const R = engine ? engine({...query}, data, T) : {}
     rows = R.rows
     const {view, totals, pages} = R
+
     if (view) {
       tbl.querySelectorAll('[data-ctx^="sort:"]').forEach(f => {
         const k = f.getAttribute('data-ctx').substr(5)
@@ -351,8 +353,27 @@ export default ({
   }
   update()
 
+  tbl.read = () => ({
+    rows,
+    query,
+    properties: P,
+    format: F
+  })
+
+  tbl.refresh = update
+
   tbl.setData = V => {
-    data = V
+    data = V instanceof Array ? V : null
+
+    if (data instanceof Array) {
+      const C = query.checked
+      for (var i = C.length - 1; i >= 0; i--) {
+        if (data.indexOf(C[i]) < 0) {
+          C.splice(i, 1)
+        }
+      }
+    }
+
     update()
   }
 

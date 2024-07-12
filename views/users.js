@@ -11,20 +11,17 @@ import engine from './engine.js'
 
 export default (X) => {
   const {render, table, wait} = X
-  const plugin = method => method(X, schema, users, data => {
-    tbl.setData(data)
-  })
 
   schema.links = []
-  schema.links.push(plugin(post))
-  schema.links.push(plugin(count))
-  schema.links.push(plugin(query))
-  schema.links.push(plugin(group))
-  schema.links.push(plugin(exporter))
+  schema.links.push(post(X, users))
+  schema.links.push(count(X))
+  schema.links.push(query(X))
+  schema.links.push(group(X))
+  schema.links.push(exporter(X))
 
   schema.items.links = []
-  schema.items.links.push(plugin(remove))
-  schema.items.links.push(plugin(edit))
+  schema.items.links.push(remove(X, users))
+  schema.items.links.push(edit(X, users))
 
   const tbl = table(schema, engine)
   render(tbl)

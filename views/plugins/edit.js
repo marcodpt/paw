@@ -3,27 +3,34 @@ const Info = {
   icon: 'edit',
   title: 'Edit'
 }
-export default ({modal}, schema, data, run) => ({
-  ...Info,
-  href: user => {
-    const title = Info.title +': '+user.name
-    const P = {...schema.items.properties}
-    delete P.id
-    modal({
-      ...Info,
-      title,
-      properties: P,
-      default: user,
-      submit: user => {
-        Object.assign(data.filter(({id}) => id == user.id)[0], user)
-        run(data)
-        modal({
-          ...Info,
-          title,
-          ui: 'success',
-          description: `User ${user.name} was edited!`
-        })
-      }
-    })
+
+export default ({modal}, data) => {
+  var btn = null
+  return {
+    ...Info,
+    init: el => {btn = el},
+    href: user => {
+      const tbl = btn.closest('table')
+      const {properties} = tbl.read()
+      const title = Info.title +': '+user.name
+      const P = {...properties}
+      delete P.id
+      modal({
+        ...Info,
+        title,
+        properties: P,
+        default: user,
+        submit: user => {
+          Object.assign(data.filter(({id}) => id == user.id)[0], user)
+          tbl.setData(data)
+          modal({
+            ...Info,
+            title,
+            ui: 'success',
+            description: `User ${user.name} was edited!`
+          })
+        }
+      })
+    }
   }
-})
+}
