@@ -22,7 +22,7 @@ export default ({
   const Y = Object.keys(P)
   const K = Y.filter(k => P[k].ui != 'info')
   const I = Y.filter(k => P[k].ui == 'info')
-  const F = K.reduce((F, k) => ({
+  const format = K.reduce((F, k) => ({
     ...F,
     [k]: formatter(P[k])
   }), {})
@@ -81,19 +81,7 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                ctrl({
-                  ...X,
-                  data: () => ({
-                    rows,
-                    checked: query.checked,
-                    F,
-                    group: query.group,
-                    setGroup: g => {
-                      query.group = g
-                      update()
-                    }
-                  })
-                })
+                ctrl(X)
               ])
             ))
           ])
@@ -123,7 +111,7 @@ export default ({
               update: (err, v) => {
                 if (!err && v != query.search) {
                   query.search = v
-                  update()
+                  tbl.refresh()
                 }
               }
             })
@@ -163,7 +151,7 @@ export default ({
                     query.checked.splice(index, 1)
                   }
                 })
-                update()
+                tbl.refresh(true)
               }
             })
           ])
@@ -193,7 +181,7 @@ export default ({
               href: 'javascript:;',
               onclick: () => {
                 query.sort = (query.sort == k ? '-' : '')+k
-                update(true)
+                tbl.refresh(true)
               }
             })
           ])
@@ -203,11 +191,13 @@ export default ({
     ])
   )
 
-  const update = prevent => {
+  tbl.refresh = prevent => {
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
 
-    const R = engine ? engine({...query}, data, T) : {}
+    const R = engine ? engine({
+      ...query, data, totals: T, format
+    }) : {}
     rows = R.rows
     const {view, totals, pages} = R
 
@@ -232,7 +222,7 @@ export default ({
             update: (err, v) => {
               if (!err && v && v != query.page) {
                 query.page = v
-                update(true)
+                tbl.refresh(true)
               }
             },
             init: el => pager = el
@@ -294,10 +284,10 @@ export default ({
                     const index = query.checked.indexOf(row)
                     if (index < 0 && v) {
                       query.checked.push(row)
-                      update()
+                      tbl.refresh(true)
                     } else if (index >= 0 && !v) {
                       query.checked.splice(index, 1)
-                      update()
+                      tbl.refresh(true)
                     }
                   }
                 }
@@ -319,7 +309,7 @@ export default ({
               class: 'align-middle text-'+
                 (P[k].ui == 'text' ? 'left' : 'center'),
               style: P[k].ui == 'color' && row[k] && typeof row[k] == 'string' ?
-                  'background-color:'+F[k](row[k]) : null,
+                  'background-color:'+format[k](row[k]) : null,
               title: P[k].ui == 'color' ? row[k] : null
             }, [
               P[k].ui == 'color' ? null : ctrl({
@@ -351,16 +341,13 @@ export default ({
       ))
     }
   }
-  update()
 
   tbl.read = () => ({
     rows,
     query,
     properties: P,
-    format: F
+    format
   })
-
-  tbl.refresh = update
 
   tbl.setData = V => {
     data = V instanceof Array ? V : null
@@ -374,8 +361,9 @@ export default ({
       }
     }
 
-    update()
+    tbl.refresh()
   }
 
+  tbl.refresh()
   return tbl
 }
