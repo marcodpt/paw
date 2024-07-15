@@ -20,7 +20,6 @@ import text from './text.js'
 export default ({
   update,
   delay,
-  css,
   ...schema
 }) => {
   const s = {...schema}
@@ -146,10 +145,6 @@ export default ({
   )(s)
 
   s.update(s.value, s.label)
-
-  if (wrapper && css) {
-    wrapper.setAttribute('class', css)
-  }
 
   return wrapper
 }

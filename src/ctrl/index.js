@@ -1,9 +1,11 @@
+import e from '../e.js'
 import link from './link.js'
 import output from './output.js'
 import input from './inputs/index.js'
 
 export default ({
   init,
+  css,
   ...schema
 }) => {
   if (schema.type == null && schema.default != null) {
@@ -22,7 +24,7 @@ export default ({
 
   schema.size = ['lg', 'sm'].indexOf(schema.size) >= 0 ? schema.size : null
 
-  const ctrl = schema.type == null &&
+  var ctrl = schema.type == null &&
     schema.default == null &&
     schema.ui == null &&
     schema.href != null ?
@@ -33,6 +35,21 @@ export default ({
     ].indexOf(schema.ui) < 0 ?
       output(schema) :
       input(schema)
+
+  if (css) {
+    if (ctrl.tagName != 'DIV') {
+      ctrl = e(({div}) => div({
+        class: css
+      }, [
+        ctrl
+      ]))
+    } else {
+      ctrl.setAttribute('class', 
+        ((ctrl.getAttribute('class') || '')+` ${css}`).trim()
+      )
+    }
+  }
+
 
   if (typeof init == 'function') {
     init(ctrl)
