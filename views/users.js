@@ -7,7 +7,6 @@ import group from './plugins/group.js'
 import exporter from './plugins/exporter.js'
 import remove from './plugins/remove.js'
 import edit from './plugins/edit.js'
-import engine from './engine.js'
 
 export default (X) => {
   const {render, table, wait} = X
@@ -23,7 +22,7 @@ export default (X) => {
   schema.items.links.push(remove(X, users))
   schema.items.links.push(edit(X, users))
 
-  const tbl = table(schema, engine)
+  const tbl = table(schema)
   render(tbl)
   wait(500).then(() => tbl.setData(users))
 }

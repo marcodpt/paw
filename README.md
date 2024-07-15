@@ -37,8 +37,6 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
- - move table engine to user space
-
  - array of itens
  - form as object
  - nav as offcanvas and move all nav configuration to settings

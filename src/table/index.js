@@ -1,8 +1,9 @@
-import e from './e.js'
-import {rm, formatter} from './lib.js'
-import spinner from './spinner.js'
-import tag from './tag.js'
-import ctrl from './ctrl/index.js'
+import e from '../e.js'
+import {rm, formatter} from '../lib.js'
+import spinner from '../spinner.js'
+import tag from '../tag.js'
+import ctrl from '../ctrl/index.js'
+import engine from './engine.js'
 
 export default ({
   title,
@@ -14,8 +15,9 @@ export default ({
   sort,
   check,
   css,
+  update,
   ...schema
-}, engine) => {
+}) => {
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
@@ -195,9 +197,9 @@ export default ({
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
 
-    const R = engine ? engine({
+    const R = (update ? update : engine)({
       ...query, data, totals: T, format
-    }) : {}
+    }) || {}
     rows = R.rows
     const {view, totals, pages} = R
 
