@@ -15,7 +15,7 @@ export default (X) => {
   schema.links = []
   schema.links.push(post(X, users))
   schema.links.push(count(X))
-  schema.links.push(query(X))
+  schema.links.push(query(X, users))
   schema.links.push(group(X))
   schema.links.push(exporter(X))
 

@@ -4,7 +4,7 @@ const Info = {
   title: 'Filter'
 }
 
-export default ({modal, ctrl}) => {
+export default ({modal, ctrl}, users) => {
   var btn = null
 
   const S = {
@@ -16,7 +16,7 @@ export default ({modal, ctrl}) => {
     init: el => {btn = el},
     href: () => {
       const tbl = btn.closest('table')
-      const {format, properties, rows} = tbl.read()
+      const {format, properties} = tbl.read()
       const P = properties
       const K = Object.keys(P)
       S.field = null
@@ -86,7 +86,7 @@ export default ({modal, ctrl}) => {
           S.operator = operator
           if (changed) {
             if (fixed) {
-              const values = rows.reduce((V, row) => {
+              const values = users.reduce((V, row) => {
                 if (V.indexOf(row[field]) < 0) {
                   V.push(row[field])
                 }
@@ -140,9 +140,9 @@ export default ({modal, ctrl}) => {
             }))
         }))
 
-        tbl.setData(S.filters.reduce((rows, {
+        tbl.setData(S.filters.reduce((users, {
           field, operator, value
-        }) => rows.filter(row => {
+        }) => users.filter(row => {
           const op = operator
           const v = row[field]
           const f = format[field]
@@ -155,7 +155,7 @@ export default ({modal, ctrl}) => {
             op == 'ge' ? v >= value : 
             op == 'lt' ? v < value : 
             op == 'le' ? v <= value : true
-        }), rows))
+        }), users))
       }
     }
   }
