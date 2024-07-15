@@ -50,7 +50,6 @@ export default ({
     }
   }
 
-
   if (typeof init == 'function') {
     init(ctrl)
   }

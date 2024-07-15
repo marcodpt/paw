@@ -272,7 +272,7 @@ export default ({
       view.forEach(row => {
         x.appendChild(e(({tr, td, a, text}) =>
           tr({
-            title: I.map(k => row[k]).join('\n')
+            title: I.map(k => row[k]).join('\n') || null
           }, [
             query.group || !hasTotals || !check ? null : td({
               class: 'text-center align-middle'
