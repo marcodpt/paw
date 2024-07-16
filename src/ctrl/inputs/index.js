@@ -10,6 +10,7 @@ import select from './select.js'
 import radio from './radio.js'
 import checkbox from './checkbox.js'
 import file from './file.js'
+import object from './object.js'
 import textarea from './textarea.js'
 import icon from './icon.js'
 import date from './date.js'
@@ -105,7 +106,7 @@ export default ({
 
   var delayValue = null
   var wrapper = null
-  s.update = (value, label) => {
+  s.update = s.properties || s.items ? update : (value, label) => {
     if (delay && delayValue !== value) {
       delayValue = value
       setTimeout(() => {
@@ -126,6 +127,7 @@ export default ({
   }
 
   wrapper = (
+    s.ui != 'file' && (s.type == 'object' || s.properties) ? object :
     s.ui == 'pending' ? pending :
     s.ui == 'pagination' ? pagination :
     s.ui == 'link' ? link :
@@ -144,7 +146,9 @@ export default ({
       text
   )(s)
 
-  s.update(s.value, s.label)
+  if (typeof s.update == 'function' && !s.properties && !s.items) {
+    s.update(s.value, s.label)
+  }
 
   return wrapper
 }
