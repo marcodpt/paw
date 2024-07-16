@@ -12,6 +12,9 @@ export default {
   minimum: v => `Deve ser no mínimo: ${v}`,
   maximum: v => `Deve ser no máximo: ${v}`,
   enum: v => `Deve ser uma das opções possíveis.`,
+  maxItems: v => `Deve ter no máximo ${v} ite${v != 1 ? 'ns' : 'm'}`,
+  minItems: v => `Deve ter no mínimo ${v} ite${v != 1 ? 'ns' : 'm'}`,
+  uniqueItems: v => `Os items devem ser únicos.`,
 
   boolFalse: 'Não',
   boolTrue: 'Sim'

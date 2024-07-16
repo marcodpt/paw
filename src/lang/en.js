@@ -12,6 +12,9 @@ export default {
   minimum: v => `Must be at least: ${v}`,
   maximum: v => `Must be at most: ${v}`,
   enum: v => `Must be one of the possible options.`,
+  maxItems: v => `Must have at most ${v} item${v != 1 ? 's' : ''}`,
+  minItems: v => `Must have at least ${v} item${v != 1 ? 's' : ''}`,
+  uniqueItems: v => `Items must be unique.`,
 
   boolFalse: 'No',
   boolTrue: 'Yes'

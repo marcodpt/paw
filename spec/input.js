@@ -1571,6 +1571,41 @@ export default ({
     </button>
   </div>
 </div>`
+    }, {
+      title: 'Items String',
+      data: [
+        {
+          items: {
+            type: 'string'
+          },
+          default: [
+            'dog',
+            'cat'
+          ],
+          minItems: 1,
+          maxItems: 5,
+          update
+        }
+      ]
+    }, {
+      title: 'Object Items',
+      data: [
+        {
+          items: {
+            title: 'Person',
+            icon: 'user',
+            properties: {
+              name: {
+                type: 'string'
+              }, 
+              age: {
+                type: 'integer'
+              }
+            }
+          },
+          update
+        }
+      ]
     }
   ]
 })

@@ -10,6 +10,7 @@ import select from './select.js'
 import radio from './radio.js'
 import checkbox from './checkbox.js'
 import file from './file.js'
+import items from './items.js'
 import object from './object.js'
 import textarea from './textarea.js'
 import icon from './icon.js'
@@ -64,7 +65,10 @@ export default ({
       maxLength,
       pattern,
       minimum,
-      maximum
+      maximum,
+      minItems,
+      maxItems,
+      uniqueItems
     } = s 
     var error = ''
     if (
@@ -99,6 +103,16 @@ export default ({
       } else if (maximum != null && data > maximum) {
         error = T('maximum')(formatter(s)(maximum))
       }
+    } else if (data instanceof Array) {
+      if (minItems != null && data.length < minItems) {
+        error = T('error')(minItems)
+      } else if (maxItems != null && data.length > maxItems) {
+        error = T('error')(maxItems)
+      } else if (uniqueItems && !data.reduce(
+        (unique, item) => unique && data.indexOf(item) < 0
+      , true)) {
+        error = T('error')(uniqueItems)
+      }
     }
 
     return error
@@ -106,7 +120,7 @@ export default ({
 
   var delayValue = null
   var wrapper = null
-  s.update = s.properties || s.items ? update : (value, label) => {
+  s.update = s.properties ? update : (value, label) => {
     if (delay && delayValue !== value) {
       delayValue = value
       setTimeout(() => {
@@ -137,6 +151,7 @@ export default ({
       s.ui == 'select' ? select :
         typeahead :
     s.ui == 'file' || s.ui == 'File' ? file :
+    s.type == 'array' || s.items ? items :
     s.ui == 'text' || s.ui == 'info' ? textarea :
     s.ui == 'icon' ? icon :
     s.ui == 'date' ? date :
@@ -146,7 +161,7 @@ export default ({
       text
   )(s)
 
-  if (typeof s.update == 'function' && !s.properties && !s.items) {
+  if (typeof s.update == 'function' && !s.properties) {
     s.update(s.value, s.label)
   }
 

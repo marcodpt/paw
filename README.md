@@ -38,7 +38,6 @@ minimum effort and maximum customization.
 
 ### Bugs and improvements
  - array of itens
- - form as object
  - nav as offcanvas and move all nav configuration to settings
  - footer
 
