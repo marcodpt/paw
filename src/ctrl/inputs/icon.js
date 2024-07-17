@@ -29,13 +29,14 @@ export default ({
       name: title,
       placeholder: description,
       disabled: readOnly,
+      value,
       oninput: ev => {
         const ref = ev.target.closest('.input-group')
           .querySelector('.input-group-text')
 
         ref.innerHTML = ''
         ref.appendChild(tag({
-          icon: target.value
+          icon: ev.target.value
         }))
 
         update(ev.target.value)

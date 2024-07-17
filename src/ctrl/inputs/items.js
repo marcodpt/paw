@@ -7,6 +7,7 @@ export default ({
   maxItems,
   readOnly,
   writeOnly,
+  noValid,
   update,
   size,
   value
@@ -18,6 +19,15 @@ export default ({
   const Errors = []
   const refs = []
   const Labels = []
+
+  const change = () => {
+    if (!Errors.reduce((err, e) => !!(err || e), false)) {
+      update(value, Labels.join('\n'))
+    }
+    dec.disabled = value.length <= minItems
+    inc.disabled = maxItems != null && value.length >= maxItems
+  }
+
   const addItem = (dflt, i) => {
     i = i == null ? value.length : i
     refs[i] = e(({div}) => 
@@ -28,6 +38,7 @@ export default ({
           size,
           readOnly,
           writeOnly,
+          noValid,
           ...items,
           default: dflt,
           update: (err, v, label) => {
@@ -37,13 +48,12 @@ export default ({
             if (!Errors.reduce((err, e) => !!(err || e), false)) {
               update(value, Labels.join('\n'))
             }
+            change()
           }
         })
       ])
     )
     target.appendChild(refs[i])
-    dec.disabled = refs.length <= minItems
-    inc.disabled = maxItems != null && refs.length >= maxItems
   }
 
   const dec = ctrl({
@@ -57,6 +67,7 @@ export default ({
         Labels.pop()
         refs[i - 1].parentNode.removeChild(refs[i - 1])
         refs.pop()
+        change()
       }
     }
   })
@@ -84,6 +95,7 @@ export default ({
       ))
     ])
   )
+  change()
   value.forEach((v, i) => addItem(v, i))
 
   return target

@@ -416,7 +416,7 @@ export default ({
 `<div>
   <div class="input-group">
     <span class="input-group-text"><i class="fa-solid fa-check"></i></span>
-    <input class="validate form-control is-valid" type="text">
+    <input class="validate form-control is-valid" type="text" value="check">
   </div>
   <div class="invalid-feedback"></div>
 </div>`
@@ -1572,7 +1572,7 @@ export default ({
   </div>
 </div>`
     }, {
-      title: 'Items String',
+      title: 'Items String Large',
       data: [
         {
           items: {
@@ -1582,13 +1582,49 @@ export default ({
             'dog',
             'cat'
           ],
+          size: 'lg',
           minItems: 1,
           maxItems: 5,
           update
         }
-      ]
+      ], html:
+`<div>
+  <div class="row g-1 align-items-center justify-content-start">
+    <div class="col-auto">
+      <button class="btn btn-secondary btn-lg" type="button">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-secondary btn-lg" type="button">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="my-3">
+    <div>
+      <input
+        class="validate form-control form-control-lg is-valid"
+        type="text"
+        value="dog"
+      >
+      <div class="invalid-feedback"></div>
+    </div>
+  </div>
+  <div class="my-3">
+    <div>
+      <input
+        class="validate form-control form-control-lg is-valid"
+        type="text"
+        value="cat"
+      >
+      <div class="invalid-feedback">
+      </div>
+    </div>
+  </div>
+</div>`
     }, {
-      title: 'Object Items',
+      title: 'Object Items Small',
       data: [
         {
           items: {
@@ -1596,16 +1632,403 @@ export default ({
             icon: 'user',
             properties: {
               name: {
-                type: 'string'
+                type: 'string',
+                minLength: 1
               }, 
               age: {
-                type: 'integer'
+                type: 'integer',
+                default: 30
               }
             }
           },
+          update,
+          size: 'sm',
+          noValid: true,
+          default: [
+            {
+              name: 'john'
+            }
+          ]
+        }
+      ], html:
+`<div>
+  <div class="row g-1 align-items-center justify-content-start">
+    <div class="col-auto">
+      <button class="btn btn-secondary btn-sm" type="button">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-secondary btn-sm" type="button">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="my-1">
+    <fieldset>
+      <legend class="fw-bold clearfix fs-6">
+        <span><i class="fa-solid fa-user"></i> Person</span>
+      </legend>
+      <hr class="my-2">
+      <div class="row">
+        <div class="col-12 my-1 row small">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">name:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control form-control-sm"
+              type="text"
+              name="name"
+              value="john"
+            >
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 my-1 row small">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">age:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control form-control-sm"
+              type="number"
+              name="age"
+              value="30"
+              step="1"
+            >
+            <div class="invalid-feedback"></div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>`
+    }, {
+      title: 'Navbar',
+      data: [
+        {
+          noValid: true,
+          items: {
+            properties: {
+              icon: {
+                type: 'string',
+                ui: 'icon'
+              },
+              title: {
+                type: 'string'
+              }, 
+              href: {
+                type: 'string'
+              },
+              children: {
+                items: {
+                  properties: {
+                    icon: {
+                      type: 'string',
+                      ui: 'icon'
+                    },
+                    title: {
+                      type: 'string'
+                    }, 
+                    href: {
+                      type: 'string'
+                    }
+                  }
+                }
+              }
+            }
+          },
+          default: [
+            {
+              title: 'Tools',
+              icon: 'tools',
+              children: [
+                {
+                  title: 'Users',
+                  icon: 'user',
+                  href: '#/users'
+                }, {
+                  title: 'Settings',
+                  icon: 'cog',
+                  href: '#/settings'
+                }
+              ]
+            }, {
+              title: 'Repository',
+              icon: '@github',
+              href: 'https://github.com/marcodpt/app'
+            }
+          ],
           update
         }
-      ]
+      ], html:
+`<div>
+  <div class="row g-1 align-items-center justify-content-start">
+    <div class="col-auto">
+      <button class="btn btn-secondary" type="button">
+        <i class="fa-solid fa-minus"></i>
+      </button>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-secondary" type="button">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </div>
+  </div>
+  <div class="my-2">
+    <fieldset>
+      <div class="row">
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">icon:</label>
+          </div>
+          <div class="col-md-9">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-solid fa-tools"></i>
+              </span>
+              <input
+                class="validate form-control"
+                type="text"
+                name="icon"
+                value="tools"
+                >
+            </div>
+              <div class="invalid-feedback">
+              </div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">title:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control"
+              type="text"
+              name="title"
+              value="Tools"
+              >
+              <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">href:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control"
+              type="text"
+              name="href"
+              value=""
+              >
+              <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">children:</label>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-1 align-items-center justify-content-start">
+              <div class="col-auto">
+                <button class="btn btn-secondary" type="button">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-secondary" type="button">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+            <div class="my-2">
+              <fieldset>
+                <div class="row">
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">icon:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="fa-solid fa-user"></i>
+                        </span>
+                        <input
+                          class="validate form-control"
+                          type="text"
+                          name="icon"
+                          value="user"
+                          >
+                      </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">title:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input
+                        class="validate form-control"
+                        type="text"
+                        name="title"
+                        value="Users"
+                        >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">href:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input
+                        class="validate form-control"
+                        type="text"
+                        name="href"
+                        value="#/users"
+                        >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <div class="my-2">
+              <fieldset>
+                <div class="row">
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">icon:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="fa-solid fa-cog"></i>
+                        </span>
+                        <input
+                          class="validate form-control"
+                          type="text"
+                          name="icon"
+                          value="cog"
+                          >
+                      </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">title:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input
+                        class="validate form-control"
+                        type="text"
+                        name="title"
+                        value="Settings"
+                        >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                  <div class="col-12 my-2 row">
+                    <div class="col-md-3">
+                      <label class="form-label fw-bold">href:</label>
+                    </div>
+                    <div class="col-md-9">
+                      <input
+                        class="validate form-control"
+                        type="text"
+                        name="href"
+                        value="#/settings"
+                        >
+                        <div class="invalid-feedback"></div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="my-2">
+    <fieldset>
+      <div class="row">
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">icon:</label>
+          </div>
+          <div class="col-md-9">
+            <div class="input-group">
+              <span class="input-group-text">
+                <i class="fa-brands fa-github"></i>
+              </span>
+              <input
+                class="validate form-control"
+                type="text"
+                name="icon"
+                value="@github"
+                >
+            </div>
+              <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">title:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control"
+              type="text"
+              name="title"
+              value="Repository"
+              >
+              <div class="invalid-feedback">
+              </div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">href:</label>
+          </div>
+          <div class="col-md-9">
+            <input
+              class="validate form-control"
+              type="text"
+              name="href"
+              value="https://github.com/marcodpt/app"
+              >
+              <div class="invalid-feedback"></div>
+          </div>
+        </div>
+        <div class="col-12 my-2 row">
+          <div class="col-md-3">
+            <label class="form-label fw-bold">children:</label>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-1 align-items-center justify-content-start">
+              <div class="col-auto">
+                <button class="btn btn-secondary" type="button" disabled="">
+                  <i class="fa-solid fa-minus"></i>
+                </button>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-secondary" type="button">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>`
     }
   ]
 })

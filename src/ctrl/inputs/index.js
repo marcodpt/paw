@@ -161,7 +161,7 @@ export default ({
       text
   )(s)
 
-  if (typeof s.update == 'function' && !s.properties) {
+  if (typeof s.update == 'function' && !s.properties && !s.items) {
     s.update(s.value, s.label)
   }
 
