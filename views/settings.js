@@ -123,9 +123,9 @@ export default ({render, form, home}) => {
       }
     },
     update: (err, Data) => err ? null : rebuild(document, Data),
-    submit: ({theme, lang, title, description, navbar}) => ({
-      name: 'index.html',
-      data: 
+    download: 'index.html',
+    mime: 'text/html',
+    submit: ({theme, lang, title, description, navbar}) => 
 `<!DOCTYPE html>
 <html lang="${lang}">
   <head>
@@ -160,6 +160,5 @@ export default ({render, form, home}) => {
   </body>
 </html>
 `
-    })
   }))
 }

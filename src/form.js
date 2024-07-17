@@ -9,6 +9,8 @@ export default ({
   submit,
   links,
   block,
+  download,
+  mime,
   ...schema
 }) => {
   var Data = null
@@ -28,6 +30,8 @@ export default ({
       l.link = l.link == null ? 'primary' : l.link
       l.icon = l.icon == null ? 'check' : l.icon
       l.href = typeof submit != 'function' ? null : run
+      l.download = download
+      l.mime = mime
       submitter = ctrl(l)
       return submitter
     } else {
