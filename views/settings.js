@@ -147,7 +147,7 @@ export default ({render, form, home}) => {
     nav.setAttribute('class',
       nav.getAttribute('class').replace(getCss(nav), navbar)
     )
-    //nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
+    nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
   }
 
   return render(form({
