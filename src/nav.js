@@ -3,10 +3,15 @@ import tag from './tag.js'
 import ctrl from './ctrl/index.js'
 import {rm} from './lib.js'
 
-export default ({target, sidebar}) => {
+export default ({links}) => {
   rm(document.getElementById('sidebar'))
+  const hasSidebar = links && links instanceof Array
 
-  if (sidebar && sidebar instanceof Array) {
+  document.body.querySelectorAll('a[href="#sidebar"]').forEach(a => {
+    a.classList[hasSidebar ? 'remove' : 'add']('disabled')
+  })
+
+  if (hasSidebar) {
     const tree = ({children}) => {
       const isOpen = 'angle-down'
       const isClosed = 'angle-right'
@@ -54,28 +59,6 @@ export default ({target, sidebar}) => {
       )
     }
 
-    target.prepend(e(({ul, li, a}) => 
-      ul({
-        class: 'navbar-nav',
-        dataApp: 'nav'
-      }, [
-        li({
-          class: 'nav-item'
-        }, [
-          ctrl({
-            href: '#sidebar',
-            icon: 'bars',
-            init: el => {
-              el.setAttribute('class', 'nav-link')
-              el.setAttribute('data-bs-toggle', 'offcanvas')
-              el.setAttribute('role', 'button')
-              el.setAttribute('aria-controls', 'sidebar')
-            }
-          })
-        ])
-      ])
-    ))
-
     document.body.appendChild(e(({div, h5, small, a, text, button}) => 
       div({
         id: 'sidebar',
@@ -118,7 +101,7 @@ export default ({target, sidebar}) => {
         div({
           class: 'offcanvas-body'
         }, [
-          tree({children: sidebar})
+          tree({children: links})
         ])
       ])
     ))

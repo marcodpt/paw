@@ -274,6 +274,19 @@ export default ({render, form, home}) => {
   <body>
     <nav class="navbar navbar-expand-lg ${navbar}">
       <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              href="#sidebar"
+              class="nav-link disabled"
+              data-bs-toggle="offcanvas"
+              role="button"
+              aria-controls="sidebar"
+            >
+              <i class="fa-solid fa-bars"></i>
+            </a>
+          </li>
+        </ul>
         <a class="navbar-brand" href="#/" data-app-text="title">${title}</a>
         <span class="navbar-text" data-app-text="current"></span>
         <button

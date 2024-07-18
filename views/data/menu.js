@@ -1,7 +1,7 @@
 import spec from '../../spec/index.js'
 
 export default {
-  sidebar: spec.map(({icon, title, description, examples}) => ({
+  links: spec.map(({icon, title, description, examples}) => ({
     icon,
     title,
     description,
