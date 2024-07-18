@@ -40,12 +40,17 @@ minimum effort and maximum customization.
  - nav as offcanvas and move all nav configuration to settings
  - footer
 
+ - semantic html tests, no string cmp
+ - all HTML tags catalog in a folder within e directory 
+ - create t as a symmetrical implementation of e that generates string
+ - html to t converter
+ - use t instead of template strings 
+
  - options link should be renamed (variant, context ???) because conflit with json schema link and link ctrl
  - noValid should be the default in forms
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - merge spec with source
- - semantic html tests, no string cmp
  - separate input and output options
  - allow children in docs and examples (ctrl case)
  - print goes with JSON and not as a raw function
@@ -70,6 +75,7 @@ minimum effort and maximum customization.
  - barcode
  - carousel
  - maps
+ - code component (html/js) and remove highlight.js from page source
 
 ## Contributing
 It's a very simple project.

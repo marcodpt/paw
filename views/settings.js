@@ -64,8 +64,74 @@ export default ({render, form, home}) => {
     .map(css => css.trim())
     .filter(css => /^bg-[a-z]+$/.test(css) || /^navbar-[a-z]+$/.test(css))
     .join(' ')
+  const getTarget = href => !href || href.indexOf('://') < 0 ? '' :
+    'target="_blank"'
+  const getIcon = icon => !icon ? '' : 
+    `<i class="fa-${
+      icon.substr(0, 1) == '@' ? 'brands' : 'solid'
+    } fa-${icon.substr(0, 1) == '@' ? icon.substr(1) : icon}"></i>`
+  const readIcon = i => {
+    const cls = i?.getAttribute('class') || ''
+    const prefix = cls.startsWith('fa-brands fa-') ? '@' :
+      cls.startsWith('fa-solid fa-') ? '' : false
 
-  const rebuild = (doc, {title, description, lang, theme, navbar}) => {
+    return prefix !== false ? prefix+cls.split(' ')[1].substr(3) : ''
+  }
+
+  const navLinks = links => !links || !links.length ? '' :
+        `
+          <ul class="navbar-nav ms-auto">${links.map(({
+            title,
+            icon,
+            description,
+            href,
+            children
+          }) => children instanceof Array && children.length ? `
+            <li class="nav-item dropdown" data-app-path="${title || ''}">
+              <a
+                class="nav-link dropdown-toggle"
+                data-app-active="active"
+                data-bs-toggle="dropdown"
+                role="button"
+                aria-expanded="false"${!description ? '' : `
+                title="${description}"`}
+              >
+                ${getIcon(icon)} ${title || ''}
+              </a>
+              <ul class="dropdown-menu">${children.map(({
+                title,
+                description,
+                icon,
+                href
+              }) => `
+                <li data-app-path="${title || ''}">
+                  <a
+                    href="${href || ''}"
+                    ${getTarget(href)}
+                    class="dropdown-item"
+                    data-app-active="active"${!description ? '' : `
+                    title="${description}"`}
+                  >
+                    ${getIcon(icon)} ${title || ''}
+                  </a>
+                </li>`).join('')}
+              </ul>
+            </li>` : `
+            <li class="nav-item" data-app-path="${title || ''}">
+              <a
+                href="${href || ''}"
+                ${getTarget(href)}
+                class="nav-link"
+                data-app-active="active"${!description ? '' : `
+                title="${description}"`}
+              >
+                ${getIcon(icon)} ${title || ''}
+              </a>
+            </li>`).join('')}
+          </ul>
+        `
+
+  const rebuild = (doc, {title, description, lang, theme, navbar, links}) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-app-text=title]').forEach(e => {
         e.textContent = title
@@ -81,6 +147,7 @@ export default ({render, form, home}) => {
     nav.setAttribute('class',
       nav.getAttribute('class').replace(getCss(nav), navbar)
     )
+    //nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
   }
 
   return render(form({
@@ -120,12 +187,76 @@ export default ({render, form, home}) => {
         type: 'string',
         options: variants,
         default: getCss(getNav())
+      },
+      links: {
+        title: 'Links',
+        items: {
+          properties: {
+            icon: {
+              type: 'string',
+              ui: 'icon'
+            },
+            title: {
+              type: 'string'
+            }, 
+            description: {
+              type: 'string'
+            }, 
+            href: {
+              type: 'string'
+            },
+            children: {
+              items: {
+                properties: {
+                  icon: {
+                    type: 'string',
+                    ui: 'icon'
+                  },
+                  title: {
+                    type: 'string'
+                  }, 
+                  description: {
+                    type: 'string'
+                  }, 
+                  href: {
+                    type: 'string'
+                  }
+                }
+              }
+            }
+          }
+        },
+        default: Array.from(document.body.
+          querySelector('nav')?.
+          querySelector('.navbar-collapse')?.
+          querySelectorAll('li.nav-item') || []
+        ).map(li => ({
+          li,
+          a: li.querySelector('a')
+        })).map(({li, a}) => ({
+          title: li.getAttribute('data-app-path'),
+          description: a?.getAttribute('title') || '',
+          icon: readIcon(a?.querySelector('i')),
+          href: a?.getAttribute('href'),
+          children: Array.from(li.
+            querySelector('ul.dropdown-menu')?.
+            querySelectorAll('li') || []
+          ).map(li => ({
+            li,
+            a: li.querySelector('a')
+          })).map(({li, a, icon}) => ({
+            title: li.getAttribute('data-app-path'),
+            description: a?.getAttribute('title') || '',
+            icon: readIcon(a?.querySelector('i')),
+            href: a?.getAttribute('href')
+          }))
+        }))
       }
     },
     update: (err, Data) => err ? null : rebuild(document, Data),
     download: 'index.html',
     mime: 'text/html',
-    submit: ({theme, lang, title, description, navbar}) => 
+    submit: ({theme, lang, title, description, navbar, links}) => 
 `<!DOCTYPE html>
 <html lang="${lang}">
   <head>
@@ -145,6 +276,14 @@ export default ({render, form, home}) => {
       <div class="container-fluid">
         <a class="navbar-brand" href="#/" data-app-text="title">${title}</a>
         <span class="navbar-text" data-app-text="current"></span>
+        <button
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target=".navbar-collapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">${navLinks(links)}</div>
       </div>
     </nav>
     <main>
@@ -159,6 +298,6 @@ export default ({render, form, home}) => {
     <script type="module" src="app.js"></script>
   </body>
 </html>
-`
+`.split('\n').filter(l => l.trim()).join('\n')
   }))
 }

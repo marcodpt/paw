@@ -17,6 +17,159 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="#/" data-app-text="title">App</a>
         <span class="navbar-text" data-app-text="current"></span>
+        <button
+          class="navbar-toggler"
+          data-bs-toggle="collapse"
+          data-bs-target=".navbar-collapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown" data-app-path="Tools">
+              <a
+                class="nav-link dropdown-toggle"
+                data-app-active="active"
+                data-bs-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-tools"></i> Tools
+              </a>
+              <ul class="dropdown-menu">
+                <li data-app-path="Users">
+                  <a
+                    href="#/users"
+                    class="dropdown-item"
+                    data-app-active="active"
+                  >
+                    <i class="fa-solid fa-user"></i> Users
+                  </a>
+                </li>
+                <li data-app-path="Settings">
+                  <a
+                    href="#/settings"
+                    class="dropdown-item"
+                    data-app-active="active"
+                  >
+                    <i class="fa-solid fa-cog"></i> Settings
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown" data-app-path="References">
+              <a
+                class="nav-link dropdown-toggle"
+                data-app-active="active"
+                data-bs-toggle="dropdown"
+                role="button"
+                aria-expanded="false"
+              >
+                <i class="fa-solid fa-book"></i> References
+              </a>
+              <ul class="dropdown-menu">
+                <li data-app-path="Icons">
+                  <a
+                    href="https://fontawesome.com/search?o=r&m=free&s=solid"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="FontAwesome Solid Icons."
+                  >
+                    <i class="fa-solid fa-icons"></i> Icons
+                  </a>
+                </li>
+                <li data-app-path="Brands">
+                  <a
+                    href="https://fontawesome.com/search?o=r&m=free&f=brands"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="FontAwesome Brands Icons."
+                  >
+                    <i class="fa-solid fa-copyright"></i> Brands
+                  </a>
+                </li>
+                <li data-app-path="Bootstrap">
+                  <a
+                    href="https://getbootstrap.com/docs/5.3/getting-started/introduction/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="Bootstrap 5.3 documentation."
+                  >
+                    <i class="fa-brands fa-bootstrap"></i> Bootstrap
+                  </a>
+                </li>
+                <li data-app-path="Bootswatch">
+                  <a
+                    href="https://bootswatch.com/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="Bootstrap themes available."
+                  >
+                    <i class="fa-solid fa-palette"></i> Bootswatch
+                  </a>
+                </li>
+                <li data-app-path="JSON Schema">
+                  <a
+                    href="https://www.learnjsonschema.com/2020-12/validation/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="JSON Schema 2020-12 reference."
+                  >
+                    <i class="fa-solid fa-circle-check"></i> JSON Schema
+                  </a>
+                </li>
+                <li data-app-path="highlight.js">
+                  <a
+                    href="https://highlightjs.org/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="Syntax Highlight used in this docs."
+                  >
+                    <i class="fa-solid fa-code"></i> highlight.js
+                  </a>
+                </li>
+                <li data-app-path="Cytoscape.js">
+                  <a
+                    href="https://js.cytoscape.org/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="Graph component dependency."
+                  >
+                    <i class="fa-solid fa-project-diagram"></i> Cytoscape.js
+                  </a>
+                </li>
+                <li data-app-path="Chart.js">
+                  <a
+                    href="https://www.chartjs.org/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-app-active="active"
+                    title="Chart component dependency."
+                  >
+                    <i class="fa-solid fa-chart-line"></i> Chart.js
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-app-path="Repository">
+              <a
+                href="https://github.com/marcodpt/app"
+                target="_blank"
+                class="nav-link"
+                data-app-active="active"
+              >
+                <i class="fa-brands fa-github"></i> Repository
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
     <main>

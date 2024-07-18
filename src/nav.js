@@ -3,83 +3,9 @@ import tag from './tag.js'
 import ctrl from './ctrl/index.js'
 import {rm} from './lib.js'
 
-export default ({target, links, sidebar}) => {
+export default ({target, sidebar}) => {
   rm(document.getElementById('sidebar'))
-  target.querySelectorAll('[data-app="nav"]').forEach(e => rm(e))
 
-  if (links && links instanceof Array) {
-    target.appendChild(e(({button, span}) => 
-      button({
-        class: 'navbar-toggler',
-        dataBsToggle: 'collapse',
-        dataBsTarget: '.navbar-collapse',
-        dataApp: 'nav'
-      }, [
-        span({
-          class: 'navbar-toggler-icon'
-        })
-      ])
-    ))
-    target.appendChild(e(({div, a, ul, li}) => 
-      div({
-        class: 'collapse navbar-collapse',
-        dataApp: 'nav'
-      }, [
-        ul({
-          class: 'navbar-nav ms-auto'
-        }, links.map(({children, href, title, ...meta}) => children ?
-          li({
-            class: 'nav-item dropdown',
-            dataAppPath: title
-          }, [
-            ctrl({
-              init: el => {
-                el.setAttribute('class', 'nav-link dropdown-toggle')
-                el.setAttribute('data-app-active', 'active')
-                el.setAttribute('data-bs-toggle', 'dropdown')
-                el.setAttribute('role', 'button')
-                el.setAttribute('ariaExpanded', 'false')
-                el.removeAttribute('href')
-              },
-              href: 'dropdown',
-              title,
-              ...meta
-            }),
-            ul({
-              class: 'dropdown-menu'
-            }, children.map(({href, title, ...meta}) => 
-              li({
-                dataAppPath: title
-              }, [
-                ctrl({
-                  href,
-                  title,
-                  init: el => {
-                    el.setAttribute('class', 'dropdown-item')
-                    el.setAttribute('data-app-active', 'active')
-                  },
-                  ...meta
-                })
-              ])
-            ))
-          ]) : li({
-            class: 'nav-item',
-            dataAppPath: title
-          }, [
-            ctrl({
-              init: el => {
-                el.setAttribute('class', 'nav-link')
-                el.setAttribute('data-app-active', 'active')
-              },
-              title,
-              href,
-              ...meta
-            })
-          ])
-        ))
-      ])
-    ))
-  }
   if (sidebar && sidebar instanceof Array) {
     const tree = ({children}) => {
       const isOpen = 'angle-down'
