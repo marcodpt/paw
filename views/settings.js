@@ -310,7 +310,6 @@ export default ({render, form, home}) => {
     </main>
     <script type="module" src="app.js"></script>
   </body>
-</html>
-`.split('\n').filter(l => l.trim()).join('\n')
+</html>`.split('\n').filter(l => l.trim()).join('\n')+'\n'
   }))
 }
