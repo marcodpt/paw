@@ -9,7 +9,7 @@ import input from './input.js'
 import form from './form.js'
 import modal from './modal.js'
 import table from './table.js'
-import nav from './nav.js'
+import sidebar from './sidebar.js'
 import graph from './graph.js'
 import chart from './chart.js'
 
@@ -25,7 +25,7 @@ export default [
   form,
   modal,
   table,
-  nav,
+  sidebar,
   graph,
   chart
 ]

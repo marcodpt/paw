@@ -37,8 +37,6 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
- - footer
-
  - semantic html tests, no string cmp
  - all HTML tags catalog in a folder within e directory 
  - create t as a symmetrical implementation of e that generates string

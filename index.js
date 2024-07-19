@@ -1,6 +1,6 @@
 import e from './src/e.js'
 import modal from './src/modal.js'
-import nav from './src/nav.js'
+import sidebar from './src/sidebar.js'
 import tag from './src/tag.js'
 import ctrl from './src/ctrl/index.js'
 import form from './src/form.js'
@@ -18,7 +18,7 @@ export default ({build, root, routes}) => {
   var stop = null
   var old = null
   var components = {
-    e, modal, nav, tag, ctrl,
+    e, modal, sidebar, tag, ctrl,
     form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }

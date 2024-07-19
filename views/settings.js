@@ -141,7 +141,32 @@ export default ({render, form, home}) => {
           </ul>
         `
 
-  const rebuild = (doc, {title, description, lang, theme, navbar, links}) => {
+  const footerLinks = links => links.map(({
+    href,
+    icon,
+    title,
+    description
+  }) => `
+          <li class="nav-item">
+            <a
+              href="${href}"
+              class="nav-link px-2 text-body-secondary"
+              ${getTarget(href)}
+              title="${description}"
+            >${getIcon(icon)} ${title || ''}</a>
+          </li>
+        `).join('\n')
+
+  const rebuild = (doc, {
+    title,
+    description,
+    copyright,
+    lang,
+    theme,
+    navbar,
+    links,
+    footer
+  }) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-app-text=title]').forEach(e => {
         e.textContent = title
@@ -158,6 +183,11 @@ export default ({render, form, home}) => {
       nav.getAttribute('class').replace(getCss(nav), navbar)
     )
     nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
+    
+    const f = document.body.querySelector('footer')
+
+    f.querySelector('p').innerHTML = copyright
+    f.querySelector('ul').innerHTML = footerLinks(footer)
   }
 
   return render(form({
@@ -203,32 +233,41 @@ export default ({render, form, home}) => {
         items: {
           properties: {
             icon: {
+              title: 'Icon',
               type: 'string',
               ui: 'icon'
             },
             title: {
+              title: 'Title',
               type: 'string'
             }, 
             description: {
+              title: 'Description',
               type: 'string'
             }, 
             href: {
+              title: 'Href attribute',
               type: 'string'
             },
             children: {
+              title: 'Items',
               items: {
                 properties: {
                   icon: {
+                    title: 'Icon',
                     type: 'string',
                     ui: 'icon'
                   },
                   title: {
+                    title: 'Title',
                     type: 'string'
                   }, 
                   description: {
+                    title: 'Description',
                     type: 'string'
                   }, 
                   href: {
+                    title: 'Href attribute',
                     type: 'string'
                   }
                 }
@@ -261,12 +300,65 @@ export default ({render, form, home}) => {
             href: a?.getAttribute('href')
           }))
         }))
+      },
+      footer: {
+        title: 'Footer Links',
+        items: {
+          properties: {
+            icon: {
+              title: 'Icon',
+              type: 'string',
+              ui: 'icon'
+            },
+            title: {
+              title: 'Title',
+              type: 'string'
+            }, 
+            description: {
+              title: 'Description',
+              type: 'string'
+            }, 
+            href: {
+              title: 'Href attribute',
+              type: 'string'
+            }
+          }
+        },
+        default: Array.from(document.body.
+          querySelector('footer')?.
+          querySelectorAll('li.nav-item') || []
+        ).map(li => ({
+          li,
+          a: li.querySelector('a')
+        })).map(({li, a}) => ({
+          title: a?.textContent?.trim() || '',
+          description: a?.getAttribute('title') || '',
+          icon: readIcon(a?.querySelector('i')),
+          href: a?.getAttribute('href')
+        }))
+      },
+      copyright: {
+        title: 'Footer Note',
+        type: 'string',
+        default: document.body.
+          querySelector('footer')?.
+          querySelector('p')?.
+            innerHTML
       }
     },
     update: (err, Data) => err ? null : rebuild(document, Data),
     download: 'index.html',
     mime: 'text/html',
-    submit: ({theme, lang, title, description, navbar, links}) => 
+    submit: ({
+      theme,
+      lang,
+      title,
+      description,
+      navbar,
+      links,
+      footer,
+      copyright
+    }) => 
 `<!DOCTYPE html>
 <html lang="${lang}">
   <head>
@@ -319,6 +411,16 @@ export default ({render, form, home}) => {
         >${description}</p>
       </div>
     </main>
+    <footer>
+      <div class="container py-3 my-4">
+        <ul
+          class="nav justify-content-center border-bottom pb-3 mb-3"
+        >${footerLinks(footer)}</ul>
+        <p
+          class="text-center text-body-secondary"
+        >${copyright}</p>
+      </div>
+    </footer>
     <script type="module" src="app.js"></script>
   </body>
 </html>`.split('\n').filter(l => l.trim()).join('\n')+'\n'
