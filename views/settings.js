@@ -112,7 +112,12 @@ export default ({render, form, home}) => {
                     data-app-active="active"${!description ? '' : `
                     title="${description}"`}
                   >
-                    ${getIcon(icon)} ${title || ''}
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      ${getIcon(icon)} ${title || ''}
+                    </span>
                   </a>
                 </li>`).join('')}
               </ul>
@@ -125,7 +130,12 @@ export default ({render, form, home}) => {
                 data-app-active="active"${!description ? '' : `
                 title="${description}"`}
               >
-                ${getIcon(icon)} ${title || ''}
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  ${getIcon(icon)} ${title || ''}
+                </span>
               </a>
             </li>`).join('')}
           </ul>
@@ -278,7 +288,7 @@ export default ({render, form, home}) => {
           <li class="nav-item">
             <a
               href="#sidebar"
-              class="nav-link disabled"
+              class="nav-link invisible"
               data-bs-toggle="offcanvas"
               role="button"
               aria-controls="sidebar"
@@ -289,13 +299,14 @@ export default ({render, form, home}) => {
         </ul>
         <a class="navbar-brand" href="#/" data-app-text="title">${title}</a>
         <span class="navbar-text" data-app-text="current"></span>
-        <button
-          class="navbar-toggler"
+        <a
+          class="navbar-toggler border-0"
           data-bs-toggle="collapse"
           data-bs-target=".navbar-collapse"
+          role="button"
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
         <div class="collapse navbar-collapse">${navLinks(links)}</div>
       </div>
     </nav>

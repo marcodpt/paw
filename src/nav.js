@@ -8,7 +8,7 @@ export default ({links}) => {
   const hasSidebar = links && links instanceof Array
 
   document.body.querySelectorAll('a[href="#sidebar"]').forEach(a => {
-    a.classList[hasSidebar ? 'remove' : 'add']('disabled')
+    a.classList[hasSidebar ? 'remove' : 'add']('invisible')
   })
 
   if (hasSidebar) {

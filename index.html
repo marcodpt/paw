@@ -19,7 +19,7 @@
           <li class="nav-item">
             <a
               href="#sidebar"
-              class="nav-link disabled"
+              class="nav-link invisible"
               data-bs-toggle="offcanvas"
               role="button"
               aria-controls="sidebar"
@@ -30,13 +30,14 @@
         </ul>
         <a class="navbar-brand" href="#/" data-app-text="title">App</a>
         <span class="navbar-text" data-app-text="current"></span>
-        <button
-          class="navbar-toggler"
+        <a
+          class="navbar-toggler border-0"
           data-bs-toggle="collapse"
           data-bs-target=".navbar-collapse"
+          role="button"
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown" data-app-path="Tools">
@@ -58,7 +59,12 @@
                     data-app-active="active"
                     title="A showcase of a complete application."
                   >
-                    <i class="fa-solid fa-user"></i> Users
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-user"></i> Users
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Settings">
@@ -68,7 +74,12 @@
                     data-app-active="active"
                     title="Customize your app."
                   >
-                    <i class="fa-solid fa-cog"></i> Settings
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-cog"></i> Settings
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -93,7 +104,12 @@
                     data-app-active="active"
                     title="FontAwesome Solid Icons."
                   >
-                    <i class="fa-solid fa-icons"></i> Icons
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-icons"></i> Icons
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Brands">
@@ -104,7 +120,12 @@
                     data-app-active="active"
                     title="FontAwesome Brands Icons."
                   >
-                    <i class="fa-solid fa-copyright"></i> Brands
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-copyright"></i> Brands
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Bootstrap">
@@ -115,7 +136,12 @@
                     data-app-active="active"
                     title="Bootstrap 5.3 documentation."
                   >
-                    <i class="fa-brands fa-bootstrap"></i> Bootstrap
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-brands fa-bootstrap"></i> Bootstrap
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Bootswatch">
@@ -126,7 +152,12 @@
                     data-app-active="active"
                     title="Bootstrap themes available."
                   >
-                    <i class="fa-solid fa-palette"></i> Bootswatch
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-palette"></i> Bootswatch
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="JSON Schema">
@@ -137,7 +168,12 @@
                     data-app-active="active"
                     title="JSON Schema 2020-12 reference."
                   >
-                    <i class="fa-solid fa-circle-check"></i> JSON Schema
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-circle-check"></i> JSON Schema
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="highlight.js">
@@ -148,7 +184,12 @@
                     data-app-active="active"
                     title="Syntax Highlight used in this docs."
                   >
-                    <i class="fa-solid fa-code"></i> highlight.js
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-code"></i> highlight.js
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Cytoscape.js">
@@ -159,7 +200,12 @@
                     data-app-active="active"
                     title="Graph component dependency."
                   >
-                    <i class="fa-solid fa-project-diagram"></i> Cytoscape.js
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-project-diagram"></i> Cytoscape.js
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="Chart.js">
@@ -170,7 +216,12 @@
                     data-app-active="active"
                     title="Chart component dependency."
                   >
-                    <i class="fa-solid fa-chart-line"></i> Chart.js
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-chart-line"></i> Chart.js
+                    </span>
                   </a>
                 </li>
                 <li data-app-path="QUnit">
@@ -181,7 +232,12 @@
                     data-app-active="active"
                     title="The testing tool used in this project."
                   >
-                    <i class="fa-solid fa-flask"></i> QUnit
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-flask"></i> QUnit
+                    </span>
                   </a>
                 </li>
               </ul>
@@ -194,7 +250,12 @@
                 data-app-active="active"
                 title="Github repository of this project."
               >
-                <i class="fa-brands fa-github"></i> Repository
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  <i class="fa-brands fa-github"></i> Repository
+                </span>
               </a>
             </li>
           </ul>

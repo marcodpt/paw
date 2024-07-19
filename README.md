@@ -37,7 +37,6 @@ minimum effort and maximum customization.
 ## TODO
 
 ### Bugs and improvements
- - nav as offcanvas and move all nav configuration to settings
  - footer
 
  - semantic html tests, no string cmp
