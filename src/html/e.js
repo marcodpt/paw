@@ -1,8 +1,5 @@
 import tags from './tags.js'
-
-const camelToKebab = string => string
-  .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
-  .toLowerCase()
+import {camelToKebab} from './lib.js'
 
 const h = (tagName, attributes, children) => {
   const e = document.createElement(tagName)

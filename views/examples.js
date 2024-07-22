@@ -1,31 +1,36 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
+const print = (x, ident) => {
+  ident = ident || ''
+  const next = ident+'  '
+  return ident+(
+    x == null ? 'null' :
+    x === true ? 'true' :
+    x === false ? 'false' :
+    typeof x == 'number' ? String(x) :
+    typeof x == 'string' ? `'${x.replaceAll('\n', '\\n')}'` :
+    x instanceof Array ? (
+      !x.length ? '[]' :
+      `[\n${x.map(v => print(v, next)).join(',\n')}\n${ident}]`
+    ) : 
+    typeof x == 'object' ? (
+      x.nodeType === 1 ? x.outerHTML : 
+      x.nodeType === 3 ? `document.createTextNode('${x.textContent}')` : 
+      !Object.keys(x).length ? '{}' :
+      `{\n${Object.keys(x).map(
+        k => next+k+': '+print(x[k], next).substr(next.length)
+      ).join(',\n')}\n${ident}}`
+    ) :
+    x.toString().replaceAll('\n        ', '\n')
+  )
+}
+
 export default ({render, Params, e}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
     const desc = normalizeDesc(description)
-    const mark = '*****'
-    const fnStr = X => {
-      if (typeof X == 'object') {
-        X = X instanceof Array ? [...X] : {...X}
-        if (X.nodeType === 1) {
-          X = mark+X.outerHTML+mark
-        } else if (X.nodeType === 3) {
-          X = mark+"document.createTextNode('"+X.textContent+"')"+mark
-        } else {
-          Object.keys(X).forEach(k => {
-            X[k] = fnStr(X[k])
-          })
-        }
-      }
-      return typeof X == 'function' ? mark+X.toString()+mark : X
-    }
-    const print = X => JSON.stringify(fnStr(X), undefined, 2)
-      .replaceAll('"'+mark, '').replaceAll(mark+'"', '')
-      .replaceAll('\\n        ', '\n')
-    const style = 'white-space:pre-wrap'
     setTimeout(() => {
       hljs.highlightAll()
     }, 100)
@@ -44,10 +49,11 @@ export default ({render, Params, e}) => {
             text(title)
           ]),
           p({
-            class: 'card-text',
-            style
+            class: 'card-text'
           }, [
-            text(desc)
+            pre({}, [
+              text(desc)
+            ])
           ]),
           hr(),
           div({}, [

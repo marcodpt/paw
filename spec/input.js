@@ -8,9 +8,9 @@ const unix_min = (d.getTime() - 24 * 60 * 60 * 1000) / 1000
 const unix_max = (d.getTime() + 7 * 24 * 60 * 60 * 1000) / 1000
 
 const update = (err, v) => {
-  console.log(err)
-  console.log(v)
-}
+    console.log(err)
+    console.log(v)
+  }
 export default ({
   icon: 'pencil',
   title: 'input',
