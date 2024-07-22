@@ -1,4 +1,4 @@
-import e from './e.js'
+import e from './html/e.js'
 import form from './form.js'
 import {rm} from './lib.js'
 import T from './lang/index.js'

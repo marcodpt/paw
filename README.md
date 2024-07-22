@@ -38,7 +38,6 @@ minimum effort and maximum customization.
 
 ### Bugs and improvements
  - semantic html tests, no string cmp
- - all HTML tags catalog in a folder within e directory 
  - create t as a symmetrical implementation of e that generates string
  - html to t converter
  - use t instead of template strings 
@@ -64,7 +63,7 @@ minimum effort and maximum customization.
  - form
  - modal
  - table
- - nav
+ - sidebar
  - core router
 
 ### New components

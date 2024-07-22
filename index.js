@@ -1,4 +1,4 @@
-import e from './src/e.js'
+import e from './src/html/e.js'
 import modal from './src/modal.js'
 import sidebar from './src/sidebar.js'
 import tag from './src/tag.js'

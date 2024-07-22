@@ -1,4 +1,4 @@
-import e from '../../e.js'
+import e from '../../html/e.js'
 
 const id = {}
 const uid =  usage => {

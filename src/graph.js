@@ -1,4 +1,4 @@
-import e from './e.js'
+import e from './html/e.js'
 import spinner from './spinner.js'
 import ctrl from './ctrl/index.js'
 import T from './lang/index.js'

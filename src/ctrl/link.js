@@ -1,4 +1,4 @@
-import e from '../e.js'
+import e from '../html/e.js'
 import tag from '../tag.js'
 import opt from './options.js'
 

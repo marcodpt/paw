@@ -1,5 +1,5 @@
-import e from '../src/e.js'
-import {selfClosing, normalTags} from '../src/lib.js'
+import e from '../src/html/e.js'
+import tags from '../src/html/tags.js'
 
 export default ({
   icon: 'code',
@@ -14,10 +14,10 @@ export default ({
         Returns the associated DOM element.
         List of tags:
          - text
-
-         ${normalTags.map(tag => '- '+tag).join('\n         ')}
-
-         ${selfClosing.map(tag => '- '+tag).join('\n         ')}
+        ${Object.keys(tags)
+          .filter(tag => tags[tag].tags.indexOf('body') >= 0)
+          .map(tag => ' - '+tag)
+          .join('\n         ')}
       `
     }
   },

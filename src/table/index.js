@@ -1,4 +1,4 @@
-import e from '../e.js'
+import e from '../html/e.js'
 import {rm, formatter} from '../lib.js'
 import spinner from '../spinner.js'
 import tag from '../tag.js'

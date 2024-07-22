@@ -1,4 +1,4 @@
-import e from './e.js'
+import e from './html/e.js'
 import T from './lang/index.js'
 
 export default () => e(({div, span, text}) =>

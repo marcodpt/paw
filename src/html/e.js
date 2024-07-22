@@ -1,4 +1,4 @@
-import {selfClosing, normalTags} from './lib.js'
+import tags from './tags.js'
 
 const camelToKebab = string => string
   .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
@@ -63,12 +63,12 @@ const Tags = {
   )
 }
 
-selfClosing.forEach(tag => {
-  Tags[tag] = attributes => h(tag, attributes)
-})
-
-normalTags.forEach(tag => {
-  Tags[tag] = (attributes, children) => h(tag, attributes, children)
-})
+Object.keys(tags)
+  .filter(tag => tags[tag].tags.indexOf('body') >= 0)
+  .forEach(tag => {
+    Tags[tag] = tags[tag].tags.indexOf('self-closing') >= 0 ?
+      attributes => h(tag, attributes) :
+      (attributes, children) => h(tag, attributes, children)
+  })
 
 export default el => el(Tags)

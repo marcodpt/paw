@@ -1,4 +1,4 @@
-import e from '../../e.js'
+import e from '../../html/e.js'
 import ctrl from '../index.js'
 import tag from '../../tag.js'
 

@@ -1,4 +1,4 @@
-import e from './e.js'
+import e from './html/e.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 
     icon.substr(0, 1) == '@' ? `fa-brands fa-${icon.substr(1)}` :
