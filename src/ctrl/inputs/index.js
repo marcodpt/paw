@@ -44,7 +44,7 @@ export default ({
     }
   }
 
-  if (s.readOnly && !s.writeOnly) {
+  if (s.readOnly && !s.writeOnly && (s.type != 'object' || s.ui == 'file')) {
     return output(s)
   }
   s.value = s.default 
