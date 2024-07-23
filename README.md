@@ -36,12 +36,17 @@ minimum effort and maximum customization.
 
 ## TODO
 
-### Bugs and improvements
- - semantic html tests, no string cmp
- - create t as a symmetrical implementation of e that generates string
- - html to t converter
- - use t instead of template strings 
+### Bugs
+ - user item is broken if refreshed because of links
+ - datalist do not work on firefox mobile
 
+### Improvements
+ - semantic html tests, no string cmp
+ - create `htmlStr` as a symmetrical implementation of e that generates string
+ - html to hyperscript converter
+ - use `htmlStr` instead of template strings
+
+ - rename e to domEl 
  - options link should be renamed (variant, context ???) because conflit with json schema link and link ctrl
  - noValid should be the default in forms
  - formatter should be a component?

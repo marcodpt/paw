@@ -5,6 +5,7 @@ import users from './views/users.js'
 import user from './views/user.js'
 import docs from './views/docs.js'
 import examples from './views/examples.js'
+import converter from './views/converter.js'
 
 window.stop = app({
   build,
@@ -12,6 +13,7 @@ window.stop = app({
   routes: {
     '*': ({render, home}) => render(home),
     '/settings': settings,
+    '/converter': converter,
     '/users': users,
     '/users/:id': user,
     '/docs/:component': docs,

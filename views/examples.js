@@ -1,32 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-const print = (x, ident) => {
-  ident = ident || ''
-  const next = ident+'  '
-  return ident+(
-    x == null ? 'null' :
-    x === true ? 'true' :
-    x === false ? 'false' :
-    typeof x == 'number' ? String(x) :
-    typeof x == 'string' ? `'${x.replaceAll('\n', '\\n')}'` :
-    x instanceof Array ? (
-      !x.length ? '[]' :
-      `[\n${x.map(v => print(v, next)).join(',\n')}\n${ident}]`
-    ) : 
-    typeof x == 'object' ? (
-      x.nodeType === 1 ? x.outerHTML : 
-      x.nodeType === 3 ? `document.createTextNode('${x.textContent}')` : 
-      !Object.keys(x).length ? '{}' :
-      `{\n${Object.keys(x).map(
-        k => next+k+': '+print(x[k], next).substr(next.length)
-      ).join(',\n')}\n${ident}}`
-    ) :
-    x.toString().replaceAll('\n        ', '\n')
-  )
-}
-
-export default ({render, Params, e}) => {
+export default ({render, Params, e, print}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
