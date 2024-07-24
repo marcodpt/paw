@@ -45,13 +45,14 @@ minimum effort and maximum customization.
  - create `htmlStr` as a symmetrical implementation of e that generates string
  - html to hyperscript converter
  - use `htmlStr` instead of template strings
-
  - rename e to domEl 
+
+ - merge spec with source
+
  - options link should be renamed (variant, context ???) because conflit with json schema link and link ctrl
  - noValid should be the default in forms
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
- - merge spec with source
  - separate input and output options
  - allow children in docs and examples (ctrl case)
  - allow to see other tests variants

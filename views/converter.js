@@ -6,16 +6,22 @@ export default ({
   e,
   print
 }) => {
-  const htmlToJs = (element, ident) => {
+  const htmlToJs = (Tags, element, ident) => {
     ident = ident || ''
 
     if (element.nodeType === 3 && element.textContent.trim()) {
+      if (Tags.indexOf('text') < 0) {
+        Tags.push('text')
+      }
       return `${ident}text('${element.textContent.replaceAll('\n', '\\n')}')`
     } else if (element.nodeType !== 1) {
       return ''
     }
 
     const tag = element.tagName.toLowerCase()
+    if (Tags.indexOf(tag) < 0) {
+      Tags.push(tag)
+    }
 
     const attributes = Array.from(element.attributes).reduce((A, {
       nodeName,
@@ -52,7 +58,7 @@ export default ({
     const next = ident+'  '
     const C = Array.from(
       (tag == 'template' ? element.content : element).childNodes
-    ).map(child => htmlToJs(child, next)).filter(c => c)
+    ).map(child => htmlToJs(Tags, child, next)).filter(c => c)
     const children = !C.length ? '' :
       `[\n${C.join(',\n')}\n${ident}]`
 
@@ -88,6 +94,8 @@ export default ({
     submit: ({html}) => {
       const target = document.createElement('div')
       target.innerHTML = html
+      const Tags = []
+      const jsCode = htmlToJs(Tags, target.firstElementChild)
       render(e(({div, pre, code, text}) => div({
         class: 'container my-5 mx-auto'
       }, [
@@ -103,7 +111,7 @@ export default ({
               code({
                 class: 'language-js py-0'
               }, [
-                text(htmlToJs(target.firstElementChild))
+                text(`({${Tags.join(', ')}}) => ${jsCode}`)
               ])
             ])
           ])
