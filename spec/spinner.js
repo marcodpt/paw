@@ -21,7 +21,7 @@ export default ({
 >
   <div
     class="spinner-border"
-    style="width: 5rem; height: 5rem;"
+    style="width: 5rem; height: 5rem"
     role="status"
   >
     <span class="visually-hidden">${T('loading')}</span>

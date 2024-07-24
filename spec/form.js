@@ -35,7 +35,7 @@ export default ({
       html: 
 `<form novalidate="">
   <fieldset>
-    <div class="alert alert-info my-0 " role="alert">
+    <div class="alert alert-info my-0" role="alert">
       <span
         style="white-space: pre-wrap"
       >Hello!\nThis is an alert!</span>

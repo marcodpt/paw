@@ -4,6 +4,7 @@ export default ({
   form,
   render,
   e,
+  tpl,
   print
 }) => {
   const htmlToJs = (Tags, element, ident) => {
@@ -96,6 +97,7 @@ export default ({
       target.innerHTML = html
       const Tags = []
       const jsCode = htmlToJs(Tags, target.firstElementChild)
+      const fn = `({${Tags.join(', ')}}) => ${jsCode}`
       render(e(({div, pre, code, text}) => div({
         class: 'container my-5 mx-auto'
       }, [
@@ -111,7 +113,7 @@ export default ({
               code({
                 class: 'language-js py-0'
               }, [
-                text(`({${Tags.join(', ')}}) => ${jsCode}`)
+                text(fn)
               ])
             ])
           ])

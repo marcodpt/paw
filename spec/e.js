@@ -15,7 +15,7 @@ export default ({
         List of tags:
          - text
         ${Object.keys(tags)
-          .filter(tag => tags[tag].tags.indexOf('body') >= 0)
+          .filter(tag => tags[tag].usages.indexOf('body') >= 0)
           .map(tag => ' - '+tag)
           .join('\n         ')}
       `

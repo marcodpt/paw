@@ -1,51 +1,25 @@
 import tags from './tags.js'
-import {camelToKebab} from './lib.js'
+import {resolveAttrs, resolveChildren} from './lib.js'
 
 const h = (tagName, attributes, children) => {
   const e = document.createElement(tagName)
 
-  Object.keys(attributes || {}).forEach(key => {
-    const v = attributes[key]
-    const k = camelToKebab(key)
-    if (typeof v == 'function') {
+  const A = resolveAttrs(attributes)
+  Object.keys(A).forEach(k => {
+    if (typeof A[k] == 'function') {
       if (k.substr(0, 2) == 'on') {
-        e.addEventListener(k.substr(2), v)
+        e.addEventListener(k.substr(2), A[k])
       } else {
-        e[key] = (...args) => v(e, ...args)
+        e[k] = (...args) => A[k](e, ...args)
       }
-    } else if (typeof v === 'string' || typeof v === 'number') {
-      e.setAttribute(k, v)
-    } else if (k === 'style' && v && typeof v === 'object') {
-      const style = Object.keys(v).reduce((style, k) => {
-        if (typeof v[k] == 'number' || typeof v[k] == 'string') {
-          const s = String(v[k]).trim()
-          if (s) {
-            style += (style ? '; ' : '')+camelToKebab(k)+': '+s
-          }
-        }
-        return style
-      }, "")
-
-      if (style) {
-        e.setAttribute('style', style)
-      }
-    } else if (k === 'class' && (v instanceof Array)) {
-      const css = v
-        .filter(c => typeof c == "string")
-        .map(c => c.trim())
-        .filter(c => c)
-        .join(" ")
-
-      if (css) {
-        e.setAttribute('class', css)
-      }
-    } else if (v === true) {
-      e.setAttribute(k, '')
+    } else {
+      e.setAttribute(k, A[k])
     }
   })
 
-  if (children instanceof Array) {
-    children.filter(c => c).forEach(child => e.appendChild(child))
+  const C = resolveChildren(tagName, children)
+  if (C instanceof Array) {
+    C.forEach(child => e.appendChild(child))
   }
 
   return e
@@ -61,11 +35,9 @@ const Tags = {
 }
 
 Object.keys(tags)
-  .filter(tag => tags[tag].tags.indexOf('body') >= 0)
+  .filter(tag => tags[tag].usages.indexOf('body') >= 0)
   .forEach(tag => {
-    Tags[tag] = tags[tag].tags.indexOf('self-closing') >= 0 ?
-      attributes => h(tag, attributes) :
-      (attributes, children) => h(tag, attributes, children)
+    Tags[tag] = (attributes, children) => h(tag, attributes, children)
   })
 
 export default el => el(Tags)

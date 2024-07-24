@@ -42,10 +42,8 @@ minimum effort and maximum customization.
 
 ### Improvements
  - semantic html tests, no string cmp
- - create `htmlStr` as a symmetrical implementation of e that generates string
- - html to hyperscript converter
- - use `htmlStr` instead of template strings
- - rename e to domEl 
+ - use `tpl` instead of template strings
+ - rename e to `dom` 
 
  - merge spec with source
 

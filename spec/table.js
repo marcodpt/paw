@@ -21,7 +21,7 @@ export default ({
         <div class="d-flex justify-content-center p-5" title="Loading...">
           <div
             class="spinner-border"
-            style="width: 5rem; height: 5rem;"
+            style="width: 5rem; height: 5rem"
             role="status"
           >
             <span class="visually-hidden">Loading...</span>
@@ -57,7 +57,7 @@ export default ({
         <div class="d-flex justify-content-center p-5" title="Loading...">
           <div
             class="spinner-border"
-            style="width: 5rem; height: 5rem;"
+            style="width: 5rem; height: 5rem"
             role="status"
           >
             <span class="visually-hidden">Loading...</span>
@@ -105,7 +105,7 @@ export default ({
         <div class="d-flex justify-content-center p-5" title="Loading...">
           <div
             class="spinner-border"
-            style="width: 5rem; height: 5rem;"
+            style="width: 5rem; height: 5rem"
             role="status"
           >
             <span class="visually-hidden">Loading...</span>
