@@ -1,4 +1,4 @@
-# App
+# App 🚀
   Vanilla js SPA without vDom, build steps and all framework complications.
 
   [Demo](https://marcodpt.github.io/app/)
