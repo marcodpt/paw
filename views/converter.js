@@ -4,7 +4,6 @@ export default ({
   form,
   render,
   e,
-  tpl,
   print
 }) => {
   const htmlToJs = (Tags, element, ident) => {
@@ -88,16 +87,28 @@ export default ({
         description: 'enter HTML string...',
         type: 'string',
         ui: 'text'
+      },
+      template: {
+        title: 'Template?',
+        description: 'Whether the html should be parsed as a template or as a full page.',
+        default: true
       }
     },
     showValid: false,
     block: true,
-    submit: ({html}) => {
-      const target = document.createElement('div')
-      target.innerHTML = html
+    submit: ({html, template}) => {
+      var target
+      if (template) {
+        target = document.createElement('div')
+        target.innerHTML = html
+      } else {
+        const parser = new DOMParser()
+        target = parser.parseFromString(html, "text/html")
+      }
+
       const Tags = []
       const jsCode = htmlToJs(Tags, target.firstElementChild)
-      const fn = `({${Tags.join(', ')}}) => ${jsCode}`
+      const fn = `({\n  ${Tags.join(',\n  ')}\n}) => ${jsCode}`
       render(e(({div, pre, code, text}) => div({
         class: 'container my-5 mx-auto'
       }, [

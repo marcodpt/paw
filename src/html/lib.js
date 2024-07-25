@@ -51,9 +51,7 @@ const resolveAttrs = attributes => Object.keys(attributes || {})
       'class',
       'style',
       'id',
-      'lang',
-      'title',
-      'placeholder'
+      'lang'
     ].indexOf(k) >= 0) {
       v = null
     }
