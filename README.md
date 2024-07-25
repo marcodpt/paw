@@ -42,8 +42,7 @@ minimum effort and maximum customization.
 
 ### Improvements
  - semantic html tests, no string cmp
- - use `tpl` instead of template strings
- - rename e to `dom` 
+ - use `html` instead of template strings
 
  - merge spec with source
 

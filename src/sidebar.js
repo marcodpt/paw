@@ -1,4 +1,4 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 import tag from './tag.js'
 import ctrl from './ctrl/index.js'
 import {rm} from './lib.js'
@@ -16,7 +16,7 @@ export default ({links}) => {
       const isOpen = 'angle-down'
       const isClosed = 'angle-right'
       
-      return e(({div, ul, li, a, text}) => 
+      return node(({div, ul, li, a, text}) => 
         ul({
           class: 'list-group'
         }, (children || []).map(({children, href, title, ...meta}) => 
@@ -59,7 +59,7 @@ export default ({links}) => {
       )
     }
 
-    document.body.appendChild(e(({div, h5, small, a, text, button}) => 
+    document.body.appendChild(node(({div, h5, small, a, text, button}) => 
       div({
         id: 'sidebar',
         class: 'offcanvas offcanvas-start',

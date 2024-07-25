@@ -1,4 +1,4 @@
-import e from '../../html/e.js'
+import node from '../../hyperscript/node.js'
 import ctrl from '../index.js'
 
 export default ({
@@ -30,7 +30,7 @@ export default ({
 
   const addItem = (dflt, i) => {
     i = i == null ? value.length : i
-    refs[i] = e(({div}) => 
+    refs[i] = node(({div}) => 
       div({
         class: size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2'
       }, [
@@ -79,7 +79,7 @@ export default ({
     href: () => addItem(items.default)
   })
 
-  const target = e(({div}) => 
+  const target = node(({div}) => 
     div({}, [
       div({
         class: 'row g-1 align-items-center justify-content-start'

@@ -1,7 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-export default ({render, Params, form, e}) => {
+export default ({render, Params, form, node}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const base = {
       ...mod.default
@@ -26,7 +26,7 @@ export default ({render, Params, form, e}) => {
         ui: 'text'
       }
     }), {})
-    return e(({div}) => div({
+    return node(({div}) => div({
       class: 'container my-5 mx-auto'
     }, [
       form(base)

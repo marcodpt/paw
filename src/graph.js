@@ -1,10 +1,10 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 import spinner from './spinner.js'
 import ctrl from './ctrl/index.js'
 import T from './lang/index.js'
 
 export default ({data}) => {
-  const graph = e(({
+  const graph = node(({
     div, p, h5, i, text
   }) =>
     div({

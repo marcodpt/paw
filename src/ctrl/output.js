@@ -1,4 +1,4 @@
-import e from '../html/e.js'
+import node from '../hyperscript/node.js'
 import tag from '../tag.js'
 import link from './link.js'
 import {formatter} from '../lib.js'
@@ -6,7 +6,7 @@ import {formatter} from '../lib.js'
 export default schema => {
   const data = formatter(schema)(schema.default)
   const p = typeof data == 'number' && data > 100 ? 100 : data
-  return e(({a, div, span, text}) =>
+  return node(({a, div, span, text}) =>
     schema.href ? link({
       ...schema,
       title: data,

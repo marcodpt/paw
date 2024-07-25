@@ -1,4 +1,4 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 
     icon.substr(0, 1) == '@' ? `fa-brands fa-${icon.substr(1)}` :
@@ -8,7 +8,7 @@ export default ({
   title,
   description,
   icon 
-}) => e(({span, i, text}) => {
+}) => node(({span, i, text}) => {
   const children = [
     !icon ? null : i({
       class: faIcon(icon)

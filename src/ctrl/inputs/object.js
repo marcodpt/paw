@@ -1,4 +1,4 @@
-import e from '../../html/e.js'
+import node from '../../hyperscript/node.js'
 import ctrl from '../index.js'
 import tag from '../../tag.js'
 
@@ -28,7 +28,7 @@ export default ({
   var hasErr = false
   const ref = {}
 
-  const target = e(({
+  const target = node(({
     div,
     fieldset,
     legend,
@@ -102,7 +102,7 @@ export default ({
           default: Data[k] == null ? P[k].default : Data[k],
           data: Data
         }
-        const el = e(({
+        const el = node(({
           div,
           label,
           text,

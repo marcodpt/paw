@@ -1,4 +1,4 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 import form from './form.js'
 import {rm} from './lib.js'
 import T from './lang/index.js'
@@ -9,7 +9,7 @@ export default ({
   ...schema
 }) => new Promise (resolve => {
   var result = null
-  const modal = e(({div}) => 
+  const modal = node(({div}) => 
     div({
       class: 'modal fade',
       tabindex: '-1'

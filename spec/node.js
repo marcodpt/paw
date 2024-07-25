@@ -1,11 +1,11 @@
-import e from '../src/html/e.js'
-import tags from '../src/html/tags.js'
+import node from '../src/hyperscript/node.js'
+import tags from '../src/hyperscript/tags.js'
 
 export default ({
   icon: 'code',
-  title: 'e',
+  title: 'node',
   description: 'Hyperscript function on steroids.',
-  component: e,
+  component: node,
   properties: {
     param1: {
       title: 'Param 1 (function)',

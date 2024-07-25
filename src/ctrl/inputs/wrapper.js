@@ -1,4 +1,4 @@
-import e from '../../html/e.js'
+import node from '../../hyperscript/node.js'
 
 const id = {}
 const uid =  usage => {
@@ -6,7 +6,7 @@ const uid =  usage => {
   return `app_${usage}_${String(id[usage]).padStart(6, '0')}`
 }
 
-export default (target, noFeedback) => e(({div}) =>
+export default (target, noFeedback) => node(({div}) =>
   div({
     validate: (el, error) => {
       el.querySelectorAll('.invalid-feedback').forEach(feedback => {
@@ -27,7 +27,7 @@ export default (target, noFeedback) => e(({div}) =>
         }
       })
     }
-  }, [].concat(e(X => target({...X, uid}))).concat(noFeedback ? [] : [
+  }, [].concat(node(X => target({...X, uid}))).concat(noFeedback ? [] : [
     div({
       class: 'invalid-feedback'
     })

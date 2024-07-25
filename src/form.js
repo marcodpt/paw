@@ -1,4 +1,4 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 import ctrl from './ctrl/index.js'
 import tag from './tag.js'
 import T from './lang/index.js'
@@ -56,7 +56,7 @@ export default ({
   })
   const hasFields = fields.nodeType == 1
 
-  return e(({
+  return node(({
     div,
     form,
     hr

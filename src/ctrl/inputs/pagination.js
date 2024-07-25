@@ -1,4 +1,4 @@
-import e from '../../html/e.js'
+import node from '../../hyperscript/node.js'
 import ctrl from '../index.js'
 
 export default ({
@@ -94,7 +94,7 @@ export default ({
     setPage(schema.default)
   }
 
-  return e(({div}) =>
+  return node(({div}) =>
     div({
       class: 'row gx-1 justify-content-center'
     }, [

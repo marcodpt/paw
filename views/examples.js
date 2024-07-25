@@ -1,7 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-export default ({render, Params, e, print}) => {
+export default ({render, Params, node, print}) => {
   return render(import(`../spec/${Params.component}.js`).then(mod => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
@@ -9,7 +9,7 @@ export default ({render, Params, e, print}) => {
     setTimeout(() => {
       hljs.highlightAll()
     }, 100)
-    return e(({div, h5, p, hr, text, pre, code}) => div({
+    return node(({div, h5, p, hr, text, pre, code}) => div({
       class: 'container my-5 mx-auto'
     }, [
       div({

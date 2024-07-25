@@ -1,5 +1,5 @@
-import tpl from './src/html/tpl.js'
-import e from './src/html/e.js'
+import html from './src/hyperscript/html.js'
+import node from './src/hyperscript/node.js'
 import modal from './src/modal.js'
 import sidebar from './src/sidebar.js'
 import tag from './src/tag.js'
@@ -19,7 +19,7 @@ export default ({build, root, routes}) => {
   var stop = null
   var old = null
   var components = {
-    e, tpl, modal, sidebar, tag, ctrl,
+    node, html, modal, sidebar, tag, ctrl,
     form, table, chart, graph, spinner,
     render: (view, el) => render(view, el || root)
   }

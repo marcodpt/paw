@@ -1,4 +1,4 @@
-import e from '../html/e.js'
+import node from '../hyperscript/node.js'
 import {rm, formatter} from '../lib.js'
 import spinner from '../spinner.js'
 import tag from '../tag.js'
@@ -52,7 +52,7 @@ export default ({
   var rows = null
   var data = schema.default
 
-  const tbl = e(({
+  const tbl = node(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul, span, label
   }) =>
     table({
@@ -270,7 +270,7 @@ export default ({
       })
 
       view.forEach(row => {
-        x.appendChild(e(({tr, td, a, text}) =>
+        x.appendChild(node(({tr, td, a, text}) =>
           tr({
             title: I.map(k => row[k]).join('\n') || null
           }, [
@@ -332,7 +332,7 @@ export default ({
         const v = totals[k]
         t.textContent = v != null ? v : '' 
       })
-      x.appendChild(e(({tr, td}) =>
+      x.appendChild(node(({tr, td}) =>
         tr({}, [
           td({
             colspan: '100%'

@@ -1,4 +1,4 @@
-import e from './html/e.js'
+import node from './hyperscript/node.js'
 import spinner from './spinner.js'
 
 export default ({
@@ -7,7 +7,7 @@ export default ({
   datasets
 }) => {
   const loading = spinner()
-  const chart = e(({
+  const chart = node(({
     div, canvas
   }) =>
     div({

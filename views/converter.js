@@ -3,7 +3,7 @@ const kebabToCamel = string => string.replace(/-./g, x => x[1].toUpperCase())
 export default ({
   form,
   render,
-  e,
+  node,
   print
 }) => {
   const htmlToJs = (Tags, element, ident) => {
@@ -109,7 +109,7 @@ export default ({
       const Tags = []
       const jsCode = htmlToJs(Tags, target.firstElementChild)
       const fn = `({\n  ${Tags.join(',\n  ')}\n}) => ${jsCode}`
-      render(e(({div, pre, code, text}) => div({
+      render(node(({div, pre, code, text}) => div({
         class: 'container my-5 mx-auto'
       }, [
         div({

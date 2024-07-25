@@ -1,4 +1,4 @@
-import e from '../html/e.js'
+import node from '../hyperscript/node.js'
 import tag from '../tag.js'
 import opt from './options.js'
 
@@ -40,7 +40,7 @@ export default ({
   const target = typeof href == 'string' && href.indexOf('://') > 0 ?
     '_blank' : null
 
-  const spinner = !run ? null : e(({span}) =>
+  const spinner = !run ? null : node(({span}) =>
     span({
       class: 'spinner-border spinner-border-sm',
       ariaHidden: 'true'
@@ -81,7 +81,7 @@ export default ({
     })
   }
 
-  const btn = e(({button, a, span}) => (isBtn ? button : a)({
+  const btn = node(({button, a, span}) => (isBtn ? button : a)({
     class: [
       link ? 'btn btn-'+link : '',
       size ? 'btn-'+size : '',
@@ -109,7 +109,7 @@ export default ({
   const trigger = btn.querySelector('a.d-none')
   const icon = btn.querySelector('i')
 
-  return !hasDrop ? btn : e(({div, ul, li, a, button}) => 
+  return !hasDrop ? btn : node(({div, ul, li, a, button}) => 
     div({
       class: 'btn-group'
     }, [

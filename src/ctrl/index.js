@@ -1,4 +1,4 @@
-import e from '../html/e.js'
+import node from '../hyperscript/node.js'
 import link from './link.js'
 import output from './output.js'
 import input from './inputs/index.js'
@@ -38,7 +38,7 @@ export default ({
 
   if (css) {
     if (ctrl.tagName != 'DIV') {
-      ctrl = e(({div}) => div({
+      ctrl = node(({div}) => div({
         class: css
       }, [
         ctrl

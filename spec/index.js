@@ -1,5 +1,5 @@
 import app from './app.js'
-import e from './e.js'
+import node from './node.js'
 import render from './render.js'
 import spinner from './spinner.js'
 import tag from './tag.js'
@@ -15,7 +15,7 @@ import chart from './chart.js'
 
 export default [
   app,
-  e,
+  node,
   render,
   spinner,
   tag,

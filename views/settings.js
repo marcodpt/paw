@@ -57,7 +57,7 @@ const langs = [
   {value: 'pt', label: 'Português'}
 ]
 
-export default ({render, form, home, tpl}) => {
+export default ({render, form, home, html}) => {
   const getNav = () => document.body.querySelector('nav.navbar')
   const getCss = nav => nav.getAttribute('class')
     .split(' ')
@@ -81,7 +81,7 @@ export default ({render, form, home, tpl}) => {
     return prefix !== false ? prefix+cls.split(' ')[1].substr(3) : ''
   }
 
-  const navLinks = links => !links || !links.length ? '' : tpl(({
+  const navLinks = links => !links || !links.length ? '' : html(({
     ul, li, a, i, span, text
   }) => 
     ul({
@@ -180,7 +180,7 @@ export default ({render, form, home, tpl}) => {
     icon,
     title,
     description
-  }) => tpl(({
+  }) => html(({
     li, a, i, text
   }) =>
     li({
@@ -390,7 +390,7 @@ export default ({render, form, home, tpl}) => {
         default: document.body.
           querySelector('footer')?.
           querySelector('p')?.
-            innerHTML
+            innerHTML.trim()
       }
     },
     update: (err, Data) => err ? null : rebuild(document, Data),
@@ -405,7 +405,7 @@ export default ({render, form, home, tpl}) => {
       links,
       linksFooter,
       copyright
-    }) => tpl(({
+    }) => html(({
       html,
       head,
       meta,
