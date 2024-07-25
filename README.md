@@ -1,46 +1,25 @@
 # App
-A dashboard application 
+  Vanilla js SPA without vDom, build steps and all framework complications.
 
-## Contract
- - The index.html file will be the only html file (as it is a SPA) and it must
-be SSR, SEO optimized and functional before the javascript loads.
- - The only javascript loaded on page load is the application core (as minimal
-as possible). Everything else should be imported dynamically to keep the page
-loading as quickly as possible.
- - Every core functionality should be defined as a component, accessible for
-re usage when defining new routes.
- - The application's views are accessed by routing the page's hash, and any
-change in the page's state must result in a different hash to be able to share
-links with a well-defined state.
- - It must be possible, without touching the core of the application, to add
-new routes and functionalities respecting the defined principles and without
-having to use any type of build tools.
+  [Demo](https://marcodpt.github.io/app/)
 
-## Implementation
-The objectives defined contractually are ambitious and it will be necessary to
-evolve the technologies involved along with the development of the application.
+## Features ❤️
+ - SPA without vDom
+ - Built-in router
+ - `index.html` [builder](https://marcodpt.github.io/app/#/settings) with themes
+ - JSON Schema based [forms](https://marcodpt.github.io/app/#/examples/form/4),
+inputs and outputs
+ - [Table](https://marcodpt.github.io/app/#/users) data with great flexibility
+ - [Graph](https://marcodpt.github.io/app/#/examples/graph/0),
+[chart](https://marcodpt.github.io/app/#/examples/chart/0) and more components out of the box.
 
-To start development, it will be necessary to make non-optimal choices that may
-eventually be replaced in the future.
+## TODO 🔧
 
- - [Bootstrap](https://github.com/twbs/bootstrap): Despite bringing extra
-javascript and not being exactly minimal, it manages to preserve good
-consistency between sites, and is extremely tested and has features that will
-speed up development, in addition to being easily customized using projects
-like [Bootswatch](https://github.com/thomaspark/bootswatch).
- - [Font-Awesome](https://github.com/FortAwesome/Font-Awesome): The most
-popular icon library, essential for creating intuitive user interfaces.
- - [JSON Schema](https://github.com/json-schema-org/json-schema-spec): A level
-of abstraction to bring user-defined tables and forms to the application with
-minimum effort and maximum customization.
-
-## TODO
-
-### Bugs
+### Bugs 🐞
  - user item is broken if refreshed because of links
  - datalist do not work on firefox mobile
 
-### Improvements
+### Improvements 💡
  - semantic html tests, no string cmp
  - use `html` instead of template strings
 
@@ -56,7 +35,7 @@ minimum effort and maximum customization.
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
 
-### Tests and docs
+### Tests and docs 🧪
  - chart
  - graph
  - render
@@ -68,13 +47,27 @@ minimum effort and maximum customization.
  - sidebar
  - core router
 
-### New components
+### New components 📋
  - alert
  - barcode
  - carousel
  - maps
  - code component (html/js) and remove highlight.js from page source
 
-## Contributing
+## Contributing 🤝
 It's a very simple project.
 Any contribution, any feedback is greatly appreciated.
+
+## Acknowledgment 🙏
+This work would not be possible if it were not for these related projects:
+ - [FontAwesome](https://fontawesome.com/)
+ - [Bootstrap](https://getbootstrap.com/)
+ - [Bootswatch](https://bootswatch.com/)
+ - [JSON Schema](https://json-schema.org/)
+ - [HTML5 Boilerplate](https://html5boilerplate.com/)
+ - [highlight.js](https://highlightjs.org/)
+ - [Cytoscape.js](https://js.cytoscape.org/)
+ - [Chart.js](https://www.chartjs.org/)
+ - [QUnit](https://qunitjs.com/)
+
+A huge thank you to all the people who contributed to these projects.
