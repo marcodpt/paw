@@ -106,7 +106,6 @@ export default ({
             ctrl({
               type: 'string',
               description: search,
-              noValid: true,
               title: 'search',
               default: query.search,
               delay: 500,
@@ -217,7 +216,6 @@ export default ({
         if (!prevent) {
           pager.replaceWith(ctrl({
             ui: 'pagination',
-            noValid: true,
             description: pagination,
             default: query.page,
             maximum: pages,
@@ -279,7 +277,6 @@ export default ({
             }, [
               ctrl({
                 type: 'boolean',
-                noValid: true,
                 default: query.checked.indexOf(row) >= 0,
                 update: (err, v) => {
                   if (!err) {

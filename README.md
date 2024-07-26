@@ -25,7 +25,6 @@ inputs and outputs
  - merge spec with source
  - use `html` instead of template strings
 
- - noValid should be the default in forms
  - merge tag and alert inside ctrl
 
  - formatter should be a component?

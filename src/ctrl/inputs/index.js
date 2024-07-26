@@ -132,7 +132,7 @@ export default ({
     }
     const err = validate(value)
     if (wrapper && typeof wrapper.validate == 'function') {
-      wrapper.validate(err ? err : schema.noValid ? null : '')
+      wrapper.validate(err ? err : schema.showValid ? '' : null)
     }
 
     if (typeof update == 'function') {

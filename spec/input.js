@@ -24,6 +24,7 @@ export default ({
         {
           type: 'boolean',
           default: true,
+          showValid: true,
           update
         }
       ],
@@ -44,6 +45,7 @@ export default ({
           default: 'test',
           minLength: 1,
           maxLength: 5,
+          showValid: true,
           update
         }
       ],
@@ -62,6 +64,7 @@ export default ({
         {
           type: 'integer',
           default: 7,
+          showValid: true,
           update
         }
       ],
@@ -81,6 +84,7 @@ export default ({
         {
           type: 'number',
           default: 2.7,
+          showValid: true,
           update
         }
       ],
@@ -100,6 +104,7 @@ export default ({
           type: 'number',
           minimum: 0,
           ui: 'num.2',
+          showValid: true,
           update
         }
       ],
@@ -123,6 +128,7 @@ export default ({
           default: 699,
           minimum: 698,
           maximum: 710,
+          showValid: true,
           update
         }
       ],
@@ -145,6 +151,7 @@ export default ({
           type: 'integer',
           ui: 'bool',
           default: 1,
+          showValid: true,
           update
         }
       ],
@@ -170,6 +177,7 @@ export default ({
           ui: 'date',
           default: iso,
           minimum: iso_min,
+          showValid: true,
           update
         }
       ],
@@ -192,6 +200,7 @@ export default ({
           default: unix,
           minimum: unix_min,
           maximum: unix_max,
+          showValid: true,
           update
         }
       ],
@@ -214,12 +223,14 @@ export default ({
           ui: 'text',
           default: 'Text is used for store multiline text!\nAs you can see it!',
           minLength: 1,
+          showValid: true,
           update
         }, {
           type: 'string',
           ui: 'info',
           default: 'Text is used for store multiline text!\nAs you can see it!',
           minLength: 1,
+          showValid: true,
           update
         }
       ],
@@ -240,6 +251,7 @@ export default ({
           default: 'secret',
           minLength: 5,
           maxLength: 10,
+          showValid: true,
           update
         }
       ],
@@ -258,6 +270,7 @@ export default ({
         {
           type: 'array',
           ui: 'file',
+          showValid: true,
           update
         }
       ],
@@ -276,6 +289,7 @@ export default ({
         {
           ui: 'File',
           type: 'array',
+          showValid: true,
           update
         }
       ],
@@ -295,6 +309,7 @@ export default ({
           type: 'string',
           ui: 'context',
           default: 'primary',
+          showValid: true,
           update
         }
       ],
@@ -398,6 +413,7 @@ export default ({
           type: 'string',
           ui: 'icon',
           default: 'check',
+          showValid: true,
           update
         }
       ],
@@ -416,6 +432,7 @@ export default ({
           type: 'string',
           ui: 'ui',
           default: 'ui',
+          showValid: true,
           update
         }
       ],
@@ -491,6 +508,7 @@ export default ({
             }
           ],
           size: 'sm',
+          showValid: true,
           update
         }
       ],
@@ -531,8 +549,7 @@ export default ({
               label: 'Horse'
             }
           ],
-          update,
-          noValid: true
+          update
         }
       ],
       html: 
@@ -573,6 +590,7 @@ export default ({
             }
           ],
           size: 'lg',
+          showValid: true,
           update
         }
       ],
@@ -603,6 +621,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -625,6 +644,7 @@ export default ({
         {
           type: 'integer',
           options: [],
+          showValid: true,
           update
         }
       ],
@@ -653,6 +673,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -693,6 +714,7 @@ export default ({
             }
           ],
           size: 'sm',
+          showValid: true,
           update
         }
       ],
@@ -731,8 +753,7 @@ export default ({
               label: 'Horse'
             }
           ],
-          update,
-          noValid: true
+          update
         }
       ],
       html: 
@@ -770,6 +791,7 @@ export default ({
             }
           ],
           size: 'lg',
+          showValid: true,
           update
         }
       ],
@@ -795,6 +817,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -813,6 +836,7 @@ export default ({
           type: 'integer',
           ui: 'select',
           options: [],
+          showValid: true,
           update
         }
       ],
@@ -839,6 +863,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -876,6 +901,7 @@ export default ({
             }
           ],
           size: 'sm',
+          showValid: true,
           update
         }
       ],
@@ -976,8 +1002,7 @@ export default ({
               label: 'Horse'
             }
           ],
-          update,
-          noValid: true
+          update
         }
       ],
       html: 
@@ -1063,6 +1088,7 @@ export default ({
             }
           ],
           size: 'lg',
+          showValid: true,
           update
         }
       ],
@@ -1138,6 +1164,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -1181,6 +1208,7 @@ export default ({
           type: 'integer',
           ui: 'radio',
           options: [],
+          showValid: true,
           update
         }
       ],
@@ -1216,6 +1244,7 @@ export default ({
               label: 'Dog'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -1258,6 +1287,7 @@ export default ({
               label: 'Horse'
             }
           ],
+          showValid: true,
           update
         }
       ],
@@ -1340,7 +1370,6 @@ export default ({
               label: 'Horse'
             }
           ],
-          noValid: true,
           update
         }
       ],
@@ -1451,6 +1480,7 @@ export default ({
           default: 1,
           maximum: 1,
           size: 'lg',
+          showValid: true,
           update
         }
       ],
@@ -1501,7 +1531,6 @@ export default ({
           maximum: 15,
           default: 7,
           size: 'sm',
-          noValid: true,
           update
         }
       ],
@@ -1574,6 +1603,7 @@ export default ({
           size: 'lg',
           minItems: 1,
           maxItems: 5,
+          showValid: true,
           update
         }
       ], html:
@@ -1632,7 +1662,6 @@ export default ({
           },
           update,
           size: 'sm',
-          noValid: true,
           default: [
             {
               name: 'john'
@@ -1697,7 +1726,6 @@ export default ({
       title: 'Navbar',
       data: [
         {
-          noValid: true,
           items: {
             properties: {
               icon: {

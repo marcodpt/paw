@@ -69,6 +69,7 @@ export default ({
           title: 'Login',
           icon: 'sign-in',
           size: 'lg',
+          showValid: true,
           properties: {
             name: {
               title: '',
@@ -143,6 +144,7 @@ export default ({
           title: 'Register',
           icon: 'user',
           size: 'sm',
+          showValid: true,
           properties: {
             name: {
               type: 'string'
@@ -288,6 +290,7 @@ export default ({
       title: 'Filter',
       data: [
         {
+          showValid: true,
           properties: {
             field: {
               type: 'string',

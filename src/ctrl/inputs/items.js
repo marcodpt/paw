@@ -7,7 +7,7 @@ export default ({
   maxItems,
   readOnly,
   writeOnly,
-  noValid,
+  showValid,
   update,
   size,
   value
@@ -38,7 +38,7 @@ export default ({
           size,
           readOnly,
           writeOnly,
-          noValid,
+          showValid,
           ...items,
           default: dflt,
           update: (err, v, label) => {

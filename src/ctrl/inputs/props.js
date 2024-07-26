@@ -11,7 +11,7 @@ export default ({
   icon,
   close,
   delay,
-  noValid,
+  showValid,
   size,
   col,
   readOnly,
@@ -93,7 +93,7 @@ export default ({
         col = P[k].col || col
         const {title, description, ...schema} = {
           delay,
-          noValid,
+          showValid,
           size,
           readOnly,
           writeOnly,

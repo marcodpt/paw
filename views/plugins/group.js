@@ -29,7 +29,6 @@ export default ({modal, tag}) => {
             fields: {
               type: 'array',
               title: '',
-              noValid: true,
               default: [],
               options: K.map(k => ({
                 value: k,

@@ -29,7 +29,6 @@ export default ({modal, ctrl}, users) => {
           field: {
             type: 'string',
             title: 'Field',
-            noValid: true,
             default: K[0],
             options: K.map(k => ({
               value: k,
@@ -39,7 +38,6 @@ export default ({modal, ctrl}, users) => {
           operator: {
             type: 'string',
             title: 'Operator',
-            noValid: true,
             default: 'ct',
             options: [
               {
@@ -72,8 +70,7 @@ export default ({modal, ctrl}, users) => {
           value: {
             type: 'string',
             minLength: 1,
-            title: 'Value',
-            noValid: true
+            title: 'Value'
           }
         },
         update: (err, Data, Label, form) => {
@@ -98,7 +95,6 @@ export default ({modal, ctrl}, users) => {
                 value: {
                   type: P[field].type,
                   title: 'Value',
-                  noValid: true,
                   options: values.map(v => ({
                     value: v,
                     label: format[field](v)
@@ -110,7 +106,6 @@ export default ({modal, ctrl}, users) => {
                 value: {
                   type: 'string',
                   title: 'Value',
-                  noValid: true,
                   minLength: 1
                 }
               })
