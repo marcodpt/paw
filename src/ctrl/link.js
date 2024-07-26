@@ -3,7 +3,7 @@ import tag from '../tag.js'
 import opt from './options.js'
 
 export default ({
-  link,
+  context,
   href,
   size,
   data,
@@ -20,7 +20,7 @@ export default ({
   const isBtn = typeof href != 'string' || (hasDrop && !hasSplit)
 
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
-  link = opt('link', true).indexOf(link) >= 0 ? link :
+  context = opt('context', true).indexOf(context) >= 0 ? context :
     isBtn ? 'primary' :
       size || isDisabled ? 'link' : ''
 
@@ -83,7 +83,7 @@ export default ({
 
   const btn = node(({button, a, span}) => (isBtn ? button : a)({
     class: [
-      link ? 'btn btn-'+link : '',
+      context ? 'btn btn-'+context : '',
       size ? 'btn-'+size : '',
       isDisabled ? 'disabled' : '',
       hasDrop && !hasSplit ? 'dropdown-toggle' : ''
@@ -116,7 +116,7 @@ export default ({
       btn,
       !hasSplit ? null : button({
         class: [
-          link ? 'btn btn-'+link : '',
+          context ? 'btn btn-'+context : '',
           size ? 'btn-'+size : '',
           !hasLinks ? 'disabled' : '',
           'dropdown-toggle',

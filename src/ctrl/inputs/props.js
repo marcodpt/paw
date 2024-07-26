@@ -7,7 +7,7 @@ export default ({
   properties,
   title,
   description,
-  ui,
+  context,
   icon,
   close,
   delay,
@@ -20,7 +20,7 @@ export default ({
 }) => {
   const P = properties || {}
   const K = Object.keys(P)
-  const hasAlert = ui && description
+  const hasAlert = context && description
   const hasLegend = close || title || icon
   const Data = {...schema.default} || {}
   const Label = {}
@@ -56,7 +56,7 @@ export default ({
       class: 'my-2'
     }),
     !hasAlert ? null : div({
-      class: 'alert alert-'+ui+' my-0 '+
+      class: 'alert alert-'+context+' my-0 '+
         (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
       role: 'alert'
     }, [

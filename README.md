@@ -21,12 +21,13 @@ inputs and outputs
 
 ### Improvements 💡
  - semantic html tests, no string cmp
- - use `html` instead of template strings
 
  - merge spec with source
+ - use `html` instead of template strings
 
- - options link should be renamed (variant, context ???) because conflit with json schema link and link ctrl
  - noValid should be the default in forms
+ - merge tag and alert inside ctrl
+
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - separate input and output options
@@ -34,6 +35,8 @@ inputs and outputs
  - allow to see other tests variants
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
+ - dynamic validation with functions
+ - input wrapper review
 
 ### Tests and docs 🧪
  - chart
@@ -48,7 +51,6 @@ inputs and outputs
  - core router
 
 ### New components 📋
- - alert
  - barcode
  - carousel
  - maps

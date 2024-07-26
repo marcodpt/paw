@@ -293,24 +293,13 @@ export default ({
       data: [
         {
           type: 'string',
-          ui: 'link',
+          ui: 'context',
           default: 'primary',
           update
         }
       ],
       html:
 `<div>
-  <input
-    type="radio"
-    class="btn-check"
-    id="app_radio_000001"
-    autocomplete="off"
-    value="link"
-  >
-  <label
-    class="btn btn-link me-2"
-    for="app_radio_000001"
-  >link</label>
   <input
     type="radio"
     class="btn-check"
@@ -459,7 +448,7 @@ export default ({
     <option>file</option>
     <option>color</option>
     <option>progress</option>
-    <option>link</option>
+    <option>context</option>
     <option>icon</option>
     <option>ui</option>
   </datalist>
@@ -1458,7 +1447,7 @@ export default ({
         {
           ui: 'pagination',
           description: 'Page',
-          link: 'primary',
+          context: 'primary',
           default: 1,
           maximum: 1,
           size: 'lg',

@@ -142,7 +142,7 @@ export default ({
           }, [
             ctrl({
               size: 'sm',
-              link: 'success',
+              context: 'success',
               icon: 'check',
               href: () => {
                 (rows || []).forEach(row => {
@@ -320,7 +320,7 @@ export default ({
                 href: query.group ? null : P[k].href,
                 default: row[k],
                 data: row,
-                size: P[k].href && !query.group && P[k].link ? 'sm' : null
+                size: P[k].href && !query.group && P[k].context ? 'sm' : null
               })
             ])
           )))

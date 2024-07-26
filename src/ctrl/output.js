@@ -53,9 +53,9 @@ export default schema => {
       icon: data,
       title: schema.default
     }) : 
-    schema.ui == 'link' ? link({
+    schema.ui == 'context' ? link({
       title: data,
-      link: data,
+      context: data,
       href: 'javascript:;',
       size: 'sm'
     }) : 

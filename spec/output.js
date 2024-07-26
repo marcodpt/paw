@@ -24,9 +24,9 @@ export default ({
       type: 'string',
       description: `Used to create links in static content.`
     },
-    link: {
+    context: {
       type: 'string',
-      enum: opt('link', true),
+      enum: opt('context', true),
       description: `
         One of the bootstrap 5 button variants.
         It only makes sense when href is present.
@@ -232,7 +232,7 @@ export default ({
         {
           default: 'test',
           href: '#',
-          link: 'info'
+          context: 'info'
         }
       ],
       html: `<a class="btn btn-info" href="#">test</a>`
@@ -385,10 +385,10 @@ export default ({
       ],
       html: '<span><i class="fa-brands fa-github"></i> @github</span>'
     }, {
-      title: 'Link primary',
+      title: 'Context primary',
       data: [
         {
-          ui: 'link',
+          ui: 'context',
           default: 'primary'
         }
       ], 
@@ -398,18 +398,18 @@ export default ({
   href="javascript:;"
 >primary</a>`
     }, {
-      title: 'Link link',
+      title: 'Context other',
       data: [
         {
-          ui: 'link',
-          default: 'link'
+          ui: 'context',
+          default: 'other'
         }
       ],
       html: 
 `<a
   class="btn btn-link btn-sm"
   href="javascript:;"
->link</a>`
+>other</a>`
     }, {
       title: 'Progress 0%',
       data: [

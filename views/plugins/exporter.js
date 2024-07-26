@@ -1,5 +1,5 @@
 const Info = {
-  link: 'secondary',
+  context: 'secondary',
   icon: 'file',
   title: 'Export'
 }

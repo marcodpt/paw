@@ -14,8 +14,7 @@ const UI = {
     'boolean',
     'null'
   ],
-  link: [
-    'link',
+  context: [
     'primary',
     'secondary',
     'success',
@@ -46,7 +45,7 @@ const UI = {
     'file',
     'color',
     'progress',
-    'link',
+    'context',
     'icon',
     'ui'
   ]

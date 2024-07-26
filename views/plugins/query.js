@@ -1,5 +1,5 @@
 const Info = {
-  link: 'info',
+  context: 'info',
   icon: 'filter',
   title: 'Filter'
 }

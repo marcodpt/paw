@@ -10,9 +10,9 @@ export default ({
   description: 'Buttons and links.',
   component: ctrl,
   properties: {
-    link: {
+    context: {
       type: 'string',
-      enum: opt('link', true),
+      enum: opt('context', true),
       description: `
         One of the bootstrap 5 button variants.
         If href is a string, the default value is: link.
@@ -153,7 +153,7 @@ export default ({
       data: [
         {
           icon: 'face-smile',
-          link: 'warning',
+          context: 'warning',
           title: 'Greetings',
           description: 'My hello message!',
           href: data => {
@@ -177,7 +177,7 @@ export default ({
       data: [
         {
           icon: 'database',
-          link: 'secondary',
+          context: 'secondary',
           title: 'Backup',
           description: 'Sample backup!',
           href: data => wait(1000).then(() => `Hello ${data}!`),
@@ -200,7 +200,7 @@ export default ({
       data: [
         {
           icon: 'flask',
-          link: 'secondary',
+          context: 'secondary',
           title: 'Dropdown',
           href: '',
           links: [
@@ -262,7 +262,7 @@ export default ({
       data: [
         {
           icon: 'face-smile',
-          link: 'warning',
+          context: 'warning',
           title: 'Say Hi!',
           href: () => {window.alert('Hi!')},
           size: 'lg',
@@ -330,7 +330,7 @@ export default ({
       data: [
         {
           icon: 'home',
-          link: 'info',
+          context: 'info',
           title: 'Go Home!',
           href: '#/',
           size: 'sm',
@@ -398,7 +398,7 @@ export default ({
       data: [
         {
           icon: 'flask',
-          link: 'secondary',
+          context: 'secondary',
           title: 'Dropdown',
           href: '',
           links: []
@@ -422,7 +422,7 @@ export default ({
       data: [
         {
           icon: 'face-smile',
-          link: 'warning',
+          context: 'warning',
           title: 'Say Hi!',
           href: () => {window.alert('Hi!')},
           size: 'sm',
@@ -451,7 +451,7 @@ export default ({
       data: [
         {
           icon: 'home',
-          link: 'info',
+          context: 'info',
           title: 'Go Home!',
           href: '#/',
           size: 'lg',

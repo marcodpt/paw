@@ -80,7 +80,7 @@ export default ({
     description: 'Only one HTML element is supported.'+
       '\nIf more than one is entered, only the first one will be returned.',
     icon: 'file-code',
-    ui: 'warning',
+    context: 'warning',
     properties: {
       html: {
         title: '',

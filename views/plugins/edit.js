@@ -1,5 +1,5 @@
 const Info = {
-  link: 'warning',
+  context: 'warning',
   icon: 'edit',
   title: 'Edit'
 }
@@ -26,7 +26,7 @@ export default ({modal}, data) => {
           modal({
             ...Info,
             title,
-            ui: 'success',
+            context: 'success',
             description: `User ${user.name} was edited!`
           })
         }

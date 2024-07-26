@@ -41,7 +41,7 @@ export default ({
                 }),
             links: [
               {
-                link: 'secondary',
+                context: 'secondary',
                 icon: 'times',
                 title: T('close'),
                 href: 'javascript:;',

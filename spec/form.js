@@ -29,7 +29,7 @@ export default ({
       data: [
         {
           description: 'Hello!\nThis is an alert!',
-          ui: 'info'
+          context: 'info'
         }
       ],
       html: 
@@ -86,7 +86,7 @@ export default ({
           links: [
             {
               icon: 'sign-in',
-              link: 'primary',
+              context: 'primary',
               title: 'Login',
               href: (data) => {
                 console.log(data)

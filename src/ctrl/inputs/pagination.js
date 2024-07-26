@@ -6,10 +6,10 @@ export default ({
   update,
   minimum,
   maximum,
-  link,
+  context,
   ...schema
 }) => {
-  link = link || 'secondary'
+  context = context || 'secondary'
   minimum = minimum == null ? 1 : minimum
   maximum = maximum == null ? 0 : maximum
   description = description || ''
@@ -28,28 +28,28 @@ export default ({
 
   const first = ctrl({
     href: pending ? false : () => setPage(minimum),
-    link,
+    context,
     size,
     icon: 'fast-backward'
   })
 
   const previous = ctrl({
     href: pending ? false : () => setPage(value - 1),
-    link,
+    context,
     size,
     icon: 'step-backward'
   })
 
   const next = ctrl({
     href: pending ? false : () => setPage(value + 1),
-    link,
+    context,
     size,
     icon: 'step-forward'
   })
 
   const last = ctrl({
     href: pending ? false : () => setPage(maximum),
-    link,
+    context,
     size,
     icon: 'fast-forward'
   })

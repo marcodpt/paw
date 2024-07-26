@@ -1,5 +1,5 @@
 const Info = {
-  link: 'success',
+  context: 'success',
   icon: 'pencil',
   title: 'Insert'
 }
@@ -27,7 +27,7 @@ export default ({modal}, data) => {
           tbl.setData(data)
           modal({
             ...Info,
-            ui: Info.link,
+            context: 'success',
             description: 'New user inserted!'
           })
         }

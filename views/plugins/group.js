@@ -1,5 +1,5 @@
 const Info = {
-  link: 'warning',
+  context: 'warning',
   icon: 'th',
   title: 'Group'
 }

@@ -59,7 +59,7 @@ export default ({
   const dec = ctrl({
     size,
     icon: 'minus',
-    link: 'secondary',
+    context: 'secondary',
     href: () => {
       const i = value.length
       if (i > minItems) {
@@ -75,7 +75,7 @@ export default ({
   const inc = ctrl({
     size,
     icon: 'plus',
-    link: 'secondary',
+    context: 'secondary',
     href: () => addItem(items.default)
   })
 

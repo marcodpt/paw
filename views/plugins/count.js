@@ -1,5 +1,5 @@
 const Info = {
-  link: 'dark',
+  context: 'dark',
   icon: 'info-circle',
   title: 'Counter'
 }
@@ -15,7 +15,7 @@ export default ({modal, wait}) => {
       const msg = `Hello!\n${query.checked.length} user(s) checked!`
       modal({
         ...Info,
-        ui: 'success',
+        context: 'success',
         description: msg
       })
     })

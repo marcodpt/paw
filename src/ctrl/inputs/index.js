@@ -2,7 +2,7 @@ import opt from '../options.js'
 import output from '../output.js'
 import T from '../../lang/index.js'
 import {formatter} from '../../lib.js'
-import link from './link.js'
+import context from './context.js'
 import pending from './pending.js'
 import pagination from './pagination.js'
 import typeahead from './typeahead.js'
@@ -11,7 +11,7 @@ import radio from './radio.js'
 import checkbox from './checkbox.js'
 import file from './file.js'
 import items from './items.js'
-import object from './object.js'
+import props from './props.js'
 import textarea from './textarea.js'
 import icon from './icon.js'
 import date from './date.js'
@@ -141,10 +141,10 @@ export default ({
   }
 
   wrapper = (
-    s.ui != 'file' && (s.type == 'object' || s.properties) ? object :
+    s.ui != 'file' && (s.type == 'object' || s.properties) ? props :
     s.ui == 'pending' ? pending :
     s.ui == 'pagination' ? pagination :
-    s.ui == 'link' ? link :
+    s.ui == 'context' ? context :
     s.options instanceof Array ?
       s.type == 'array' ? checkbox :
       s.ui == 'radio' ? radio :
