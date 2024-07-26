@@ -2,7 +2,7 @@ import spec from './index.js'
 
 const text = str => str.trim()
     .replace(/\\n/g, () => ' ')
-    .replace(/>\s+</g, () => '><')
+    .replace(/\s+</g, () => '<')
     .replace(/"\s+>/g, () => '">')
     .replace(/\s+/g, () => ' ')
     .replace(/"app_([a-z]+?)_[0-9]{6}"/g, 'app_$1_000000')

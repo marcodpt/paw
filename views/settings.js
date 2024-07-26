@@ -277,6 +277,7 @@ export default ({render, form, home, html}) => {
       },
       links: {
         title: 'Links',
+        size: 'sm',
         items: {
           properties: {
             icon: {
@@ -350,6 +351,7 @@ export default ({render, form, home, html}) => {
       },
       linksFooter: {
         title: 'Footer Links',
+        size: 'sm',
         items: {
           properties: {
             icon: {

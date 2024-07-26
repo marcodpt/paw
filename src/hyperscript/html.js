@@ -39,7 +39,7 @@ const print = (X, ident) => {
     ident+'<'+tagName+attrs
 
   if (C == null) {
-    return s+'/>'
+    return s+'>'
   } else {
     s += '>'
     if (!C.length) {
@@ -47,7 +47,6 @@ const print = (X, ident) => {
     } else if (
       C.length == 1 &&
       typeof C[0] === "string" &&
-      C[0].indexOf('\n') < 0 &&
       C[0].indexOf('<') < 0
     ) {
       return s+`${C[0]}</${tagName}>`
