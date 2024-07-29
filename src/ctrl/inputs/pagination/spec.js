@@ -1,9 +1,9 @@
 import html from '../../../hyperscript/html.js'
 
 const update = (err, v) => {
-    console.log(err)
-    console.log(v)
-  }
+  console.log(err)
+  console.log(v)
+}
 export default ({
   title: 'pagination',
   description: 'Pagination controller',

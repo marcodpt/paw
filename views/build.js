@@ -12,6 +12,21 @@ export default ({sidebar}) => {
     }, time)
   })
 
+  const fixIdent = (str, ident) => {
+    str = str.trim()
+    const Lines = str.split('\n')
+    const first = Lines.shift()
+    const i = Lines.filter(line => line.trim()).reduce((i, line) => {
+      const count = line.search(/\S|$/)
+      return i < 0 || count < i ? count : i  
+    }, -1)
+    const l = Lines.length
+    const fix = (line, p) => (p ? ident : '')+line.substr(p ? i : 0)
+
+    return (i <= 0 ? str.split('\n') : [first].concat(Lines))
+      .map(fix).join('\n')
+  }
+
   const print = (x, ident) => {
     ident = ident || ''
     const next = ident+'  '
@@ -32,8 +47,7 @@ export default ({sidebar}) => {
         `{\n${Object.keys(x).map(
           k => next+k+': '+print(x[k], next).substr(next.length)
         ).join(',\n')}\n${ident}}`
-      ) :
-      x.toString().replaceAll('\n        ', '\n')
+      ) : fixIdent(x.toString(), ident)
     )
   }
 
