@@ -25,6 +25,7 @@ inputs and outputs
  - use `html` instead of template strings
 
  - merge tag and alert inside ctrl
+ - rename ctrl to schemaIO
 
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
