@@ -12,7 +12,7 @@ export default ({render, Params, form, modal}) => {
     default: user
   }
   s.links[0].href = () => modal({
-    icon: s.links[0].icon,
+    ...s.links[0],
     title: 'Delete: '+user.name,
     description: 'Do you want to delete this row?',
     submit: () => {
@@ -37,10 +37,11 @@ export default ({render, Params, form, modal}) => {
       submit: data => {
         const name = user.name
         Object.assign(user, data)
+        s.title = user.name
         render(form(s))
         modal({
           ...H,
-          ui: 'success',
+          context: 'success',
           description: `User ${name} was edited!`
         })
       }

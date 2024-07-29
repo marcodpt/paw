@@ -11,16 +11,14 @@ import edit from './plugins/edit.js'
 export default (X) => {
   const {render, table, wait} = X
 
-  schema.links = []
-  schema.links.push(post(X, users))
-  schema.links.push(count(X))
-  schema.links.push(query(X, users))
-  schema.links.push(group(X))
-  schema.links.push(exporter(X))
+  schema.links[0] = post(X, users)
+  schema.links[1] = count(X)
+  schema.links[2] = query(X, users)
+  schema.links[3] = group(X)
+  schema.links[4] = exporter(X)
 
-  schema.items.links = []
-  schema.items.links.push(remove(X, users))
-  schema.items.links.push(edit(X, users))
+  schema.items.links[0] = remove(X, users)
+  schema.items.links[1] = edit(X, users)
 
   const tbl = table(schema)
   render(tbl)

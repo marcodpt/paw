@@ -16,7 +16,6 @@ inputs and outputs
 ## TODO 🔧
 
 ### Bugs 🐞
- - user item is broken if refreshed because of links
  - datalist do not work on firefox mobile
 
 ### Improvements 💡

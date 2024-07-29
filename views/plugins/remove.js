@@ -1,19 +1,16 @@
-const Info = {
-  context: 'danger',
-  icon: 'trash',
-  title: 'Delete'
-}
+import schema from '../data/schema.js'
 
 export default ({modal, wait}, data) => {
   var btn = null
+  const L = schema.items.links[0]
   return {
-    ...Info,
-    init: el => {btn = el},
+    ...L,
+    init: el => {btn = btn || el},
     href: user => {
       const tbl = btn.closest('table')
-      const title = Info.title +': '+user.name
+      const title = L.title +': '+user.name
       return modal({
-        ...Info,
+        ...L,
         title,
         description: [
           'Do you want to delete this row?',
@@ -26,7 +23,7 @@ export default ({modal, wait}, data) => {
             tbl.setData(data)
           }
           modal({
-            ...Info,
+            ...L,
             title,
             context: 'success',
             description: `User ${user.name} was removed!`

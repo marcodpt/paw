@@ -1,8 +1,4 @@
-const Info = {
-  context: 'info',
-  icon: 'filter',
-  title: 'Filter'
-}
+import schema from '../data/schema.js'
 
 export default ({modal, ctrl}, users) => {
   var btn = null
@@ -12,8 +8,8 @@ export default ({modal, ctrl}, users) => {
   }
 
   const btnQuery = {
-    ...Info,
-    init: el => {btn = el},
+    ...schema.links[2],
+    init: el => {btn = btn || el},
     href: () => {
       const tbl = btn.closest('table')
       const {format, properties} = tbl.read()
@@ -24,7 +20,7 @@ export default ({modal, ctrl}, users) => {
       S.value = null
 
       modal({
-        ...Info,
+        ...schema.links[2],
         properties: {
           field: {
             type: 'string',

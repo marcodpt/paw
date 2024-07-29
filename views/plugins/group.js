@@ -1,14 +1,10 @@
-const Info = {
-  context: 'warning',
-  icon: 'th',
-  title: 'Group'
-}
+import schema from '../data/schema.js'
 
 export default ({modal, tag}) => {
   var btn = null
   return {
-    ...Info,
-    init: el => {btn = el},
+    ...schema.links[3],
+    init: el => {btn = btn || el},
     href: () => {
       const tbl = btn.closest('table')
       const {query, properties} = tbl.read()
@@ -18,13 +14,13 @@ export default ({modal, tag}) => {
       if (query.group) {
         btn.innerHTML = ''
         btn.appendChild(tag({
-          ...Info
+          ...schema.links[3]
         }))
         query.group = null
         tbl.refresh()
       } else {
         modal({
-          ...Info,
+          ...schema.links[3],
           properties: {
             fields: {
               type: 'array',
@@ -39,7 +35,7 @@ export default ({modal, tag}) => {
           submit: ({fields}) => {
             btn.innerHTML = ''
             btn.appendChild(tag({
-              title: Info.title,
+              title: schema.links[3].title,
               icon: 'close'
             }))
             query.group = fields

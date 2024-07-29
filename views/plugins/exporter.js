@@ -1,16 +1,12 @@
-const Info = {
-  context: 'secondary',
-  icon: 'file',
-  title: 'Export'
-}
+import schema from '../data/schema.js'
 
 export default () => {
   var btn = null
   return {
-    ...Info,
+    ...schema.links[4],
     mime: 'text/plain; charset=UTF-8',
     download: 'users.txt',
-    init: el => {btn = el},
+    init: el => {btn = btn || el},
     href: () => {
       const tbl = btn.closest('table')
       const {rows, format, properties} = tbl.read()

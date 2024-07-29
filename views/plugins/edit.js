@@ -1,22 +1,19 @@
-const Info = {
-  context: 'warning',
-  icon: 'edit',
-  title: 'Edit'
-}
+import schema from '../data/schema.js'
 
 export default ({modal}, data) => {
   var btn = null
+  const L = schema.items.links[1]
   return {
-    ...Info,
-    init: el => {btn = el},
+    ...L,
+    init: el => {btn = btn || el},
     href: user => {
       const tbl = btn.closest('table')
       const {properties} = tbl.read()
-      const title = Info.title +': '+user.name
+      const title = L.title+': '+user.name
       const P = {...properties}
       delete P.id
       modal({
-        ...Info,
+        ...L,
         title,
         properties: P,
         default: user,
@@ -24,7 +21,7 @@ export default ({modal}, data) => {
           Object.assign(data.filter(({id}) => id == user.id)[0], user)
           tbl.setData(data)
           modal({
-            ...Info,
+            ...L,
             title,
             context: 'success',
             description: `User ${user.name} was edited!`

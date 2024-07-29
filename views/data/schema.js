@@ -12,6 +12,29 @@ export default {
     'table-striped',
     'table-hover'
   ],
+  links: [
+    {
+      context: 'success',
+      icon: 'pencil',
+      title: 'Insert'
+    }, {
+      context: 'dark',
+      icon: 'info-circle',
+      title: 'Counter'
+    }, {
+      context: 'info',
+      icon: 'filter',
+      title: 'Filter'
+    }, {
+      context: 'warning',
+      icon: 'th',
+      title: 'Group'
+    }, {
+      context: 'secondary',
+      icon: 'file',
+      title: 'Export'
+    }
+  ],
   items: {
     type: 'object',
     title: 'User',
@@ -51,6 +74,17 @@ export default {
         ui: 'num.2',
         totals: 'sum'
       }
-    }
+    },
+    links: [
+      {
+        context: 'danger',
+        icon: 'trash',
+        title: 'Delete'
+      }, {
+        context: 'warning',
+        icon: 'edit',
+        title: 'Edit'
+      }
+    ]
   }
 }
