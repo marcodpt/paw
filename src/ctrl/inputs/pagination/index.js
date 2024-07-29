@@ -1,5 +1,5 @@
-import node from '../../hyperscript/node.js'
-import ctrl from '../index.js'
+import node from '../../../hyperscript/node.js'
+import ctrl from '../../index.js'
 
 export default ({
   description,

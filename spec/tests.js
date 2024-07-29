@@ -1,4 +1,6 @@
 import spec from './index.js'
+import inputs from '../src/ctrl/inputs/spec.js'
+import ctrl from '../src/ctrl/index.js'
 
 const text = str => str.trim()
     .replace(/\\n/g, () => ' ')
@@ -6,6 +8,45 @@ const text = str => str.trim()
     .replace(/"\s+>/g, () => '">')
     .replace(/\s+/g, () => ' ')
     .replace(/"app_([a-z]+?)_[0-9]{6}"/g, 'app_$1_000000')
+
+const runner = ({title, examples, component}) => {
+  QUnit.module(title, () => {
+    const aggregate = {
+      max: 0,
+      props: []
+    }
+    examples.forEach(({title, data, html, test}) => {
+      aggregate.max += data.length
+      data.forEach(X => {
+        if (typeof X === 'object') {
+          Object.keys(X).forEach(k => {
+            if (aggregate.props.indexOf(k) < 0) {
+              aggregate.props.push(k)
+            }
+          })
+        }
+      })
+      if (html == null) {
+        return
+      }
+      QUnit.test(title, assert => {
+        data.forEach(X => {
+          const res = (component || ctrl)(X)
+          assert.equal(
+            text(res.nodeType === 3 ? res.textContent : res.outerHTML),
+            text(html)
+          )
+          if (typeof test === 'function') {
+            test(res, assert)
+          }
+        })
+      })
+    })
+  })
+}
+
+spec.forEach(runner)
+inputs.forEach(runner)
 
 const htmlRead = el => {
   if (el.nodeType === 3 && el.textContent.trim()) {
@@ -99,41 +140,3 @@ const htmlCmp = (expected, result, path) => {
       `\n\nRESULT:\n${label(result)}`
   }
 }
-
-spec.forEach(({title, examples, component}) => {
-  QUnit.module(title, () => {
-    const aggregate = {
-      max: 0,
-      props: []
-    }
-    examples.forEach(({title, data, html, test}) => {
-      aggregate.max += data.length
-      data.forEach(X => {
-        if (typeof X === 'object') {
-          Object.keys(X).forEach(k => {
-            if (aggregate.props.indexOf(k) < 0) {
-              aggregate.props.push(k)
-            }
-          })
-        }
-      })
-      if (html == null) {
-        return
-      }
-      QUnit.test(title, assert => {
-        data.forEach(X => {
-          const res = component(X)
-          assert.equal(
-            text(res.nodeType === 3 ? res.textContent : res.outerHTML),
-            text(html)
-          )
-          if (typeof test === 'function') {
-            test(res, assert)
-          }
-        })
-      })
-    })
-    console.log('\n\n****** '+title+' *******')
-    console.log(aggregate)
-  })
-})

@@ -2,7 +2,9 @@ const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
 export default ({render, Params, form, node}) => {
-  return render(import(`../spec/${Params.component}.js`).then(mod => {
+  return render(import(
+    `../src/ctrl/inputs/${Params.component}/spec.js`
+  ).then(mod => {
     const base = {
       ...mod.default
     }
