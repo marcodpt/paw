@@ -1,5 +1,5 @@
-import tag from '../../tag.js'
-import wrapper from './wrapper.js'
+import tag from '../../../tag.js'
+import wrapper from '../wrapper.js'
 
 export default ({
   title,

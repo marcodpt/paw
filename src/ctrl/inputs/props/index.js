@@ -1,6 +1,6 @@
-import node from '../../hyperscript/node.js'
-import ctrl from '../index.js'
-import tag from '../../tag.js'
+import node from '../../../hyperscript/node.js'
+import ctrl from '../../index.js'
+import tag from '../../../tag.js'
 
 export default ({
   update,

@@ -1,27 +1,27 @@
-import wrapper from './wrapper.js'
+import wrapper from '../wrapper.js'
 
 export default ({
   title,
   description,
-  ui,
   readOnly,
   update,
   size,
   value
-}) => wrapper(({input}) => 
-  input({
+}) => wrapper(({textarea, text}) => 
+  textarea({
     class: [
       'validate',
       'form-control',
       size ? 'form-control-'+size : ''
     ],
-    type: ui || 'text',
     name: title,
-    value,
     placeholder: description,
     disabled: readOnly,
+    rows: 6,
     oninput: ev => {
       update(ev.target.value)
     }
-  })
+  }, [
+    text(value)
+  ])
 )

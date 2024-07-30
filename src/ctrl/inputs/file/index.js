@@ -1,4 +1,4 @@
-import wrapper from './wrapper.js'
+import wrapper from '../wrapper.js'
 
 const read = Files => {
   const reader = (file, bin) => new Promise((resolve, reject) => {

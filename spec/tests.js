@@ -46,7 +46,7 @@ const runner = ({title, examples, component}) => {
 }
 
 spec.forEach(runner)
-inputs.forEach(runner)
+inputs.examples.forEach(runner)
 
 const htmlRead = el => {
   if (el.nodeType === 3 && el.textContent.trim()) {
