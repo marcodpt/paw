@@ -9,8 +9,8 @@ import form from './form.js'
 import modal from './modal.js'
 import table from '../src/table/spec.js'
 import sidebar from './sidebar.js'
-import graph from './graph.js'
-import chart from './chart.js'
+import graph from '../src/graph/spec.js'
+import chart from '../src/chart/spec.js'
 
 export default [
   app,

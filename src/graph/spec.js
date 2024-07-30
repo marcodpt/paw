@@ -1,5 +1,5 @@
-import graph from '../src/graph.js'
-import wait from './wait.js'
+import graph from './index.js'
+import wait from '../../spec/wait.js'
 
 export default ({
   icon: 'project-diagram',

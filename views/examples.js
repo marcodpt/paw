@@ -1,7 +1,7 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-const change = ['table']
+const change = ['table', 'graph', 'chart']
 
 export default ({render, Params, node, print}) => {
   const comp = Params.component

@@ -1,5 +1,5 @@
-import node from './hyperscript/node.js'
-import spinner from './spinner.js'
+import node from '../hyperscript/node.js'
+import spinner from '../spinner.js'
 
 export default ({
   title,
