@@ -40,11 +40,15 @@ const rebuilder = ({icon, title, description, examples}) => ({
             icon: 'book',
             title: 'Documentation',
             href: '#/info/'+title
+          }, {
+            icon: 'box',
+            title: 'Examples',
+            children: examples.map((E, i) => ({
+              title: E.title,
+              href: '#/input/'+title+'/'+i
+            }))
           }
-        ].concat(examples.map((E, i) => ({
-          title: E.title,
-          href: '#/input/'+title+'/'+i
-        })))
+        ]
       }))
     }
   ]

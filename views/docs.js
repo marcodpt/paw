@@ -1,8 +1,15 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
+const change = ['table']
+
 export default ({render, Params, form, node}) => {
-  return render(import(`../spec/${Params.component}.js`).then(mod => {
+  const comp = Params.component
+  return render(import(
+    change.indexOf(comp) < 0 ? 
+      `../spec/${comp}.js` :
+      `../src/${comp}/spec.js`
+  ).then(mod => {
     const base = {
       ...mod.default
     }
