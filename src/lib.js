@@ -6,6 +6,12 @@ const rm = el => {
   }
 }
 
+const wait = time => new Promise(resolve => {
+  setTimeout(() => {
+    resolve(time)
+  }, time)
+})
+
 const isNum = x =>
   x != null && typeof x != 'boolean' && x !== '' && !isNaN(x)
 
@@ -87,5 +93,6 @@ const formatter = ({type, ui, maximum, minimum}) => {
 
 export {
   rm,
+  wait,
   formatter
 }

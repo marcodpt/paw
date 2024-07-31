@@ -1,18 +1,6 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-const change = [
-  'table',
-  'graph',
-  'chart',
-  'modal',
-  'sidebar',
-  'render',
-  'tag',
-  'spinner',
-  'form'
-]
-
 const deep = [
   'link',
   'output'
@@ -21,10 +9,10 @@ const deep = [
 export default ({render, Params, node, print}) => {
   const comp = Params.component
   return render(import(
+    comp == 'app' ? 
+      `../src/spec.js` :
     deep.indexOf(comp) >= 0 ? 
       `../src/ctrl/${comp}/spec.js` : 
-    change.indexOf(comp) < 0 ? 
-      `../spec/${comp}.js` :
       `../src/${comp}/spec.js`
   ).then(mod => {
     const M = mod.default

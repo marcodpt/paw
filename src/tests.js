@@ -1,6 +1,6 @@
-import spec from './index.js'
-import inputs from '../src/ctrl/inputs/spec.js'
-import ctrl from '../src/ctrl/index.js'
+import spec from './comp.js'
+import inputs from './ctrl/inputs/spec.js'
+import ctrl from './ctrl/index.js'
 
 const text = str => str.trim()
     .replace(/\\n/g, () => ' ')

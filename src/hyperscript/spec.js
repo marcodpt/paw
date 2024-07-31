@@ -1,9 +1,9 @@
-import node from '../src/hyperscript/node.js'
-import tags from '../src/hyperscript/tags.js'
+import node from './node.js'
+import tags from './tags.js'
 
 export default ({
   icon: 'code',
-  title: 'node',
+  title: 'hyperscript',
   description: 'Hyperscript function on steroids.',
   component: node,
   properties: {

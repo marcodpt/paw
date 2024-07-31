@@ -1,4 +1,4 @@
-import spec from '../../spec/index.js'
+import spec from '../../src/comp.js'
 import inputs from '../../src/ctrl/inputs/spec.js'
 
 const builder = ({icon, title, description, examples}) => ({
@@ -59,7 +59,7 @@ export default {
     {
       icon: 'flask',
       title: 'Tests',
-      href: location.href.split('#')[0]+'spec/index.html'
+      href: location.href.split('#')[0]+'src/tests.html'
     },{
       icon: 'smile',
       title: 'Say Hi!',

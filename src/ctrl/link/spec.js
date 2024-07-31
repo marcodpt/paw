@@ -1,7 +1,7 @@
 import ctrl from '../index.js'
 import opt from '../options.js'
 import tag from '../../tag/spec.js'
-import wait from '../../../spec/wait.js'
+import {wait} from '../../lib.js'
 
 var ref = null
 export default ({

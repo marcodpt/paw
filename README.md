@@ -21,7 +21,6 @@ inputs and outputs
 ### Improvements 💡
  - semantic html tests, no string cmp
 
- - merge spec with source
  - use `html` instead of template strings
  - merge tag and alert inside ctrl
 
