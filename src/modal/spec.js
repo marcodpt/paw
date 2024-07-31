@@ -1,4 +1,4 @@
-import modal from '../src/modal.js'
+import modal from './index.js'
 
 export default ({
   icon: 'window-restore',

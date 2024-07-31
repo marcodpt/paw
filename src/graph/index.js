@@ -1,5 +1,5 @@
 import node from '../hyperscript/node.js'
-import spinner from '../spinner.js'
+import spinner from '../spinner/index.js'
 import ctrl from '../ctrl/index.js'
 import T from '../lang/index.js'
 

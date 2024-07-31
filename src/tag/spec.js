@@ -1,4 +1,4 @@
-import tag from '../src/tag.js'
+import tag from './index.js'
 
 export default ({
   icon: 'tag',

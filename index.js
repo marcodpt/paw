@@ -1,15 +1,15 @@
 import html from './src/hyperscript/html.js'
 import node from './src/hyperscript/node.js'
-import modal from './src/modal.js'
-import sidebar from './src/sidebar.js'
-import tag from './src/tag.js'
+import modal from './src/modal/index.js'
+import sidebar from './src/sidebar/index.js'
+import tag from './src/tag/index.js'
 import ctrl from './src/ctrl/index.js'
-import form from './src/form.js'
+import form from './src/form/index.js'
 import table from './src/table/index.js'
 import chart from './src/chart/index.js'
 import graph from './src/graph/index.js'
-import spinner from './src/spinner.js'
-import render from './src/render.js'
+import spinner from './src/spinner/index.js'
+import render from './src/render/index.js'
 
 export default ({build, root, routes}) => {
   root = root || document.body

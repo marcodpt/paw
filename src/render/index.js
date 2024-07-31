@@ -1,6 +1,6 @@
-import spinner from './spinner.js'
-import form from './form.js'
-import T from './lang/index.js'
+import spinner from '../spinner/index.js'
+import form from '../form/index.js'
+import T from '../lang/index.js'
 
 export default (resolve, root) => {
   root = root || document.createElement('div')

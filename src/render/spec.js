@@ -1,5 +1,5 @@
-import render from '../src/render.js'
-import wait from './wait.js'
+import render from './index.js'
+import wait from '../../spec/wait.js'
 
 export default ({
   icon: 'box-open',

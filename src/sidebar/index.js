@@ -1,7 +1,7 @@
-import node from './hyperscript/node.js'
-import tag from './tag.js'
-import ctrl from './ctrl/index.js'
-import {rm} from './lib.js'
+import node from '../hyperscript/node.js'
+import tag from '../tag/index.js'
+import ctrl from '../ctrl/index.js'
+import {rm} from '../lib.js'
 
 export default ({links}) => {
   rm(document.getElementById('sidebar'))

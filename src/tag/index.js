@@ -1,4 +1,4 @@
-import node from './hyperscript/node.js'
+import node from '../hyperscript/node.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 
     icon.substr(0, 1) == '@' ? `fa-brands fa-${icon.substr(1)}` :

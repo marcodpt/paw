@@ -1,6 +1,6 @@
 import ctrl from '../src/ctrl/index.js'
 import opt from '../src/ctrl/options.js'
-import tag from './tag.js'
+import tag from '../src/tag/spec.js'
 import wait from './wait.js'
 
 var ref = null

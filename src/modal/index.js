@@ -1,7 +1,7 @@
-import node from './hyperscript/node.js'
-import form from './form.js'
-import {rm} from './lib.js'
-import T from './lang/index.js'
+import node from '../hyperscript/node.js'
+import form from '../form/index.js'
+import {rm} from '../lib.js'
+import T from '../lang/index.js'
 
 export default ({
   submit,

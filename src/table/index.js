@@ -1,7 +1,7 @@
 import node from '../hyperscript/node.js'
 import {rm, formatter} from '../lib.js'
-import spinner from '../spinner.js'
-import tag from '../tag.js'
+import spinner from '../spinner/index.js'
+import tag from '../tag/index.js'
 import ctrl from '../ctrl/index.js'
 import engine from './engine.js'
 

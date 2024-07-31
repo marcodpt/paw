@@ -1,5 +1,5 @@
 import node from '../hyperscript/node.js'
-import tag from '../tag.js'
+import tag from '../tag/index.js'
 import link from './link.js'
 import {formatter} from '../lib.js'
 

@@ -1,5 +1,5 @@
-import node from './hyperscript/node.js'
-import T from './lang/index.js'
+import node from '../hyperscript/node.js'
+import T from '../lang/index.js'
 
 export default () => node(({div, span, text}) =>
   div({

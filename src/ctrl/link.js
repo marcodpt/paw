@@ -1,5 +1,5 @@
 import node from '../hyperscript/node.js'
-import tag from '../tag.js'
+import tag from '../tag/index.js'
 import opt from './options.js'
 
 export default ({

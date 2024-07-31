@@ -1,4 +1,4 @@
-import tag from '../../../tag.js'
+import tag from '../../../tag/index.js'
 import wrapper from '../wrapper.js'
 
 export default ({

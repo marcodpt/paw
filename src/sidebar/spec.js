@@ -1,4 +1,4 @@
-import sidebar from '../src/sidebar.js'
+import sidebar from './index.js'
 
 export default ({
   icon: 'location-arrow',
