@@ -1,6 +1,6 @@
 import node from '../hyperscript/node.js'
-import link from './link.js'
-import output from './output.js'
+import link from './link/index.js'
+import output from './output/index.js'
 import input from './inputs/index.js'
 
 export default ({

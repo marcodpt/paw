@@ -1,7 +1,7 @@
-import node from '../hyperscript/node.js'
-import tag from '../tag/index.js'
-import link from './link.js'
-import {formatter} from '../lib.js'
+import node from '../../hyperscript/node.js'
+import tag from '../../tag/index.js'
+import link from '../link/index.js'
+import {formatter} from '../../lib.js'
 
 export default schema => {
   const data = formatter(schema)(schema.default)

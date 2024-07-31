@@ -1,5 +1,5 @@
 import opt from '../options.js'
-import output from '../output.js'
+import output from '../output/index.js'
 import T from '../../lang/index.js'
 import {formatter} from '../../lib.js'
 import context from './context/index.js'

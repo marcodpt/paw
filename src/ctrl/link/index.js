@@ -1,6 +1,6 @@
-import node from '../hyperscript/node.js'
-import tag from '../tag/index.js'
-import opt from './options.js'
+import node from '../../hyperscript/node.js'
+import tag from '../../tag/index.js'
+import opt from '../options.js'
 
 export default ({
   context,

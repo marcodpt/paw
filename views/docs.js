@@ -13,9 +13,16 @@ const change = [
   'form'
 ]
 
+const deep = [
+  'link',
+  'output'
+]
+
 export default ({render, Params, form, node}) => {
   const comp = Params.component
   return render(import(
+    deep.indexOf(comp) >= 0 ? 
+      `../src/ctrl/${comp}/spec.js` : 
     change.indexOf(comp) < 0 ? 
       `../spec/${comp}.js` :
       `../src/${comp}/spec.js`

@@ -1,5 +1,5 @@
-import ctrl from '../src/ctrl/index.js'
-import opt from '../src/ctrl/options.js'
+import ctrl from '../index.js'
+import opt from '../options.js'
 
 export default ({
   icon: 'font',
