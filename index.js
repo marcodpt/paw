@@ -105,15 +105,17 @@ export default ({build, root, routes}) => {
     })
 
     if (typeof routes[route] == 'function') {
+      const base = {url, route, path, Path, Params, query, Query}
       const state = {
-        url, route, path, Path, Params, query, Query, old, root,
+        ...base,
+        old, root,
         ...components 
       }
       if (typeof stop == 'function') {
         stop(state)
       }
       stop = routes[route](state)
-      old = state
+      old = base
     }
 
     const hash = '#'+url

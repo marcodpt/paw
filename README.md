@@ -18,20 +18,21 @@ inputs and outputs
 ### Bugs 🐞
  - datalist do not work on firefox mobile
 
-### Improvements 💡
- - semantic html tests, no string cmp
-
- - allow children in docs and examples (ctrl case)
+### Next release
  - merge tag and alert inside ctrl
 
+### Improvements 💡
+ - semantic html tests, no string cmp
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - separate input and output options
  - allow to see other tests variants
- - remove or minimize lang support
- - remove non bootstrap options support, minimize options and review settings
  - dynamic validation with functions
  - input wrapper review
+ - allow children in docs and examples (ctrl case)
+ - remove or minimize lang support
+ - remove non bootstrap options support, minimize options and review settings
+ - separate router and data-app as a plugin
 
 ### Tests and docs 🧪
  - chart
@@ -46,7 +47,6 @@ inputs and outputs
  - core router
 
 ### New components 📋
- - barcode
  - carousel
  - maps
  - code component (html/js) and remove highlight.js from page source
@@ -54,6 +54,10 @@ inputs and outputs
 ## Contributing 🤝
 It's a very simple project.
 Any contribution, any feedback is greatly appreciated.
+
+## Support ⭐
+If this project was useful to you, consider giving it a star on github, it's a
+way to increase evidence and attract more contributors.
 
 ## Acknowledgment 🙏
 This work would not be possible if it were not for these related projects:
@@ -65,6 +69,7 @@ This work would not be possible if it were not for these related projects:
  - [highlight.js](https://highlightjs.org/)
  - [Cytoscape.js](https://js.cytoscape.org/)
  - [Chart.js](https://www.chartjs.org/)
+ - [JsBarcode](https://lindell.me/JsBarcode/)
  - [QUnit](https://qunitjs.com/)
 
 A huge thank you to all the people who contributed to these projects.

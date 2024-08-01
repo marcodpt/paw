@@ -11,6 +11,7 @@ import table from './table/spec.js'
 import sidebar from './sidebar/spec.js'
 import graph from './graph/spec.js'
 import chart from './chart/spec.js'
+import barcode from './barcode/spec.js'
 
 export default [
   app,
@@ -25,5 +26,6 @@ export default [
   table,
   sidebar,
   graph,
-  chart
+  chart,
+  barcode
 ]

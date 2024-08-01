@@ -8,7 +8,10 @@ export default () => node(({div, span, text}) =>
   }, [
     div({
       class: 'spinner-border',
-      style: 'width: 5rem; height: 5rem;',
+      style: {
+        width: '5rem',
+        height: '5rem'
+      },
       role: 'status'
     }, [
       span({
