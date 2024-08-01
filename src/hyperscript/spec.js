@@ -1,5 +1,6 @@
 import node from './node.js'
 import tags from './tags.js'
+import html from '../hyperscript/html.js'
 
 export default ({
   icon: 'code',
@@ -64,11 +65,35 @@ export default ({
           ])
         ])
       ],
-      html:
-`<div style="max-width: 600px" class="alert alert-success m-auto" role="alert">
-  <h4 class="alert-heading">Well done!</h4>
-  <p class="mb-0">You successfully read this important alert message.</p>
-</div>`
+      html: html(({
+        div,
+        h4,
+        text,
+        p
+      }) => 
+        div({
+          style: {
+            maxWidth: '600px'
+          },
+          class: [
+            'alert',
+            'alert-success',
+            'm-auto'
+          ],
+          role: 'alert'
+        }, [
+          h4({
+            class: 'alert-heading'
+          }, [
+            text('Well done!')
+          ]),
+          p({
+            class: 'mb-0'
+          }, [
+            text('You successfully read this important alert message.')
+          ])
+        ])
+      )
     }, {
       title: 'Attributes usage',
       data: [
@@ -94,20 +119,32 @@ export default ({
           ])
         ])
       ],
-      html: 
-`<div
-  class="progress"
-  role="progressbar"
-  aria-label="Animated striped example"
-  aria-valuenow="75"
-  aria-valuemin="0"
-  aria-valuemax="100"
->
-  <div
-    class="progress-bar progress-bar-striped progress-bar-animated"
-    style="width: 75%"
-  >75%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          class: 'progress',
+          role: 'progressbar',
+          ariaLabel: 'Animated striped example',
+          ariaValuenow: '75',
+          ariaValuemin: '0',
+          ariaValuemax: '100'
+        }, [
+          div({
+            class: [
+              'progress-bar',
+              'progress-bar-striped',
+              'progress-bar-animated'
+            ],
+            style: {
+              width: '75%'
+            }
+          }, [
+            text('75%')
+          ])
+        ])
+      )
     }, {
       title: 'Boolean attributes',
       data: [
@@ -120,12 +157,21 @@ export default ({
           text('No action!')
         ])
       ],
-      html:
-`<button
-  type="button"
-  class="btn btn-primary"
-  disabled=""
->No action!</button>`
+      html: html(({
+        button,
+        text
+      }) => 
+        button({
+          type: 'button',
+          class: [
+            'btn',
+            'btn-primary'
+          ],
+          disabled: ''
+        }, [
+          text('No action!')
+        ])
+      )
     }, {
       title: 'Event listeners and functions',
       data: [
@@ -142,7 +188,20 @@ export default ({
           text('Run')
         ])
       ],
-      html: '<button type="button" class="btn btn-primary">Run</button>',
+      html: html(({
+        button,
+        text
+      }) => 
+        button({
+          type: 'button',
+          class: [
+            'btn',
+            'btn-primary'
+          ]
+        }, [
+          text('Run')
+        ])
+      ),
       test: (el, assert) => {
         assert.equal(el.textContent, 'Run')
         el.click()

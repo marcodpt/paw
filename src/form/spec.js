@@ -6,8 +6,8 @@ import html from '../hyperscript/html.js'
 const P = schema.items.properties
 const K = Object.keys(P)
 const operators = {
-  'ct': 'Contains',
-  'eq': 'Equals'
+  ct: 'Contains',
+  eq: 'Equals'
 }
 const O = Object.keys(operators)
 var oldData = null
@@ -24,7 +24,11 @@ export default ({
       data: [
         {}
       ],
-      html: '<form novalidate=""></form>'
+      html: html(({form}) => 
+        form({
+          novalidate: ''
+        })
+      )
     }, {
       title: 'Alert',
       data: [

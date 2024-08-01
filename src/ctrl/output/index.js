@@ -43,7 +43,9 @@ export default schema => {
       ])
     ]) : 
     schema.ui == 'color' ? div({
-      style: data ? 'background-color:'+data : null,
+      style: data ? {
+        backgroundColor: data
+      } : null,
       title: data,
       class: 'h-100 w-100'
     }, [

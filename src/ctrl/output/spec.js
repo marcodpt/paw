@@ -1,5 +1,6 @@
 import ctrl from '../index.js'
 import opt from '../options.js'
+import html from '../../hyperscript/html.js'
 
 export default ({
   icon: 'font',
@@ -61,7 +62,9 @@ export default ({
           default: ''
         }
       ],
-      html: ''
+      html: html(({text}) => 
+        text('')
+      )
     }, {
       title: 'Boolean False',
       data: [
@@ -83,7 +86,9 @@ export default ({
           default: ''
         }
       ],
-      html: `No`
+      html: html(({text}) => 
+        text('No')
+      )
     }, {
       title: 'Boolean True',
       data: [
@@ -106,7 +111,9 @@ export default ({
           default: '0'
         }
       ],
-      html: `Yes`
+      html: html(({text}) => 
+        text('Yes')
+      )
     }, {
       title: 'Integer',
       data: [
@@ -135,7 +142,9 @@ export default ({
           default: '1234.4'
         }
       ],
-      html: '1,234'
+      html: html(({text}) => 
+        text('1,234')
+      )
     }, {
       title: 'Number',
       data: [
@@ -149,7 +158,9 @@ export default ({
           default: '1234.56789'
         }
       ],
-      html: '1,234.568'
+      html: html(({text}) => 
+        text('1,234.568')
+      )
     }, {
       title: 'String',
       data: [
@@ -160,7 +171,9 @@ export default ({
           default: 'test\nme'
         }
       ],
-      html: 'test\nme'
+      html: html(({text}) => 
+        text('test\nme')
+      )
     }, {
       title: 'Text',
       data: [
@@ -180,7 +193,18 @@ export default ({
           default: 'test\nme'
         }
       ],
-      html: '<span style="white-space: pre-wrap">test\nme</span>'
+      html: html(({
+        span,
+        text
+      }) => 
+        span({
+          style: {
+            whiteSpace: 'pre-wrap'
+          }
+        }, [
+          text('test\nme')
+        ])
+      )
     }, {
       title: 'JSON Object',
       data: [
@@ -191,13 +215,18 @@ export default ({
           }
         }
       ],
-      html: 
-`<span
-  style="white-space: pre-wrap"
->{
-  "x": 1,
-  "test": "me"
-}</span>`
+      html: html(({
+        span,
+        text
+      }) => 
+        span({
+          style: {
+            whiteSpace: 'pre-wrap'
+          }
+        }, [
+          text('{\n  "x": 1,\n  "test": "me"\n}')
+        ])
+      )
     }, {
       title: 'JSON Array',
       data: [
@@ -209,14 +238,18 @@ export default ({
           ]
         }
       ],
-      html: 
-`<span
-  style="white-space: pre-wrap"
->[
-  "dog",
-  "cat",
-  "bird"
-]</span>`
+      html: html(({
+        span,
+        text
+      }) => 
+        span({
+          style: {
+            whiteSpace: 'pre-wrap'
+          }
+        }, [
+          text('[\n  "dog",\n  "cat",\n  "bird"\n]')
+        ])
+      )
     }, {
       title: 'Link Raw',
       data: [
@@ -225,7 +258,17 @@ export default ({
           href: 'https://www.google.com'
         }
       ],
-      html: `<a href="https://www.google.com" target="_blank">google</a>`
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          href: 'https://www.google.com',
+          target: '_blank'
+        }, [
+          text('google')
+        ])
+      )
     }, {
       title: 'Link Info',
       data: [
@@ -235,7 +278,20 @@ export default ({
           context: 'info'
         }
       ],
-      html: `<a class="btn btn-info" href="#">test</a>`
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          class: [
+            'btn',
+            'btn-info'
+          ],
+          href: '#'
+        }, [
+          text('test')
+        ])
+      )
     }, {
       title: 'Password',
       data: [
@@ -253,7 +309,9 @@ export default ({
           ui: 'password'
         }
       ],
-      html: `********`
+      html: html(({text}) => 
+        text('********')
+      )
     }, {
       title: 'Date Positive',
       data: [
@@ -268,7 +326,9 @@ export default ({
           ui: 'date'
         }
       ],
-      html: '12/10/2007'
+      html: html(({text}) => 
+        text('12/10/2007')
+      )
     }, {
       title: 'Date Negative',
       data: [
@@ -283,7 +343,9 @@ export default ({
           ui: 'date'
         }
       ],
-      html: '10/4/1968'
+      html: html(({text}) => 
+        text('10/4/1968')
+      )
     }, {
       title: 'Date Empty',
       data: [
@@ -297,7 +359,9 @@ export default ({
           ui: 'date'
         }
       ],
-      html: ''
+      html: html(({text}) => 
+        text('')
+      )
     }, {
       title: 'Fractional number with 2 digits',
       data: [
@@ -309,7 +373,9 @@ export default ({
           default: '12345.6789'
         }
       ],
-      html: '12,345.68'
+      html: html(({text}) => 
+        text('12,345.68')
+      )
     }, {
       title: 'Integer representing 2 digits fraction',
       data: [
@@ -321,7 +387,9 @@ export default ({
           default: '-5'
         }
       ],
-      html: '-0.05'
+      html: html(({text}) => 
+        text('-0.05')
+      )
     }, {
       title: 'Integer with 4 digits',
       data: [
@@ -330,7 +398,9 @@ export default ({
           default: 5
         }
       ],
-      html: '0005'
+      html: html(({text}) => 
+        text('0005')
+      )
     }, {
       title: 'Number with 5 digits',
       data: [
@@ -339,7 +409,9 @@ export default ({
           default: 3.14
         }
       ],
-      html: '03.14'
+      html: html(({text}) => 
+        text('03.14')
+      )
     }, {
       title: 'String with 5 digits',
       data: [
@@ -348,7 +420,9 @@ export default ({
           default: 'test'
         }
       ],
-      html: 'test '
+      html: html(({text}) => 
+        text('test ')
+      )
     }, {
       title: 'Color blue',
       data: [
@@ -360,12 +434,18 @@ export default ({
           default: '0000FF'
         }
       ],
-      html: 
-`<div
-  style="background-color:#0000FF"
-  title="#0000FF"
-  class="h-100 w-100"
-></div>`
+      html: html(({div}) => 
+        div({
+          style: {
+            backgroundColor: '#0000FF'
+          },
+          title: '#0000FF',
+          class: [
+            'h-100',
+            'w-100'
+          ]
+        })
+      )
     }, {
       title: 'Icon check',
       data: [
@@ -374,7 +454,21 @@ export default ({
           default: 'check'
         }
       ],
-      html: '<span><i class="fa-solid fa-check"></i> check</span>'
+      html: html(({
+        span,
+        i,
+        text
+      }) => 
+        span({}, [
+          i({
+            class: [
+              'fa-solid',
+              'fa-check'
+            ]
+          }),
+          text(' check')
+        ])
+      )
     }, {
       title: 'Icon github',
       data: [
@@ -383,7 +477,21 @@ export default ({
           default: '@github'
         }
       ],
-      html: '<span><i class="fa-brands fa-github"></i> @github</span>'
+      html: html(({
+        span,
+        i,
+        text
+      }) => 
+        span({}, [
+          i({
+            class: [
+              'fa-brands',
+              'fa-github'
+            ]
+          }),
+          text(' @github')
+        ])
+      )
     }, {
       title: 'Context primary',
       data: [
@@ -392,11 +500,21 @@ export default ({
           default: 'primary'
         }
       ], 
-      html: 
-`<a
-  class="btn btn-primary btn-sm"
-  href="javascript:;"
->primary</a>`
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          class: [
+            'btn',
+            'btn-primary',
+            'btn-sm'
+          ],
+          href: 'javascript:;'
+        }, [
+          text('primary')
+        ])
+      )
     }, {
       title: 'Context other',
       data: [
@@ -405,11 +523,21 @@ export default ({
           default: 'other'
         }
       ],
-      html: 
-`<a
-  class="btn btn-link btn-sm"
-  href="javascript:;"
->other</a>`
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          class: [
+            'btn',
+            'btn-link',
+            'btn-sm'
+          ],
+          href: 'javascript:;'
+        }, [
+          text('other')
+        ])
+      )
     }, {
       title: 'Progress 0%',
       data: [
@@ -423,17 +551,36 @@ export default ({
           default: -200
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="0.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 0%; background-color: hsl(240.0,100%,25.0%)"
-  >    0.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '0.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '0%',
+              backgroundColor: 'hsl(240.0,100%,25.0%)'
+            }
+          }, [
+            text('    0.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 1%',
       data: [
@@ -455,17 +602,36 @@ export default ({
           maximum: 0
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="1.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center"
-    style="width: 1%; background-color: hsl(237.6,100%,25.3%)"
-  >    1.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '1.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '1%',
+              backgroundColor: 'hsl(237.6,100%,25.3%)'
+            }
+          }, [
+            text('    1.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 25%',
       data: [
@@ -487,17 +653,36 @@ export default ({
           maximum: 0
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="25.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 25%; background-color: hsl(180.0,100%,31.3%)"
-  >    25.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '25.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '25%',
+              backgroundColor: 'hsl(180.0,100%,31.3%)'
+            }
+          }, [
+            text('    25.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 50%',
       data: [
@@ -519,17 +704,36 @@ export default ({
           maximum: 0
         }
       ],
-      html: 
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="50.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 50%; background-color: hsl(120.0,100%,37.5%)"
-  >    50.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '50.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '50%',
+              backgroundColor: 'hsl(120.0,100%,37.5%)'
+            }
+          }, [
+            text('    50.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 75%',
       data: [
@@ -551,17 +755,36 @@ export default ({
           maximum: 0
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="75.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 75%; background-color: hsl(60.0,100%,43.8%)"
-  >    75.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '75.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '75%',
+              backgroundColor: 'hsl(60.0,100%,43.8%)'
+            }
+          }, [
+            text('    75.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 100%',
       data: [
@@ -584,17 +807,36 @@ export default ({
           maximum: 0
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="100.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 100%; background-color: hsl(0.0,100%,50.0%)"
-  >    100.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '100.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '100%',
+              backgroundColor: 'hsl(0.0,100%,50.0%)'
+            }
+          }, [
+            text('    100.0%')
+          ])
+        ])
+      )
     }, {
       title: 'Progress 125%',
       data: [
@@ -616,17 +858,36 @@ export default ({
           maximum: 0
         }
       ],
-      html:
-`<div
-  style="min-width: 100px; background-color: lightgrey"
-  class="rounded"
-  title="125.0%"
->
-  <div
-    class="rounded text-white overflow-visible d-flex flex-row justify-content-center" 
-    style="width: 100%; background-color: hsl(0.0,100%,50.0%)"
-  >    125.0%</div>
-</div>`
+      html: html(({
+        div,
+        text
+      }) => 
+        div({
+          style: {
+            minWidth: '100px',
+            backgroundColor: 'lightgrey'
+          },
+          class: 'rounded',
+          title: '125.0%'
+        }, [
+          div({
+            class: [
+              'rounded',
+              'text-white',
+              'overflow-visible',
+              'd-flex',
+              'flex-row',
+              'justify-content-center'
+            ],
+            style: {
+              width: '100%',
+              backgroundColor: 'hsl(0.0,100%,50.0%)'
+            }
+          }, [
+            text('    125.0%')
+          ])
+        ])
+      )
     }
   ]
 })

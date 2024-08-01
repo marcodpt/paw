@@ -21,13 +21,12 @@ inputs and outputs
 ### Improvements 💡
  - semantic html tests, no string cmp
 
- - use `html` instead of template strings
+ - allow children in docs and examples (ctrl case)
  - merge tag and alert inside ctrl
 
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - separate input and output options
- - allow children in docs and examples (ctrl case)
  - allow to see other tests variants
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings

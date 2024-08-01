@@ -2,6 +2,7 @@ import ctrl from '../index.js'
 import opt from '../options.js'
 import tag from '../../tag/spec.js'
 import {wait} from '../../lib.js'
+import html from '../../hyperscript/html.js'
 
 var ref = null
 export default ({
@@ -71,7 +72,16 @@ export default ({
           data: null
         }
       ],
-      html: `<a href="#/">Go Home!</a>`
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          href: '#/'
+        }, [
+          text('Go Home!')
+        ])
+      )
     }, {
       title: 'A external link with target _blank',
       data: [
@@ -81,26 +91,61 @@ export default ({
           href: 'https://github.com/marcodpt/app'
         }
       ],
-      html: 
-`<a
-  href="https://github.com/marcodpt/app"
-  target="_blank"
-><span><i class="fa-brands fa-github"></i> Repository</span></a>`
+      html: html(({
+        a,
+        span,
+        i,
+        text
+      }) => 
+        a({
+          href: 'https://github.com/marcodpt/app',
+          target: '_blank'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-brands',
+                'fa-github'
+              ]
+            }),
+            text(' Repository')
+          ])
+        ])
+      )
     }, {
       title: 'A button that says hello!',
       data: [
         {
           title: 'Hi!',
           href: () => {
-            ref.closest('div').innerHTML = '<h1>Hello!</h1>'
+            ref.closest('div').innerHTML = html(({
+              h1,
+              text
+            }) => 
+              h1({}, [
+                text('Hello!')
+              ])
+            )
           },
           init: btn => {
             ref = btn
           }
         }
       ],
-      html: `<button class="btn btn-primary" type="button">Hi!</button>`,
-      click: '<h1>Hello!</h1>'
+      html: html(({
+        button,
+        text
+      }) => 
+        button({
+          class: [
+            'btn',
+            'btn-primary'
+          ],
+          type: 'button'
+        }, [
+          text('Hi!')
+        ])
+      )
     }, {
       title: 'A blocked default link!',
       data: [
@@ -110,11 +155,31 @@ export default ({
           href: ''
         }
       ],
-      html: 
-`<a
-  class="btn btn-link disabled"
-  href="javascript:;"
-><span><i class="fa-solid fa-times"></i> No action!</span></a>`
+      html: html(({
+        a,
+        span,
+        i,
+        text
+      }) => 
+        a({
+          class: [
+            'btn',
+            'btn-link',
+            'disabled'
+          ],
+          href: 'javascript:;'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-times'
+              ]
+            }),
+            text(' No action!')
+          ])
+        ])
+      )
     }, {
       title: 'A blocked default button!',
       data: [
@@ -124,11 +189,31 @@ export default ({
           href: false
         }
       ],
-      html: 
-`<button
-  class="btn btn-primary disabled"
-  type="button"
-><span><i class="fa-solid fa-times"></i> No action!</span></button>`
+      html: html(({
+        button,
+        span,
+        i,
+        text
+      }) => 
+        button({
+          class: [
+            'btn',
+            'btn-primary',
+            'disabled'
+          ],
+          type: 'button'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-times'
+              ]
+            }),
+            text(' No action!')
+          ])
+        ])
+      )
     }, {
       title: 'A link with data, size and description!',
       data: [
@@ -143,11 +228,31 @@ export default ({
           size: 'sm'
         }
       ],
-      html: 
-`<a
-  class="btn btn-link btn-sm"
-  href="#/?user=josh&amp;id=34"
-><span><i class="fa-solid fa-house"></i> Home</span></a>`
+      html: html(({
+        a,
+        span,
+        i,
+        text
+      }) => 
+        a({
+          class: [
+            'btn',
+            'btn-link',
+            'btn-sm'
+          ],
+          href: '#/?user=josh&id=34'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-house'
+              ]
+            }),
+            text(' Home')
+          ])
+        ])
+      )
     }, {
       title: 'A button with data, size, link and description!',
       data: [
@@ -166,12 +271,32 @@ export default ({
           size: 'lg'
         }
       ],
-      html: 
-`<button
-  class="btn btn-warning btn-lg"
-  title="My hello message!"
-  type="button"
-><span><i class="fa-solid fa-face-smile"></i> Greetings</span></button>`
+      html: html(({
+        button,
+        span,
+        i,
+        text
+      }) => 
+        button({
+          class: [
+            'btn',
+            'btn-warning',
+            'btn-lg'
+          ],
+          title: 'My hello message!',
+          type: 'button'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-face-smile'
+              ]
+            }),
+            text(' Greetings')
+          ])
+        ])
+      )
     }, {
       title: 'A download link with delay',
       data: [
@@ -186,15 +311,37 @@ export default ({
           mime: 'text/plain'
         }
       ],
-      html: 
-`<button
-  class="btn btn-secondary"
-  title="Sample backup!"
-  type="button"
->
-  <span><i class="fa-solid fa-database"></i> Backup</span>
-  <a class="d-none" href="data:text/plain," download="sample.txt"></a>
-</button>`
+      html: html(({
+        button,
+        span,
+        i,
+        text,
+        a
+      }) => 
+        button({
+          class: [
+            'btn',
+            'btn-secondary'
+          ],
+          title: 'Sample backup!',
+          type: 'button'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-database'
+              ]
+            }),
+            text(' Backup')
+          ]),
+          a({
+            class: 'd-none',
+            href: 'data:text/plain,',
+            download: 'sample.txt'
+          })
+        ])
+      )
     }, {
       title: 'A dropdown button',
       data: [
@@ -219,44 +366,97 @@ export default ({
           ]
         }
       ],
-      html: 
-`<div class="btn-group">
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    <span><i class="fa-solid fa-flask"></i> Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-    <li>
-      <a
-        class="dropdown-item"
-        href="javascript:;"
-      >
-        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item"
-        href="#/"
-      >
-        <span><i class="fa-solid fa-home"></i> Go Home!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item disabled"
-        href="javascript:;"
-        aria-disabled="true"
-      >
-        <span><i class="fa-solid fa-times"></i> No Action!</span>
-      </a>
-    </li>
-  </ul>
-</div>`
+      html: html(({
+        div,
+        button,
+        span,
+        i,
+        text,
+        ul,
+        li,
+        a
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          button({
+            class: [
+              'btn',
+              'btn-secondary',
+              'dropdown-toggle'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-flask'
+                ]
+              }),
+              text(' Dropdown')
+            ])
+          ]),
+          ul({
+            class: 'dropdown-menu'
+          }, [
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: 'javascript:;'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-face-smile'
+                    ]
+                  }),
+                  text(' Say Hi!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: '#/'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-home'
+                    ]
+                  }),
+                  text(' Go Home!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: [
+                  'dropdown-item',
+                  'disabled'
+                ],
+                href: 'javascript:;',
+                ariaDisabled: 'true'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' No Action!')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A dropdown split button large',
       data: [
@@ -282,49 +482,107 @@ export default ({
           ]
         }
       ],
-      html: 
-`<div class="btn-group">
-  <button
-    class="btn btn-warning btn-lg"
-    type="button"
-  >
-    <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
-  </button>
-  <button
-    class="btn btn-warning btn-lg dropdown-toggle dropdown-toggle-split"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-  </button>
-  <ul class="dropdown-menu">
-    <li>
-      <a
-        class="dropdown-item"
-        href="javascript:;"
-      >
-        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item"
-        href="#/"
-      >
-        <span><i class="fa-solid fa-home"></i> Go Home!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item disabled"
-        href="javascript:;"
-        aria-disabled="true"
-      >
-        <span><i class="fa-solid fa-times"></i> No Action!</span>
-      </a>
-    </li>
-  </ul>
-</div>`
+      html: html(({
+        div,
+        button,
+        span,
+        i,
+        text,
+        ul,
+        li,
+        a
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          button({
+            class: [
+              'btn',
+              'btn-warning',
+              'btn-lg'
+            ],
+            type: 'button'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-face-smile'
+                ]
+              }),
+              text(' Say Hi!')
+            ])
+          ]),
+          button({
+            class: [
+              'btn',
+              'btn-warning',
+              'btn-lg',
+              'dropdown-toggle',
+              'dropdown-toggle-split'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }),
+          ul({
+            class: 'dropdown-menu'
+          }, [
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: 'javascript:;'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-face-smile'
+                    ]
+                  }),
+                  text(' Say Hi!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: '#/'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-home'
+                    ]
+                  }),
+                  text(' Go Home!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: [
+                  'dropdown-item',
+                  'disabled'
+                ],
+                href: 'javascript:;',
+                ariaDisabled: 'true'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' No Action!')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A dropdown split link small',
       data: [
@@ -350,49 +608,107 @@ export default ({
           ]
         }
       ],
-      html: 
-`<div class="btn-group">
-  <a
-    class="btn btn-info btn-sm"
-    href="#/"
-  >
-    <span><i class="fa-solid fa-home"></i> Go Home!</span>
-  </a>
-  <button
-    class="btn btn-info btn-sm dropdown-toggle dropdown-toggle-split"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-  </button>
-  <ul class="dropdown-menu">
-    <li>
-      <a
-        class="dropdown-item"
-        href="javascript:;"
-      >
-        <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item"
-        href="#/"
-      >
-        <span><i class="fa-solid fa-home"></i> Go Home!</span>
-      </a>
-    </li>
-    <li>
-      <a
-        class="dropdown-item disabled"
-        href="javascript:;"
-        aria-disabled="true"
-      >
-        <span><i class="fa-solid fa-times"></i> No Action!</span>
-      </a>
-    </li>
-  </ul>
-</div>`
+      html: html(({
+        div,
+        a,
+        span,
+        i,
+        text,
+        button,
+        ul,
+        li
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          a({
+            class: [
+              'btn',
+              'btn-info',
+              'btn-sm'
+            ],
+            href: '#/'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-home'
+                ]
+              }),
+              text(' Go Home!')
+            ])
+          ]),
+          button({
+            class: [
+              'btn',
+              'btn-info',
+              'btn-sm',
+              'dropdown-toggle',
+              'dropdown-toggle-split'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }),
+          ul({
+            class: 'dropdown-menu'
+          }, [
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: 'javascript:;'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-face-smile'
+                    ]
+                  }),
+                  text(' Say Hi!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: '#/'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-home'
+                    ]
+                  }),
+                  text(' Go Home!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: [
+                  'dropdown-item',
+                  'disabled'
+                ],
+                href: 'javascript:;',
+                ariaDisabled: 'true'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' No Action!')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A disabled dropdown button',
       data: [
@@ -404,19 +720,43 @@ export default ({
           links: []
         }
       ],
-      html: 
-`<div class="btn-group">
-  <button
-    class="btn btn-secondary disabled dropdown-toggle"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-    <span><i class="fa-solid fa-flask"></i> Dropdown</span>
-  </button>
-  <ul class="dropdown-menu">
-  </ul>
-</div>`
+      html: html(({
+        div,
+        button,
+        span,
+        i,
+        text,
+        ul
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          button({
+            class: [
+              'btn',
+              'btn-secondary',
+              'disabled',
+              'dropdown-toggle'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-flask'
+                ]
+              }),
+              text(' Dropdown')
+            ])
+          ]),
+          ul({
+            class: 'dropdown-menu'
+          })
+        ])
+      )
     }, {
       title: 'A disabled dropdown split button small',
       data: [
@@ -429,23 +769,53 @@ export default ({
           links: []
         }
       ],
-      html: 
-`<div class="btn-group">
-  <button
-    class="btn btn-warning btn-sm"
-    type="button"
-  >
-    <span><i class="fa-solid fa-face-smile"></i> Say Hi!</span>
-  </button>
-  <button
-    class="btn btn-warning btn-sm disabled dropdown-toggle dropdown-toggle-split"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-  </button>
-  <ul class="dropdown-menu"></ul>
-</div>`
+      html: html(({
+        div,
+        button,
+        span,
+        i,
+        text,
+        ul
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          button({
+            class: [
+              'btn',
+              'btn-warning',
+              'btn-sm'
+            ],
+            type: 'button'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-face-smile'
+                ]
+              }),
+              text(' Say Hi!')
+            ])
+          ]),
+          button({
+            class: [
+              'btn',
+              'btn-warning',
+              'btn-sm',
+              'disabled',
+              'dropdown-toggle',
+              'dropdown-toggle-split'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }),
+          ul({
+            class: 'dropdown-menu'
+          })
+        ])
+      )
     }, {
       title: 'A disabled dropdown split link large',
       data: [
@@ -458,23 +828,54 @@ export default ({
           links: []
         }
       ],
-      html: 
-`<div class="btn-group">
-  <a
-    class="btn btn-info btn-lg"
-    href="#/"
-  >
-    <span><i class="fa-solid fa-home"></i> Go Home!</span>
-  </a>
-  <button
-    class="btn btn-info btn-lg disabled dropdown-toggle dropdown-toggle-split"
-    type="button"
-    data-bs-toggle="dropdown"
-    aria-expanded="false"
-  >
-  </button>
-  <ul class="dropdown-menu"></ul>
-</div>`
+      html: html(({
+        div,
+        a,
+        span,
+        i,
+        text,
+        button,
+        ul
+      }) => 
+        div({
+          class: 'btn-group'
+        }, [
+          a({
+            class: [
+              'btn',
+              'btn-info',
+              'btn-lg'
+            ],
+            href: '#/'
+          }, [
+            span({}, [
+              i({
+                class: [
+                  'fa-solid',
+                  'fa-home'
+                ]
+              }),
+              text(' Go Home!')
+            ])
+          ]),
+          button({
+            class: [
+              'btn',
+              'btn-info',
+              'btn-lg',
+              'disabled',
+              'dropdown-toggle',
+              'dropdown-toggle-split'
+            ],
+            type: 'button',
+            dataBsToggle: 'dropdown',
+            ariaExpanded: 'false'
+          }),
+          ul({
+            class: 'dropdown-menu'
+          })
+        ])
+      )
     }
   ]
 })

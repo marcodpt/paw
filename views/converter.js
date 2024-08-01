@@ -107,7 +107,9 @@ export default ({
       }
 
       const Tags = []
-      const jsCode = htmlToJs(Tags, target.firstElementChild, '  ')
+      const jsCode = htmlToJs(Tags,
+        target.firstElementChild || target.firstChild, '  '
+      )
       const fn = `html(({\n  ${Tags.join(',\n  ')}\n}) => \n${jsCode}\n)`
       render(node(({div, pre, code, text}) => div({
         class: 'container my-5 mx-auto'

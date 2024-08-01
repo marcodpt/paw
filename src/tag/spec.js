@@ -1,4 +1,5 @@
 import tag from './index.js'
+import html from '../hyperscript/html.js'
 
 export default ({
   icon: 'tag',
@@ -42,7 +43,14 @@ export default ({
           description: ''
         }
       ],
-      html: `<i class="fa-solid fa-check"></i>`
+      html: html(({i}) => 
+        i({
+          class: [
+            'fa-solid',
+            'fa-check'
+          ]
+        })
+      )
     }, {
       title: 'A FontAwesome brand icon',
       description: 'To use FontAwesome 6 brand icons pass it name started with @',
@@ -61,7 +69,14 @@ export default ({
           description: ''
         }
       ],
-      html: `<i class="fa-brands fa-github"></i>`
+      html: html(({i}) => 
+        i({
+          class: [
+            'fa-brands',
+            'fa-github'
+          ]
+        })
+      )
     }, {
       title: 'A FontAwesome icon with description',
       data: [
@@ -74,7 +89,15 @@ export default ({
           description: '@github'
         }
       ],
-      html: `<i class="fa-brands fa-github" title="@github"></i>`
+      html: html(({i}) => 
+        i({
+          class: [
+            'fa-brands',
+            'fa-github'
+          ],
+          title: '@github'
+        })
+      )
     }, {
       title: 'A standalone label',
       data: [
@@ -92,7 +115,9 @@ export default ({
           icon: ''
         }
       ],
-      html: `A Label`
+      html: html(({text}) => 
+        text('A Label')
+      )
     }, {
       title: 'A standalone label with description',
       description: 'The description appears on mouse hover',
@@ -106,10 +131,16 @@ export default ({
           icon: ''
         }
       ],
-      html: 
-`<span
-  title="This is a description!\\nAssociated with this label."
->A label with description</span>`
+      html: html(({
+        span,
+        text
+      }) => 
+        span({
+          title: 'This is a description!\nAssociated with this label.'
+        }, [
+          text('A label with description')
+        ])
+      )
     }, {
       title: 'A FontAwesome icon with a label',
       data: [
@@ -122,7 +153,21 @@ export default ({
           description: ''
         }
       ],
-      html: `<span><i class="fa-solid fa-check"></i> check</span>`
+      html: html(({
+        span,
+        i,
+        text
+      }) => 
+        span({}, [
+          i({
+            class: [
+              'fa-solid',
+              'fa-check'
+            ]
+          }),
+          text(' check')
+        ])
+      )
     }, {
       title: 'A FontAwesome icon with a label and a description',
       data: [
@@ -132,10 +177,23 @@ export default ({
           description: 'FontAwesome 6 brands starts with @'
         }
       ],
-      html: 
-`<span
-  title="FontAwesome 6 brands starts with @"
-><i class="fa-brands fa-github"></i> @github</span>`
+      html: html(({
+        span,
+        i,
+        text
+      }) => 
+        span({
+          title: 'FontAwesome 6 brands starts with @'
+        }, [
+          i({
+            class: [
+              'fa-brands',
+              'fa-github'
+            ]
+          }),
+          text(' @github')
+        ])
+      )
     }, {
       title: 'An empty text node',
       data: [
@@ -167,7 +225,9 @@ export default ({
           description: ''
         }
       ],
-      html: ``
+      html: html(({text}) => 
+        text('')
+      )
     }
   ]
 })
