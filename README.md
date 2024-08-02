@@ -10,8 +10,10 @@
  - JSON Schema based [forms](https://marcodpt.github.io/app/#/examples/form/4),
 inputs and outputs
  - [Table](https://marcodpt.github.io/app/#/users) data with great flexibility
- - [Graph](https://marcodpt.github.io/app/#/examples/graph/0),
-[chart](https://marcodpt.github.io/app/#/examples/chart/0) and more components out of the box.
+ - [Graph](https://marcodpt.github.io/app/#/examples/graph/0)
+ - [Chart](https://marcodpt.github.io/app/#/examples/chart/0)
+ - [Barcode](https://marcodpt.github.io/app/#/examples/barcode/0)
+ - [Maps](https://marcodpt.github.io/app/#/examples/map/1)
 
 ## TODO 🔧
 
