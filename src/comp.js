@@ -13,6 +13,7 @@ import graph from './graph/spec.js'
 import chart from './chart/spec.js'
 import barcode from './barcode/spec.js'
 import carousel from './carousel/spec.js'
+import map from './map/spec.js'
 
 export default [
   app,
@@ -29,5 +30,6 @@ export default [
   graph,
   chart,
   barcode,
-  carousel
+  carousel,
+  map
 ]

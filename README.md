@@ -20,6 +20,9 @@ inputs and outputs
 
 ### Next release 📋
  - merge tag and alert inside ctrl
+ - allow children in docs and examples (ctrl case)
+ - code component (html/js) and remove highlight.js from page source
+ - footer variants on settings
 
 ### Improvements 💡
  - semantic html tests, no string cmp
@@ -29,7 +32,6 @@ inputs and outputs
  - allow to see other tests variants
  - dynamic validation with functions
  - input wrapper review
- - allow children in docs and examples (ctrl case)
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
  - separate router and data-app as a plugin
@@ -45,10 +47,6 @@ inputs and outputs
  - table
  - sidebar
  - core router
-
-### New components 📋
- - maps
- - code component (html/js) and remove highlight.js from page source
 
 ## Contributing 🤝
 It's a very simple project.
@@ -69,6 +67,7 @@ This work would not be possible if it were not for these related projects:
  - [Cytoscape.js](https://js.cytoscape.org/)
  - [Chart.js](https://www.chartjs.org/)
  - [JsBarcode](https://lindell.me/JsBarcode/)
+ - [Leaflet](https://leafletjs.com/)
  - [QUnit](https://qunitjs.com/)
 
 A huge thank you to all the people who contributed to these projects.

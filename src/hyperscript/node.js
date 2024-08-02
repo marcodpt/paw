@@ -34,10 +34,8 @@ const Tags = {
   )
 }
 
-Object.keys(tags)
-  .filter(tag => tags[tag].usages.indexOf('body') >= 0)
-  .forEach(tag => {
-    Tags[tag] = (attributes, children) => h(tag, attributes, children)
-  })
+Object.keys(tags).forEach(tag => {
+  Tags[tag] = (attributes, children) => h(tag, attributes, children)
+})
 
 export default el => el(Tags)
