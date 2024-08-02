@@ -1,4 +1,5 @@
 import wrapper from '../wrapper.js'
+import {uid} from '../../../lib.js'
 
 export default ({
   title,
@@ -9,7 +10,7 @@ export default ({
   options,
   value,
   label
-}) => wrapper(({input, datalist, option, text, uid}) => {
+}) => wrapper(({input, datalist, option, text}) => {
   const clear = ev => {
     if (ev.target.value) {
       value = ev.target.value

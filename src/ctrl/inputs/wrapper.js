@@ -1,11 +1,5 @@
 import node from '../../hyperscript/node.js'
 
-const id = {}
-const uid =  usage => {
-  id[usage] = id[usage] ? id[usage] + 1 : 1
-  return `app_${usage}_${String(id[usage]).padStart(6, '0')}`
-}
-
 export default (target, noFeedback) => node(({div}) =>
   div({
     validate: (el, error) => {
@@ -27,7 +21,7 @@ export default (target, noFeedback) => node(({div}) =>
         }
       })
     }
-  }, [].concat(node(X => target({...X, uid}))).concat(noFeedback ? [] : [
+  }, [].concat(node(target)).concat(noFeedback ? [] : [
     div({
       class: 'invalid-feedback'
     })

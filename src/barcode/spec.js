@@ -12,7 +12,8 @@ export default ({
     },
     height: {
       type: 'integer',
-      description: 'The height of the img tag in pixels.'
+      description: 'The height of the img tag in pixels.',
+      default: 100
     }
   },
   examples: [

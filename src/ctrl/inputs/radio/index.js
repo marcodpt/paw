@@ -1,4 +1,5 @@
 import wrapper from '../wrapper.js'
+import {uid} from '../../../lib.js'
 
 export default ({
   type,
@@ -9,7 +10,7 @@ export default ({
   size,
   options,
   value
-}) => wrapper(({div, input, label, text, uid}) => {
+}) => wrapper(({div, input, label, text}) => {
   var noOpt = true
   title = title || uid('radio')
   var id = uid('radio')

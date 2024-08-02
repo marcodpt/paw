@@ -1,4 +1,5 @@
 import wrapper from '../wrapper.js'
+import {uid} from '../../../lib.js'
 
 export default ({
   type,
@@ -10,7 +11,7 @@ export default ({
   size,
   options,
   value
-}) => wrapper(({div, input, label, text, uid}) => {
+}) => wrapper(({div, input, label, text}) => {
   value = value instanceof Array ? value : []
   return options.map((o, i) => {
     const id = uid('checkbox')

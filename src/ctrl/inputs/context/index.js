@@ -1,4 +1,5 @@
 import wrapper from '../wrapper.js'
+import {uid} from '../../../lib.js'
 
 export default ({
   title,
@@ -8,7 +9,7 @@ export default ({
   options,
   size,
   value
-}) => wrapper(({input, label, text, uid}) => 
+}) => wrapper(({input, label, text}) => 
   options.map(o => {
     const id = uid('radio')
     return [

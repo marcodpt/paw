@@ -18,7 +18,7 @@ inputs and outputs
 ### Bugs 🐞
  - datalist do not work on firefox mobile
 
-### Next release
+### Next release 📋
  - merge tag and alert inside ctrl
 
 ### Improvements 💡
@@ -47,7 +47,6 @@ inputs and outputs
  - core router
 
 ### New components 📋
- - carousel
  - maps
  - code component (html/js) and remove highlight.js from page source
 

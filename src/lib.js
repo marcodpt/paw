@@ -1,5 +1,11 @@
 import T from './lang/index.js'
 
+const id = {}
+const uid =  usage => {
+  id[usage] = id[usage] ? id[usage] + 1 : 1
+  return `app_${usage}_${String(id[usage]).padStart(6, '0')}`
+}
+
 const rm = el => {
   if (el && el.parentNode) {
     el.parentNode.removeChild(el)
@@ -92,6 +98,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
 }
 
 export {
+  uid,
   rm,
   wait,
   formatter

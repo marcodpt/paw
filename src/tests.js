@@ -7,7 +7,7 @@ const text = str => str.trim()
     .replace(/\s+</g, () => '<')
     .replace(/"\s+>/g, () => '">')
     .replace(/\s+/g, () => ' ')
-    .replace(/"app_([a-z]+?)_[0-9]{6}"/g, 'app_$1_000000')
+    .replace(/"(#?)app_([a-z]+?)_[0-9]{6}"/g, '$1app_$2_000000')
 
 const runner = ({title, examples, component}) => {
   QUnit.module(title, () => {
