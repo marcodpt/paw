@@ -164,5 +164,7 @@ This work would not be possible if it were not for these related projects:
  - [JsBarcode](https://lindell.me/JsBarcode/)
  - [Leaflet](https://leafletjs.com/)
  - [QUnit](https://qunitjs.com/)
+ - [FontIcon](https://gauger.io/fonticon/)
+ - [bundlejs](https://bundlejs.com/)
 
 A huge thank you to all the people who contributed to these projects.
