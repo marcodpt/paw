@@ -114,14 +114,14 @@ export default ({render, form, home, html}) => {
           'nav-item',
           'dropdown'
         ],
-        dataAppPath: title || null
+        dataPawPath: title || null
       }, [
         a({
           class: [
             'nav-link',
             'dropdown-toggle'
           ],
-          dataAppActive: 'active',
+          dataPawActive: 'active',
           dataBsToggle: 'dropdown',
           role: 'button',
           ariaExpanded: 'false',
@@ -141,13 +141,13 @@ export default ({render, form, home, html}) => {
           href
         }) => 
           li({
-            dataAppPath: title || null
+            dataPawPath: title || null
           }, [
             a({
               href,
               target: getTarget(href),
               class: 'dropdown-item',
-              dataAppActive: 'active',
+              dataPawActive: 'active',
               title: description || null
             }, [
               span({
@@ -165,13 +165,13 @@ export default ({render, form, home, html}) => {
       ]) :
       li({
         class: 'nav-item',
-        dataAppPath: title || null
+        dataPawPath: title || null
       }, [
         a({
           href,
           target: getTarget(href),
           class: 'nav-link',
-          dataAppActive: 'active',
+          dataPawActive: 'active',
           title: description || null
         }, [
           span({
@@ -529,13 +529,13 @@ export default ({render, form, home, html}) => {
             a({
               class: 'navbar-brand',
               href: '#/',
-              dataAppText: 'title'
+              dataPawText: 'title'
             }, [
               text(pageTitle)
             ]),
             span({
               class: 'navbar-text',
-              dataAppText: 'current'
+              dataPawText: 'current'
             }),
             a({
               class: [
@@ -571,7 +571,7 @@ export default ({render, form, home, html}) => {
             ]
           }, [
             h1({
-              dataAppText: 'title'
+              dataPawText: 'title'
             }, [
               text(pageTitle)
             ]),
@@ -580,7 +580,7 @@ export default ({render, form, home, html}) => {
                 'lead',
                 'text-body-secondary'
               ],
-              dataAppText: 'description'
+              dataPawText: 'description'
             }, [
               text(description)
             ])

@@ -22,7 +22,7 @@ export default ({links}) => {
         }, (children || []).map(({children, href, title, ...meta}) => 
           li({
             class: 'list-group-item border-0',
-            dataAppPath: title
+            dataPawPath: title
           }, [
             ctrl({
               init: el => {
@@ -88,7 +88,7 @@ export default ({links}) => {
             text(' '),
             small({
               class: 'text-secondary',
-              dataAppText: 'current'
+              dataPawText: 'current'
             })
           ]),
           button({
