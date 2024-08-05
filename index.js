@@ -38,7 +38,7 @@ export default ({build, root, routes}) => {
     })
 
   const setClass = (el, attr, fn) =>
-    (el.getAttribute(`data-app-${attr}`) || '').split(' ')
+    (el.getAttribute(`data-paw-${attr}`) || '').split(' ')
       .map(c => c.trim())
       .filter(c => c).forEach(c => {
         el.classList[fn](c)
@@ -120,14 +120,14 @@ export default ({build, root, routes}) => {
 
     const hash = '#'+url
     document.body.querySelectorAll([
-      '[data-app-active]',
-      '[data-app-inactive]'
+      '[data-paw-active]',
+      '[data-paw-inactive]'
     ].join(', ')).forEach(p => {
       setClass(p, 'active', 'remove')
       setClass(p, 'inactive', 'add')
     })
     const href = Array.from(
-      document.body.querySelectorAll('[data-app-path] > a[href]')
+      document.body.querySelectorAll('[data-paw-path] > a[href]')
     ).reduce((v, link) => {
       const href = link.getAttribute('href')
       const l = href.length
@@ -135,15 +135,15 @@ export default ({build, root, routes}) => {
     }, '')
 
     const link = document.body
-      .querySelector('[data-app-path] > a[href="'+href+'"]')
-    const T = document.body.querySelectorAll('[data-app-text="current"]')
+      .querySelector('[data-paw-path] > a[href="'+href+'"]')
+    const T = document.body.querySelectorAll('[data-paw-text="current"]')
     if (href && link) {
       const Current = []
       var l = link
-      while (l = l.closest('[data-app-path]')) {
-        Current.push(l.getAttribute('data-app-path'))
-        const p = l.getAttribute('data-app-active') ? l :
-          l.querySelector('[data-app-active]')
+      while (l = l.closest('[data-paw-path]')) {
+        Current.push(l.getAttribute('data-paw-path'))
+        const p = l.getAttribute('data-paw-active') ? l :
+          l.querySelector('[data-paw-active]')
         if (p) {
           setClass(p, 'active', 'add')
           setClass(p, 'inactive', 'remove')

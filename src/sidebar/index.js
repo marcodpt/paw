@@ -27,7 +27,7 @@ export default ({links}) => {
             ctrl({
               init: el => {
                 el.setAttribute('class', 'text-decoration-none text-reset'),
-                el.setAttribute('data-app-active', 'fw-bold')
+                el.setAttribute('data-paw-active', 'fw-bold')
                 if (children) {
                   el.prepend(text(' '))
                   el.prepend(tag({icon: isClosed}))

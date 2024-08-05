@@ -1,4 +1,4 @@
-import app from './index.js'
+import paw from './index.js'
 import build from './views/build.js'
 import settings from './views/settings.js'
 import users from './views/users.js'
@@ -9,7 +9,7 @@ import examples from './views/examples.js'
 import examples2 from './views/examples2.js'
 import converter from './views/converter.js'
 
-window.stop = app({
+window.stop = paw({
   build,
   root: document.body.querySelector('main'),
   routes: {

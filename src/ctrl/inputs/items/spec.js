@@ -369,7 +369,7 @@ export default ({
             }, {
               title: 'Repository',
               icon: '@github',
-              href: 'https://github.com/marcodpt/app'
+              href: 'https://github.com/marcodpt/paw'
             }
           ],
           update
@@ -1018,7 +1018,7 @@ export default ({
                       ],
                       type: 'text',
                       name: 'href',
-                      value: 'https://github.com/marcodpt/app'
+                      value: 'https://github.com/marcodpt/paw'
                     }),
                     div({
                       class: 'invalid-feedback'

@@ -88,7 +88,7 @@ export default ({
         {
           icon: '@github',
           title: 'Repository',
-          href: 'https://github.com/marcodpt/app'
+          href: 'https://github.com/marcodpt/paw'
         }
       ],
       html: html(({
@@ -98,7 +98,7 @@ export default ({
         text
       }) => 
         a({
-          href: 'https://github.com/marcodpt/app',
+          href: 'https://github.com/marcodpt/paw',
           target: '_blank'
         }, [
           span({}, [

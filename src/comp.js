@@ -1,4 +1,4 @@
-import app from './spec.js'
+import paw from './spec.js'
 import node from './hyperscript/spec.js'
 import render from './render/spec.js'
 import spinner from './spinner/spec.js'
@@ -16,7 +16,7 @@ import carousel from './carousel/spec.js'
 import map from './map/spec.js'
 
 export default [
-  app,
+  paw,
   node,
   render,
   spinner,

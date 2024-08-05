@@ -6,7 +6,7 @@ export default ({
   icon: 'spinner',
   title: 'spinner',
   component: spinner,
-  description: 'The default spinner to use in app routes.',
+  description: 'The default spinner.',
   properties: {},
   examples: [
     {

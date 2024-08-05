@@ -1,10 +1,10 @@
-import app from '../index.js'
+import paw from '../index.js'
 
 export default ({
-  icon: 'rocket',
-  title: 'app',
-  description: 'A dashboard application.',
-  component: app,
+  icon: 'paw',
+  title: 'paw',
+  description: 'A minimalistic hyperscript framework.',
+  component: paw,
   properties: {},
   examples: []
 })

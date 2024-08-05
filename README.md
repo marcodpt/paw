@@ -1,21 +1,21 @@
 # ![](favicon.ico) Paw
-  A minimalistic hyperscript framework
+  A minimalistic hyperscript framework.
 
-  [Demo](https://marcodpt.github.io/app/#/users)
+  [Demo](https://marcodpt.github.io/paw/#/users)
 
 ## Features ❤️
- - Theme [builder](https://marcodpt.github.io/app/#/settings)
+ - Theme [builder](https://marcodpt.github.io/paw/#/settings)
  - Built-in router
  - SPA with SSR `index.html` optimized for SEO
  - No build steps
  - No vDom
- - JSON Schema based [forms](https://marcodpt.github.io/app/#/examples/form/4)
- - HTML to Hyperscript [converter](https://marcodpt.github.io/app/#/converter)
- - [Table](https://marcodpt.github.io/app/#/users) data with great flexibility
- - [Graph](https://marcodpt.github.io/app/#/examples/graph/0)
- - [Chart](https://marcodpt.github.io/app/#/examples/chart/0)
- - [Barcode](https://marcodpt.github.io/app/#/examples/barcode/0)
- - [Maps](https://marcodpt.github.io/app/#/examples/map/1)
+ - JSON Schema based [forms](https://marcodpt.github.io/paw/#/examples/form/4)
+ - HTML to Hyperscript [converter](https://marcodpt.github.io/paw/#/converter)
+ - [Table](https://marcodpt.github.io/paw/#/users) data with great flexibility
+ - [Graph](https://marcodpt.github.io/paw/#/examples/graph/0)
+ - [Chart](https://marcodpt.github.io/paw/#/examples/chart/0)
+ - [Barcode](https://marcodpt.github.io/paw/#/examples/barcode/0)
+ - [Maps](https://marcodpt.github.io/paw/#/examples/map/1)
 
 ## Motivation 📢
 
@@ -98,7 +98,7 @@ modules or dynamically adding the script to the page).
 
 And to achieve good
 [SEO](https://en.wikipedia.org/wiki/Search_engine_optimization),
-produce an [SSR home page](https://marcodpt.github.io/app/#/settings)
+produce an [SSR home page](https://marcodpt.github.io/paw/#/settings)
 with the customization options that exist in the open source world.
 
 I didn't find anything on github or google that went this route,
@@ -124,10 +124,10 @@ so I created it.
  - input wrapper review
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
- - separate router and data-app as a plugin
+ - separate router and data-paw as a plugin
  - separate outputs
  - remove whitespace for pre tag
- - external links simbol and remove data-app-path
+ - external links simbol and remove data-paw-path
 
 ### Tests and docs 🧪
  - html docs

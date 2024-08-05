@@ -9,7 +9,7 @@ const deep = [
 export default ({render, Params, form, node}) => {
   const comp = Params.component
   return render(import(
-    comp == 'app' ? 
+    comp == 'paw' ? 
       `../src/spec.js` :
     deep.indexOf(comp) >= 0 ? 
       `../src/ctrl/${comp}/spec.js` : 

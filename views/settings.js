@@ -229,10 +229,10 @@ export default ({render, form, home, html}) => {
     variantFooter
   }) => {
     [document.body, home].forEach(e => {
-      e.querySelectorAll('[data-app-text=title]').forEach(e => {
+      e.querySelectorAll('[data-paw-text=title]').forEach(e => {
         e.textContent = pageTitle
       })
-      e.querySelectorAll('[data-app-text=description]').forEach(e => {
+      e.querySelectorAll('[data-paw-text=description]').forEach(e => {
         e.textContent = description
       })
     })
@@ -270,7 +270,7 @@ export default ({render, form, home, html}) => {
         title: 'Description',
         type: 'string',
         default: home
-          .querySelector('[data-app-text="description"]')?.textContent
+          .querySelector('[data-paw-text="description"]')?.textContent
       },
       lang: {
         title: 'Lang',
@@ -346,7 +346,7 @@ export default ({render, form, home, html}) => {
           li,
           a: li.querySelector('a')
         })).map(({li, a}) => ({
-          title: li.getAttribute('data-app-path'),
+          title: li.getAttribute('data-paw-path'),
           description: a?.getAttribute('title') || '',
           icon: readIcon(a?.querySelector('i')),
           href: a?.getAttribute('href'),
@@ -357,7 +357,7 @@ export default ({render, form, home, html}) => {
             li,
             a: li.querySelector('a')
           })).map(({li, a, icon}) => ({
-            title: li.getAttribute('data-app-path'),
+            title: li.getAttribute('data-paw-path'),
             description: a?.getAttribute('title') || '',
             icon: readIcon(a?.querySelector('i')),
             href: a?.getAttribute('href')
