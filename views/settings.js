@@ -246,10 +246,12 @@ export default ({render, form, home, html}) => {
     nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
     
     const f = getFooter()
+    const Css = f.getAttribute('class').split(' ')
+    Css.shift()
 
     f.querySelector('p').innerHTML = copyright
     f.querySelector('ul').innerHTML = footerLinks(linksFooter)
-    f.setAttribute('class', variantFooter)
+    f.setAttribute('class', [variantFooter].concat(Css).join(' '))
   }
 
   return render(form({
@@ -405,7 +407,7 @@ export default ({render, form, home, html}) => {
         title: 'Footer',
         type: 'string',
         options: bg,
-        default: getFooter().getAttribute('class') || ''
+        default: getFooter().getAttribute('class')?.split(' ')[0]
       },
       copyright: {
         title: 'Footer Note',
@@ -490,7 +492,9 @@ export default ({render, form, home, html}) => {
           text(pageTitle)
         ])
       ]),
-      body({}, [
+      body({
+        class: 'min-vh-100 d-flex flex-column'
+      }, [
         nav({
           class: [
             'navbar',
@@ -587,7 +591,10 @@ export default ({render, form, home, html}) => {
           ])
         ]),
         footer({
-          class: variantFooter
+          class: [
+            variantFooter, 
+            'mt-auto'
+          ]
         }, [
           div({
             class: [
