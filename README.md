@@ -1,4 +1,4 @@
-# ![](assets/favicon.ico) Paw
+# ![](favicon.ico) Paw
   A minimalistic hyperscript framework
 
   [Demo](https://marcodpt.github.io/app/#/users)
