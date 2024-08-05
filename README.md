@@ -9,6 +9,7 @@
  - SPA with SSR `index.html` optimized for SEO
  - No build steps
  - No vDom
+ - Stop the nonsense of rewriting any JS library for a framework!
  - JSON Schema based [forms](https://marcodpt.github.io/paw/#/examples/form/4)
  - HTML to Hyperscript [converter](https://marcodpt.github.io/paw/#/converter)
  - [Table](https://marcodpt.github.io/paw/#/users) data with great flexibility
