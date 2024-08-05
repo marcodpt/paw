@@ -16,7 +16,7 @@ inputs and outputs
  - [Barcode](https://marcodpt.github.io/app/#/examples/barcode/0)
  - [Maps](https://marcodpt.github.io/app/#/examples/map/1)
 
-## Motivation
+## Motivation 📢
 
 ### Why are JS frameworks bad?
 Frameworks like:
@@ -112,7 +112,7 @@ so I created it.
  - merge tag and alert inside ctrl
  - allow children in docs and examples (ctrl case)
  - code component (html/js) and remove highlight.js from page source
- - footer variants on settings
+ - rename REPO
 
 ### Improvements 💡
  - semantic html tests, no string cmp

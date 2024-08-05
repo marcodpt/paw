@@ -52,6 +52,18 @@ const variants = [
   {value: 'bg-info navbar-light', label: 'Info Inverted'},
 ]
 
+const bg = [
+  {value: 'text-body-secondary', label: 'Raw'},
+  {value: 'text-bg-dark', label: 'Dark'},
+  {value: 'text-bg-light', label: 'Light'},
+  {value: 'text-bg-primary', label: 'Primary'},
+  {value: 'text-bg-secondary', label: 'Secondary'},
+  {value: 'text-bg-success', label: 'Success'},
+  {value: 'text-bg-danger', label: 'Danger'},
+  {value: 'text-bg-warning', label: 'Warning'},
+  {value: 'text-bg-info', label: 'Info'}
+]
+
 const langs = [
   {value: 'en', label: 'English'},
   {value: 'pt', label: 'Português'}
@@ -64,6 +76,7 @@ export default ({render, form, home, html}) => {
     .map(css => css.trim())
     .filter(css => /^bg-[a-z]+$/.test(css) || /^navbar-[a-z]+$/.test(css))
     .join(' ')
+  const getFooter = () => document.body.querySelector('footer')
 
   const getTarget = href => !href || href.indexOf('://') < 0 ? null :
     '_blank'
@@ -191,7 +204,7 @@ export default ({render, form, home, html}) => {
         class: [
           'nav-link',
           'px-2',
-          'text-body-secondary'
+          'text-reset'
         ],
         target: getTarget(href),
         title: description || null
@@ -212,7 +225,8 @@ export default ({render, form, home, html}) => {
     theme,
     navbar,
     links,
-    linksFooter
+    linksFooter,
+    variantFooter
   }) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-app-text=title]').forEach(e => {
@@ -231,10 +245,11 @@ export default ({render, form, home, html}) => {
     )
     nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
     
-    const f = document.body.querySelector('footer')
+    const f = getFooter()
 
     f.querySelector('p').innerHTML = copyright
     f.querySelector('ul').innerHTML = footerLinks(linksFooter)
+    f.setAttribute('class', variantFooter)
   }
 
   return render(form({
@@ -385,6 +400,12 @@ export default ({render, form, home, html}) => {
           icon: readIcon(a?.querySelector('i')),
           href: a?.getAttribute('href')
         }))
+      },
+      variantFooter: {
+        title: 'Footer',
+        type: 'string',
+        options: bg,
+        default: getFooter().getAttribute('class') || ''
       },
       copyright: {
         title: 'Footer Note',
@@ -571,12 +592,13 @@ export default ({render, form, home, html}) => {
             ])
           ])
         ]),
-        footer({}, [
+        footer({
+          class: 'text-body-secondary'
+        }, [
           div({
             class: [
               'container',
-              'py-3',
-              'my-4'
+              'py-5'
             ]
           }, [
             ul({
@@ -592,8 +614,7 @@ export default ({render, form, home, html}) => {
             ]),
             p({
               class: [
-                'text-center',
-                'text-body-secondary'
+                'text-center'
               ]
             }, [
               copyright
