@@ -2,6 +2,7 @@ const kebabToCamel = string => string.replace(/-./g, x => x[1].toUpperCase())
 
 export default ({
   form,
+  modal,
   render,
   node,
   print,
@@ -75,65 +76,108 @@ export default ({
     )
   } 
 
-  render(form({
-    css: 'container my-5',
-    title: 'HTML to hyperscript converter',
-    description: 'Only one HTML element is supported.'+
-      '\nIf more than one is entered, only the first one will be returned.',
-    icon: 'file-code',
-    context: 'warning',
-    properties: {
-      html: {
-        title: '',
-        description: 'enter HTML string...',
-        type: 'string',
-        ui: 'text'
+  const build = () => {
+    render(form({
+      css: 'container my-5',
+      title: 'HTML to hyperscript converter',
+      description: 'Only one HTML element is supported.'+
+        '\nIf more than one is entered, only the first one will be returned.',
+      icon: 'file-code',
+      context: 'warning',
+      properties: {
+        html: {
+          title: '',
+          description: 'enter HTML string...',
+          type: 'string',
+          ui: 'text'
+        },
+        template: {
+          title: 'Template?',
+          description: 'Whether the html should be parsed as a template or as a full page.',
+          default: true
+        }
       },
-      template: {
-        title: 'Template?',
-        description: 'Whether the html should be parsed as a template or as a full page.',
-        default: true
-      }
-    },
-    showValid: false,
-    block: true,
-    submit: ({html, template}) => {
-      var target
-      if (template) {
-        target = document.createElement('div')
-        target.innerHTML = html
-      } else {
-        const parser = new DOMParser()
-        target = parser.parseFromString(html, "text/html")
-      }
+      showValid: false,
+      block: true,
+      submit: ({html, template}) => {
+        var target
+        if (template) {
+          target = document.createElement('div')
+          target.innerHTML = html
+        } else {
+          const parser = new DOMParser()
+          target = parser.parseFromString(html, "text/html")
+        }
 
-      const Tags = []
-      const jsCode = htmlToJs(Tags,
-        target.firstElementChild || target.firstChild, '  '
-      )
-      const fn = `html(({\n  ${Tags.join(',\n  ')}\n}) => \n${jsCode}\n)`
-      render(node(({div, pre, code, text}) => div({
-        class: 'container my-5 mx-auto'
-      }, [
-        div({
-          class: 'card'
+        const Tags = []
+        const jsCode = htmlToJs(Tags,
+          target.firstElementChild || target.firstChild, '  '
+        )
+        const fn = `html(({\n  ${Tags.join(',\n  ')}\n}) => \n${jsCode}\n)`
+        const ctrls = () => form({
+          links: [
+            {
+              icon: 'clipboard',
+              context: 'light',
+              title: 'Copy',
+              href: () => {
+                if (navigator && navigator.clipboard) {
+                  navigator.clipboard.writeText(fn)
+                  modal({
+                    title: 'Copied',
+                    description: 'Hyperscript copied to clipboard!',
+                    context: 'success'
+                  })
+                } else {
+                  modal({
+                    title: 'Error',
+                    description: 'Unable to save text to clipboard!',
+                    context: 'danger'
+                  })
+                }
+              }
+            }, {
+              icon: 'rotate',
+              context: 'primary',
+              title: 'Again',
+              href: build
+            }
+          ]
+        })
+        render(node(({div, pre, code, text}) => div({
+          class: 'container my-5 mx-auto'
         }, [
           div({
-            class: 'card-body'
+            class: 'card'
           }, [
-            pre({
-              class: 'mb-0'
+            div({
+              class: 'card-header'
             }, [
-              code({
-                class: 'language-js py-0'
+              ctrls()
+            ]),
+            div({
+              class: 'card-body'
+            }, [
+              pre({
+                class: 'mb-0'
               }, [
-                text(fn)
+                code({
+                  class: 'language-js py-0'
+                }, [
+                  text(fn)
+                ])
               ])
+            ]),
+            div({
+              class: 'card-footer'
+            }, [
+              ctrls()
             ])
           ])
-        ])
-      ])))
-      highlight()
-    }
-  }))
+        ])))
+        highlight()
+      }
+    }))
+  }
+  build()
 }

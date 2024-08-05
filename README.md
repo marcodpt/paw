@@ -111,7 +111,6 @@ so I created it.
  - datalist do not work on firefox mobile
 
 ### Next release 📋
- - rename REPO
  - merge tag and alert inside ctrl
  - allow children in docs and examples (ctrl case)
 
@@ -129,6 +128,9 @@ so I created it.
  - separate outputs
  - remove whitespace for pre tag
  - external links simbol and remove data-paw-path
+ - copy features to home article and allow to edit it
+ - track library updates and the current version installed in a centralized file
+ - better array ctrl support (minimize, up, down, remove, add)
 
 ### Tests and docs 🧪
  - html docs
