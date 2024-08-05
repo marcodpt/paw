@@ -427,6 +427,7 @@ export default ({render, form, home, html}) => {
       navbar,
       links,
       linksFooter,
+      variantFooter,
       copyright
     }) => html(({
       html,
@@ -586,7 +587,7 @@ export default ({render, form, home, html}) => {
           ])
         ]),
         footer({
-          class: 'text-body-secondary'
+          class: variantFooter
         }, [
           div({
             class: [

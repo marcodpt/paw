@@ -1,14 +1,15 @@
-# App 🚀
-  Vanilla js SPA without vDom, build steps and all framework complications.
+# ![](assets/favicon.ico) Paw
+  A minimalistic hyperscript framework
 
   [Demo](https://marcodpt.github.io/app/#/users)
 
 ## Features ❤️
- - SPA without vDom
+ - Theme [builder](https://marcodpt.github.io/app/#/settings)
  - Built-in router
- - `index.html` [builder](https://marcodpt.github.io/app/#/settings) with themes
- - JSON Schema based [forms](https://marcodpt.github.io/app/#/examples/form/4),
-inputs and outputs
+ - SPA with SSR `index.html` optimized for SEO
+ - No build steps
+ - No vDom
+ - JSON Schema based [forms](https://marcodpt.github.io/app/#/examples/form/4)
  - HTML to Hyperscript [converter](https://marcodpt.github.io/app/#/converter)
  - [Table](https://marcodpt.github.io/app/#/users) data with great flexibility
  - [Graph](https://marcodpt.github.io/app/#/examples/graph/0)
@@ -109,10 +110,9 @@ so I created it.
  - datalist do not work on firefox mobile
 
 ### Next release 📋
+ - rename REPO
  - merge tag and alert inside ctrl
  - allow children in docs and examples (ctrl case)
- - code component (html/js) and remove highlight.js from page source
- - rename REPO
 
 ### Improvements 💡
  - semantic html tests, no string cmp
@@ -125,8 +125,12 @@ so I created it.
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
  - separate router and data-app as a plugin
+ - separate outputs
+ - remove whitespace for pre tag
+ - external links simbol and remove data-app-path
 
 ### Tests and docs 🧪
+ - html docs
  - chart
  - graph
  - render
