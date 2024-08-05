@@ -4,7 +4,8 @@ export default ({
   form,
   render,
   node,
-  print
+  print,
+  highlight
 }) => {
   const htmlToJs = (Tags, element, ident) => {
     ident = ident || ''
@@ -132,7 +133,7 @@ export default ({
           ])
         ])
       ])))
-      hljs.highlightAll()
+      highlight()
     }
   }))
 }

@@ -1,6 +1,8 @@
 import menu from './data/menu.js'
 
-export default ({sidebar}) => {
+var stylesheet = null
+var script = null
+export default ({sidebar, node}) => {
   sidebar(menu)
 
   const home = document.body.querySelector('main')
@@ -51,5 +53,34 @@ export default ({sidebar}) => {
     )
   }
 
-  return {home, wait, print}
+  const highlight = () => {
+    const build = () => {
+      hljs.highlightAll()
+    }
+    if (!window.hljs) {
+      const src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0'
+      if (!stylesheet) {
+        stylesheet = node(({link}) => 
+          link({
+            rel: 'stylesheet',
+            href: src+'/styles/github.min.css'
+          })
+        )
+        document.head.appendChild(stylesheet)
+      }
+      if (!script) {
+        script = node(({script}) => 
+          script({
+            src: src+'/highlight.min.js'
+          })
+        )
+        document.head.appendChild(script)
+      }
+      script.addEventListener('load', build)
+    } else {
+      setTimeout(build, 100)
+    }
+  }
+
+  return {home, wait, print, highlight}
 }

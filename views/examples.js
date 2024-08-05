@@ -6,7 +6,7 @@ const deep = [
   'output'
 ]
 
-export default ({render, Params, node, print}) => {
+export default ({render, Params, node, print, highlight}) => {
   const comp = Params.component
   return render(import(
     comp == 'app' ? 
@@ -18,9 +18,7 @@ export default ({render, Params, node, print}) => {
     const M = mod.default
     const {title, description, data, html} = M.examples[Params.index]
     const desc = normalizeDesc(description)
-    setTimeout(() => {
-      hljs.highlightAll()
-    }, 100)
+    highlight()
     return node(({div, h5, p, hr, text, pre, code}) => div({
       class: 'container my-5 mx-auto'
     }, [

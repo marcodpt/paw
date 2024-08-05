@@ -1,16 +1,14 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-export default ({render, Params, node, print, ctrl}) => {
+export default ({render, Params, node, print, ctrl, highlight}) => {
   //Params.type
   return render(import(
     `../src/ctrl/inputs/${Params.component}/spec.js`
   ).then(mod => {
     const {title, description, data, html} = mod.default.examples[Params.index]
     const desc = normalizeDesc(description)
-    setTimeout(() => {
-      hljs.highlightAll()
-    }, 100)
+    highlight()
     return node(({div, h5, p, hr, text, pre, code}) => div({
       class: 'container my-5 mx-auto'
     }, [
