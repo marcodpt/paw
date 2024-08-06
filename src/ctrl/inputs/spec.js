@@ -19,7 +19,7 @@ export default {
   title: 'inputs',
   description: 'Form inputs.',
   properties: {},
-  examples: [
+  modules: [
     text,
     number,
     check,

@@ -1,19 +1,9 @@
 const normalizeDesc = desc => (desc || '').trim().split('\n')
   .map(l => l.trim()).join('\n')
 
-const deep = [
-  'link',
-  'output'
-]
-
 export default ({render, Params, form, node}) => {
-  const comp = Params.component
   return render(import(
-    comp == 'paw' ? 
-      `../src/spec.js` :
-    deep.indexOf(comp) >= 0 ? 
-      `../src/ctrl/${comp}/spec.js` : 
-      `../src/${comp}/spec.js`
+    `../src/${Params.component.split('.').join('/')}/spec.js`
   ).then(mod => {
     const base = {
       ...mod.default

@@ -1,61 +1,33 @@
-import spec from '../../src/comp.js'
-import inputs from '../../src/ctrl/inputs/spec.js'
+import comp from '../../src/comp.js'
 
-const builder = ({icon, title, description, examples}) => ({
-  icon,
-  title,
-  description,
-  children: [
-    {
-      icon: 'book',
-      title: 'Documentation',
-      href: '#/docs/'+title
-    }, {
-      icon: 'box',
-      title: 'Examples',
-      children: examples.map((E, i) => ({
-        title: E.title,
-        href: '#/examples/'+title+'/'+i
-      }))
-    }
-  ]
-})
+const treeBuilder = (path, {icon, title, description, modules, examples}) => {
+  const P = path.concat(title)
+  modules = modules || []
+  examples = examples || []
 
-const rebuilder = ({icon, title, description, examples}) => ({
-  icon,
-  title,
-  description,
-  children: [
-    {
-      icon: 'book',
-      title: 'Documentation',
-      href: '#/info/'+title
-    }, {
-      icon: 'box',
-      title: 'Examples',
-      children: examples.map(({title, examples}) => ({
-        title: title,
-        children: [
-          {
-            icon: 'book',
-            title: 'Documentation',
-            href: '#/info/'+title
-          }, {
-            icon: 'box',
-            title: 'Examples',
-            children: examples.map((E, i) => ({
-              title: E.title,
-              href: '#/input/'+title+'/'+i
-            }))
-          }
-        ]
-      }))
-    }
-  ]
-})
+  return {
+    icon,
+    title,
+    description,
+    children: [
+      {
+        icon: 'book',
+        title: 'Documentation',
+        href: '#/doc/'+P.join('.')
+      }
+    ]
+    .concat(examples.map(({title, description, icon}, i) => ({
+      title,
+      description,
+      icon,
+      href: '#/example/'+P.join('.')+'/'+i
+    })))
+    .concat(modules.map(link => treeBuilder(P, link)))
+  }
+}
 
 export default {
-  links: spec.map(builder).concat(rebuilder(inputs)).concat([
+  links: comp.map(c => treeBuilder([], c)).concat([
     {
       icon: 'flask',
       title: 'Tests',

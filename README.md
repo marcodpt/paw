@@ -112,7 +112,6 @@ so I created it.
 
 ### Next release 📋
  - merge tag and alert inside ctrl
- - allow children in docs and examples (ctrl case)
 
 ### Improvements 💡
  - semantic html tests, no string cmp
@@ -131,6 +130,8 @@ so I created it.
  - copy features to home article and allow to edit it
  - track library updates and the current version installed in a centralized file
  - better array ctrl support (minimize, up, down, remove, add)
+ - deep router param is an array (?, +, \*) support at the end of var
+ - allow icon, title and description in navbar and sidebar
 
 ### Tests and docs 🧪
  - html docs
