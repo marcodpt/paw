@@ -109,6 +109,8 @@ so I created it.
 
 ### Next release 📋
  - merge tag and alert inside ctrl
+ - recursive spec and solve function problem
+ - dynamic tests implementation
 
 ### Improvements 💡
  - datalist do not work on firefox mobile
@@ -131,7 +133,6 @@ so I created it.
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
  - allow icon, title and description in navbar and sidebar
- - deep spec
 
 ### Tests and docs 🧪
  - html docs

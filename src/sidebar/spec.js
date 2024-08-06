@@ -1,7 +1,7 @@
 import sidebar from './index.js'
 
 export default ({
-  icon: 'location-arrow',
+  icon: 'bars',
   title: 'sidebar',
   description: 'Navigation with sidebar.',
   component: sidebar,
