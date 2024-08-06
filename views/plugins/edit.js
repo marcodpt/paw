@@ -2,12 +2,15 @@ import schema from '../data/schema.js'
 
 export default ({modal}, data) => {
   var btn = null
+  var tbl = null
   const L = schema.items.links[1]
   return {
     ...L,
-    init: el => {btn = btn || el},
+    init: el => {
+      btn = btn || el
+      tbl = tbl || btn.closest('table') 
+    },
     href: user => {
-      const tbl = btn.closest('table')
       const {properties} = tbl.read()
       const title = L.title+': '+user.name
       const P = {...properties}
