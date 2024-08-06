@@ -1,6 +1,4 @@
 import spec from './comp.js'
-import inputs from './ctrl/inputs/spec.js'
-import ctrl from './ctrl/index.js'
 
 const text = str => str.trim()
     .replace(/\\n/g, () => ' ')
@@ -9,7 +7,9 @@ const text = str => str.trim()
     .replace(/\s+/g, () => ' ')
     .replace(/"(#?)app_([a-z]+?)_[0-9]{6}"/g, '$1app_$2_000000')
 
-const runner = ({title, examples, component}) => {
+const runner = ({title, examples, modules, component}) => {
+  examples = examples || []
+  modules = modules || []
   QUnit.module(title, () => {
     const aggregate = {
       max: 0,
@@ -42,11 +42,11 @@ const runner = ({title, examples, component}) => {
         })
       })
     })
+    modules.forEach(module => runner({component, ...module}))
   })
 }
 
 spec.forEach(runner)
-inputs.examples.forEach(runner)
 
 const htmlRead = el => {
   if (el.nodeType === 3 && el.textContent.trim()) {

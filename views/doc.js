@@ -9,7 +9,7 @@ export default ({render, Params, form, node}) => {
       ...mod.default
     }
     base.readOnly = true
-    base.context = 'info'
+    base.context = 'light'
     base.description = normalizeDesc(base.description)
     const P = base.properties
     const R = base.required || []

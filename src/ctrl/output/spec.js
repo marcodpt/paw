@@ -1,4 +1,3 @@
-import ctrl from '../index.js'
 import opt from '../options.js'
 import html from '../../hyperscript/html.js'
 
@@ -6,7 +5,6 @@ export default ({
   icon: 'font',
   title: 'output',
   description: 'Formatted outputs.',
-  component: ctrl,
   properties: {
     type: {
       type: 'string',

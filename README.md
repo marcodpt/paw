@@ -107,13 +107,12 @@ so I created it.
 
 ## TODO 🔧
 
-### Bugs 🐞
- - datalist do not work on firefox mobile
-
 ### Next release 📋
  - merge tag and alert inside ctrl
 
 ### Improvements 💡
+ - datalist do not work on firefox mobile
+ - error messsage do not display
  - semantic html tests, no string cmp
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
@@ -132,6 +131,7 @@ so I created it.
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
  - allow icon, title and description in navbar and sidebar
+ - deep spec
 
 ### Tests and docs 🧪
  - html docs

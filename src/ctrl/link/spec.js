@@ -1,4 +1,3 @@
-import ctrl from '../index.js'
 import opt from '../options.js'
 import tag from '../../tag/spec.js'
 import {wait} from '../../lib.js'
@@ -9,7 +8,6 @@ export default ({
   icon: 'link',
   title: 'link',
   description: 'Buttons and links.',
-  component: ctrl,
   properties: {
     context: {
       type: 'string',
