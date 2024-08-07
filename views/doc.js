@@ -1,46 +1,55 @@
 const normalizeDesc = desc => typeof desc == 'string' ?
   desc.trim().split('\n').map(l => l.trim()).join('\n') : desc
 
-const docify = P => Object.keys(P).reduce((Q, k) => {
-  const {type, title, description, ...U} = P[k]
-  Q[k] = {
-    type: 'object',
-    title: title || (k+(
-      type == 'array' && U.items?.type ? ' (['+U.items?.type+'])' :
-        type ? ' ('+type+')' : ''
-    )),
-    description: normalizeDesc(description),
-    context: 'light',
-    properties: Object.keys(U).reduce((Q, k) => ({
-      ...Q,
-      [k]: U[k].properties ? {
-        ...U[k],
+const setProps = P => Object.keys(P).reduce((Q, k) => ({
+  ...Q,
+  [k]: setSchema({
+    title: k+(
+      P[k].type == 'array' && P[k].items?.type ? ' (['+P[k].items?.type+'])' :
+        P[k].type ? ' ('+P[k].type+')' : ''
+    ),
+    ...P[k]
+  })
+}), {})
+
+const setSchema = ({type, icon, title, description, ...P}) => ({
+  type: 'object',
+  readOnly: true,
+  icon,
+  title,
+  description: normalizeDesc(description),
+  context: 'light',
+  properties: Object.keys(P).reduce((Q, k) => {
+    if (k == 'properties') {
+      Q = {
+        ...Q,
+        ...setProps(P[k])
+      }
+    } else if (P[k].properties) {
+      Q[k] = {
+        ...P[k],
         title: '',
-        properties: docify(U[k].properties)
-      } : {
-        default: k == 'enum' ? U[k].join('\n') : U[k],
+        properties: setProps(P[k].properties)
+      }
+    } else {
+      Q[k] = {
+        default: k == 'enum' ? P[k].join('\n') : P[k],
         ui: k == 'enum' ? 'text' : null
       }
-    }), {})
-  }
-  return Q
-}, {})
+    }
+    return Q
+  }, {})
+})
 
 export default ({render, Params, form, node}) => {
   return render(import(
     `../src/${Params.component.split('.').join('/')}/spec.js`
   ).then(mod => {
-    const base = {
-      ...mod.default
-    }
-    base.readOnly = true
-    base.context = 'light'
-    base.description = normalizeDesc(base.description)
-    base.properties = docify(base.properties)
+    const {modules, examples, component, ...schema} = mod.default
     return node(({div}) => div({
       class: 'container my-5 mx-auto'
     }, [
-      form(base)
+      form(setSchema(schema))
     ]))
   }))
 }
