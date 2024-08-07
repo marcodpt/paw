@@ -126,8 +126,8 @@ export default ({
             ]),
             ctrl({
               ...schema,
-              title: k,
-              description: !title ? description : null,
+              title: schema.properties ? null : k,
+              description: !title || schema.properties ? description : null,
               css: !title ? null : 'col-md-9',
               update: (err, v, label) => {
                 label = typeof label != 'string' ? String(v) : label

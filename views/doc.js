@@ -1,5 +1,30 @@
-const normalizeDesc = desc => (desc || '').trim().split('\n')
-  .map(l => l.trim()).join('\n')
+const normalizeDesc = desc => typeof desc == 'string' ?
+  desc.trim().split('\n').map(l => l.trim()).join('\n') : desc
+
+const docify = P => Object.keys(P).reduce((Q, k) => {
+  const {type, title, description, ...U} = P[k]
+  Q[k] = {
+    type: 'object',
+    title: title || (k+(
+      type == 'array' && U.items?.type ? ' (['+U.items?.type+'])' :
+        type ? ' ('+type+')' : ''
+    )),
+    description: normalizeDesc(description),
+    context: 'light',
+    properties: Object.keys(U).reduce((Q, k) => ({
+      ...Q,
+      [k]: U[k].properties ? {
+        ...U[k],
+        title: '',
+        properties: docify(U[k].properties)
+      } : {
+        default: k == 'enum' ? U[k].join('\n') : U[k],
+        ui: k == 'enum' ? 'text' : null
+      }
+    }), {})
+  }
+  return Q
+}, {})
 
 export default ({render, Params, form, node}) => {
   return render(import(
@@ -11,23 +36,7 @@ export default ({render, Params, form, node}) => {
     base.readOnly = true
     base.context = 'light'
     base.description = normalizeDesc(base.description)
-    const P = base.properties
-    const R = base.required || []
-    base.properties = Object.keys(P).reduce((Q, k) => ({
-      ...Q,
-      [k]: {
-        title: P[k].title ||
-          `${k}${R.indexOf(k) >= 0 ? '*' : ''}`+
-          (P[k].type ? ` (${P[k].type})` : ''),
-        default: [
-          normalizeDesc(P[k].description),
-          P[k].enum instanceof Array ?
-            'Possible values: ['+P[k].enum.join(', ')+'].' : ''
-        ].filter(d => d).join('\n'),
-        type: 'string',
-        ui: 'text'
-      }
-    }), {})
+    base.properties = docify(base.properties)
     return node(({div}) => div({
       class: 'container my-5 mx-auto'
     }, [

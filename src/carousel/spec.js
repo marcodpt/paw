@@ -31,13 +31,14 @@ export default ({
             `
           },
           interval: {
-            type: `
+            type: 'integer',
+            description: `
               The time in milliseconds between the automatic transition of images.
               This is specific to this image.
               The global interval must be specified to run autoplay.
               And it will be the default value for all images.
             `,
-            minimum: 1,
+            minimum: 0,
             default: 0
           }
         }
