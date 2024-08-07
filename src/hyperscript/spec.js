@@ -7,21 +7,30 @@ export default ({
   title: 'hyperscript',
   description: 'Hyperscript function on steroids.',
   component: node,
-  properties: {
-    param1: {
-      title: 'Param 1 (function)',
-      description: `
-        Function that passes as a parameter an object containing all HTML tags. 
-        Returns the associated DOM element.
-        List of tags:
-         - text
-        ${Object.keys(tags)
-          .filter(tag => tags[tag].usages.indexOf('body') >= 0)
-          .map(tag => ' - '+tag)
-          .join('\n         ')}
-      `
+  type: 'function',
+  args: [
+    {
+      type: 'function',
+      title: 'builder',
+      returns: 'hyperscript',
+      args: [
+        {
+          type: 'object',
+          description: `
+            Function that passes as a parameter an object containing all HTML tags. 
+            Returns the associated DOM element.
+            List of tags:
+             - text
+            ${Object.keys(tags)
+              .filter(tag => tags[tag].usages.indexOf('body') >= 0)
+              .map(tag => ' - '+tag)
+              .join('\n         ')}
+          `
+        }
+      ]
     }
-  },
+  ],
+  returns: 'string/node',
   examples: [
     {
       title: 'Usage sample',

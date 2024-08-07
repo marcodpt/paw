@@ -5,73 +5,79 @@ export default ({
   title: 'map',
   description: 'Generate maps with img tag',
   component: map,
-  properties: {
-    latitude: {
-      type: 'number',
-      description: 'Latitude of the center point of the map.',
-      default: 0,
-      minimum: -90,
-      maximum: 90
-    },
-    longitude: {
-      type: 'number',
-      description: 'Longitude of the center point of the map.',
-      default: 0,
-      minimum: -180,
-      maximum: 180
-    },
-    zoom: {
-      type: 'number',
-      description: 'Map zoom.',
-      default: 13,
-      minimum: 0,
-      maximum: 18
-    },
-    height: {
-      type: 'integer',
-      description: 'The height in pixels of the map.',
-      default: 400,
-      minimum: 1
-    },
-    width: {
-      type: 'integer',
-      description: 'The width in pixels of the map.',
-      default: 600,
-      minimum: 1
-    },
-    markers: {
-      type: 'array',
-      description: 'A list of markers on the map.',
-      default: [],
-      items: {
-        type: 'object',
-        properties: {
-          latitude: {
-            type: 'number',
-            description: 'Latitude of the center point of the map.',
-            default: 0,
-            minimum: -90,
-            maximum: 90
-          },
-          longitude: {
-            type: 'number',
-            description: 'Longitude of the center point of the map.',
-            default: 0,
-            minimum: -180,
-            maximum: 180
-          },
-          title: {
-            type: 'string',
-            description: 'Text for alt attribute of the marker.'
-          },
-          description: {
-            type: 'string',
-            description: 'Text for tooltip of the marker.'
+  args: [
+    {
+      type: 'object',
+      properties: {
+        latitude: {
+          type: 'number',
+          description: 'Latitude of the center point of the map.',
+          default: 0,
+          minimum: -90,
+          maximum: 90
+        },
+        longitude: {
+          type: 'number',
+          description: 'Longitude of the center point of the map.',
+          default: 0,
+          minimum: -180,
+          maximum: 180
+        },
+        zoom: {
+          type: 'number',
+          description: 'Map zoom.',
+          default: 13,
+          minimum: 0,
+          maximum: 18
+        },
+        height: {
+          type: 'integer',
+          description: 'The height in pixels of the map.',
+          default: 400,
+          minimum: 1
+        },
+        width: {
+          type: 'integer',
+          description: 'The width in pixels of the map.',
+          default: 600,
+          minimum: 1
+        },
+        markers: {
+          type: 'array',
+          description: 'A list of markers on the map.',
+          default: [],
+          items: {
+            type: 'object',
+            properties: {
+              latitude: {
+                type: 'number',
+                description: 'Latitude of the center point of the map.',
+                default: 0,
+                minimum: -90,
+                maximum: 90
+              },
+              longitude: {
+                type: 'number',
+                description: 'Longitude of the center point of the map.',
+                default: 0,
+                minimum: -180,
+                maximum: 180
+              },
+              title: {
+                type: 'string',
+                description: 'Text for alt attribute of the marker.'
+              },
+              description: {
+                type: 'string',
+                description: 'Text for tooltip of the marker.'
+              }
+            }
           }
         }
       }
     }
-  },
+  ],
+  returns: 'node',
   examples: [
     {
       title: 'A map centered on New York.',
