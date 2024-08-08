@@ -109,7 +109,6 @@ so I created it.
 
 ### Next release 📋
  - merge tag and alert inside ctrl
- - recursive spec and solve function problem
  - dynamic tests implementation
 
 ### Improvements 💡

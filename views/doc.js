@@ -12,36 +12,31 @@ const setProps = P => Object.keys(P).reduce((Q, k) => ({
   })
 }), {})
 
-const setFn = ({args, returns, type, ...P}) => {
-  if (args || returns || type == 'function') {
-    args = args || []
-    P.title = P.title+`(${args.map(({type, title}, i) => {
+const setSchema = ({type, title, icon, description, returns, ...P}) => {
+  if (P.args || returns || type == 'function') {
+    title = title+`(${(P.args || []).map(({type, title}, i) => {
       return type == 'object' && !title ? '{...}' : 
         (title || '')+(title && type ? ': ' : '')+(type || '')
     }).join(', ')})`+(returns ? ` => ${returns}` : '')
-
-    P = args.reduce((P, arg) => ({
-      ...P,
-      ...arg
-    }), P)
+    console.log(title)
   }
-  return P
-}
-
-const setSchema = ({icon, description, ...P}) => {
-  P = setFn(P)
   return {
     type: 'object',
     readOnly: true,
     icon,
-    title: P.title,
+    title,
     description: normalizeDesc(description),
     context: 'light',
     properties: Object.keys(P).filter(k => [
       'title',
       'type',
     ].indexOf(k) < 0).reduce((Q, k) => {
-      if (k == 'properties' || k == 'args') {
+      if (k == 'args') {
+        Object.keys(P.args).forEach(i => {
+          Q[i] = setSchema(P.args[i])
+          Q[i].title = Q[i].title || ''
+        })
+      } else if (k == 'properties') {
         Q = {
           ...Q,
           ...setProps(P[k])
