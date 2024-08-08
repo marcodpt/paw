@@ -1,4 +1,5 @@
 import node from '../hyperscript/node.js'
+import opt from '../ctrl/options.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 
     icon.substr(0, 1) == '@' ? `fa-brands fa-${icon.substr(1)}` :
@@ -7,8 +8,14 @@ const faIcon = icon => !icon || typeof icon != 'string' ? '' :
 export default ({
   title,
   description,
-  icon 
-}) => node(({span, i, text}) => {
+  icon,
+  size,
+  context
+}) => node(({div, span, i, text, p, pre, ...h}) => {
+  size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
+  context = opt('context', true).indexOf(context) >= 0 ? context : ''
+  const css = (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
+
   const children = [
     !icon ? null : i({
       class: faIcon(icon)
@@ -17,14 +24,49 @@ export default ({
     !title ? null : text(title)
   ].filter(c => c != null)
 
-  const n = children.length
-  const e = !n ? text('') :
-    n == 1 && (icon || !description) ? children[0] : span({
-      title: description || null
-    }, children)
+  var e = null
+  if (context) {
+    if (description) {
+      e = div({
+        class: [
+          'alert',
+          'alert-'+context,
+          'my-0',
+          css
+        ],
+        role: 'alert'
+      }, [
+        !children.length ? null :
+          h[size == 'lg' ? 'h3' : size == 'sm' ? 'h5' : 'h4']({
+            class: 'alert-heading'
+          }, children),
+        pre({
+          class: 'mb-0'
+        }, [
+          text(description)
+        ])
+      ])
+    } else if (children.length) {
+      e = span({
+        class: [
+          'badge',
+          'text-bg-'+context,
+          css
+        ]
+      }, children)
+    }
+  }
 
-  if (children.length == 1 && icon && description) {
-    e.setAttribute('title', description)
+  if (e == null) {
+    const n = children.length
+    e = !n ? text('') :
+      n == 1 && (icon || !description) ? children[0] : span({
+        title: description || null
+      }, children)
+
+    if (children.length == 1 && icon && description) {
+      e.setAttribute('title', description)
+    }
   }
 
   return e

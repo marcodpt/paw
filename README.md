@@ -106,16 +106,12 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## TODO 🔧
-
-### Next release 📋
  - merge tag and alert inside ctrl
  - dynamic tests implementation
 
-### Improvements 💡
  - make a bundled and minified version available
  - put a hello world in the documentation and in the generated index.html
  - datalist do not work on firefox mobile
- - error messsage do not display
  - semantic html tests, no string cmp
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
@@ -134,19 +130,9 @@ so I created it.
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
  - allow icon, title and description in navbar and sidebar
-
-### Tests and docs 🧪
- - html docs
- - chart
- - graph
- - render
- - link
- - input
- - form
- - modal
- - table
- - sidebar
- - core router
+ - finish documentation
+ - finish static tests
+ - finish dynamic tests
 
 ## Contributing 🤝
 It's a very simple project.
