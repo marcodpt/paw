@@ -112,6 +112,8 @@ so I created it.
  - dynamic tests implementation
 
 ### Improvements 💡
+ - make a bundled and minified version available
+ - put a hello world in the documentation and in the generated index.html
  - datalist do not work on firefox mobile
  - error messsage do not display
  - semantic html tests, no string cmp

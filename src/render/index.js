@@ -23,7 +23,7 @@ export default (resolve, root) => {
         render(form({
           title: T('error'),
           description: err.toString(),
-          ui: 'danger',
+          context: 'danger',
           css: 'd-flex justify-content-center my-5'
         }))
         throw err
