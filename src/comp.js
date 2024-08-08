@@ -1,7 +1,6 @@
 import node from './hyperscript/spec.js'
 import render from './render/spec.js'
 import spinner from './spinner/spec.js'
-import tag from './tag/spec.js'
 import ctrl from './ctrl/spec.js'
 import form from './form/spec.js'
 import modal from './modal/spec.js'
@@ -17,7 +16,6 @@ export default [
   node,
   render,
   spinner,
-  tag,
   ctrl,
   form,
   modal,

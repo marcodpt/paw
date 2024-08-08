@@ -3,7 +3,7 @@ import barcode from './index.js'
 export default ({
   icon: 'barcode',
   title: 'barcode',
-  description: 'Generate barcode with img tag',
+  description: 'Generate barcode with <img>',
   component: barcode,
   properties: {
     barcode: {
@@ -12,7 +12,7 @@ export default ({
     },
     height: {
       type: 'integer',
-      description: 'The height of the img tag in pixels.',
+      description: 'The height of the <img> in pixels.',
       default: 100
     }
   },

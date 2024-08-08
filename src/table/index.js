@@ -1,7 +1,6 @@
 import node from '../hyperscript/node.js'
 import {formatter} from '../lib.js'
 import spinner from '../spinner/index.js'
-import tag from '../tag/index.js'
 import ctrl from '../ctrl/index.js'
 import engine from './engine.js'
 
@@ -66,7 +65,7 @@ export default ({
             class: 'text-center',
             colspan: '100%'
           }, [
-            tag({
+            ctrl({
               ...schema,
               title
             })
@@ -161,7 +160,7 @@ export default ({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
-            tag({
+            ctrl({
               icon,
               title: icon ? '' : title
             })
@@ -207,7 +206,7 @@ export default ({
         const k = f.getAttribute('data-ctx').substr(5)
         const s = query.sort
         f.innerHTML = ''
-        f.appendChild(tag({
+        f.appendChild(ctrl({
           icon: 'sort'+(s == k ? '-down' : s == '-'+k ? '-up' : '')
         }))
       })

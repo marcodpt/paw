@@ -2,6 +2,7 @@ import ctrl from './index.js'
 import link from './link/spec.js'
 import output from './output/spec.js'
 import inputs from './inputs/spec.js'
+import tag from './tag/spec.js'
 
 export default {
   icon: 'gamepad',
@@ -10,6 +11,7 @@ export default {
   component: ctrl,
   properties: {},
   modules: [
+    tag,
     link,
     output,
     inputs

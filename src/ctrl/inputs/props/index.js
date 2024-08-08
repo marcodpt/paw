@@ -1,6 +1,5 @@
 import node from '../../../hyperscript/node.js'
 import ctrl from '../../index.js'
-import tag from '../../../tag/index.js'
 
 export default ({
   update,
@@ -40,7 +39,7 @@ export default ({
       class: 'fw-bold clearfix '+
         (size == 'lg' ? 'fs-4' : size == 'sm' ? 'fs-6' : 'fs-5')
     }, [
-      tag({
+      ctrl({
         icon,
         title,
         description
@@ -55,18 +54,10 @@ export default ({
     !hasLegend ? null : hr({
       class: 'my-2'
     }),
-    !hasAlert ? null : div({
-      class: 'alert alert-'+context+' my-0 '+
-        (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : ''),
-      role: 'alert'
-    }, [
-      ctrl({
-        type: 'string',
-        ui: 'text',
-        default: description,
-        readOnly: true
-      })
-    ]),
+    !hasAlert ? null : ctrl({
+      context,
+      description
+    }),
     !K.length ? null : div({
       class: 'row'
     })

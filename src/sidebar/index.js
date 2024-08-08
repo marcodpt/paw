@@ -1,5 +1,4 @@
 import node from '../hyperscript/node.js'
-import tag from '../tag/index.js'
 import ctrl from '../ctrl/index.js'
 import {rm} from '../lib.js'
 
@@ -30,13 +29,13 @@ export default ({links}) => {
                 el.setAttribute('data-paw-active', 'fw-bold')
                 if (children) {
                   el.prepend(text(' '))
-                  el.prepend(tag({icon: isClosed}))
+                  el.prepend(ctrl({icon: isClosed}))
                   el.addEventListener('click', () => {
                     const l = el.closest('.list-group-item')
                       .querySelector('div')
                     l.classList.toggle('d-none')
                     const i = el.querySelector('i')
-                    i.replaceWith(tag({
+                    i.replaceWith(ctrl({
                       icon: l.classList.contains('d-none') ? isClosed : isOpen
                     }))
                   })

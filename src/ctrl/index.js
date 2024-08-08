@@ -2,6 +2,7 @@ import node from '../hyperscript/node.js'
 import link from './link/index.js'
 import output from './output/index.js'
 import input from './inputs/index.js'
+import tag from './tag/index.js'
 
 export default ({
   init,
@@ -29,6 +30,11 @@ export default ({
     schema.ui == null &&
     schema.href != null ?
       link(schema) :
+    (schema.type == null || schema.type == 'null') &&
+      schema.ui == null &&
+      schema.items == null &&
+      schema.properties == null ?
+        tag(schema) :
     schema.update == null && [
       'pending',
       'pagination'

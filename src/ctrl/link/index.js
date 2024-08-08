@@ -1,5 +1,5 @@
 import node from '../../hyperscript/node.js'
-import tag from '../../tag/index.js'
+import ctrl from '../index.js'
 import opt from '../options.js'
 
 export default ({
@@ -96,7 +96,7 @@ export default ({
     dataBsToggle: hasDrop && !hasSplit ? 'dropdown' : null,
     ariaExpanded: hasDrop && !hasSplit ? 'false' : null
   }, [
-    tag(extra),
+    ctrl(extra),
     !download || !mime ? null : a({
       class: 'd-none',
       href: `data:${mime},`,
@@ -139,7 +139,7 @@ export default ({
             onclick: typeof href != 'function' ? null : href,
             ariaDisabled: !href ? 'true' : null
           }, [
-            tag(extra)
+            ctrl(extra)
           ])
         ])
       ))

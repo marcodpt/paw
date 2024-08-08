@@ -106,7 +106,6 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## TODO 🔧
- - merge tag and alert inside ctrl
  - dynamic tests implementation
 
  - make a bundled and minified version available

@@ -1,6 +1,6 @@
 import schema from '../data/schema.js'
 
-export default ({modal, tag}) => {
+export default ({modal, ctrl}) => {
   var btn = null
   return {
     ...schema.links[3],
@@ -13,7 +13,7 @@ export default ({modal, tag}) => {
 
       if (query.group) {
         btn.innerHTML = ''
-        btn.appendChild(tag({
+        btn.appendChild(ctrl({
           ...schema.links[3]
         }))
         query.group = null
@@ -34,7 +34,7 @@ export default ({modal, tag}) => {
           },
           submit: ({fields}) => {
             btn.innerHTML = ''
-            btn.appendChild(tag({
+            btn.appendChild(ctrl({
               title: schema.links[3].title,
               icon: 'close'
             }))

@@ -1,5 +1,5 @@
 import tag from './index.js'
-import html from '../hyperscript/html.js'
+import html from '../../hyperscript/html.js'
 
 export default ({
   icon: 'tag',
@@ -201,7 +201,7 @@ export default ({
         div,
         h4,
         i,
-        pre,
+        span,
         text
       }) => 
         div({
@@ -222,8 +222,10 @@ export default ({
               ]
             })
           ]),
-          pre({
-            class: 'mb-0'
+          span({
+            style: {
+              whiteSpace: 'pre-wrap'
+            }
           }, [
             text('@github')
           ])
@@ -326,7 +328,7 @@ export default ({
         div,
         h4,
         text,
-        pre
+        span 
       }) => 
         div({
           class: [
@@ -341,8 +343,10 @@ export default ({
           }, [
             text('A label with description')
           ]),
-          pre({
-            class: 'mb-0'
+          span({
+            style: {
+              whiteSpace: 'pre-wrap'
+            }
           }, [
             text('This is a description!\nAssociated with this label.')
           ])
@@ -454,7 +458,7 @@ export default ({
         h5,
         i,
         text,
-        pre
+        span
       }) => 
         div({
           class: [
@@ -476,8 +480,10 @@ export default ({
             }),
             text(' @github')
           ]),
-          pre({
-            class: 'mb-0'
+          span({
+            style: {
+              whiteSpace: 'pre-wrap'
+            }
           }, [
             text('This is a description!\nAssociated with this alert.')
           ])
@@ -499,7 +505,7 @@ export default ({
         h3,
         i,
         text,
-        pre
+        span
       }) => 
         div({
           class: [
@@ -521,8 +527,10 @@ export default ({
             }),
             text(' Error')
           ]),
-          pre({
-            class: 'mb-0'
+          span({
+            style: {
+              whiteSpace: 'pre-wrap'
+            }
           }, [
             text('An error showcase!\nJust a sample!')
           ])

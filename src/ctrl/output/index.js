@@ -1,17 +1,18 @@
 import node from '../../hyperscript/node.js'
-import tag from '../../tag/index.js'
-import link from '../link/index.js'
+import ctrl from '../index.js'
 import {formatter} from '../../lib.js'
 
 export default schema => {
   const data = formatter(schema)(schema.default)
   const p = typeof data == 'number' && data > 100 ? 100 : data
   return node(({a, div, span, text}) =>
-    schema.href ? link({
+    schema.href ? ctrl({
       ...schema,
       title: data,
       description: null,
-      icon: null
+      icon: null,
+      default: null,
+      type: null
     }) :
     schema.ui == 'progress' ? div({
       style: {
@@ -51,11 +52,11 @@ export default schema => {
     }, [
       text('\uFEFF')
     ]) :
-    schema.ui == 'icon' ? tag({
+    schema.ui == 'icon' ? ctrl({
       icon: data,
       title: schema.default
     }) : 
-    schema.ui == 'context' ? link({
+    schema.ui == 'context' ? ctrl({
       title: data,
       context: data,
       href: 'javascript:;',

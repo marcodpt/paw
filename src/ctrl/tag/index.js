@@ -1,5 +1,5 @@
-import node from '../hyperscript/node.js'
-import opt from '../ctrl/options.js'
+import node from '../../hyperscript/node.js'
+import opt from '../options.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 
     icon.substr(0, 1) == '@' ? `fa-brands fa-${icon.substr(1)}` :
@@ -40,8 +40,10 @@ export default ({
           h[size == 'lg' ? 'h3' : size == 'sm' ? 'h5' : 'h4']({
             class: 'alert-heading'
           }, children),
-        pre({
-          class: 'mb-0'
+        span({
+          style: {
+            whiteSpace: 'pre-wrap'
+          }
         }, [
           text(description)
         ])

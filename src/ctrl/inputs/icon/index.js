@@ -1,4 +1,4 @@
-import tag from '../../../tag/index.js'
+import ctrl from '../../index.js'
 import wrapper from '../wrapper.js'
 
 export default ({
@@ -15,7 +15,7 @@ export default ({
     span({
       class: 'input-group-text'
     }, [
-      tag({
+      ctrl({
         icon: value
       })
     ]),
@@ -35,7 +35,7 @@ export default ({
           .querySelector('.input-group-text')
 
         ref.innerHTML = ''
-        ref.appendChild(tag({
+        ref.appendChild(ctrl({
           icon: ev.target.value
         }))
 

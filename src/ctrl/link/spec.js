@@ -1,5 +1,5 @@
 import opt from '../options.js'
-import tag from '../../tag/spec.js'
+import tag from '../tag/spec.js'
 import {wait} from '../../lib.js'
 import html from '../../hyperscript/html.js'
 

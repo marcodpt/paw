@@ -1,6 +1,5 @@
 import node from '../hyperscript/node.js'
 import ctrl from '../ctrl/index.js'
-import tag from '../tag/index.js'
 import T from '../lang/index.js'
 
 export default ({
