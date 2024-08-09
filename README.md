@@ -1,6 +1,8 @@
 # ![](favicon.ico) Paw
   A minimalistic hyperscript framework.
 
+  ![](https://deno.bundlejs.com/badge?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)
+
   [Demo](https://marcodpt.github.io/paw/#/users)
 
 ## Features ❤️
@@ -107,8 +109,6 @@ so I created it.
 
 ## TODO 🔧
  - dynamic tests implementation
- - make a bundled and minified version available
-
  - highlightjs as a component
  - tests as a route and qunit as a component
  - `output` raw referenced in `input`, how to solve that?
