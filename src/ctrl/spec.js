@@ -1,4 +1,4 @@
-import ctrl from './index.js'
+import {ctrl} from '../components.js'
 import link from './link/spec.js'
 import output from './output/spec.js'
 import inputs from './inputs/spec.js'

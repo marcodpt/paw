@@ -1,7 +1,6 @@
-import form from './index.js'
+import {form, html} from '../components.js'
 import schema from '../../views/data/schema.js'
 import users from '../../views/data/users.js'
-import html from '../hyperscript/html.js'
 
 const P = schema.items.properties
 const K = Object.keys(P)

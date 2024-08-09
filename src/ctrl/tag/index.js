@@ -1,4 +1,4 @@
-import node from '../../hyperscript/node.js'
+import {node} from '../../components.js'
 import opt from '../options.js'
 
 const faIcon = icon => !icon || typeof icon != 'string' ? '' : 

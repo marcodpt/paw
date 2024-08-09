@@ -1,7 +1,6 @@
-import node from '../hyperscript/node.js'
-import spinner from '../spinner/index.js'
-import ctrl from '../ctrl/index.js'
+import {node, spinner, ctrl} from '../components.js'
 import T from '../lang/index.js'
+import deps from '../../dependencies.js' 
 
 export default ({data}) => {
   const graph = node(({
@@ -46,9 +45,7 @@ export default ({data}) => {
     ])
   )
 
-  import(
-    'https://cdn.jsdelivr.net/npm/cytoscape@3.28.1/dist/cytoscape.esm.min.js'
-  ).then(cytoscape => {
+  import(deps.graph).then(cytoscape => {
     const V = data.filter(X => X.source == null || X.target == null)
     const E = data.filter(X =>
       X.source != null &&

@@ -1,5 +1,4 @@
-import node from '../hyperscript/node.js'
-import spinner from '../spinner/index.js'
+import {node} from '../components.js'
 import {uid} from '../lib.js'
 
 export default ({

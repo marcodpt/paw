@@ -1,3 +1,4 @@
+import deps from '../dependencies.js' 
 import menu from './data/menu.js'
 
 var stylesheet = null
@@ -58,20 +59,16 @@ export default ({sidebar, node}) => {
       hljs.highlightAll()
     }
     if (!window.hljs) {
-      const src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0'
       if (!stylesheet) {
         stylesheet = node(({link}) => 
-          link({
-            rel: 'stylesheet',
-            href: src+'/styles/github.min.css'
-          })
+          link(deps.highlight.css)
         )
         document.head.appendChild(stylesheet)
       }
       if (!script) {
         script = node(({script}) => 
           script({
-            src: src+'/highlight.min.js'
+            src: deps.highlight.js
           })
         )
         document.head.appendChild(script)

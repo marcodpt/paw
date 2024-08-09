@@ -1,10 +1,8 @@
-import tag from './index.js'
-import html from '../../hyperscript/html.js'
+import {html} from '../../components.js'
 
 export default ({
   icon: 'tag',
   title: 'tag',
-  component: tag,
   description: 'FontAwesome 6 icons and labels',
   properties: {
     icon: {

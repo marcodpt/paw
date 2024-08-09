@@ -1,5 +1,5 @@
-import node from '../hyperscript/node.js'
-import spinner from '../spinner/index.js'
+import {node, spinner} from '../components.js'
+import deps from '../../dependencies.js' 
 
 export default ({
   title,
@@ -29,7 +29,7 @@ export default ({
   )
 
   Promise.resolve().then(() => window.Chart != null ? null :
-    import('https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js')
+    import(deps.chart)
   ).then(() => {
     loading.parentNode.removeChild(loading)
     new Chart(chart.querySelector('canvas').getContext('2d'), {

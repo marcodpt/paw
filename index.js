@@ -1,14 +1,4 @@
-import html from './src/hyperscript/html.js'
-import node from './src/hyperscript/node.js'
-import modal from './src/modal/index.js'
-import sidebar from './src/sidebar/index.js'
-import ctrl from './src/ctrl/index.js'
-import form from './src/form/index.js'
-import table from './src/table/index.js'
-import chart from './src/chart/index.js'
-import graph from './src/graph/index.js'
-import spinner from './src/spinner/index.js'
-import render from './src/render/index.js'
+import * as comp from './src/components.js'
 
 export default ({build, root, routes}) => {
   root = root || document.body
@@ -18,9 +8,8 @@ export default ({build, root, routes}) => {
   var stop = null
   var old = null
   var components = {
-    node, html, modal, sidebar, ctrl,
-    form, table, chart, graph, spinner,
-    render: (view, el) => render(view, el || root)
+    ...comp,
+    render: (view, el) => comp.render(view, el || root)
   }
 
   Promise.resolve()

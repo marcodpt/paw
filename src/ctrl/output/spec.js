@@ -1,5 +1,5 @@
+import {html} from '../../components.js'
 import opt from '../options.js'
-import html from '../../hyperscript/html.js'
 
 export default ({
   icon: 'font',

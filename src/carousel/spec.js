@@ -1,5 +1,4 @@
-import carousel from './index.js'
-import html from '../hyperscript/html.js'
+import {html, carousel} from '../components.js'
 
 export default ({
   icon: 'images',

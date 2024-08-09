@@ -1,4 +1,4 @@
-import map from './index.js'
+import {map} from '../components.js'
 
 export default ({
   icon: 'earth-americas',

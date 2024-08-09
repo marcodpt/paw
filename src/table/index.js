@@ -1,7 +1,5 @@
-import node from '../hyperscript/node.js'
+import {node, spinner, ctrl} from '../components.js'
 import {formatter} from '../lib.js'
-import spinner from '../spinner/index.js'
-import ctrl from '../ctrl/index.js'
 import engine from './engine.js'
 
 export default ({

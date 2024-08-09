@@ -1,4 +1,4 @@
-import graph from './index.js'
+import {graph} from '../components.js'
 import {wait} from '../lib.js'
 
 export default ({

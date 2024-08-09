@@ -1,5 +1,4 @@
-import node from '../hyperscript/node.js'
-import form from '../form/index.js'
+import {node, form} from '../components.js'
 import {rm} from '../lib.js'
 import T from '../lang/index.js'
 

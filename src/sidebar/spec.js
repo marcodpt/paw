@@ -1,4 +1,4 @@
-import sidebar from './index.js'
+import {sidebar} from '../components.js'
 
 export default ({
   icon: 'bars',

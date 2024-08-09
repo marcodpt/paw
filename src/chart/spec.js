@@ -1,4 +1,4 @@
-import chart from './index.js'
+import {chart} from '../components.js'
 
 export default ({
   icon: 'chart-line',

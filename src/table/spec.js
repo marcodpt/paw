@@ -1,5 +1,4 @@
-import html from '../hyperscript/html.js'
-import table from './index.js'
+import {html, table} from '../components.js'
 
 export default ({
   icon: 'table',

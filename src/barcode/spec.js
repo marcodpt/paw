@@ -1,4 +1,4 @@
-import barcode from './index.js'
+import {barcode} from '../components.js'
 
 export default ({
   icon: 'barcode',

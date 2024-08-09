@@ -1,7 +1,7 @@
+import {html} from '../../components.js'
 import opt from '../options.js'
 import tag from '../tag/spec.js'
 import {wait} from '../../lib.js'
-import html from '../../hyperscript/html.js'
 
 var ref = null
 export default ({

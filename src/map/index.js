@@ -1,4 +1,5 @@
-import node from '../hyperscript/node.js'
+import deps from '../../dependencies.js' 
+import {node} from '../components.js'
 
 var script = null
 var stylesheet = null
@@ -23,9 +24,9 @@ export default ({
   const build = () => {
     const map = L.map(target)
       .setView([latitude || 0, longitude || 0], zoom || 13)
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer(deps.map.tile, {
         maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: `&copy; <a href="${deps.map.copyright}">OpenStreetMap</a>`
     }).addTo(map)
     markers?.forEach(({
       latitude,
@@ -42,22 +43,13 @@ export default ({
   if (!window.L) {
     if (!stylesheet) {
       stylesheet = node(({link}) => 
-        link({
-          rel: 'stylesheet',
-          href: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-          integrity: 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=',
-          crossorigin: ''
-        })
+        link(deps.map.css)
       )
       document.head.appendChild(stylesheet)
     }
     if (!script) {
       script = node(({script}) => 
-        script({
-          src: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-          integrity: 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=',
-          crossorigin: ''
-        })
+        script(deps.map.js)
       )
       document.head.appendChild(script)
     }

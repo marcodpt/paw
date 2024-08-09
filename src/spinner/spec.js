@@ -1,6 +1,5 @@
 import T from '../lang/index.js'
-import spinner from './index.js'
-import html from '../hyperscript/html.js'
+import {spinner, html} from '../components.js'
 
 export default ({
   icon: 'spinner',

@@ -107,8 +107,9 @@ so I created it.
 
 ## TODO 🔧
  - dynamic tests implementation
-
+ - separate router and data-paw as a plugin
  - make a bundled and minified version available
+
  - put a hello world in the documentation and in the generated index.html
  - datalist do not work on firefox mobile
  - semantic html tests, no string cmp
@@ -120,12 +121,10 @@ so I created it.
  - input wrapper review
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
- - separate router and data-paw as a plugin
  - separate outputs
  - remove whitespace for pre tag
  - external links simbol and remove data-paw-path
  - copy features to home article and allow to edit it
- - track library updates and the current version installed in a centralized file
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
  - allow icon, title and description in navbar and sidebar

@@ -1,3 +1,4 @@
+import deps from '../../dependencies.js' 
 var script = null
 export default ({
   height,
@@ -13,9 +14,7 @@ export default ({
   if (!window.JsBarcode) {
     if (!script) {
       script = document.createElement('script')
-      script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/'+
-        'JsBarcode.all.min.js'
-      script.async = false
+      script.src = deps.barcode
       document.head.appendChild(script)
     }
     script.addEventListener('load', build)

@@ -1,4 +1,4 @@
-import ctrl from '../../index.js'
+import {ctrl} from '../../../components.js'
 import wrapper from '../wrapper.js'
 
 export default ({

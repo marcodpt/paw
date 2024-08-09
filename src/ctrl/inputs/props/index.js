@@ -1,5 +1,4 @@
-import node from '../../../hyperscript/node.js'
-import ctrl from '../../index.js'
+import {node, ctrl} from '../../../components.js'
 
 export default ({
   update,

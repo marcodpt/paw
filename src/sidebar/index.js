@@ -1,5 +1,4 @@
-import node from '../hyperscript/node.js'
-import ctrl from '../ctrl/index.js'
+import {node, ctrl} from '../components.js'
 import {rm} from '../lib.js'
 
 export default ({links}) => {
