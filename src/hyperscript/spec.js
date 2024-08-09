@@ -1,5 +1,5 @@
 import node from './node.js'
-import tags from './tags.js'
+import tags from './ref.js'
 import html from '../hyperscript/html.js'
 
 export default ({

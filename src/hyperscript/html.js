@@ -1,5 +1,4 @@
-import tags from './tags.js'
-import {resolveAttrs, resolveChildren} from './lib.js'
+import {resolveAttrs, resolveChildren, setTags} from './lib.js'
 
 const MAX_LENGTH = 60
 
@@ -18,14 +17,9 @@ const sanitize = (unsafe, quoted) => {
   return unsafe
 }
 
-const Tags = {
-  text: str => sanitize(str)
-}
-
 const h = (tagName, attributes, children) => ({tagName, attributes, children})
-Object.keys(tags).forEach(tag => {
-  Tags[tag] = (attributes, children) => h(tag, attributes, children)
-})
+const Tags = setTags(h)
+Tags.text = str => sanitize(str)
 
 const print = (X, ident) => {
   ident = ident || ''

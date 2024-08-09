@@ -1,4 +1,4 @@
-import tags from './tags.js'
+import {normalTags, selfClosing} from './tags.js'
 
 const camelToKebab = string => string
   .replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2')
@@ -63,8 +63,12 @@ const resolveAttrs = attributes => Object.keys(attributes || {})
   }, {})
 
 const resolveChildren = (tagName, children) => 
-  tags[tagName] == null ? null :
-  tags[tagName].usages.indexOf('self-closing') >= 0 ? null :
+  normalTags.indexOf(tagName) < 0 ? null :
     (children instanceof Array ? children : []).filter(c => c)
 
-export {resolveAttrs, resolveChildren}
+const setTags = h => normalTags.concat(selfClosing).reduce((Tags, tag) => ({
+  ...Tags,
+  [tag]: (attributes, children) => h(tag, attributes, children)
+}), {})
+
+export {resolveAttrs, resolveChildren, setTags}

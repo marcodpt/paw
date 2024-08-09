@@ -1,5 +1,4 @@
-import tags from './tags.js'
-import {resolveAttrs, resolveChildren} from './lib.js'
+import {resolveAttrs, resolveChildren, setTags} from './lib.js'
 
 const h = (tagName, attributes, children) => {
   const e = document.createElement(tagName)
@@ -25,17 +24,12 @@ const h = (tagName, attributes, children) => {
   return e
 }
 
-const Tags = {
-  text: str => document.createTextNode(
-    typeof str === 'string' ? str :
-    str === undefined ? '' : 
-    typeof str === 'function' ? str.toString() : 
-      JSON.stringify(str, undefined, 2)
-  )
-}
-
-Object.keys(tags).forEach(tag => {
-  Tags[tag] = (attributes, children) => h(tag, attributes, children)
-})
+const Tags = setTags(h)
+Tags.text = str => document.createTextNode(
+  typeof str === 'string' ? str :
+  str === undefined ? '' : 
+  typeof str === 'function' ? str.toString() : 
+    JSON.stringify(str, undefined, 2)
+)
 
 export default el => el(Tags)
