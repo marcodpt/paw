@@ -25,11 +25,12 @@ export default X => {
             text(title)
           ]),
           p({
-            class: 'card-text'
+            class: 'card-text',
+            style: {
+              whiteSpace: 'pre-wrap'
+            }
           }, [
-            pre({}, [
-              text(desc)
-            ])
+            text(desc)
           ]),
           hr(),
           div({}, [

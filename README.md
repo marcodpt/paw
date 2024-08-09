@@ -107,14 +107,12 @@ so I created it.
 
 ## TODO 🔧
  - dynamic tests implementation
- - separate router and data-paw as a plugin
  - make a bundled and minified version available
 
  - highlightjs as a component
  - tests as a route and qunit as a component
  - `output` raw referenced in `input`, how to solve that?
  - put a hello world in the documentation and in the generated index.html
- - datalist do not work on firefox mobile
  - semantic html tests, no string cmp
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
@@ -125,7 +123,6 @@ so I created it.
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
  - separate outputs
- - remove whitespace for pre tag
  - external links simbol and remove data-paw-path
  - copy README features to home article and allow to edit it
  - better array ctrl support (minimize, up, down, remove, add)

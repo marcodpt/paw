@@ -11,7 +11,7 @@ export default ({
   icon,
   size,
   context
-}) => node(({div, span, i, text, p, pre, ...h}) => {
+}) => node(({div, span, i, text, p, ...h}) => {
   size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   context = opt('context', true).indexOf(context) >= 0 ? context : ''
   const css = (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
