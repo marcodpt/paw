@@ -113,7 +113,6 @@ so I created it.
  - tests as a route and qunit as a component
  - `output` raw referenced in `input`, how to solve that?
  - put a hello world in the documentation and in the generated index.html
- - semantic html tests, no string cmp
  - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - separate input and output options
