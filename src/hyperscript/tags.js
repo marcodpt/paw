@@ -115,4 +115,7 @@ const normalTags = [
   'var',
   'video'
 ]
-export {normalTags, selfClosing}
+
+const tags = normalTags.concat(selfClosing)
+tags.sort()
+export {normalTags, selfClosing, tags}

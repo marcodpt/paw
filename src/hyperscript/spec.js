@@ -1,5 +1,5 @@
 import node from './node.js'
-import tags from './ref.js'
+import {tags} from './tags.js'
 import html from '../hyperscript/html.js'
 
 export default ({
@@ -21,10 +21,7 @@ export default ({
             Returns the associated DOM element.
             List of tags:
              - text
-            ${Object.keys(tags)
-              .filter(tag => tags[tag].usages.indexOf('body') >= 0)
-              .map(tag => ' - '+tag)
-              .join('\n         ')}
+            ${tags.map(tag => ' - '+tag).join('\n         ')}
           `
         }
       ]
