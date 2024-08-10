@@ -1,5 +1,4 @@
 export default state => ({
-  ...state,
   Query: (state.query || '').split('&')
     .map(pair => pair.split('='))
     .map(pair => ({

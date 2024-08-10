@@ -27,7 +27,9 @@ export default ({
       ]
     }
   ],
-  returns: 'string/node',
+  returns: {
+    type: 'string/node'
+  },
   examples: [
     {
       title: 'Usage sample',

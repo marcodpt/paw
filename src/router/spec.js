@@ -1,4 +1,5 @@
 import router from './index.js'
+import plugins from './plugins/spec.js'
 
 export default ({
   icon: 'traffic-light',
@@ -12,7 +13,7 @@ export default ({
       default: {},
       description: `
         keys: string associated with a route, with support for use of parameters.
-        values: function({state}) => stop()
+        values: function(state) => stop()
 
         The * route matches anything.
         It is useful to build 404 routes or return to the home page.
@@ -22,24 +23,23 @@ export default ({
       `
     }, {
       title: 'plugins',
+      description: `
+        Functions that are executed sequentially with each route change.
+      `,
       type: 'array',
-      default: [],
-      items: {
-        type: 'function',
-        args: [
-          {
-            type: 'object',
-            title: 'state',
-            description: `
-              A function that 
-            `
-          }
-        ],
-        returns: 'newState: object'
-      }
+      default: []
     }
   ],
-  returns: 'change: function(url)',
-  examples: [],
-  modules: []
+  returns: {
+    title: 'change',
+    type: 'function',
+    args: [
+      {
+        type: 'string',
+        title: 'url'
+      }
+    ]
+  },
+  modules: [plugins],
+  examples: []
 })

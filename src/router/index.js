@@ -53,7 +53,10 @@ export default (routes, plugins) => {
       }
       stop = routes[route](plugins
         .filter(plugin => typeof plugin == 'function')
-        .reduce((state, plugin) => plugin(state) || state, state)
+        .reduce((state, plugin) => ({
+          ...(plugin(state) || {}),
+          ...state
+        }), state)
       )
       old = base
     }

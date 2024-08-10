@@ -12,13 +12,14 @@ const setProps = P => Object.keys(P).reduce((Q, k) => ({
   })
 }), {})
 
+const formatArg = ({type, title}) =>
+  type == 'object' && !title ? '{...}' : 
+    (title || '')+(title && type ? ': ' : '')+(type || '')
+
 const setSchema = ({type, title, icon, description, returns, ...P}) => {
   if (P.args || returns || type == 'function') {
-    title = title+`(${(P.args || []).map(({type, title}, i) => {
-      return type == 'object' && !title ? '{...}' : 
-        (title || '')+(title && type ? ': ' : '')+(type || '')
-    }).join(', ')})`+(returns ? ` => ${returns}` : '')
-    console.log(title)
+    title = title+`(${(P.args || []).map(formatArg).join(', ')})`+
+      (returns ? ` => ${formatArg(returns)}` : '')
   }
   return {
     type: 'object',
@@ -36,6 +37,8 @@ const setSchema = ({type, title, icon, description, returns, ...P}) => {
           Q[i] = setSchema(P.args[i])
           Q[i].title = Q[i].title || ''
         })
+      } else if (k == 'returns') {
+        Q[k] = setSchema(P.returns)
       } else if (k == 'properties') {
         Q = {
           ...Q,
@@ -47,6 +50,8 @@ const setSchema = ({type, title, icon, description, returns, ...P}) => {
           title: '',
           properties: setProps(P[k].properties)
         }
+      } else if (k == 'items') {
+        Q[k] = setSchema(P[k])
       } else {
         Q[k] = {
           default: k == 'enum' ? P[k].join('\n') : P[k],

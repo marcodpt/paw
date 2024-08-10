@@ -77,7 +77,9 @@ export default ({
       }
     }
   ],
-  returns: 'node',
+  returns: {
+    type: 'node'
+  },
   examples: [
     {
       title: 'A map centered on New York.',
