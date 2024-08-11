@@ -15,10 +15,10 @@ export default ({root, build, routes, plugins}) => {
     .then(addons => {
       if (router == null) {
         router = genRouter(routes, base.concat(state => ({
+          ...(addons || {}),
           ...state,
           ...components,
-          render: (view, el) => components.render(view, el || root),
-          ...(addons || {})
+          render: (view, el) => components.render(view, el || root)
         })))
       }
       change()

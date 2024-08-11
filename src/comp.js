@@ -1,3 +1,4 @@
+import paw from './spec.js'
 import router from './router/spec.js'
 import node from './hyperscript/spec.js'
 import render from './render/spec.js'
@@ -14,6 +15,7 @@ import carousel from './carousel/spec.js'
 import map from './map/spec.js'
 
 export default [
+  paw,
   router,
   node,
   render,

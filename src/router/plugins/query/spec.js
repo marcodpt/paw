@@ -1,9 +1,9 @@
 export default ({
-  icon: 'maginifying-glass',
+  icon: 'magnifying-glass',
   title: 'query',
   description: `
     A plugin that parses query string into an object.
-    Array[] syntax is supported.
+    Array syntax (param[]=value) is supported.
   `,
   args: [
     {

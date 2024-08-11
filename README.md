@@ -1,11 +1,11 @@
 # ![](favicon.ico) Paw
-  A minimalistic hyperscript framework.
+  A low-code, vdom-free hyperscript framework.
 
   [![bundlejs](https://deno.bundlejs.com/badge?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)](https://bundlejs.com/?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)
 
   [Demo](https://marcodpt.github.io/paw/#/users)
 
-## Features ❤️
+## ❤️ Features
  - Theme [builder](https://marcodpt.github.io/paw/#/settings)
  - Built-in router
  - SPA with SSR `index.html` optimized for SEO
@@ -20,7 +20,14 @@
  - [Barcode](https://marcodpt.github.io/paw/#/examples/barcode/0)
  - [Maps](https://marcodpt.github.io/paw/#/examples/map/1)
 
-## Motivation 📢
+## 🎯 Goals
+ - Bring maximum customization via graphical interface.
+ - Build a solid, well-tested library of hyperscript components.
+ - Simplify the use of third-party libraries with components with sane defaults.
+ - Document all code completely and at the same time concisely.
+ - Many examples synchronized with the tests.
+
+## 📢 Motivation
 
 ### Why are JS frameworks bad?
 Frameworks like:
@@ -107,13 +114,16 @@ with the customization options that exist in the open source world.
 I didn't find anything on github or google that went this route,
 so I created it.
 
-## TODO 🔧
+## 🔧 TODO
  - dynamic tests implementation
  - highlightjs as a component
  - tests as a route and qunit as a component
+ - docs as component
+ - examples as component
+ - formatter should be a component?
+ - normalize schema component and used to apply all defaults everywhere.
  - `output` raw referenced in `input`, how to solve that?
  - put a hello world in the documentation and in the generated index.html
- - formatter should be a component?
  - allow icon with input to avoid unicode and translation
  - separate input and output options
  - allow to see other tests variants
@@ -131,15 +141,15 @@ so I created it.
  - finish static tests
  - finish dynamic tests
 
-## Contributing 🤝
+## 🤝 Contributing
 It's a very simple project.
 Any contribution, any feedback is greatly appreciated.
 
-## Support ⭐
+## ⭐ Support
 If this project was useful to you, consider giving it a star on github, it's a
 way to increase evidence and attract more contributors.
 
-## Acknowledgment 🙏
+## 🙏 Acknowledgment
 This work would not be possible if it were not for these related projects:
  - [FontAwesome](https://fontawesome.com/)
  - [Bootstrap](https://getbootstrap.com/)
@@ -154,5 +164,7 @@ This work would not be possible if it were not for these related projects:
  - [QUnit](https://qunitjs.com/)
  - [FontIcon](https://gauger.io/fonticon/)
  - [bundlejs](https://bundlejs.com/)
+ - [HTML5 Reference](https://www.w3schools.com/TAGS/default.asp)
+ - [Unicode Party](https://unicode.party/)
 
 A huge thank you to all the people who contributed to these projects.

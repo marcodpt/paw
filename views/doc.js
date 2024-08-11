@@ -1,3 +1,5 @@
+import docs from '../src/comp.js'
+
 const normalizeDesc = desc => typeof desc == 'string' ?
   desc.trim().split('\n').map(l => l.trim()).join('\n') : desc
 
@@ -64,14 +66,19 @@ const setSchema = ({type, title, icon, description, returns, ...P}) => {
 }
 
 export default ({render, Params, form, node}) => {
-  return render(import(
-    `../src/${Params.component.split('.').join('/')}/spec.js`
-  ).then(mod => {
-    const {modules, examples, component, ...schema} = mod.default
+  return render(Promise.resolve().then(() => {
+    const {
+      modules, examples, component, ...schema
+    } = Params.component.split('.').reduce(
+      ({modules}, title) => modules.filter(mod => mod.title == title)[0]
+    , {modules: docs})
+
     return node(({div}) => div({
       class: 'container my-5 mx-auto'
     }, [
       form(setSchema(schema))
     ]))
+  }).catch(err => {
+    throw 'Page not found!'
   }))
 }
