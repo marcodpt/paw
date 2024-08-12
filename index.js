@@ -18,6 +18,7 @@ export default ({root, build, routes, plugins}) => {
           ...(addons || {}),
           ...state,
           ...components,
+          root,
           render: (view, el) => components.render(view, el || root)
         })))
       }
