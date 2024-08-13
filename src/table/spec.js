@@ -5,7 +5,63 @@ export default ({
   title: 'table',
   description: 'Table with many integrated functionalities.',
   component: table,
-  properties: {},
+  args: [
+    {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+        },
+        links: {
+          type: 'array'
+        },
+        items: {
+          type: 'object'
+        },
+        sort: {
+          type: 'boolean',
+          default: false
+        },
+        search: {
+          type: 'string',
+          default: ''
+        },
+        css: {
+          type: ['string', 'array'],
+          default: '',
+          description: `
+            A list of classes to apply to the returned table element.
+            Common use cases:
+
+            table-striped
+            Adds zebra stripes to the table.
+
+            table-hover
+            Highlights current line on hover.
+
+            table-bordered
+            Adds borders to the table.
+
+            table-borderless
+            Removes all borders from the table.
+
+            table-sm
+            Makes the table more compact by reducing spacing.
+
+            table-{context}
+            Changes the color scheme of the table.
+
+            table-responsive{-sm|-md|-lg|-xl|-xxl}
+            Allows horizontal scrolling in the table.
+            Useful for tables with many columns that are large for the viewport.
+          `
+        }
+      }
+    }
+  ],
+  returns: {
+    type: 'node'
+  },
   examples: [
     {
       title: 'Empty',

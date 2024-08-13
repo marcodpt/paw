@@ -16,7 +16,107 @@ export default ({
   title: 'form',
   description: 'Form with validation.',
   component: form,
-  properties: {},
+  args: [
+    {
+      type: 'object',
+      properties: {
+        css: {
+          type: ['string', 'array'],
+          description: `Classes to apply to the returned node.`,
+          default: ''
+        },
+        update: {
+          type: 'function',
+          description: `
+            Function that is called every time a form field is updated.
+            When rendering the form, update is also called with the default values.
+          `,
+          args: [
+            {
+              title: 'error',
+              type: 'boolean',
+              description: `Whether the form fields passed validation.`
+            },
+            {
+              title: 'Data',
+              type: 'object',
+              description: `
+                Form data, regardless of whether it passes validation.
+              `
+            }, {
+              title: 'Label',
+              type: 'object',
+              description: `
+                Associated formatted text of each data property.
+                In the case of options present, it will bear the associated label.
+              `
+            }
+          ]
+        },
+        submit: {
+          type: 'function',
+          description: `
+            Function that will be called when submitting the form.
+            And if validation passes.
+          `,
+          args: [
+            {
+              title: 'Data',
+              type: 'object',
+              description: `Form data.`
+            }, {
+              title: 'Label',
+              type: 'object',
+              description: `
+                Associated formatted text of each data property.
+                In the case of options present, it will bear the associated label.
+              `
+            }
+          ],
+          returns: {
+            type: ['string', 'null'],
+            default: null,
+            description: `
+              When the download and mime properties are passed.
+              If submit returns a string, it will be treated as downloadable content.
+            `
+          }
+        },
+        links: {
+          type: 'array',
+          description: `
+            Links that will be displayed at the end of the form.
+            Use href: 'submit' to create a submit button.
+          `
+        },
+        block: {
+          type: 'boolean',
+          default: false,
+          description: `
+            Whether links should occupy the entire width.
+            And whether they should be displayed as a group.
+          `
+        },
+        download: {
+          type: 'string',
+          default: '',
+          description: `
+            The name of the file to download when upload returns its contents.
+          `
+        },
+        mime: {
+          type: 'string',
+          default: '',
+          description: `
+            The MIME of the file to download when upload returns its contents.
+          `
+        }
+      }
+    }
+  ],
+  returns: {
+    type: 'node'
+  },
   examples: [
     {
       title: 'Empty',
