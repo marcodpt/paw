@@ -1,10 +1,14 @@
 import link from '../ctrl/link/spec.js'
+import tag from '../ctrl/tag/spec.js'
 import {sidebar} from '../components.js'
 
 const extra = {...link.properties}
 delete extra.context
 delete extra.size
 delete extra.data
+
+const {title, description, icon} = tag.properties
+
 extra.href = {
   ...extra.href,
   description: `
@@ -22,6 +26,9 @@ export default ({
     {
       type: 'object',
       properties: {
+        icon,
+        title,
+        description,
         links: {
           type: 'array',
           items: {

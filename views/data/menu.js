@@ -27,6 +27,9 @@ const treeBuilder = (path, {icon, title, description, modules, examples}) => {
 }
 
 export default {
+  icon: 'book',
+  title: 'Documentation',
+  description: 'Complete reference and examples.',
   links: comp.map(c => treeBuilder([], c)).concat([
     {
       icon: 'flask',

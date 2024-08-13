@@ -1,7 +1,7 @@
 import {node, ctrl} from '../components.js'
 import {rm} from '../lib.js'
 
-export default ({links}) => {
+export default ({links, title, description, icon}) => {
   rm(document.getElementById('sidebar'))
   const hasSidebar = links && links instanceof Array
 
@@ -77,16 +77,10 @@ export default ({links}) => {
           h5({
             class: 'offcanvas-title'
           }, [
-            a({
-              href: '#/',
-              class: 'text-decoration-none text-reset'
-            }, [
-              text(document.title)
-            ]),
-            text(' '),
-            small({
-              class: 'text-secondary',
-              dataPawText: 'current'
+            ctrl({
+              icon,
+              title,
+              description
             })
           ]),
           button({

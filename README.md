@@ -115,6 +115,10 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
+ - put a hello world in the documentation and in the generated index.html
+ - allow icon, title and description in navbar and sidebar
+ - external links simbol and remove data-paw-path
+
  - dynamic tests implementation
  - highlightjs as a component
  - tests as a route and qunit as a component
@@ -123,7 +127,6 @@ so I created it.
  - formatter should be a component?
  - normalize schema component and used to apply all defaults everywhere.
  - `output` raw referenced in `input`, how to solve that?
- - put a hello world in the documentation and in the generated index.html
  - allow icon with input to avoid unicode and translation
  - separate input and output options
  - allow to see other tests variants
@@ -132,11 +135,9 @@ so I created it.
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
  - separate outputs
- - external links simbol and remove data-paw-path
  - copy README features to home article and allow to edit it
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
- - allow icon, title and description in navbar and sidebar
  - finish documentation
  - finish static tests
  - finish dynamic tests
