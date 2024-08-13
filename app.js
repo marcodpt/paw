@@ -1,6 +1,6 @@
 import paw from './index.js'
 import build from './views/build.js'
-import settings from './views/settings.js'
+import settings from './views/settings/index.js'
 import users from './views/users.js'
 import user from './views/user.js'
 import doc from './views/doc.js'
