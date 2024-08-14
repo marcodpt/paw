@@ -171,6 +171,13 @@ export default html => {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1'
       }),
+      title({}, [
+        text(page.title)
+      ]),
+      meta({
+        name: 'description',
+        content: page.description
+      }),
       link({
         rel: 'icon',
         href: page.favicon,
@@ -182,10 +189,7 @@ export default html => {
         rel: 'stylesheet',
         href: page.theme
       }),
-      script(deps.bootstrap.js),
-      title({}, [
-        text(page.title)
-      ])
+      script(deps.bootstrap.js)
     ]),
     body({
       class: 'min-vh-100 d-flex flex-column'

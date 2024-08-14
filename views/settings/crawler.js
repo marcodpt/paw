@@ -29,6 +29,9 @@ export default (home, navLinks, footerLinks) => {
       })
     })
     document.title = page.title 
+    document.head.
+      querySelector('meta[name="description"]')?.
+      setAttribute('content', page.description)
     document.documentElement.lang = page.lang
     document.getElementById('theme').setAttribute('href', page.theme)
     const nav = getNav()
@@ -49,12 +52,16 @@ export default (home, navLinks, footerLinks) => {
   const dflt = {
     page: {
       title: document.title,
-      description: home
-        .querySelector('[data-paw-text="description"]')?.textContent,
+      description: document.head.
+        querySelector('meta[name="description"]')?.
+        getAttribute('content'),
       lang: document.documentElement.lang,
-      favicon: document.head
-        .querySelector('link[rel="icon"]')?.getAttribute('href'),
-      theme: document.getElementById('theme').getAttribute('href'),
+      favicon: document.head.
+        querySelector('link[rel="icon"]')?.
+        getAttribute('href'),
+      theme: document.
+        getElementById('theme').
+        getAttribute('href')
     },
     navbar: {
       variant: getCss(getNav()),
