@@ -40,13 +40,18 @@ export default ({render, form, home, html}) => {
             title: 'Theme',
             type: 'string',
             options: themes
-          }
+          },
         }
       },
       navbar: {
         title: 'Navbar',
         type: 'object',
         properties: {
+          height: {
+            title: 'Logo Height (px)',
+            type: 'integer',
+            ui: 'range'
+          },
           variant: {
             title: 'Variant',
             type: 'string',

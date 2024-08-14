@@ -151,6 +151,7 @@ export default html => {
     li,
     a,
     i,
+    img,
     span,
     main,
     h1,
@@ -225,21 +226,30 @@ export default html => {
                     'fa-solid',
                     'fa-bars'
                   ]
+                }),
+                span({
+                  class: 'navbar-text',
+                  dataPawText: 'current'
                 })
               ])
             ])
           ]),
           a({
             class: 'navbar-brand',
-            href: '#/',
-            dataPawText: 'title'
+            href: '#/'
           }, [
-            text(page.title)
+            img({
+              src: page.favicon,
+              alt: page.title,
+              height: navbar.height,
+              class: 'align-baseline'
+            }),
+            span({
+              dataPawText: 'title'
+            }, [
+              text(page.title)
+            ])
           ]),
-          span({
-            class: 'navbar-text',
-            dataPawText: 'current'
-          }),
           a({
             class: [
               'navbar-toggler',

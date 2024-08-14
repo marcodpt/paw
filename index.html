@@ -46,15 +46,22 @@
               aria-controls="sidebar"
             >
               <i class="fa-solid fa-bars"></i>
+              <span
+                class="navbar-text"
+                data-paw-text="current"
+              ></span>
             </a>
           </li>
         </ul>
-        <a
-          class="navbar-brand"
-          href="#/"
-          data-paw-text="title"
-        >Paw</a>
-        <span class="navbar-text" data-paw-text="current"></span>
+        <a class="navbar-brand" href="#/">
+          <img
+            src="favicon.ico"
+            alt="Paw"
+            height="16"
+            class="align-baseline"
+          >
+          <span data-paw-text="title">Paw</span>
+        </a>
         <a
           class="navbar-toggler border-0"
           data-bs-toggle="collapse"
@@ -376,6 +383,40 @@
                     >
                       <i class="fa-solid fa-box"></i>
                       bundlejs
+                    </span>
+                  </a>
+                </li>
+                <li data-paw-path="HTML5 Reference">
+                  <a
+                    href="https://www.w3schools.com/TAGS/default.asp"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-paw-active="active"
+                    title="An online HTML reference."
+                  >
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-graduation-cap"></i>
+                      HTML5 Reference
+                    </span>
+                  </a>
+                </li>
+                <li data-paw-path="Unicode Party">
+                  <a
+                    href="https://unicode.party/"
+                    target="_blank"
+                    class="dropdown-item"
+                    data-paw-active="active"
+                    title="An online emoji search engine."
+                  >
+                    <span
+                      data-bs-toggle="collapse"
+                      data-bs-target=".navbar-collapse.show"
+                    >
+                      <i class="fa-solid fa-face-smile"></i>
+                      Unicode Party
                     </span>
                   </a>
                 </li>

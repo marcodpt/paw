@@ -18,7 +18,7 @@ export default (home, navLinks, footerLinks) => {
   const rebuild = ({
     page,
     navbar,
-    foot
+    foot,
   }) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-paw-text=title]').forEach(e => {
@@ -32,9 +32,15 @@ export default (home, navLinks, footerLinks) => {
     document.head.
       querySelector('meta[name="description"]')?.
       setAttribute('content', page.description)
+    document.head.
+      querySelector('link[rel="icon"]')?.
+      setAttribute('href', page.favicon)
     document.documentElement.lang = page.lang
     document.getElementById('theme').setAttribute('href', page.theme)
     const nav = getNav()
+    const img = nav.querySelector('.navbar-brand > img')
+    img?.setAttribute('height', navbar.height)
+
     nav.setAttribute('class',
       nav.getAttribute('class').replace(getCss(nav), navbar.variant)
     )
@@ -49,6 +55,7 @@ export default (home, navLinks, footerLinks) => {
     f.setAttribute('class', [foot.variant].concat(Css).join(' '))
   }
 
+  const img = document.body.querySelector('.navbar-brand > img')
   const dflt = {
     page: {
       title: document.title,
@@ -64,6 +71,7 @@ export default (home, navLinks, footerLinks) => {
         getAttribute('href')
     },
     navbar: {
+      height: parseInt(img?.height),
       variant: getCss(getNav()),
       links: Array.from(document.body.
         querySelector('nav')?.
