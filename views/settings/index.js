@@ -14,72 +14,88 @@ export default ({render, form, home, html}) => {
     type: 'object',
     block: true,
     properties: {
-      pageTitle: {
-        title: 'Title',
-        type: 'string',
-        minLength: 1
-      },
-      description: {
-        title: 'Description',
-        type: 'string'
-      },
-      lang: {
-        title: 'Lang',
-        type: 'string',
-        options: langs
-      },
-      theme: {
-        title: 'Theme',
-        type: 'string',
-        options: themes
+      page: {
+        title: '',
+        type: 'object',
+        properties: {
+          title: {
+            title: 'Title',
+            type: 'string',
+            minLength: 1
+          },
+          description: {
+            title: 'Description',
+            type: 'string'
+          },
+          lang: {
+            title: 'Lang',
+            type: 'string',
+            options: langs
+          },
+          favicon: {
+            title: 'Favicon',
+            type: 'string'
+          },
+          theme: {
+            title: 'Theme',
+            type: 'string',
+            options: themes
+          }
+        }
       },
       navbar: {
         title: 'Navbar',
-        type: 'string',
-        options: variants
-      },
-      links: {
-        title: 'Links',
-        size: 'sm',
-        items: {
-          properties: {
-            icon: {
-              title: 'Icon',
-              type: 'string',
-              ui: 'icon'
-            },
-            title: {
-              title: 'Title',
-              type: 'string'
-            }, 
-            description: {
-              title: 'Description',
-              type: 'string'
-            }, 
-            href: {
-              title: 'Href attribute',
-              type: 'string'
-            },
-            children: {
-              title: 'Items',
-              items: {
-                properties: {
-                  icon: {
-                    title: 'Icon',
-                    type: 'string',
-                    ui: 'icon'
-                  },
-                  title: {
-                    title: 'Title',
-                    type: 'string'
-                  }, 
-                  description: {
-                    title: 'Description',
-                    type: 'string'
-                  }, 
-                  href: {
-                    title: 'Href attribute',
-                    type: 'string'
+        type: 'object',
+        properties: {
+          variant: {
+            title: 'Variant',
+            type: 'string',
+            options: variants
+          },
+          links: {
+            title: 'Links',
+            size: 'sm',
+            items: {
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  ui: 'icon'
+                },
+                title: {
+                  title: 'Title',
+                  type: 'string'
+                }, 
+                description: {
+                  title: 'Description',
+                  type: 'string'
+                }, 
+                href: {
+                  title: 'Href attribute',
+                  type: 'string'
+                },
+                children: {
+                  title: 'Items',
+                  items: {
+                    properties: {
+                      icon: {
+                        title: 'Icon',
+                        type: 'string',
+                        ui: 'icon'
+                      },
+                      title: {
+                        title: 'Title',
+                        type: 'string'
+                      }, 
+                      description: {
+                        title: 'Description',
+                        type: 'string'
+                      }, 
+                      href: {
+                        title: 'Href attribute',
+                        type: 'string'
+                      }
+                    }
                   }
                 }
               }
@@ -87,39 +103,45 @@ export default ({render, form, home, html}) => {
           }
         }
       },
-      linksFooter: {
-        title: 'Footer Links',
-        size: 'sm',
-        items: {
-          properties: {
-            icon: {
-              title: 'Icon',
-              type: 'string',
-              ui: 'icon'
-            },
-            title: {
-              title: 'Title',
-              type: 'string'
-            }, 
-            description: {
-              title: 'Description',
-              type: 'string'
-            }, 
-            href: {
-              title: 'Href attribute',
-              type: 'string'
+      foot: {
+        title: 'Footer',
+        type: 'object',
+        properties: {
+          variant: {
+            title: 'Variant',
+            type: 'string',
+            options: bg
+          },
+          links: {
+            title: 'Links',
+            size: 'sm',
+            items: {
+              properties: {
+                icon: {
+                  title: 'Icon',
+                  type: 'string',
+                  ui: 'icon'
+                },
+                title: {
+                  title: 'Title',
+                  type: 'string'
+                }, 
+                description: {
+                  title: 'Description',
+                  type: 'string'
+                }, 
+                href: {
+                  title: 'Href attribute',
+                  type: 'string'
+                }
+              }
             }
+          },
+          copyright: {
+            title: 'Note',
+            type: 'string'
           }
         }
-      },
-      variantFooter: {
-        title: 'Footer',
-        type: 'string',
-        options: bg
-      },
-      copyright: {
-        title: 'Footer Note',
-        type: 'string'
       }
     },
     default: dflt,

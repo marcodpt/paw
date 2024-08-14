@@ -133,15 +133,9 @@ export default html => {
   )).join('\n')
 
   const fullPage = ({
-    theme,
-    lang,
-    pageTitle,
-    description,
+    page,
     navbar,
-    links,
-    linksFooter,
-    variantFooter,
-    copyright
+    foot
   }) => html(({
     html,
     head,
@@ -163,7 +157,7 @@ export default html => {
     p,
     footer
   }) => html({
-    lang: lang
+    lang: page.lang
   }, [
     head({}, [
       meta({
@@ -179,18 +173,18 @@ export default html => {
       }),
       link({
         rel: 'icon',
-        href: 'favicon.ico',
+        href: page.favicon,
         sizes: 'any'
       }),
       link(deps.fontawesome),
       link({
         id: 'theme',
         rel: 'stylesheet',
-        href: theme
+        href: page.theme
       }),
       script(deps.bootstrap.js),
       title({}, [
-        text(pageTitle)
+        text(page.title)
       ])
     ]),
     body({
@@ -200,7 +194,7 @@ export default html => {
         class: [
           'navbar',
           'navbar-expand-lg',
-          navbar
+          navbar.variant
         ]
       }, [
         div({
@@ -236,7 +230,7 @@ export default html => {
             href: '#/',
             dataPawText: 'title'
           }, [
-            text(pageTitle)
+            text(page.title)
           ]),
           span({
             class: 'navbar-text',
@@ -264,7 +258,7 @@ export default html => {
               'navbar-collapse'
             ]
           }, [
-            navLinks(links)
+            navLinks(navbar.links)
           ])
         ])
       ]),
@@ -278,7 +272,7 @@ export default html => {
           h1({
             dataPawText: 'title'
           }, [
-            text(pageTitle)
+            text(page.title)
           ]),
           p({
             class: [
@@ -287,13 +281,13 @@ export default html => {
             ],
             dataPawText: 'description'
           }, [
-            text(description)
+            text(page.description)
           ])
         ])
       ]),
       footer({
         class: [
-          variantFooter, 
+          foot.variant, 
           'mt-auto'
         ]
       }, [
@@ -312,14 +306,14 @@ export default html => {
               'mb-3'
             ]
           }, [
-            footerLinks(linksFooter)
+            footerLinks(foot.links)
           ]),
           p({
             class: [
               'text-center'
             ]
           }, [
-            copyright
+            foot.copyright
           ])
         ])
       ]),

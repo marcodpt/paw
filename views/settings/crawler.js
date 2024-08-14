@@ -16,91 +16,93 @@ const readIcon = i => {
 
 export default (home, navLinks, footerLinks) => {
   const rebuild = ({
-    pageTitle,
-    description,
-    copyright,
-    lang,
-    theme,
+    page,
     navbar,
-    links,
-    linksFooter,
-    variantFooter
+    foot
   }) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-paw-text=title]').forEach(e => {
-        e.textContent = pageTitle
+        e.textContent = page.title
       })
       e.querySelectorAll('[data-paw-text=description]').forEach(e => {
-        e.textContent = description
+        e.textContent = page.description
       })
     })
-    document.title = pageTitle 
-    document.documentElement.lang = lang
-    document.getElementById('theme').setAttribute('href', theme)
+    document.title = page.title 
+    document.documentElement.lang = page.lang
+    document.getElementById('theme').setAttribute('href', page.theme)
     const nav = getNav()
     nav.setAttribute('class',
-      nav.getAttribute('class').replace(getCss(nav), navbar)
+      nav.getAttribute('class').replace(getCss(nav), navbar.variant)
     )
-    nav.querySelector('.navbar-collapse').innerHTML = navLinks(links)
+    nav.querySelector('.navbar-collapse').innerHTML = navLinks(navbar.links)
     
     const f = getFooter()
     const Css = f.getAttribute('class').split(' ')
     Css.shift()
 
-    f.querySelector('p').innerHTML = copyright
-    f.querySelector('ul').innerHTML = footerLinks(linksFooter)
-    f.setAttribute('class', [variantFooter].concat(Css).join(' '))
+    f.querySelector('p').innerHTML = foot.copyright
+    f.querySelector('ul').innerHTML = footerLinks(foot.links)
+    f.setAttribute('class', [foot.variant].concat(Css).join(' '))
   }
 
   const dflt = {
-    pageTitle: document.title,
-    description: home
-          .querySelector('[data-paw-text="description"]')?.textContent,
-    lang: document.documentElement.lang,
-    theme: document.getElementById('theme').getAttribute('href'),
-    navbar: getCss(getNav()),
-    links: Array.from(document.body.
-      querySelector('nav')?.
-      querySelector('.navbar-collapse')?.
-      querySelectorAll('li.nav-item') || []
-    ).map(li => ({
-      li,
-      a: li.querySelector('a')
-    })).map(({li, a}) => ({
-      title: li.getAttribute('data-paw-path'),
-      description: a?.getAttribute('title') || '',
-      icon: readIcon(a?.querySelector('i')),
-      href: a?.getAttribute('href'),
-      children: Array.from(li.
-        querySelector('ul.dropdown-menu')?.
-        querySelectorAll('li') || []
+    page: {
+      title: document.title,
+      description: home
+        .querySelector('[data-paw-text="description"]')?.textContent,
+      lang: document.documentElement.lang,
+      favicon: document.head
+        .querySelector('link[rel="icon"]')?.getAttribute('href'),
+      theme: document.getElementById('theme').getAttribute('href'),
+    },
+    navbar: {
+      variant: getCss(getNav()),
+      links: Array.from(document.body.
+        querySelector('nav')?.
+        querySelector('.navbar-collapse')?.
+        querySelectorAll('li.nav-item') || []
       ).map(li => ({
         li,
         a: li.querySelector('a')
-      })).map(({li, a, icon}) => ({
+      })).map(({li, a}) => ({
         title: li.getAttribute('data-paw-path'),
+        description: a?.getAttribute('title') || '',
+        icon: readIcon(a?.querySelector('i')),
+        href: a?.getAttribute('href'),
+        children: Array.from(li.
+          querySelector('ul.dropdown-menu')?.
+          querySelectorAll('li') || []
+        ).map(li => ({
+          li,
+          a: li.querySelector('a')
+        })).map(({li, a, icon}) => ({
+          title: li.getAttribute('data-paw-path'),
+          description: a?.getAttribute('title') || '',
+          icon: readIcon(a?.querySelector('i')),
+          href: a?.getAttribute('href')
+        }))
+      }))
+    },
+    foot: {
+      variant: getFooter().getAttribute('class')?.split(' ')[0],
+      copyright: document.body.
+        querySelector('footer')?.
+        querySelector('p')?.
+          innerHTML.trim(),
+      links: Array.from(document.body.
+        querySelector('footer')?.
+        querySelectorAll('li.nav-item') || []
+      ).map(li => ({
+        li,
+        a: li.querySelector('a')
+      })).map(({li, a}) => ({
+        title: a?.textContent?.trim() || '',
         description: a?.getAttribute('title') || '',
         icon: readIcon(a?.querySelector('i')),
         href: a?.getAttribute('href')
       }))
-    })),
-    linksFooter: Array.from(document.body.
-      querySelector('footer')?.
-      querySelectorAll('li.nav-item') || []
-    ).map(li => ({
-      li,
-      a: li.querySelector('a')
-    })).map(({li, a}) => ({
-      title: a?.textContent?.trim() || '',
-      description: a?.getAttribute('title') || '',
-      icon: readIcon(a?.querySelector('i')),
-      href: a?.getAttribute('href')
-    })),
-    variantFooter: getFooter().getAttribute('class')?.split(' ')[0],
-    copyright: document.body.
-      querySelector('footer')?.
-      querySelector('p')?.
-        innerHTML.trim()
+    }
   }
 
   return {rebuild, dflt}
