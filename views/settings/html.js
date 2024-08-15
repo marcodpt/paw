@@ -262,7 +262,8 @@ export default html => {
           ]),
           a({
             class: 'navbar-brand',
-            href: '#/'
+            href: '#/',
+            description: page.description
           }, [
             img({
               src: logo.src,

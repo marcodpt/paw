@@ -5,8 +5,9 @@ import crawler from './crawler.js'
 export default ({render, form, home, html}) => {
   const {fullPage, ...extra} = templates(html)
   const {rebuild, dflt} = crawler(home, extra)
+  var doc = document
 
-  return render(form({
+  const setView = () => render(form({
     css: 'container my-5',
     icon: 'cog',
     title: 'Settings',
@@ -14,6 +15,11 @@ export default ({render, form, home, html}) => {
     type: 'object',
     block: true,
     properties: {
+      file: {
+        title: 'Import HTML',
+        type: 'string',
+        ui: 'file'
+      },
       page: {
         title: '',
         type: 'object',
@@ -193,10 +199,20 @@ export default ({render, form, home, html}) => {
         }
       }
     },
-    default: dflt,
-    update: (err, Data) => err ? null : rebuild(Data),
+    default: dflt(doc),
+    update: (err, {file, ...Data}) => {
+      if (file) {
+        const parser = new DOMParser()
+        doc = parser.parseFromString(file, "text/html")
+        setView()
+      } else if (!err) {
+        rebuild(document, Data)
+      }
+    },
     download: 'index.html',
     mime: 'text/html',
     submit: fullPage
   }))
+
+  return setView()
 }

@@ -116,7 +116,6 @@ so I created it.
 
 ## 🔧 TODO
  - put a hello world in the documentation and in the generated index.html
- - allow icon, title and description in navbar and sidebar
  - external links simbol and remove data-paw-path
 
  - dynamic tests implementation

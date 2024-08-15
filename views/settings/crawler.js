@@ -1,10 +1,8 @@
-const getNav = () => document.body.querySelector('nav.navbar')
-const getCss = nav => nav.getAttribute('class')
+const getCss = nav => nav?.getAttribute('class')
   .split(' ')
   .map(css => css.trim())
   .filter(css => /^bg-[a-z]+$/.test(css) || /^navbar-[a-z]+$/.test(css))
-  .join(' ')
-const getFooter = () => document.body.querySelector('footer')
+  .join(' ') || ''
 
 const readIcon = i => {
   const cls = i?.getAttribute('class') || ''
@@ -15,14 +13,14 @@ const readIcon = i => {
 }
 
 export default (home, {navLinks, footerLinks, devRef}) => {
-  const rebuild = ({
+  const rebuild = (doc, {
     page,
     logo,
     navbar,
     foot,
     dev
   }) => {
-    [document.body, home].forEach(e => {
+    [doc.body, home].forEach(e => {
       e.querySelectorAll('[data-paw-text=title]').forEach(e => {
         e.textContent = page.title
       })
@@ -30,21 +28,21 @@ export default (home, {navLinks, footerLinks, devRef}) => {
         e.textContent = page.description
       })
     })
-    document.title = page.title 
-    document.head.
+    doc.title = page.title 
+    doc.head.
       querySelector('meta[name="description"]')?.
       setAttribute('content', page.description)
-    document.head.
+    doc.head.
       querySelector('link[rel="icon"]')?.
       setAttribute('href', page.favicon)
-    document.documentElement.lang = page.lang
-    document.getElementById('theme').setAttribute('href', page.theme)
-    const nav = getNav()
-    const img = nav.querySelector('.navbar-brand > img')
-    console.log('REBUILD')
-    console.log(nav)
-    console.log(logo)
+    doc.documentElement.lang = page.lang
+    doc.getElementById('theme').setAttribute('href', page.theme)
+    const nav = doc.body.querySelector('nav.navbar')
+    const brand = nav.querySelector('.navbar-brand')
+    const img = brand?.querySelector('img')
+    brand?.setAttribute('title', page.description)
     img?.setAttribute('height', logo.height)
+    img?.setAttribute('alt', page.title)
     img?.setAttribute('src', logo.src)
     img?.setAttribute('css', logo.css)
 
@@ -53,7 +51,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
     )
     nav.querySelector('.navbar-collapse').innerHTML = navLinks(navbar.links)
     
-    const f = getFooter()
+    const f = doc.body.querySelector('footer')
     const Css = f.getAttribute('class').split(' ')
     Css.shift()
 
@@ -67,78 +65,82 @@ export default (home, {navLinks, footerLinks, devRef}) => {
     ref.innerHTML = devRef(dev).join('\n')
   }
 
-  const img = document.body.querySelector('.navbar-brand > img')
-  const ref = document.body.querySelector('footer').querySelector('p')
-  const dflt = {
-    page: {
-      title: document.title,
-      description: document.head.
-        querySelector('meta[name="description"]')?.
-        getAttribute('content'),
-      lang: document.documentElement.lang,
-      favicon: document.head.
-        querySelector('link[rel="icon"]')?.
-        getAttribute('href'),
-      theme: document.
-        getElementById('theme').
-        getAttribute('href')
-    },
-    logo: {
-      src: img?.getAttribute('src'),
-      height: parseInt(img?.getAttribute('height') || 0),
-      css: img?.getAttribute('class')
-    },
-    navbar: {
-      variant: getCss(getNav()),
-      links: Array.from(document.body.
-        querySelector('nav')?.
-        querySelector('.navbar-collapse')?.
-        querySelectorAll('li.nav-item') || []
-      ).map(li => ({
-        li,
-        a: li.querySelector('a')
-      })).map(({li, a}) => ({
-        title: li.getAttribute('data-paw-path'),
-        description: a?.getAttribute('title') || '',
-        icon: readIcon(a?.querySelector('i')),
-        href: a?.getAttribute('href'),
-        children: Array.from(li.
-          querySelector('ul.dropdown-menu')?.
-          querySelectorAll('li') || []
+  const dflt = (doc) => {
+    const img = doc.body.querySelector('.navbar-brand > img')
+    const ref = doc.body.querySelector('footer')?.querySelector('p')
+
+    return {
+      page: {
+        title: doc.title,
+        description: doc.head.
+          querySelector('meta[name="description"]')?.
+          getAttribute('content'),
+        lang: doc.documentElement.lang,
+        favicon: doc.head.
+          querySelector('link[rel="icon"]')?.
+          getAttribute('href'),
+        theme: doc.
+          getElementById('theme')?.
+          getAttribute('href')
+      },
+      logo: {
+        src: img?.getAttribute('src'),
+        height: parseInt(img?.getAttribute('height') || 0),
+        css: img?.getAttribute('class')
+      },
+      navbar: {
+        variant: getCss(doc.body.querySelector('nav.navbar')),
+        links: Array.from(doc.body.
+          querySelector('nav')?.
+          querySelector('.navbar-collapse')?.
+          querySelectorAll('li.nav-item') || []
         ).map(li => ({
           li,
           a: li.querySelector('a')
-        })).map(({li, a, icon}) => ({
+        })).map(({li, a}) => ({
           title: li.getAttribute('data-paw-path'),
+          description: a?.getAttribute('title') || '',
+          icon: readIcon(a?.querySelector('i')),
+          href: a?.getAttribute('href'),
+          children: Array.from(li.
+            querySelector('ul.dropdown-menu')?.
+            querySelectorAll('li') || []
+          ).map(li => ({
+            li,
+            a: li.querySelector('a')
+          })).map(({li, a, icon}) => ({
+            title: li.getAttribute('data-paw-path'),
+            description: a?.getAttribute('title') || '',
+            icon: readIcon(a?.querySelector('i')),
+            href: a?.getAttribute('href')
+          }))
+        }))
+      },
+      foot: {
+        variant: doc.body.querySelector('footer')?.
+          getAttribute('class')?.split(' ')[0],
+        links: Array.from(doc.body.
+          querySelector('footer')?.
+          querySelectorAll('li.nav-item') || []
+        ).map(li => ({
+          li,
+          a: li.querySelector('a')
+        })).map(({li, a}) => ({
+          title: a?.textContent?.trim() || '',
           description: a?.getAttribute('title') || '',
           icon: readIcon(a?.querySelector('i')),
           href: a?.getAttribute('href')
         }))
-      }))
-    },
-    foot: {
-      variant: getFooter().getAttribute('class')?.split(' ')[0],
-      links: Array.from(document.body.
-        querySelector('footer')?.
-        querySelectorAll('li.nav-item') || []
-      ).map(li => ({
-        li,
-        a: li.querySelector('a')
-      })).map(({li, a}) => ({
-        title: a?.textContent?.trim() || '',
-        description: a?.getAttribute('title') || '',
-        icon: readIcon(a?.querySelector('i')),
-        href: a?.getAttribute('href')
-      }))
-    },
-    dev: {
-      show: !!ref?.innerHTML.trim(),
-      intro: ref?.querySelector('span')?.textContent || '',
-      company: ref?.querySelector('a')?.textContent.trim() || '',
-      website: ref?.querySelector('a')?.getAttribute('href') || '',
-      logo: ref?.querySelector('img')?.getAttribute('src') || '',
-      height: parseInt(ref?.querySelector('img')?.getAttribute('height') || 0),
-      css: ref?.querySelector('img')?.getAttribute('class') || ''
+      },
+      dev: {
+        show: !!ref?.innerHTML.trim(),
+        intro: ref?.querySelector('span')?.textContent || '',
+        company: ref?.querySelector('a')?.textContent.trim() || '',
+        website: ref?.querySelector('a')?.getAttribute('href') || '',
+        logo: ref?.querySelector('img')?.getAttribute('src') || '',
+        height: parseInt(ref?.querySelector('img')?.getAttribute('height') || 0),
+        css: ref?.querySelector('img')?.getAttribute('class') || ''
+      }
     }
   }
 
