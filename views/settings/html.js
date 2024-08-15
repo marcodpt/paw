@@ -132,10 +132,36 @@ export default html => {
     ])
   )).join('\n')
 
+  const devRef = ({
+    show,
+    intro,
+    company,
+    website,
+    logo,
+    height,
+    css
+  }) => !show ? [] : [
+    !intro ? null : html(({span, text}) => span({}, [
+      text(intro)
+    ])),
+    !website ? null : html(({a, img, text}) => a({
+      href: website
+    }, [
+      !logo || !height ? null : img({
+        height,
+        class: css,
+        src: logo
+      }),
+      !company ? null : text(company)
+    ]))
+  ].filter(c => c)
+
   const fullPage = ({
     page,
+    logo,
     navbar,
-    foot
+    foot,
+    dev
   }) => html(({
     html,
     head,
@@ -239,10 +265,10 @@ export default html => {
             href: '#/'
           }, [
             img({
-              src: page.favicon,
+              src: logo.src,
               alt: page.title,
-              height: navbar.height,
-              class: 'align-baseline'
+              height: logo.height,
+              class: logo.css
             }),
             span({
               dataPawText: 'title'
@@ -308,27 +334,24 @@ export default html => {
         div({
           class: [
             'container',
-            'py-5'
+            'pt-5',
+            'pb-4'
           ]
         }, [
           ul({
             class: [
               'nav',
               'justify-content-center',
-              'border-bottom',
-              'pb-3',
-              'mb-3'
+              dev.show && foot.links.length ? 'border-bottom' : '',
+              dev.show && foot.links.length ? 'pb-3' : '',
+              dev.show && foot.links.length ? 'mb-3' : ''
             ]
           }, [
             footerLinks(foot.links)
           ]),
           p({
-            class: [
-              'text-center'
-            ]
-          }, [
-            foot.copyright
-          ])
+            class: 'text-center'
+          }, devRef(dev))
         ])
       ]),
       script({
@@ -338,5 +361,5 @@ export default html => {
     ])
   ]))
 
-  return {navLinks, footerLinks, fullPage}
+  return {navLinks, footerLinks, fullPage, devRef}
 }

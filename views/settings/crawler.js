@@ -14,11 +14,13 @@ const readIcon = i => {
   return prefix !== false ? prefix+cls.split(' ')[1].substr(3) : ''
 }
 
-export default (home, navLinks, footerLinks) => {
+export default (home, {navLinks, footerLinks, devRef}) => {
   const rebuild = ({
     page,
+    logo,
     navbar,
     foot,
+    dev
   }) => {
     [document.body, home].forEach(e => {
       e.querySelectorAll('[data-paw-text=title]').forEach(e => {
@@ -39,7 +41,12 @@ export default (home, navLinks, footerLinks) => {
     document.getElementById('theme').setAttribute('href', page.theme)
     const nav = getNav()
     const img = nav.querySelector('.navbar-brand > img')
-    img?.setAttribute('height', navbar.height)
+    console.log('REBUILD')
+    console.log(nav)
+    console.log(logo)
+    img?.setAttribute('height', logo.height)
+    img?.setAttribute('src', logo.src)
+    img?.setAttribute('css', logo.css)
 
     nav.setAttribute('class',
       nav.getAttribute('class').replace(getCss(nav), navbar.variant)
@@ -50,12 +57,18 @@ export default (home, navLinks, footerLinks) => {
     const Css = f.getAttribute('class').split(' ')
     Css.shift()
 
-    f.querySelector('p').innerHTML = foot.copyright
-    f.querySelector('ul').innerHTML = footerLinks(foot.links)
+    const ul = f.querySelector('ul')
+    ul.innerHTML = footerLinks(foot.links)
+    ul.classList[
+      dev.show && foot.links.length ? 'add' : 'remove'
+    ]('mb-3', 'pb-3', 'border-bottom')
     f.setAttribute('class', [foot.variant].concat(Css).join(' '))
+    const ref = f.querySelector('p')
+    ref.innerHTML = devRef(dev).join('\n')
   }
 
   const img = document.body.querySelector('.navbar-brand > img')
+  const ref = document.body.querySelector('footer').querySelector('p')
   const dflt = {
     page: {
       title: document.title,
@@ -70,8 +83,12 @@ export default (home, navLinks, footerLinks) => {
         getElementById('theme').
         getAttribute('href')
     },
+    logo: {
+      src: img?.getAttribute('src'),
+      height: parseInt(img?.getAttribute('height') || 0),
+      css: img?.getAttribute('class')
+    },
     navbar: {
-      height: parseInt(img?.height),
       variant: getCss(getNav()),
       links: Array.from(document.body.
         querySelector('nav')?.
@@ -101,10 +118,6 @@ export default (home, navLinks, footerLinks) => {
     },
     foot: {
       variant: getFooter().getAttribute('class')?.split(' ')[0],
-      copyright: document.body.
-        querySelector('footer')?.
-        querySelector('p')?.
-          innerHTML.trim(),
       links: Array.from(document.body.
         querySelector('footer')?.
         querySelectorAll('li.nav-item') || []
@@ -117,6 +130,15 @@ export default (home, navLinks, footerLinks) => {
         icon: readIcon(a?.querySelector('i')),
         href: a?.getAttribute('href')
       }))
+    },
+    dev: {
+      show: !!ref?.innerHTML.trim(),
+      intro: ref?.querySelector('span')?.textContent || '',
+      company: ref?.querySelector('a')?.textContent.trim() || '',
+      website: ref?.querySelector('a')?.getAttribute('href') || '',
+      logo: ref?.querySelector('img')?.getAttribute('src') || '',
+      height: parseInt(ref?.querySelector('img')?.getAttribute('height') || 0),
+      css: ref?.querySelector('img')?.getAttribute('class') || ''
     }
   }
 

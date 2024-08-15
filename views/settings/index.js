@@ -3,8 +3,8 @@ import templates from './html.js'
 import crawler from './crawler.js'
 
 export default ({render, form, home, html}) => {
-  const {navLinks, footerLinks, fullPage} = templates(html)
-  const {rebuild, dflt} = crawler(home, navLinks, footerLinks)
+  const {fullPage, ...extra} = templates(html)
+  const {rebuild, dflt} = crawler(home, extra)
 
   return render(form({
     css: 'container my-5',
@@ -43,15 +43,28 @@ export default ({render, form, home, html}) => {
           },
         }
       },
+      logo: {
+        type: 'object',
+        properties: {
+          src: {
+            title: 'URL',
+            type: 'string'
+          },
+          height: {
+            title: 'Height (px)',
+            type: 'integer',
+            minimum: 0
+          },
+          css: {
+            title: 'Class',
+            type: 'string'
+          }
+        }
+      },
       navbar: {
         title: 'Navbar',
         type: 'object',
         properties: {
-          height: {
-            title: 'Logo Height (px)',
-            type: 'integer',
-            ui: 'range'
-          },
           variant: {
             title: 'Variant',
             type: 'string',
@@ -141,9 +154,40 @@ export default ({render, form, home, html}) => {
                 }
               }
             }
+          }
+        }
+      },
+      dev: {
+        title: 'Developer',
+        type: 'object',
+        properties: {
+          show: {
+            title: 'Show',
+            type: 'boolean'
           },
-          copyright: {
-            title: 'Note',
+          intro: {
+            title: 'Intro',
+            type: 'string'
+          },
+          company: {
+            title: 'Company',
+            type: 'string'
+          },
+          website: {
+            title: 'WebSite (URL)',
+            type: 'string'
+          },
+          logo: {
+            title: 'Logo (URL)',
+            type: 'string'
+          },
+          height: {
+            title: 'Height (px)',
+            type: 'integer',
+            minimum: 0
+          },
+          css: {
+            title: 'Class',
             type: 'string'
           }
         }
