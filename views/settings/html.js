@@ -141,18 +141,18 @@ export default html => {
     height,
     css
   }) => !show ? [] : [
-    !intro ? null : html(({span, text}) => span({}, [
+    html(({span, text}) => span({}, [
       text(intro)
     ])),
-    !website ? null : html(({a, img, text}) => a({
+    html(({a, img, text}) => a({
       href: website
     }, [
-      !logo || !height ? null : img({
+      img({
         height,
         class: css,
         src: logo
       }),
-      !company ? null : text(company)
+      text(company)
     ]))
   ].filter(c => c)
 
@@ -263,7 +263,7 @@ export default html => {
           a({
             class: 'navbar-brand',
             href: '#/',
-            description: page.description
+            title: page.description
           }, [
             img({
               src: logo.src,

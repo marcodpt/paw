@@ -44,7 +44,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
     img?.setAttribute('height', logo.height)
     img?.setAttribute('alt', page.title)
     img?.setAttribute('src', logo.src)
-    img?.setAttribute('css', logo.css)
+    img?.setAttribute('class', logo.css)
 
     nav.setAttribute('class',
       nav.getAttribute('class').replace(getCss(nav), navbar.variant)
