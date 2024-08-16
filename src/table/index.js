@@ -34,7 +34,7 @@ export default ({
   const U = Object.keys(T)
   const hasTotals = U.length > 0
 
-  query = query || {}
+  query = query ? {...query} : {}
   query.page = typeof query.page == 'number' && query.page >= 1 ?
     parseInt(query.page) : 1
   query.limit = !pagination ? 0 : 
@@ -129,10 +129,10 @@ export default ({
             dataCtx: 'totals:'+k
           })
         ))),
-        (!hasTotals || !check) &&
+        !check &&
         !rowLinks.length &&
         !K.length ? null : tr({}, [
-          !hasTotals || !check ? null : th({
+          !check ? null : th({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
@@ -269,7 +269,7 @@ export default ({
           tr({
             title: I.map(k => row[k]).join('\n') || null
           }, [
-            query.group || !hasTotals || !check ? null : td({
+            query.group || !check ? null : td({
               class: 'text-center align-middle'
             }, [
               ctrl({

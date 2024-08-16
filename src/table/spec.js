@@ -1,4 +1,5 @@
 import {html, table} from '../components.js'
+import {data0, data1, data2} from './data.js'
 
 export default ({
   icon: 'table',
@@ -25,6 +26,41 @@ export default ({
         search: {
           type: 'string',
           default: ''
+        },
+        pagination: {
+          type: 'string',
+          default: ''
+        },
+        query: {
+          type: 'object',
+          default: {},
+          properties: {
+            page: {
+              type: 'integer',
+              default: 1,
+              minimum: 1
+            },
+            limit: {
+              type: 'integer',
+              default: 10
+            },
+            search: {
+              type: 'string',
+              default: ''
+            },
+            sort: {
+              type: 'string',
+              default: ''
+            },
+            group: {
+              type: ['array', 'null'],
+              default: null
+            },
+            checked: {
+              type: 'array',
+              default: []
+            }
+          }
         },
         css: {
           type: ['string', 'array'],
@@ -306,15 +342,7 @@ export default ({
               }
             }
           },
-          default: [
-            {
-              name: 'Alice',
-              balance: 1400.20
-            }, {
-              name: 'Bob',
-              balance: 1250.34
-            }
-          ]
+          default: data0
         }
       ],
       html: html(({
@@ -399,6 +427,163 @@ export default ({
           ])
         ])
       )
+    }, {
+      title: 'Table with pagination',
+      data: [
+        {
+          pagination: '📖',
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age'
+              }
+            }
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'Table with pagination with query params',
+      data: [
+        {
+          query: {
+            limit: 3,
+            page: 2
+          },
+          pagination: '📖',
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age'
+              }
+            }
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'Table with checkbox',
+      data: [
+        {
+          check: true,
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age'
+              }
+            }
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'Table with checkbox with query params',
+      data: [
+        {
+          query: {
+            checked: [data1[1], data1[3], data1[7]]
+          },
+          check: true,
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age'
+              }
+            }
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'Table with totals',
+      data: [
+        {
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name',
+                totals: 'count'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age',
+                totals: 'avg'
+              }, 
+              balance: {
+                type: 'number',
+                title: 'Balance ($)',
+                ui: 'num.2',
+                totals: 'sum'
+              }
+            }
+          },
+          default: data2
+        }
+      ]
+    }, {
+      title: 'Table with totals and checkbox with query params',
+      data: [
+        {
+          query: {
+            checked: [data2[1], data2[3], data2[7]]
+          },
+          check: true,
+          items: {
+            properties: {
+              name: {
+                type: 'string',
+                title: 'Name',
+                description: 'User name',
+                totals: 'count'
+              }, 
+              age: {
+                type: 'integer',
+                title: 'Age (Y)',
+                description: 'User age',
+                totals: 'avg'
+              }, 
+              balance: {
+                type: 'number',
+                title: 'Balance ($)',
+                ui: 'num.2',
+                totals: 'sum'
+              }
+            }
+          },
+          default: data2
+        }
+      ]
     }
   ]
 })
