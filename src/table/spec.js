@@ -418,6 +418,60 @@ export default ({
         ])
       )
     }, {
+      title: 'A compact table',
+      data: [
+        {
+          css: [
+            'table-sm',
+            'table-bordered'
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A fancy table',
+      data: [
+        {
+          css: [
+            'table-striped',
+            'table-hover',
+            'table-bordered'
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A sortable table',
+      data: [
+        {
+          sort: true,
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A sortable table with query params',
+      data: [
+        {
+          sort: true,
+          query: {
+            sort: '-name'
+          },
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
       title: 'Table with pagination',
       data: [
         {
