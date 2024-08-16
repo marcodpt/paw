@@ -1,3 +1,15 @@
+const prop0 = {
+  name: {
+    type: 'string',
+    title: 'Name',
+    description: 'User name'
+  }, 
+  balance: {
+    type: 'number',
+    title: 'Balance ($)',
+    ui: 'num.2'
+  }
+}
 const data0 = [
   {
     name: 'Alice',
@@ -8,6 +20,18 @@ const data0 = [
   }
 ]
 
+const prop1 = {
+  name: {
+    type: 'string',
+    title: 'Name',
+    description: 'User name'
+  }, 
+  age: {
+    type: 'integer',
+    title: 'Age (Y)',
+    description: 'User age'
+  }
+}
 const data1 = [
   {
     name: 'June Kirk',
@@ -50,6 +74,27 @@ const data1 = [
     age: 36
   }
 ]
+
+const prop2 = {
+  name: {
+    type: 'string',
+    title: 'Name',
+    description: 'User name',
+    totals: 'count'
+  }, 
+  age: {
+    type: 'integer',
+    title: 'Age (Y)',
+    description: 'User age',
+    totals: 'avg'
+  }, 
+  balance: {
+    type: 'number',
+    title: 'Balance ($)',
+    ui: 'num.2',
+    totals: 'sum'
+  }
+}
 const data2 = [
   {
     name: 'June Kirk',
@@ -106,4 +151,4 @@ const data2 = [
   }
 ]
 
-export {data0, data1, data2}
+export {prop0, data0, prop1, data1, prop2, data2}

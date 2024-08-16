@@ -1,6 +1,7 @@
 import {html, table} from '../components.js'
-import {data0, data1, data2} from './data.js'
+import {prop0, data0, prop1, data1, prop2, data2} from './data.js'
 
+var btn = null
 export default ({
   icon: 'table',
   title: 'table',
@@ -329,18 +330,7 @@ export default ({
       data: [
         {
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name'
-              }, 
-              balance: {
-                type: 'number',
-                title: 'Balance ($)',
-                ui: 'num.2'
-              }
-            }
+            properties: prop0
           },
           default: data0
         }
@@ -433,18 +423,7 @@ export default ({
         {
           pagination: '📖',
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age'
-              }
-            }
+            properties: prop1
           },
           default: data1
         }
@@ -459,18 +438,7 @@ export default ({
           },
           pagination: '📖',
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age'
-              }
-            }
+            properties: prop1
           },
           default: data1
         }
@@ -481,18 +449,7 @@ export default ({
         {
           check: true,
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age'
-              }
-            }
+            properties: prop1
           },
           default: data1
         }
@@ -506,18 +463,7 @@ export default ({
           },
           check: true,
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age'
-              }
-            }
+            properties: prop1
           },
           default: data1
         }
@@ -527,26 +473,7 @@ export default ({
       data: [
         {
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name',
-                totals: 'count'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age',
-                totals: 'avg'
-              }, 
-              balance: {
-                type: 'number',
-                title: 'Balance ($)',
-                ui: 'num.2',
-                totals: 'sum'
-              }
-            }
+            properties: prop2
           },
           default: data2
         }
@@ -560,26 +487,120 @@ export default ({
           },
           check: true,
           items: {
-            properties: {
-              name: {
-                type: 'string',
-                title: 'Name',
-                description: 'User name',
-                totals: 'count'
-              }, 
-              age: {
-                type: 'integer',
-                title: 'Age (Y)',
-                description: 'User age',
-                totals: 'avg'
-              }, 
-              balance: {
-                type: 'number',
-                title: 'Balance ($)',
-                ui: 'num.2',
-                totals: 'sum'
+            properties: prop2
+          },
+          default: data2
+        }
+      ]
+    }, {
+      title: 'A counter plugin',
+      data: [
+        {
+          check: true,
+          links: [
+            {
+              context: 'dark',
+              icon: 'info-circle',
+              title: 'Counter',
+              init: el => {btn = el},
+              href: () => {
+                const tbl = btn.closest('table')
+                const {query} = tbl.read()
+                const msg = `Hello!\n${query.checked.length} user(s) checked!`
+                window.alert(msg)
               }
             }
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A CSV exporter plugin',
+      data: [
+        {
+          links: [
+            {
+              context: 'secondary',
+              icon: 'file',
+              title: 'Export',
+              mime: 'text/plain; charset=UTF-8',
+              download: 'data.txt',
+              init: el => {btn = el},
+              href: () => {
+                const tbl = btn.closest('table')
+                const {rows, format, properties} = tbl.read()
+                const P = properties
+                const K = Object.keys(P)
+
+                const nl = '\n'
+                const sep = '\t'
+                
+                var data = ''
+                data += K.map(k => P[k].title || k).join(sep)+nl
+                data += rows
+                  .map(row => K.map(k => format[k](row[k])).join(sep))
+                  .join(nl)
+
+                return data
+              }
+            }
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A filter plugin',
+      data: [
+        {
+          links: [
+            {
+              context: 'info',
+              icon: 'filter',
+              title: 'Age <= 30 AND Name contains "a"',
+              init: el => {btn = el},
+              href: () => {
+                const tbl = btn.closest('table')
+                const {rows} = tbl.read()
+                btn.disabled = true
+                tbl.setData(rows.filter(({
+                  age, name
+                }) => age <= 30 && name.indexOf('a') >= 0))
+              }
+            }
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ]
+    }, {
+      title: 'A group plugin',
+      data: [
+        {
+          links: [
+            {
+              context: 'warning',
+              icon: 'th',
+              title: 'Group by Age',
+              init: el => {btn = el},
+              href: () => {
+                const tbl = btn.closest('table')
+                btn.disabled = true
+                const {query} = tbl.read()
+                query.group = ['age']
+                tbl.refresh()
+              }
+            }
+          ],
+          items: {
+            properties: prop2
           },
           default: data2
         }
