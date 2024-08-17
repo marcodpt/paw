@@ -1,6 +1,6 @@
 const copy = X => JSON.parse(JSON.stringify(X))
 
-const run = (...F) => data => F.reduce((data, F) => F(data), data)
+const run = (...F) => data => F.reduce((data, F) => F(data), [...data])
 
 const identity = data => data
 

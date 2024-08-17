@@ -430,7 +430,593 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: [
+            'table',
+            'table-sm',
+            'table-bordered'
+          ]
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'A very compact table',
+      data: [
+        {
+          css: [
+            'small',
+            'table-sm',
+            'table-bordered'
+          ],
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: [
+            'table',
+            'small',
+            'table-sm',
+            'table-bordered'
+          ]
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A fancy table',
       data: [
@@ -445,7 +1031,293 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: [
+            'table',
+            'table-striped',
+            'table-hover',
+            'table-bordered'
+          ]
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A sortable table',
       data: [
@@ -456,7 +1328,312 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        a,
+        i,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ]),
+                a({
+                  dataCtx: 'sort:name',
+                  href: 'javascript:;'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-sort'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ]),
+                a({
+                  dataCtx: 'sort:age',
+                  href: 'javascript:;'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-sort'
+                    ]
+                  })
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A sortable table with query params',
       data: [
@@ -470,7 +1647,312 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        a,
+        i,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ]),
+                a({
+                  dataCtx: 'sort:name',
+                  href: 'javascript:;'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-sort-up'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ]),
+                a({
+                  dataCtx: 'sort:age',
+                  href: 'javascript:;'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-sort'
+                    ]
+                  })
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with pagination',
       data: [
@@ -481,7 +1963,357 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        td,
+        div,
+        button,
+        i,
+        input,
+        datalist,
+        option,
+        text,
+        th,
+        span,
+        tbody
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              td({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button',
+                      disabled: ''
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-fast-backward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button',
+                      disabled: ''
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-step-backward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    div({}, [
+                      input({
+                        class: [
+                          'validate',
+                          'form-control'
+                        ],
+                        type: 'text',
+                        value: '📖 (1 / 2)',
+                        list: 'app_list_000001'
+                      }),
+                      datalist({
+                        id: 'app_list_000001'
+                      }, [
+                        option({}, [
+                          text('📖 (1 / 2)')
+                        ]),
+                        option({}, [
+                          text('📖 (2 / 2)')
+                        ])
+                      ]),
+                      div({
+                        class: 'invalid-feedback'
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-step-forward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-fast-forward'
+                        ]
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with pagination with query params',
       data: [
@@ -496,7 +2328,238 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        td,
+        div,
+        button,
+        i,
+        input,
+        datalist,
+        option,
+        text,
+        th,
+        span,
+        tbody
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              td({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-fast-backward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-step-backward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    div({}, [
+                      input({
+                        class: [
+                          'validate',
+                          'form-control'
+                        ],
+                        type: 'text',
+                        value: '📖 (2 / 5)',
+                        list: 'app_list_000002'
+                      }),
+                      datalist({
+                        id: 'app_list_000002'
+                      }, [
+                        option({}, [
+                          text('📖 (1 / 5)')
+                        ]),
+                        option({}, [
+                          text('📖 (2 / 5)')
+                        ]),
+                        option({}, [
+                          text('📖 (3 / 5)')
+                        ]),
+                        option({}, [
+                          text('📖 (4 / 5)')
+                        ]),
+                        option({}, [
+                          text('📖 (5 / 5)')
+                        ])
+                      ]),
+                      div({
+                        class: 'invalid-feedback'
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-step-forward'
+                        ]
+                      })
+                    ])
+                  ]),
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      i({
+                        class: [
+                          'fa-solid',
+                          'fa-fast-forward'
+                        ]
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with checkbox',
       data: [
@@ -507,7 +2570,562 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        button,
+        i,
+        span,
+        text,
+        tbody,
+        td,
+        div,
+        input
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'groupHide'
+              }, [
+                button({
+                  class: [
+                    'btn',
+                    'btn-success',
+                    'btn-sm'
+                  ],
+                  type: 'button'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with checkbox with query params',
       data: [
@@ -521,7 +3139,565 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        button,
+        i,
+        span,
+        text,
+        tbody,
+        td,
+        div,
+        input
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'groupHide'
+              }, [
+                button({
+                  class: [
+                    'btn',
+                    'btn-success',
+                    'btn-sm'
+                  ],
+                  type: 'button'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with totals',
       data: [
@@ -531,7 +3707,433 @@ export default ({
           },
           default: data2
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        td,
+        text,
+        th,
+        span,
+        tbody
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:name'
+              }, [
+                text('13')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:age'
+              }, [
+                text('28')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:balance'
+              }, [
+                text('33,979.24')
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,260.38')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,072.78')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,326.09')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,318.59')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,747.45')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,146.87')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,510.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,022.48')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,410.05')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,973.95')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,823.23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,459.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,906.51')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'Table with totals and checkbox with query params',
       data: [
@@ -545,7 +4147,713 @@ export default ({
           },
           default: data2
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        td,
+        text,
+        th,
+        button,
+        i,
+        span,
+        tbody,
+        div,
+        input
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              td({
+                dataCtx: 'groupHide'
+              }),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:name'
+              }, [
+                text('3')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:age'
+              }, [
+                text('26')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:balance'
+              }, [
+                text('9,413.85')
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'groupHide'
+              }, [
+                button({
+                  class: [
+                    'btn',
+                    'btn-success',
+                    'btn-sm'
+                  ],
+                  type: 'button'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,260.38')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,072.78')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,326.09')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,318.59')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,747.45')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,146.87')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,510.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox',
+                    checked: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,022.48')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,410.05')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,973.95')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,823.23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,459.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,906.51')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A counter plugin',
       data: [
@@ -570,7 +4878,598 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        button,
+        span,
+        i,
+        text,
+        tbody,
+        td,
+        input
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-dark'
+                      ],
+                      type: 'button'
+                    }, [
+                      span({}, [
+                        i({
+                          class: [
+                            'fa-solid',
+                            'fa-info-circle'
+                          ]
+                        }),
+                        text(' Counter')
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'groupHide'
+              }, [
+                button({
+                  class: [
+                    'btn',
+                    'btn-success',
+                    'btn-sm'
+                  ],
+                  type: 'button'
+                }, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  })
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-check-input'
+                    ],
+                    type: 'checkbox'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A CSV exporter plugin',
       data: [
@@ -607,7 +5506,333 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        button,
+        span,
+        i,
+        text,
+        a,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-secondary'
+                      ],
+                      type: 'button'
+                    }, [
+                      span({}, [
+                        i({
+                          class: [
+                            'fa-solid',
+                            'fa-file'
+                          ]
+                        }),
+                        text(' Export')
+                      ]),
+                      a({
+                        class: 'd-none',
+                        href: 'data:text/plain; charset=UTF-8,',
+                        download: 'data.txt'
+                      })
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A filter plugin',
       data: [
@@ -633,7 +5858,327 @@ export default ({
           },
           default: data1
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        button,
+        span,
+        i,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-info'
+                      ],
+                      type: 'button'
+                    }, [
+                      span({}, [
+                        i({
+                          class: [
+                            'fa-solid',
+                            'fa-filter'
+                          ]
+                        }),
+                        text(' Age <= 30 AND Name contains "a"')
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
     }, {
       title: 'A group plugin',
       data: [
@@ -658,7 +6203,472 @@ export default ({
           },
           default: data2
         }
-      ]
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        button,
+        span,
+        i,
+        text,
+        td,
+        tbody
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'row',
+                    'gx-1',
+                    'justify-content-center'
+                  ]
+                }, [
+                  div({
+                    class: 'col-auto'
+                  }, [
+                    button({
+                      class: [
+                        'btn',
+                        'btn-warning'
+                      ],
+                      type: 'button'
+                    }, [
+                      span({}, [
+                        i({
+                          class: [
+                            'fa-solid',
+                            'fa-th'
+                          ]
+                        }),
+                        text(' Group by Age')
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:name'
+              }, [
+                text('13')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:age'
+              }, [
+                text('28')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:balance'
+              }, [
+                text('33,979.24')
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,260.38')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,072.78')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,326.09')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,318.59')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,747.45')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,146.87')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,510.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,022.48')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,410.05')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,973.95')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,823.23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,459.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,906.51')
+              ])
+            ])
+          ])
+        ])
+      )
     }
   ]
 })
