@@ -55,7 +55,7 @@ const print = (X, ident) => {
     ) {
       return s+`${C[0]}</${tagName}>`
     } else {
-      const content = children.map(
+      const content = C.map(
         child => print(child, ident+'  ')
       ).join('\n')
       return s+'\n'+content+'\n'+ident+`</${tagName}>`

@@ -9,6 +9,14 @@ const getTarget = href => !href || href.indexOf('://') < 0 ? null :
   '_blank'
 
 export default html => {
+  const getExt = target => !target ? '' : html(({sup, i}) => sup({}, [
+    i({
+      class: [
+        'small',
+        getIcon('arrow-up-right-from-square')
+      ]
+    })
+  ]))
   const navLinks = links => !links || !links.length ? '' : html(({
     ul, li, a, i, span, text
   }) => 
@@ -17,7 +25,11 @@ export default html => {
         'navbar-nav',
         'ms-auto'
       ]
-    }, links.map(({
+    }, links.map(link => ({
+      target: getTarget(link.href),
+      ...link
+    })).map(({
+      target,
       title,
       icon,
       description,
@@ -49,20 +61,24 @@ export default html => {
         ]),
         ul({
           class: 'dropdown-menu'
-        }, children.map(({
+        }, children.map(child => ({
+          target: getTarget(child.href),
+          ...child
+        })).map(({
+          target,
           title,
           description,
           icon,
           href
-        }) => 
+        }) =>
           li({
-            dataPawPath: title || null
+            dataPawPath: target || !title ? null : title
           }, [
             a({
               href,
-              target: getTarget(href),
+              target,
               class: 'dropdown-item',
-              dataPawActive: 'active',
+              dataPawActive: target ? null : 'active',
               title: description || null
             }, [
               span({
@@ -72,7 +88,8 @@ export default html => {
                 !icon ? null : i({
                   class: getIcon(icon)
                 }),
-                text(title)
+                text(title),
+                getExt(target)
               ])
             ])
           ])
@@ -80,13 +97,13 @@ export default html => {
       ]) :
       li({
         class: 'nav-item',
-        dataPawPath: title || null
+        dataPawPath: target || !title ? null : title
       }, [
         a({
           href,
-          target: getTarget(href),
+          target,
           class: 'nav-link',
-          dataPawActive: 'active',
+          dataPawActive: target ? null : 'active',
           title: description || null
         }, [
           span({
@@ -96,7 +113,8 @@ export default html => {
             !icon ? null : i({
               class: getIcon(icon)
             }),
-            text(title)
+            text(title),
+            getExt(target)
           ])
         ])
       ])

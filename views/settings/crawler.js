@@ -98,7 +98,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
           li,
           a: li.querySelector('a')
         })).map(({li, a}) => ({
-          title: li.getAttribute('data-paw-path'),
+          title: li.querySelector('a').textContent.trim(),
           description: a?.getAttribute('title') || '',
           icon: readIcon(a?.querySelector('i')),
           href: a?.getAttribute('href'),
@@ -109,7 +109,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
             li,
             a: li.querySelector('a')
           })).map(({li, a, icon}) => ({
-            title: li.getAttribute('data-paw-path'),
+            title: li.textContent.trim(),
             description: a?.getAttribute('title') || '',
             icon: readIcon(a?.querySelector('i')),
             href: a?.getAttribute('href')
