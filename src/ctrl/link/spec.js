@@ -93,6 +93,7 @@ export default ({
         a,
         span,
         i,
+        sup,
         text
       }) => 
         a({
@@ -107,6 +108,16 @@ export default ({
               ]
             }),
             text(' Repository')
+          ]),
+          sup({}, [
+            text(' '),
+            i({
+              class: [
+                'small',
+                'fa-solid',
+                'fa-arrow-up-right-from-square'
+              ]
+            })
           ])
         ])
       )
@@ -358,6 +369,10 @@ export default ({
               title: 'Go Home!',
               href: '#/'
             }, {
+              icon: '@github',
+              title: ' Repository',
+              href: 'https://github.com/marcodpt/paw'
+            }, {
               icon: 'times',
               title: 'No Action!'
             }
@@ -369,6 +384,7 @@ export default ({
         button,
         span,
         i,
+        sup,
         text,
         ul,
         li,
@@ -429,6 +445,33 @@ export default ({
                     ]
                   }),
                   text(' Go Home!')
+                ])
+              ])
+            ]),
+            li({}, [
+              a({
+                class: 'dropdown-item',
+                href: 'https://github.com/marcodpt/paw',
+                target: '_blank'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-brands',
+                      'fa-github'
+                    ]
+                  }),
+                  text(' Repository')
+                ]),
+                sup({}, [
+                  text(' '),
+                  i({
+                    class: [
+                      'small',
+                      'fa-solid',
+                      'fa-arrow-up-right-from-square'
+                    ]
+                  })
                 ])
               ])
             ]),

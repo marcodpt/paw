@@ -36,8 +36,21 @@ export default ({
       (typeof X[b] == 'string' || typeof X[b] == 'number') ? X[b] : a
     )
   }
-  const target = typeof href == 'string' && href.indexOf('://') > 0 ?
-    '_blank' : null
+  const setTarget = href =>
+    typeof href == 'string' && href.indexOf('://') > 0 ? '_blank' : null
+  const ext = target => !target ? '' : node(({
+    sup, i, text
+  }) =>
+    sup({}, [
+      text(' '),
+      i({
+        class: [
+          'small',
+          'fa-solid fa-arrow-up-right-from-square'
+        ]
+      })
+    ])
+  )
 
   const spinner = !run ? null : node(({span}) =>
     span({
@@ -80,6 +93,7 @@ export default ({
     })
   }
 
+  const target = setTarget(href)
   const btn = node(({button, a, span}) => (isBtn ? button : a)({
     class: [
       context ? 'btn btn-'+context : '',
@@ -96,6 +110,7 @@ export default ({
     ariaExpanded: hasDrop && !hasSplit ? 'false' : null
   }, [
     ctrl(extra),
+    ext(target),
     !download || !mime ? null : a({
       class: 'd-none',
       href: `data:${mime},`,
@@ -127,7 +142,10 @@ export default ({
       }),
       ul({
         class: 'dropdown-menu'
-      }, links.map(({href, ...extra}) => 
+      }, links.map(link => ({
+        target: setTarget(link.href),
+        ...link
+      })).map(({href, target, ...extra}) => 
         li({}, [
           a({
             class: [
@@ -135,10 +153,12 @@ export default ({
               !href ? 'disabled' : ''
             ],
             href: href && typeof href == 'string' ? href : 'javascript:;',
+            target,
             onclick: typeof href != 'function' ? null : href,
             ariaDisabled: !href ? 'true' : null
           }, [
-            ctrl(extra)
+            ctrl(extra),
+            ext(target)
           ])
         ])
       ))

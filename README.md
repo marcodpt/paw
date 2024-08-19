@@ -116,11 +116,10 @@ so I created it.
 
 ## 🔧 TODO
  - put a hello world in the documentation and in the generated index.html
- - external links simbol and remove data-paw-path
  - dynamic title on route change
+ 
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
-
  - dynamic tests implementation
  - highlightjs as a component
  - tests as a route and qunit as a component

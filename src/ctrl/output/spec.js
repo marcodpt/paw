@@ -258,13 +258,25 @@ export default ({
       ],
       html: html(({
         a,
+        sup,
+        i,
         text
       }) => 
         a({
           href: 'https://www.google.com',
           target: '_blank'
         }, [
-          text('google')
+          text('google'),
+          sup({}, [
+            text(' '),
+            i({
+              class: [
+                'small',
+                'fa-solid',
+                'fa-arrow-up-right-from-square'
+              ]
+            })
+          ])
         ])
       )
     }, {
