@@ -1,3 +1,5 @@
+import plugin from '../../src/router/plugins/active/index.js'
+
 const getCss = nav => nav?.getAttribute('class')
   .split(' ')
   .map(css => css.trim())
@@ -63,6 +65,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
     f.setAttribute('class', [foot.variant].concat(Css).join(' '))
     const ref = f.querySelector('p')
     ref.innerHTML = devRef(dev).join('\n')
+    plugin({url: '/settings'})
   }
 
   const dflt = (doc) => {
@@ -71,7 +74,7 @@ export default (home, {navLinks, footerLinks, devRef}) => {
 
     return {
       page: {
-        title: doc.title,
+        title: doc.title.split(' | ').pop(),
         description: doc.head.
           querySelector('meta[name="description"]')?.
           getAttribute('content'),

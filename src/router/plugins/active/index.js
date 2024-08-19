@@ -38,6 +38,8 @@ export default ({url}) => {
       }
       l = l.parentNode
     }
+    const d = ' | '
+    document.title = Current.concat(document.title.split(d).pop()).join(d)
     Current.reverse()
     const current = Current.join(' / ')
     T.forEach(t => {

@@ -116,12 +116,12 @@ so I created it.
 
 ## 🔧 TODO
  - put a hello world in the documentation and in the generated index.html
- - dynamic title on route change
+ - copy README features to home article and allow to edit it
  
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
  - dynamic tests implementation
- - highlightjs as a component
+ - highlightjs as a component (js/html)
  - tests as a route and qunit as a component
  - docs as component
  - examples as component
@@ -136,7 +136,6 @@ fieldset.setProp, etc
  - remove or minimize lang support
  - remove non bootstrap options support, minimize options and review settings
  - separate outputs
- - copy README features to home article and allow to edit it
  - better array ctrl support (minimize, up, down, remove, add)
  - deep router param is an array (?, +, \*) support at the end of var
  - finish documentation
