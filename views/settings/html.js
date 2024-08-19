@@ -121,7 +121,11 @@ export default html => {
     ))
   )
 
-  const footerLinks = links => links.map(({
+  const footerLinks = links => links.map(link => ({
+    target: getTarget(link.href),
+    ...link
+  })).map(({
+    target,
     href,
     icon,
     title,
@@ -139,13 +143,14 @@ export default html => {
           'px-2',
           'text-reset'
         ],
-        target: getTarget(href),
+        target,
         title: description || null
       }, [
         !icon ? null : i({
           class: getIcon(icon)
         }),
-        title
+        title,
+        getExt(target)
       ])
     ])
   )).join('\n')
@@ -163,14 +168,20 @@ export default html => {
       text(intro)
     ])),
     html(({a, img, text}) => a({
-      href: website
+      href: website,
+      target: getTarget(website),
+      class: [
+        'text-reset',
+        'text-decoration-none'
+      ]
     }, [
       img({
         height,
         class: css,
         src: logo
       }),
-      text(company)
+      text(company),
+      getExt(getTarget(website))
     ]))
   ].filter(c => c)
 
