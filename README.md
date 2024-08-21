@@ -34,15 +34,18 @@ python3 -m http.server
 ```
 
 The folder contains 3 files
- - `favicon.ico`: Replace with your app icon.
- - `app.js`: These are your app's routes, modify as you like.
- - `index.html`: All navigation was automatically generated using
+ - [favicon.ico](https://raw.githubusercontent.com/marcodpt/paw/main/boilerplate/favicon.ico):
+Replace with your app icon.
+ - [app.js](https://github.com/marcodpt/paw/blob/main/boilerplate/app.js):
+These are your app's routes, modify as you like.
+ - [index.html](https://github.com/marcodpt/paw/blob/main/boilerplate/index.html):
+All navigation was automatically generated using
 [this page](https://marcodpt.github.io/paw/#/settings).
 You must import the file and edit it using the graphical interface and
 then modify the `main` tag manually which will be the home page of your app.
 
-All the code used to build the demo app is in the
-[views](https://github.com/marcodpt/paw/tree/main/views) folder.
+All the code used to build the [demo app](https://marcodpt.github.io/paw/)
+is in the [views](https://github.com/marcodpt/paw/tree/main/views) folder.
 
 It can be an excellent practical reference on how to use `Paw` and
 how to organize the code.
