@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    >
+    <title>App</title>
+    <meta name="description" content="My new app">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    >
+    <link
+      id="theme"
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="min-vh-100 d-flex flex-column">
+    <nav
+      class="navbar navbar-expand-lg bg-light navbar-light"
+    >
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              href="#sidebar"
+              class="nav-link invisible"
+              data-bs-toggle="offcanvas"
+              role="button"
+              aria-controls="sidebar"
+            >
+              <i class="fa-solid fa-bars"></i>
+              <span
+                class="navbar-text"
+                data-paw-text="current"
+              ></span>
+            </a>
+          </li>
+        </ul>
+        <a
+          class="navbar-brand"
+          href="#/"
+          title="My new app"
+        >
+          <img
+            src="favicon.ico"
+            alt="App"
+            height="16"
+            class="align-baseline"
+          >
+          <span data-paw-text="title">App</span>
+        </a>
+        <a
+          class="navbar-toggler border-0"
+          data-bs-toggle="collapse"
+          data-bs-target=".navbar-collapse"
+          role="button"
+        >
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item" data-paw-path="Home">
+              <a
+                href="#/"
+                class="nav-link"
+                data-paw-active="active"
+                title="My new app SSR home page."
+              >
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  <i class="fa-solid fa-home"></i>
+                  Home
+                </span>
+              </a>
+            </li>
+            <li class="nav-item" data-paw-path="Hello World!">
+              <a
+                href="#/hello/World"
+                class="nav-link"
+                data-paw-active="active"
+                title="The simplest route!"
+              >
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  <i class="fa-solid fa-globe"></i>
+                  Hello World!
+                </span>
+              </a>
+            </li>
+            <li class="nav-item" data-paw-path="Login">
+              <a
+                href="#/login"
+                class="nav-link"
+                data-paw-active="active"
+                title="Login page demo."
+              >
+                <span
+                  data-bs-toggle="collapse"
+                  data-bs-target=".navbar-collapse.show"
+                >
+                  <i class="fa-solid fa-sign-in"></i>
+                  Login
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="container my-5">
+        <h1 data-paw-text="title">App</h1>
+        <p
+          class="lead text-body-secondary"
+          data-paw-text="description"
+        >My new app</p>
+        <h2>❤️ Features</h2>
+        <ul>
+          <li>
+            Theme 
+            <a
+              href="https://marcodpt.github.io/paw/#/settings"
+            >builder</a>
+             optimized for SEO
+          </li>
+          <li>Built-in SPA router</li>
+          <li>No build steps, no vDom, no need to rewrite any JS library!</li>
+          <li>
+            JSON Schema based 
+            <a
+              href="https://marcodpt.github.io/paw/#/example/form/4"
+            >forms</a>
+          </li>
+          <li>
+            HTML to Hyperscript 
+            <a
+              href="https://marcodpt.github.io/paw/#/converter"
+            >converter</a>
+          </li>
+          <li>
+            <a
+              href="https://marcodpt.github.io/paw/#/users"
+            >Table</a>
+             data with great flexibility
+          </li>
+          <li>
+            <a
+              href="https://marcodpt.github.io/paw/#/example/graph/0"
+            >Graph</a>
+          </li>
+          <li>
+            <a
+              href="https://marcodpt.github.io/paw/#/example/chart/0"
+            >Chart</a>
+          </li>
+          <li>
+            <a
+              href="https://marcodpt.github.io/paw/#/example/barcode/0"
+            >Barcode</a>
+          </li>
+          <li>
+            <a
+              href="https://marcodpt.github.io/paw/#/example/map/1"
+            >Maps</a>
+          </li>
+        </ul>
+      </div>
+    </main>
+    <footer class="text-body-secondary mt-auto">
+      <div class="container pt-5 pb-4">
+        <ul
+          class="nav justify-content-center border-bottom pb-3 mb-3"
+        >
+          <li class="nav-item">
+            <a
+              href=""
+              class="nav-link px-2 text-reset"
+              title="Home page of this project."
+            >
+              <i class="fa-solid fa-home"></i>
+              Home Page
+            </a>
+          </li>
+        </ul>
+        <p class="text-center">
+          <span>Made with ❤️ with </span>
+          <a
+            href="https://marcodpt.github.io/paw/#/settings"
+            target="_blank"
+            class="text-reset text-decoration-none"
+          >
+            <img
+              height="14"
+              class="mb-1"
+              src="https://marcodpt.github.io/paw/favicon.ico"
+            >
+            Paw
+            <sup>
+              <i class="small fa-solid fa-arrow-up-right-from-square"></i>
+            </sup>
+          </a>
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

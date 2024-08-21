@@ -361,7 +361,7 @@ export default html => {
             li({}, [
               text('Theme '),
               a({
-                href: '#/settings'
+                href: 'https://marcodpt.github.io/paw/#/settings'
               }, [
                 text('builder')
               ]),
@@ -376,7 +376,7 @@ export default html => {
             li({}, [
               text('JSON Schema based '),
               a({
-                href: '#/example/form/4'
+                href: 'https://marcodpt.github.io/paw/#/example/form/4'
               }, [
                 text('forms')
               ])
@@ -384,14 +384,14 @@ export default html => {
             li({}, [
               text('HTML to Hyperscript '),
               a({
-                href: '#/converter'
+                href: 'https://marcodpt.github.io/paw/#/converter'
               }, [
                 text('converter')
               ])
             ]),
             li({}, [
               a({
-                href: '#/users'
+                href: 'https://marcodpt.github.io/paw/#/users'
               }, [
                 text('Table')
               ]),
@@ -399,28 +399,28 @@ export default html => {
             ]),
             li({}, [
               a({
-                href: '#/example/graph/0'
+                href: 'https://marcodpt.github.io/paw/#/example/graph/0'
               }, [
                 text('Graph')
               ])
             ]),
             li({}, [
               a({
-                href: '#/example/chart/0'
+                href: 'https://marcodpt.github.io/paw/#/example/chart/0'
               }, [
                 text('Chart')
               ])
             ]),
             li({}, [
               a({
-                href: '#/example/barcode/0'
+                href: 'https://marcodpt.github.io/paw/#/example/barcode/0'
               }, [
                 text('Barcode')
               ])
             ]),
             li({}, [
               a({
-                href: '#/example/map/1'
+                href: 'https://marcodpt.github.io/paw/#/example/map/1'
               }, [
                 text('Maps')
               ])

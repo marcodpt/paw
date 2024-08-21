@@ -50,6 +50,7 @@ export default ({render, form, home, html}) => {
         }
       },
       logo: {
+        title: 'Logo',
         type: 'object',
         properties: {
           src: {

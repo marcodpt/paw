@@ -114,9 +114,8 @@ so I created it.
 
 ## 🔧 TODO
  - put a hello world in the documentation and in the generated index.html
- - copy README features to home article and allow to edit it
- - html should not be exposed to client
 
+ - html should not be exposed to client
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
  - dynamic tests implementation
