@@ -18,20 +18,16 @@
  - [Barcode](https://marcodpt.github.io/paw/#/example/barcode/0)
  - [Maps](https://marcodpt.github.io/paw/#/example/map/1)
 
-## 🎯 Goals
- - Bring maximum customization via graphical interface.
- - Build a solid, well-tested library of hyperscript components.
- - Simplify the use of third-party libraries with components with sane defaults.
- - Document all code completely and at the same time concisely.
- - Many examples synchronized with the tests.
-
 ## 💻 Usage
 Copy the [boilerplate](https://github.com/marcodpt/paw/tree/main/boilerplate)
-folder and run the command inside it.
+folder to your machine and run the command inside it.
 
 ```
 python3 -m http.server
 ```
+
+[This is what you will get!](https://marcodpt.github.io/paw/boilerplate/)
+
 
 The folder contains 3 files
  - [favicon.ico](https://raw.githubusercontent.com/marcodpt/paw/main/boilerplate/favicon.ico):
@@ -49,6 +45,13 @@ is in the [views](https://github.com/marcodpt/paw/tree/main/views) folder.
 
 It can be an excellent practical reference on how to use `Paw` and
 how to organize the code.
+
+## 🎯 Goals
+ - Bring maximum customization via graphical interface.
+ - Build a solid, well-tested library of hyperscript components.
+ - Simplify the use of third-party libraries with components with sane defaults.
+ - Document all code completely and at the same time concisely.
+ - Many examples synchronized with the tests.
 
 ## 📢 Motivation
 
