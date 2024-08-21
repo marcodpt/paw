@@ -210,6 +210,7 @@ export default html => {
     span,
     main,
     h1,
+    h2,
     p,
     footer
   }) => html({
@@ -352,6 +353,78 @@ export default html => {
             dataPawText: 'description'
           }, [
             text(page.description)
+          ]),
+          h2({}, [
+            text('❤️ Features')
+          ]),
+          ul({}, [
+            li({}, [
+              text('Theme '),
+              a({
+                href: '#/settings'
+              }, [
+                text('builder')
+              ]),
+              text(' optimized for SEO')
+            ]),
+            li({}, [
+              text('Built-in SPA router')
+            ]),
+            li({}, [
+              text('No build steps, no vDom, no need to rewrite any JS library!S')
+            ]),
+            li({}, [
+              text('JSON Schema based '),
+              a({
+                href: '#/example/form/4'
+              }, [
+                text('forms')
+              ])
+            ]),
+            li({}, [
+              text('HTML to Hyperscript '),
+              a({
+                href: '#/converter'
+              }, [
+                text('converter')
+              ])
+            ]),
+            li({}, [
+              a({
+                href: '#/users'
+              }, [
+                text('Table')
+              ]),
+              text(' data with great flexibility')
+            ]),
+            li({}, [
+              a({
+                href: '#/example/graph/0'
+              }, [
+                text('Graph')
+              ])
+            ]),
+            li({}, [
+              a({
+                href: '#/example/chart/0'
+              }, [
+                text('Chart')
+              ])
+            ]),
+            li({}, [
+              a({
+                href: '#/example/barcode/0'
+              }, [
+                text('Barcode')
+              ])
+            ]),
+            li({}, [
+              a({
+                href: '#/example/map/1'
+              }, [
+                text('Maps')
+              ])
+            ]),
           ])
         ])
       ]),

@@ -2,23 +2,21 @@
   A low-code, vdom-free hyperscript framework.
 
   [![bundlejs](https://deno.bundlejs.com/badge?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)](https://bundlejs.com/?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-  [Demo](https://marcodpt.github.io/paw/#/users)
+  [Demo](https://marcodpt.github.io/paw/)
 
 ## ❤️ Features
- - Theme [builder](https://marcodpt.github.io/paw/#/settings)
- - Built-in router
- - SPA with SSR `index.html` optimized for SEO
- - No build steps
- - No vDom
- - Stop the nonsense of rewriting any JS library for a framework!
- - JSON Schema based [forms](https://marcodpt.github.io/paw/#/examples/form/4)
+ - Theme [builder](https://marcodpt.github.io/paw/#/settings) optimized for SEO
+ - Built-in SPA router
+ - No build steps, no vDom, no need to rewrite any JS library!
+ - JSON Schema based [forms](https://marcodpt.github.io/paw/#/example/form/4)
  - HTML to Hyperscript [converter](https://marcodpt.github.io/paw/#/converter)
  - [Table](https://marcodpt.github.io/paw/#/users) data with great flexibility
- - [Graph](https://marcodpt.github.io/paw/#/examples/graph/0)
- - [Chart](https://marcodpt.github.io/paw/#/examples/chart/0)
- - [Barcode](https://marcodpt.github.io/paw/#/examples/barcode/0)
- - [Maps](https://marcodpt.github.io/paw/#/examples/map/1)
+ - [Graph](https://marcodpt.github.io/paw/#/example/graph/0)
+ - [Chart](https://marcodpt.github.io/paw/#/example/chart/0)
+ - [Barcode](https://marcodpt.github.io/paw/#/example/barcode/0)
+ - [Maps](https://marcodpt.github.io/paw/#/example/map/1)
 
 ## 🎯 Goals
  - Bring maximum customization via graphical interface.
@@ -117,7 +115,8 @@ so I created it.
 ## 🔧 TODO
  - put a hello world in the documentation and in the generated index.html
  - copy README features to home article and allow to edit it
- 
+ - html should not be exposed to client
+
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
  - dynamic tests implementation
