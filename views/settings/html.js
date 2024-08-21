@@ -371,7 +371,7 @@ export default html => {
               text('Built-in SPA router')
             ]),
             li({}, [
-              text('No build steps, no vDom, no need to rewrite any JS library!S')
+              text('No build steps, no vDom, no need to rewrite any JS library!')
             ]),
             li({}, [
               text('JSON Schema based '),
