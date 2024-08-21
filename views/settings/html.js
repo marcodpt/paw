@@ -284,7 +284,7 @@ export default html => {
                   ]
                 }),
                 span({
-                  class: 'navbar-text',
+                  class: 'navbar-text visible pe-none',
                   dataPawText: 'current'
                 })
               ])

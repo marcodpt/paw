@@ -40,8 +40,13 @@ All navigation was automatically generated using
 You must import the file and edit it using the graphical interface and
 then modify the `main` tag manually which will be the home page of your app.
 
-All the code used to build the [demo app](https://marcodpt.github.io/paw/)
-is in the [views](https://github.com/marcodpt/paw/tree/main/views) folder.
+The [demo app](https://marcodpt.github.io/paw/) uses
+[index.html](https://github.com/marcodpt/paw/blob/main/index.html) as the
+home page and [app.js](https://github.com/marcodpt/paw/blob/main/app.js)
+as the router.
+
+All routes were distributed across several modules within the
+[views](https://github.com/marcodpt/paw/tree/main/views) folder.
 
 It can be an excellent practical reference on how to use `Paw` and
 how to organize the code.
