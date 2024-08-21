@@ -25,6 +25,28 @@
  - Document all code completely and at the same time concisely.
  - Many examples synchronized with the tests.
 
+## 💻 Usage
+Copy the [boilerplate](https://github.com/marcodpt/paw/tree/main/boilerplate)
+folder and run the command inside it.
+
+```
+python3 -m http.server
+```
+
+The folder contains 3 files
+ - `favicon.ico`: Replace with your app icon.
+ - `app.js`: These are your app's routes, modify as you like.
+ - `index.html`: All navigation was automatically generated using
+[this page](https://marcodpt.github.io/paw/#/settings).
+You must import the file and edit it using the graphical interface and
+then modify the `main` tag manually which will be the home page of your app.
+
+All the code used to build the demo app is in the
+[views](https://github.com/marcodpt/paw/tree/main/views) folder.
+
+It can be an excellent practical reference on how to use `Paw` and
+how to organize the code.
+
 ## 📢 Motivation
 
 ### Why are JS frameworks bad?
@@ -113,8 +135,6 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
- - put a hello world in the documentation and in the generated index.html
-
  - html should not be exposed to client
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
