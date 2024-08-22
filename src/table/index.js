@@ -35,24 +35,15 @@ export default ({
   const hasTotals = U.length > 0
 
   query = query ? {...query} : {}
-  const retify = () => {
-    query.page = typeof query.page == 'number' && query.page >= 1 ?
-      parseInt(query.page) : 1
-    query.limit = !pagination ? 0 : 
-      typeof query.limit == 'number' && query.limit >= 1 ?
-        parseInt(query.limit) : 10
-    query.filters = (query.filters instanceof Array ? query.filters : [])
-      .filter(F => typeof F == 'function')
-    query.search = typeof query.search == 'string' ? query.search : ''
-    query.sort = typeof query.sort == 'string' ? query.sort : ''
-    query.group = query.group instanceof Array ? query.group : null
-    query.checked = query.checked instanceof Array ? query.checked : []
-  }
-  retify()
 
   var pager = null
   const state = {
-    refresh: () => {tbl.refresh()},
+    refresh: V => {
+      if (V instanceof Array || V === null) {
+        state.data = V
+      }
+      refresh()
+    },
     data: schema.default,
     rows: null,
     query,
@@ -123,7 +114,7 @@ export default ({
               update: (err, v) => {
                 if (!err && v != query.search) {
                   query.search = v
-                  tbl.refresh()
+                  refresh()
                 }
               }
             })
@@ -163,7 +154,7 @@ export default ({
                     query.checked.splice(index, 1)
                   }
                 })
-                tbl.refresh(true)
+                refresh(true)
               }
             })
           ])
@@ -193,7 +184,7 @@ export default ({
               href: 'javascript:;',
               onclick: () => {
                 query.sort = (query.sort == k ? '-' : '')+k
-                tbl.refresh(true)
+                refresh(true)
               }
             })
           ])
@@ -203,8 +194,26 @@ export default ({
     ])
   )
 
-  tbl.refresh = prevent => {
-    retify()
+  const refresh = prevent => {
+    query.page = typeof query.page == 'number' && query.page >= 1 ?
+      parseInt(query.page) : 1
+    query.limit = !pagination ? 0 : 
+      typeof query.limit == 'number' && query.limit >= 1 ?
+        parseInt(query.limit) : 10
+    query.filters = (query.filters instanceof Array ? query.filters : [])
+      .filter(F => typeof F == 'function')
+    query.search = typeof query.search == 'string' ? query.search : ''
+    query.sort = typeof query.sort == 'string' ? query.sort : ''
+    query.group = query.group instanceof Array ? query.group : null
+    query.checked = query.checked instanceof Array ? query.checked : []
+    if (state.data instanceof Array) {
+      const C = query.checked
+      for (var i = C.length - 1; i >= 0; i--) {
+        if (state.data.indexOf(C[i]) < 0) {
+          C.splice(i, 1)
+        }
+      }
+    }
 
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
@@ -235,7 +244,7 @@ export default ({
             update: (err, v) => {
               if (!err && v && v != query.page) {
                 query.page = v
-                tbl.refresh(true)
+                refresh(true)
               }
             },
             init: el => pager = el
@@ -296,10 +305,10 @@ export default ({
                     const index = query.checked.indexOf(row)
                     if (index < 0 && v) {
                       query.checked.push(row)
-                      tbl.refresh(true)
+                      refresh(true)
                     } else if (index >= 0 && !v) {
                       query.checked.splice(index, 1)
-                      tbl.refresh(true)
+                      refresh(true)
                     }
                   }
                 }
@@ -357,21 +366,8 @@ export default ({
     }
   }
 
-  tbl.setData = V => {
-    state.data = V instanceof Array ? V : null
+  tbl.setData = state.refresh
 
-    if (state.data instanceof Array) {
-      const C = query.checked
-      for (var i = C.length - 1; i >= 0; i--) {
-        if (state.data.indexOf(C[i]) < 0) {
-          C.splice(i, 1)
-        }
-      }
-    }
-
-    tbl.refresh()
-  }
-
-  tbl.refresh()
+  refresh()
   return tbl
 }
