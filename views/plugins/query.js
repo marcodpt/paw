@@ -118,7 +118,7 @@ export default ({modal, ctrl}, users) => {
       })
 
       const build = () => {
-        btn.replaceWith(ctrl({
+        const ref = ctrl({
           ...btnQuery,
           links: !S.filters.length ? null :
             S.filters.map((f, i) => ({
@@ -129,7 +129,9 @@ export default ({modal, ctrl}, users) => {
                 build()
               }
             }))
-        }))
+        })
+        btn.replaceWith(ref)
+        btn = ref
 
         tbl.setData(S.filters.reduce((users, {
           field, operator, value
