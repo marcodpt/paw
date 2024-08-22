@@ -35,15 +35,20 @@ export default ({
   const hasTotals = U.length > 0
 
   query = query ? {...query} : {}
-  query.page = typeof query.page == 'number' && query.page >= 1 ?
-    parseInt(query.page) : 1
-  query.limit = !pagination ? 0 : 
-    typeof query.limit == 'number' && query.limit >= 1 ?
-      parseInt(query.limit) : 10
-  query.search = typeof query.search == 'string' ? query.search : ''
-  query.sort = typeof query.sort == 'string' ? query.sort : ''
-  query.group = query.group instanceof Array ? query.group : null
-  query.checked = query.checked instanceof Array ? query.checked : []
+  const retify = () => {
+    query.page = typeof query.page == 'number' && query.page >= 1 ?
+      parseInt(query.page) : 1
+    query.limit = !pagination ? 0 : 
+      typeof query.limit == 'number' && query.limit >= 1 ?
+        parseInt(query.limit) : 10
+    query.filters = (query.filters instanceof Array ? query.filters : [])
+      .filter(F => typeof F == 'function')
+    query.search = typeof query.search == 'string' ? query.search : ''
+    query.sort = typeof query.sort == 'string' ? query.sort : ''
+    query.group = query.group instanceof Array ? query.group : null
+    query.checked = query.checked instanceof Array ? query.checked : []
+  }
+  retify()
 
   var pager = null
   var rows = null
@@ -190,6 +195,8 @@ export default ({
   )
 
   tbl.refresh = prevent => {
+    retify()
+
     const x = tbl.querySelector('tbody')
     x.innerHTML = ''
 

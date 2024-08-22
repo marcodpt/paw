@@ -23,6 +23,10 @@ const orderBy = Fields => data => {
 const pager = (p, limit) => data => !limit ? data :
   data.slice((p - 1) * limit, p * limit)
 
+const query = filters => data => filters.reduce(
+  (data, query) => data.filter(query)
+, data)
+
 const find = (match, format) => data => {
   if (match) {
     data = data.filter(row => Object.keys(row).reduce((pass, k) =>
@@ -70,7 +74,7 @@ const groupBy = (Fields, Methods) => data => {
 }
 
 export default ({
-  search, page, limit, sort, group, checked, data, totals, format
+  filters, search, page, limit, sort, group, checked, data, totals, format
 }) => {
   var rows = null
   var view = null
@@ -81,6 +85,7 @@ export default ({
       return T
     }, {})
     rows = run(
+      query(filters),
       find(search, format),
       group ? groupBy(group, totals) : identity,
       sort ? orderBy([sort]) : identity

@@ -1,6 +1,6 @@
 import schema from '../data/schema.js'
 
-export default ({modal, ctrl}, users) => {
+export default ({modal, ctrl}) => {
   var btn = null
 
   const S = {
@@ -12,7 +12,7 @@ export default ({modal, ctrl}, users) => {
     init: el => {btn = btn || el},
     href: () => {
       const tbl = btn.closest('table')
-      const {format, properties} = tbl.read()
+      const {format, properties, query, rows} = tbl.read()
       const P = properties
       const K = Object.keys(P)
       S.field = null
@@ -79,7 +79,7 @@ export default ({modal, ctrl}, users) => {
           S.operator = operator
           if (changed) {
             if (fixed) {
-              const values = users.reduce((V, row) => {
+              const values = rows.reduce((V, row) => {
                 if (V.indexOf(row[field]) < 0) {
                   V.push(row[field])
                 }
@@ -133,9 +133,7 @@ export default ({modal, ctrl}, users) => {
         btn.replaceWith(ref)
         btn = ref
 
-        tbl.setData(S.filters.reduce((users, {
-          field, operator, value
-        }) => users.filter(row => {
+        query.filters = S.filters.map(({field, operator, value}) => row => {
           const op = operator
           const v = row[field]
           const f = format[field]
@@ -148,7 +146,8 @@ export default ({modal, ctrl}, users) => {
             op == 'ge' ? v >= value : 
             op == 'lt' ? v < value : 
             op == 'le' ? v <= value : true
-        }), users))
+        })
+        tbl.refresh()
       }
     }
   }
