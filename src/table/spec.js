@@ -4864,10 +4864,7 @@ export default ({
               context: 'dark',
               icon: 'info-circle',
               title: 'Counter',
-              init: el => {btn = el},
-              href: () => {
-                const tbl = btn.closest('table')
-                const {query} = tbl.read()
+              href: ({query}) => {
                 const msg = `Hello!\n${query.checked.length} user(s) checked!`
                 window.alert(msg)
               }
@@ -5481,10 +5478,7 @@ export default ({
               title: 'Export',
               mime: 'text/plain; charset=UTF-8',
               download: 'data.txt',
-              init: el => {btn = el},
-              href: () => {
-                const tbl = btn.closest('table')
-                const {rows, format, properties} = tbl.read()
+              href: ({rows, format, properties}) => {
                 const P = properties
                 const K = Object.keys(P)
 
@@ -5843,13 +5837,13 @@ export default ({
               icon: 'filter',
               title: 'Age <= 30 AND Name contains "a"',
               init: el => {btn = el},
-              href: () => {
-                const tbl = btn.closest('table')
-                const {rows} = tbl.read()
+              href: ({data, query, refresh}) => {
                 btn.disabled = true
-                tbl.setData(rows.filter(({
-                  age, name
-                }) => age <= 30 && name.indexOf('a') >= 0))
+                query.filters = [
+                  row => row.age <= 30,
+                  row => row.name.indexOf('a') >= 0
+                ]
+                refresh()
               }
             }
           ],
@@ -6189,12 +6183,10 @@ export default ({
               icon: 'th',
               title: 'Group by Age',
               init: el => {btn = el},
-              href: () => {
-                const tbl = btn.closest('table')
+              href: ({query, refresh}) => {
                 btn.disabled = true
-                const {query} = tbl.read()
                 query.group = ['age']
-                tbl.refresh()
+                refresh()
               }
             }
           ],

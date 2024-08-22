@@ -1,18 +1,21 @@
-import schema from '../data/schema.js'
-
-export default ({modal, ctrl}) => {
+export default ({icon, title, context}, {modal, ctrl}) => {
   var btn = null
+  var X = null
 
   const S = {
     filters: []
   }
 
   const btnQuery = {
-    ...schema.links[2],
+    icon,
+    title,
+    context,
     init: el => {btn = btn || el},
-    href: () => {
-      const tbl = btn.closest('table')
-      const {format, properties, query, rows} = tbl.read()
+    href: Y => {
+      if (!X && Y) {
+        X = Y
+      }
+      const {format, properties, query, data, refresh} = X
       const P = properties
       const K = Object.keys(P)
       S.field = null
@@ -20,7 +23,8 @@ export default ({modal, ctrl}) => {
       S.value = null
 
       modal({
-        ...schema.links[2],
+        icon,
+        title,
         properties: {
           field: {
             type: 'string',
@@ -79,7 +83,7 @@ export default ({modal, ctrl}) => {
           S.operator = operator
           if (changed) {
             if (fixed) {
-              const values = rows.reduce((V, row) => {
+              const values = data.reduce((V, row) => {
                 if (V.indexOf(row[field]) < 0) {
                   V.push(row[field])
                 }
@@ -147,7 +151,7 @@ export default ({modal, ctrl}) => {
             op == 'lt' ? v < value : 
             op == 'le' ? v <= value : true
         })
-        tbl.refresh()
+        refresh()
       }
     }
   }

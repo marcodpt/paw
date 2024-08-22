@@ -1,15 +1,11 @@
-import schema from '../data/schema.js'
-
-export default () => {
-  var btn = null
+export default ({icon, title, context}) => {
   return {
-    ...schema.links[4],
+    icon,
+    title,
+    context,
     mime: 'text/plain; charset=UTF-8',
     download: 'users.txt',
-    init: el => {btn = btn || el},
-    href: () => {
-      const tbl = btn.closest('table')
-      const {rows, format, properties} = tbl.read()
+    href: ({rows, format, properties}) => {
       const P = properties
       const K = Object.keys(P)
 

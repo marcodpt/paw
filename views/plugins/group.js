@@ -1,26 +1,26 @@
-import schema from '../data/schema.js'
-
-export default ({modal, ctrl}) => {
+export default ({icon, title, context}, {modal, ctrl}) => {
   var btn = null
   return {
-    ...schema.links[3],
+    icon,
+    title,
+    context,
     init: el => {btn = btn || el},
-    href: () => {
-      const tbl = btn.closest('table')
-      const {query, properties} = tbl.read()
+    href: ({query, properties, refresh}) => {
       const P = properties
       const K = Object.keys(P)
 
       if (query.group) {
         btn.innerHTML = ''
         btn.appendChild(ctrl({
-          ...schema.links[3]
+          icon,
+          title
         }))
         query.group = null
-        tbl.refresh()
+        refresh()
       } else {
         modal({
-          ...schema.links[3],
+          icon,
+          title,
           properties: {
             fields: {
               type: 'array',
@@ -35,11 +35,11 @@ export default ({modal, ctrl}) => {
           submit: ({fields}) => {
             btn.innerHTML = ''
             btn.appendChild(ctrl({
-              title: schema.links[3].title,
+              title: title,
               icon: 'close'
             }))
             query.group = fields
-            tbl.refresh()
+            refresh()
           }
         })
       }

@@ -51,8 +51,14 @@ export default ({
   retify()
 
   var pager = null
-  var rows = null
-  var data = schema.default
+  const state = {
+    refresh: () => {tbl.refresh()},
+    data: schema.default,
+    rows: null,
+    query,
+    properties: P,
+    format
+  }
 
   const tbl = node(({
     table, thead, tbody, tr, th, td, div, a, text, button, ul, span, label
@@ -85,7 +91,10 @@ export default ({
               div({
                 class: 'col-auto'
               }, [
-                ctrl(X)
+                ctrl({
+                  ...X,
+                  data: state
+                })
               ])
             ))
           ])
@@ -146,7 +155,7 @@ export default ({
               context: 'success',
               icon: 'check',
               href: () => {
-                (rows || []).forEach(row => {
+                (state.rows || []).forEach(row => {
                   const index = query.checked.indexOf(row)
                   if (index < 0) {
                     query.checked.push(row)
@@ -201,9 +210,9 @@ export default ({
     x.innerHTML = ''
 
     const R = (update ? update : engine)({
-      ...query, data, totals: T, format
+      ...query, data: state.data, totals: T, format
     }) || {}
-    rows = R.rows
+    state.rows = R.rows
     const {view, totals, pages} = R
 
     if (view) {
@@ -304,7 +313,10 @@ export default ({
                 ...L,
                 size: 'sm',
                 title: L.icon ? '' : L.title,
-                data: row
+                data: {
+                  ...state,
+                  row
+                }
               })
             ])
           )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>
@@ -345,20 +357,13 @@ export default ({
     }
   }
 
-  tbl.read = () => ({
-    rows,
-    query,
-    properties: P,
-    format
-  })
-
   tbl.setData = V => {
-    data = V instanceof Array ? V : null
+    state.data = V instanceof Array ? V : null
 
-    if (data instanceof Array) {
+    if (state.data instanceof Array) {
       const C = query.checked
       for (var i = C.length - 1; i >= 0; i--) {
-        if (data.indexOf(C[i]) < 0) {
+        if (state.data.indexOf(C[i]) < 0) {
           C.splice(i, 1)
         }
       }

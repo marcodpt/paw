@@ -146,9 +146,9 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
- - html should not be exposed to client
  - completely remove functions assign to DOM, table.read, table.setData,
 fieldset.setProp, etc
+ - html should not be exposed to client
  - dynamic tests implementation
  - highlightjs as a component (js/html)
  - tests as a route and qunit as a component
