@@ -20,7 +20,11 @@ export default X => {
   schema.items.links[0] = remove(schema.items.links[0], X)
   schema.items.links[1] = edit(schema.items.links[1], X)
 
-  const tbl = table(schema)
+  var refresh = null
+  const tbl = table({
+    ...schema,
+    init: r => {refresh = r}
+  })
   render(tbl)
-  wait(500).then(() => tbl.setData(users))
+  wait(500).then(() => refresh(users))
 }

@@ -13,6 +13,7 @@ export default ({
   check,
   css,
   update,
+  init,
   ...schema
 }) => {
   items = items || {}
@@ -366,7 +367,9 @@ export default ({
     }
   }
 
-  tbl.setData = state.refresh
+  if (typeof init == 'function') {
+    init(state.refresh)
+  }
 
   refresh()
   return tbl
