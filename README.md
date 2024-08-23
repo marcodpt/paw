@@ -146,8 +146,7 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
- - completely remove functions assign to DOM, table.read, table.setData,
-fieldset.setProp, etc
+ - completely remove functions assign to DOM, fieldset.setProp
  - html should not be exposed to client
  - dynamic tests implementation
  - highlightjs as a component (js/html)
