@@ -59,8 +59,9 @@ export default ({render, Params, form, node, print}) => {
         } else {
           Q[k] = {
             default: k == 'enum' ? P[k].join('\n') :
-              typeof P[k] == 'string' ? P[k] : print(P[k]),
-            ui: 'text'
+              k == 'default' ? typeof P[k] == 'string' ? P[k] : print(P[k]) :
+                P[k],
+            ui: k == 'enum' || k == 'default' ? 'text' : null
           }
         }
         return Q
