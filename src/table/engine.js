@@ -29,7 +29,7 @@ const query = filters => data => filters.reduce(
 
 const find = (match, format) => data => {
   if (match) {
-    data = data.filter(row => Object.keys(row).reduce((pass, k) =>
+    data = data.filter(row => Object.keys(format).reduce((pass, k) =>
       pass || format[k](row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
     , false))
   }
