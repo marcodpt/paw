@@ -5,7 +5,9 @@ const normalizeDesc = desc => typeof desc == 'string' ?
 
 const formatArg = ({type, title}) =>
   type == 'object' && !title ? '{...}' : 
-    (title || '')+(title && type ? ': ' : '')+(type || '')
+    (title || '')+(title && type ? ': ' : '')+(
+      type instanceof Array ? type.join('|') : (type || '')
+    )
 
 export default ({render, Params, form, node, print}) => {
   const setProps = P => Object.keys(P).reduce((Q, k) => ({
@@ -14,7 +16,8 @@ export default ({render, Params, form, node, print}) => {
       title: k+(
         P[k].type == 'array' && P[k].items?.type ? 
           '(['+P[k].items?.type+'])' :
-        P[k].type ? ' ('+P[k].type+')' : ''
+        P[k].type instanceof Array ? ' ('+P[k].type.join('|')+')' : 
+        P[k].type && P[k].type != 'function' ? ' ('+P[k].type+')' : ''
       ),
       ...P[k]
     })
@@ -22,8 +25,8 @@ export default ({render, Params, form, node, print}) => {
 
   const setSchema = ({type, title, icon, description, returns, ...P}) => {
     if (P.args || returns || type == 'function') {
-      title = title+`(${(P.args || []).map(formatArg).join(', ')})`+
-        (returns ? ` => ${formatArg(returns)}` : '')
+      title = title+`((${(P.args || []).map(formatArg).join(', ')})`+
+        (returns ? ` => ${formatArg(returns)})` : ' => ())')
     }
     return {
       type: 'object',
@@ -59,7 +62,7 @@ export default ({render, Params, form, node, print}) => {
         } else {
           Q[k] = {
             default: k == 'enum' ? P[k].join('\n') :
-              k == 'default' ? typeof P[k] == 'string' ? P[k] : print(P[k]) :
+              k == 'default' ? print(P[k]) :
                 P[k],
             ui: k == 'enum' || k == 'default' ? 'text' : null
           }
