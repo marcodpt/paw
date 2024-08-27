@@ -1203,6 +1203,7 @@ export default ({
           description: 'Single user entry',
           readOnly: true,
           close: () => {window.alert('close')},
+          col: 6,
           properties: {
             id: {
               type: 'integer',
@@ -1210,7 +1211,8 @@ export default ({
               description: 'User id',
               default: 0,
               href: '#/users/{id}',
-              totals: 'count'
+              totals: 'count',
+              col: 12
             },
             name: {
               type: 'string',
@@ -1218,7 +1220,8 @@ export default ({
               description: 'User name',
               default: '',
               minLength: 1,
-              maxLength: 255
+              maxLength: 255,
+              col: 12
             }, 
             age: {
               type: 'integer',
@@ -1367,7 +1370,7 @@ export default ({
               ]),
               div({
                 class: [
-                  'col-12',
+                  'col-6',
                   'my-2',
                   'row'
                 ]
@@ -1393,7 +1396,7 @@ export default ({
               ]),
               div({
                 class: [
-                  'col-12',
+                  'col-6',
                   'my-2',
                   'row'
                 ]

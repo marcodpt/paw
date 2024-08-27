@@ -80,7 +80,6 @@ export default ({
           delete Data[k]
         }*/
 
-        col = P[k].col || col
         const {title, description, ...schema} = {
           delay,
           showValid,
@@ -99,7 +98,7 @@ export default ({
           button,
         }) =>
           div({
-            class: `col-${col || 12} `+
+            class: `col-${P[k].col || col || 12} `+
               (size == 'lg' ? 'my-3' : size == 'sm' ? 'my-1' : 'my-2')+
               (title ? ' row' : '')+
               (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
