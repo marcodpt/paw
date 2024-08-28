@@ -14,13 +14,12 @@ const readIcon = i => {
   return prefix !== false ? prefix+cls.split(' ')[1].substr(3) : ''
 }
 
-export default (home, {navLinks, footerLinks, devRef}) => {
+export default (home, {navLinks, buildFooter}) => {
   const rebuild = (doc, {
     page,
     logo,
     navbar,
-    foot,
-    dev
+    foot
   }) => {
     [doc.body, home].forEach(e => {
       e.querySelectorAll('[data-paw-text=title]').forEach(e => {
@@ -53,18 +52,16 @@ export default (home, {navLinks, footerLinks, devRef}) => {
     )
     nav.querySelector('.navbar-collapse').innerHTML = navLinks(navbar.links)
     
-    const f = doc.body.querySelector('footer')
-    const Css = f.getAttribute('class').split(' ')
-    Css.shift()
-
-    const ul = f.querySelector('ul')
-    ul.innerHTML = footerLinks(foot.links)
-    ul.classList[
-      dev.show && foot.links.length ? 'add' : 'remove'
-    ]('mb-3', 'pb-3', 'border-bottom')
-    f.setAttribute('class', [foot.variant].concat(Css).join(' '))
-    const ref = f.querySelector('p')
-    ref.innerHTML = devRef(dev).join('\n')
+    var f = doc.body.querySelector('footer')
+    if (f) {
+      doc.body.removeChild(f)
+    }
+    f = buildFooter(foot)
+    if (f) {
+      const target = document.createElement('div')
+      target.innerHTML = f
+      doc.body.appendChild(target.firstElementChild)
+    }
     plugin({url: '/settings'})
   }
 
@@ -133,16 +130,17 @@ export default (home, {navLinks, footerLinks, devRef}) => {
           description: a?.getAttribute('title') || '',
           icon: readIcon(a?.querySelector('i')),
           href: a?.getAttribute('href')
+        })),
+        refs: Array.from(doc.body.querySelector('footer')?.
+          querySelectorAll('p > span') || []
+        ).map(r => ({
+          description: r.querySelector('span')?.textContent || '',
+          title: r.querySelector('a')?.textContent.trim() || '',
+          href: r.querySelector('a')?.getAttribute('href') || '',
+          logo: r.querySelector('img')?.getAttribute('src') || '',
+          height: parseInt(r.querySelector('img')?.getAttribute('height') || 0),
+          css: r.querySelector('img')?.getAttribute('class') || ''
         }))
-      },
-      dev: {
-        show: !!ref?.innerHTML.trim(),
-        intro: ref?.querySelector('span')?.textContent || '',
-        company: ref?.querySelector('a')?.textContent.trim() || '',
-        website: ref?.querySelector('a')?.getAttribute('href') || '',
-        logo: ref?.querySelector('img')?.getAttribute('src') || '',
-        height: parseInt(ref?.querySelector('img')?.getAttribute('height') || 0),
-        css: ref?.querySelector('img')?.getAttribute('class') || ''
       }
     }
   }

@@ -121,76 +121,109 @@ export default html => {
     ))
   )
 
-  const footerLinks = links => links.map(link => ({
-    target: getTarget(link.href),
-    ...link
-  })).map(({
-    target,
-    href,
-    icon,
-    title,
-    description
-  }) => html(({
-    li, a, i, text
+  const buildFooter = ({
+    variant, links, refs
+  }) => !refs.length && !links.length ? null : html(({
+    footer, div, ul, li, a, span, img, text, i, p
   }) =>
-    li({
-      class: 'nav-item'
-    }, [
-      a({
-        href,
-        class: [
-          'nav-link',
-          'px-2',
-          'text-reset'
-        ],
-        target,
-        title: description || null
-      }, [
-        !icon ? null : i({
-          class: getIcon(icon)
-        }),
-        title,
-        getExt(target)
-      ])
-    ])
-  )).join('\n')
-
-  const devRef = ({
-    show,
-    intro,
-    company,
-    website,
-    logo,
-    height,
-    css
-  }) => !show ? [] : [
-    html(({span, text}) => span({}, [
-      text(intro)
-    ])),
-    html(({a, img, text}) => a({
-      href: website,
-      target: getTarget(website),
+    footer({
       class: [
-        'text-reset',
-        'text-decoration-none'
+        variant, 
+        'mt-auto'
       ]
     }, [
-      img({
-        height,
-        class: css,
-        src: logo
-      }),
-      text(company),
-      getExt(getTarget(website))
-    ]))
-  ].filter(c => c)
+      div({
+        class: [
+          'container',
+          'pt-5',
+          'pb-4'
+        ]
+      }, [
+        !links.length ? null : ul({
+          class: [
+            'nav',
+            'justify-content-center',
+            refs.length ? 'border-bottom' : '',
+            refs.length ? 'pb-3' : '',
+            refs.length ? 'mb-3' : ''
+          ]
+        }, links.map(link => ({
+          target: getTarget(link.href),
+          ...link
+        })).map(({
+          target,
+          href,
+          icon,
+          title,
+          description
+        }) =>
+          li({
+            class: 'nav-item'
+          }, [
+            a({
+              href,
+              class: [
+                'nav-link',
+                'px-2',
+                'text-reset'
+              ],
+              target,
+              title: description || null
+            }, [
+              !icon ? null : i({
+                class: getIcon(icon)
+              }),
+              title,
+              getExt(target)
+            ])
+          ])
+        )),
+        !refs.length ? null : p({
+          class: refs.length == 1 ? 'text-center' : [
+            'd-flex',
+            'flex-wrap',
+            'justify-content-between',
+            'align-items-center'
+          ]
+        }, refs.map(({
+          description,
+          title,
+          href,
+          logo,
+          height,
+          css
+        }) => 
+          span({}, [
+            span({}, [
+              text(description)
+            ]),
+            a({
+              href,
+              target: getTarget(href),
+              class: [
+                'text-reset',
+                'text-decoration-none'
+              ]
+            }, [
+              img({
+                height,
+                class: css,
+                src: logo
+              }),
+              text(title),
+              getExt(getTarget(href))
+            ])
+          ])
+        ))
+      ])
+    ])
+  )
 
   const fullPage = ({
     page,
     logo,
     navbar,
-    foot,
-    dev
+    foot
   }) => html(({
     html,
     head,
@@ -428,35 +461,7 @@ export default html => {
           ])
         ])
       ]),
-      footer({
-        class: [
-          foot.variant, 
-          'mt-auto'
-        ]
-      }, [
-        div({
-          class: [
-            'container',
-            'pt-5',
-            'pb-4'
-          ]
-        }, [
-          ul({
-            class: [
-              'nav',
-              'justify-content-center',
-              dev.show && foot.links.length ? 'border-bottom' : '',
-              dev.show && foot.links.length ? 'pb-3' : '',
-              dev.show && foot.links.length ? 'mb-3' : ''
-            ]
-          }, [
-            footerLinks(foot.links)
-          ]),
-          p({
-            class: 'text-center'
-          }, devRef(dev))
-        ])
-      ]),
+      buildFooter(foot),
       script({
         type: 'module',
         src: 'app.js'
@@ -464,5 +469,5 @@ export default html => {
     ])
   ]))
 
-  return {navLinks, footerLinks, fullPage, devRef}
+  return {navLinks, buildFooter, fullPage}
 }

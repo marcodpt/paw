@@ -161,41 +161,41 @@ export default ({render, form, home, html}) => {
                 }
               }
             }
-          }
-        }
-      },
-      dev: {
-        title: 'Developer',
-        type: 'object',
-        properties: {
-          show: {
-            title: 'Show',
-            type: 'boolean'
           },
-          intro: {
-            title: 'Intro',
-            type: 'string'
-          },
-          company: {
-            title: 'Company',
-            type: 'string'
-          },
-          website: {
-            title: 'WebSite (URL)',
-            type: 'string'
-          },
-          logo: {
-            title: 'Logo (URL)',
-            type: 'string'
-          },
-          height: {
-            title: 'Height (px)',
-            type: 'integer',
-            minimum: 0
-          },
-          css: {
-            title: 'Class',
-            type: 'string'
+          refs: {
+            size: 'sm',
+            title: 'References',
+            items: {
+              properties: {
+                description: {
+                  title: 'Description',
+                  type: 'string'
+                },
+                title: {
+                  title: 'Title',
+                  type: 'string'
+                },
+                href: {
+                  title: 'Href attribute',
+                  type: 'string'
+                },
+                logo: {
+                  title: 'Logo (URL)',
+                  type: 'string'
+                },
+                height: {
+                  title: 'Height (px)',
+                  description: 'Logo height',
+                  type: 'integer',
+                  minimum: 0
+                },
+                css: {
+                  title: 'Class',
+                  description: 'Logo class',
+                  type: 'string'
+                }
+              }
+            }
           }
         }
       }
