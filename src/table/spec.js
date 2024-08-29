@@ -614,6 +614,200 @@ export default ({
         ])
       )
     }, {
+      title: 'With fields and data and info',
+      data: [
+        {
+          items: {
+            info: 'A row',
+            properties: prop0
+          },
+          default: data0
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({
+              title: 'A row'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Alice')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,400.20')
+              ])
+            ]),
+            tr({
+              title: 'A row'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Bob')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,250.34')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'With fields and data and functional info',
+      data: [
+        {
+          items: {
+            info: ({name, balance}) => `${name}: ${balance}`,
+            properties: prop0
+          },
+          default: data0
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({
+              title: 'Alice: 1400.2'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Alice')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,400.20')
+              ])
+            ]),
+            tr({
+              title: 'Bob: 1250.34'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Bob')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,250.34')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
       title: 'A compact table',
       data: [
         {

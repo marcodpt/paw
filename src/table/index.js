@@ -19,9 +19,7 @@ export default ({
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
-  const Y = Object.keys(P)
-  const K = Y.filter(k => P[k].ui != 'info')
-  const I = Y.filter(k => P[k].ui == 'info')
+  const K = Object.keys(P)
   const format = K.reduce((F, k) => ({
     ...F,
     [k]: formatter(P[k])
@@ -293,7 +291,8 @@ export default ({
       view.forEach(row => {
         x.appendChild(node(({tr, td, a, text}) =>
           tr({
-            title: I.map(k => row[k]).join('\n') || null,
+            title: typeof items.info == 'function' ?
+              items.info(row) : items.info,
             class: typeof items.css == 'function' ?
               items.css(row) : items.css
           }, [
