@@ -230,6 +230,101 @@ export default ({
         ])
       )
     }, {
+      title: 'With title and context',
+      data: [
+        {
+          title: 'Accounts',
+          icon: 'user',
+          description: 'Users accounts',
+          context: 'info'
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        h4,
+        i,
+        text,
+        span,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'alert',
+                    'alert-info',
+                    'my-0'
+                  ],
+                  role: 'alert'
+                }, [
+                  h4({
+                    class: 'alert-heading'
+                  }, [
+                    i({
+                      class: [
+                        'fa-solid',
+                        'fa-user'
+                      ]
+                    }),
+                    text(' Accounts')
+                  ]),
+                  span({
+                    style: {
+                      whiteSpace: 'pre-wrap'
+                    }
+                  }, [
+                    text('Users accounts')
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                colspan: '100%'
+              }, [
+                div({
+                  class: [
+                    'd-flex',
+                    'justify-content-center',
+                    'p-5'
+                  ],
+                  title: 'Loading...'
+                }, [
+                  div({
+                    class: 'spinner-border',
+                    style: {
+                      width: '5rem',
+                      height: '5rem'
+                    },
+                    role: 'status'
+                  }, [
+                    span({
+                      class: 'visually-hidden'
+                    }, [
+                      text('Loading...')
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
       title: 'With fields',
       data: [
         {
@@ -397,6 +492,107 @@ export default ({
               ])
             ]),
             tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Bob')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,250.34')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'With fields and data and css',
+      data: [
+        {
+          css: 'table-dark',
+          items: {
+            css: 'table-light',
+            properties: prop0
+          },
+          default: data0
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: [
+            'table',
+            'table-dark'
+          ]
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({
+              class: 'table-light'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Alice')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,400.20')
+              ])
+            ]),
+            tr({
+              class: 'table-light'
+            }, [
               td({
                 class: [
                   'align-middle',
@@ -1298,6 +1494,331 @@ export default ({
               ])
             ]),
             tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Context based on row data',
+      data: [
+        {
+          css: 'table-dark',
+          items: {
+            css: row => row.age >= 35 ? 'table-info' :
+              row.age >= 30 ? 'table-success' :
+              row.age >= 25 ? 'table-warning' :
+                'table-danger',
+            properties: prop1
+          },
+          default: data1
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: [
+            'table',
+            'table-dark'
+          ]
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({
+              class: 'table-success'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({
+              class: 'table-success'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({
+              class: 'table-success'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({
+              class: 'table-warning'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({
+              class: 'table-success'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({
+              class: 'table-success'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({
+              class: 'table-danger'
+            }, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({
+              class: 'table-info'
+            }, [
               td({
                 class: [
                   'align-middle',

@@ -293,7 +293,9 @@ export default ({
       view.forEach(row => {
         x.appendChild(node(({tr, td, a, text}) =>
           tr({
-            title: I.map(k => row[k]).join('\n') || null
+            title: I.map(k => row[k]).join('\n') || null,
+            class: typeof items.css == 'function' ?
+              items.css(row) : items.css
           }, [
             query.group || !check ? null : td({
               class: 'text-center align-middle'
