@@ -38,7 +38,7 @@ export default ({
   }
   const setTarget = href =>
     typeof href == 'string' && href.indexOf('://') > 0 ? '_blank' : null
-  const ext = target => !target ? '' : node(({
+  const ext = target => !target || !extra.title ? '' : node(({
     sup, i, text
   }) =>
     sup({}, [

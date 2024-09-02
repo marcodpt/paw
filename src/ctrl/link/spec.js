@@ -122,6 +122,33 @@ export default ({
         ])
       )
     }, {
+      title: 'A external link with target _blank and no title',
+      data: [
+        {
+          icon: 'home',
+          href: 'https://github.com/marcodpt/paw'
+        }
+      ],
+      html: html(({
+        a,
+        span,
+        i,
+        sup,
+        text
+      }) => 
+        a({
+          href: 'https://github.com/marcodpt/paw',
+          target: '_blank'
+        }, [
+          i({
+            class: [
+              'fa-solid',
+              'fa-home'
+            ]
+          })
+        ])
+      )
+    }, {
       title: 'A button that says hello!',
       data: [
         {
