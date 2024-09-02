@@ -51,7 +51,7 @@ export default ({render, Params, form, node, print}) => {
             ...Q,
             ...setProps(P[k])
           }
-        } else if (P[k].properties) {
+        } else if (P[k] && P[k].properties) {
           Q[k] = {
             ...P[k],
             title: '',
