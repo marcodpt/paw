@@ -54,7 +54,8 @@ export default ({
 
   if (s.options instanceof Array && s.type != 'array') {
     s.options.forEach(opt => {
-      opt.label = opt.label.replace(/\s+/, ' ')
+      opt.label = opt.label.split(/\s+/).
+        map(c => c.trim()).filter(c => c).join(' ')
     })
     s.enum = s.enum || s.options.map(({value}) => value)
     const item = s.options.filter(o => o.value == s.value)[0]
