@@ -53,6 +53,9 @@ export default ({
     s.enum instanceof Array ? opt(s.enum) : opt(s.ui)
 
   if (s.options instanceof Array && s.type != 'array') {
+    s.options.forEach(opt => {
+      opt.label = opt.label.replace(/\s+/, ' ')
+    })
     s.enum = s.enum || s.options.map(({value}) => value)
     const item = s.options.filter(o => o.value == s.value)[0]
     s.label = item ? item.label : s.value

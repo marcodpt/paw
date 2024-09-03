@@ -487,6 +487,56 @@ export default ({
           })
         ])
       )
+    }, {
+      title: 'Strange Values',
+      data: [
+        {
+          type: 'integer',
+          default: 1,
+          options: [
+            {
+              value: 1,
+              label: 'Dog  Cat'
+            }, {
+              value: 2,
+              label: 'Horse  Bird'
+            }
+          ],
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input,
+        datalist,
+        option,
+        text
+      }) => 
+        div({}, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'text',
+            value: 'Dog Cat',
+            list: 'app_list_000001'
+          }),
+          datalist({
+            id: 'app_list_000001'
+          }, [
+            option({}, [
+              text('Dog Cat')
+            ]),
+            option({}, [
+              text('Horse Bird')
+            ])
+          ]),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
     }
   ]
 })

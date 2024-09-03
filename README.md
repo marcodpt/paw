@@ -146,6 +146,7 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
+ - sidebar auto open with current route
  - completely remove functions assign to DOM, fieldset.setProp
  - html should not be exposed to client
  - dynamic tests implementation
