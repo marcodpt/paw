@@ -387,6 +387,29 @@ export default ({
         text('12,345.68')
       )
     }, {
+      title: 'Percentage with link',
+      data: [
+        {
+          ui: 'num.1',
+          default: 12.3,
+          href: '#/'
+        }, {
+          ui: 'num.1',
+          default: '12.3',
+          href: '#/'
+        }
+      ],
+      html: html(({
+        a,
+        text
+      }) => 
+        a({
+          href: '#/'
+        }, [
+          text('12.3')
+        ])
+      )
+    }, {
       title: 'Integer representing 2 digits fraction',
       data: [
         {

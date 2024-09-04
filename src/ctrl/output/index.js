@@ -11,7 +11,8 @@ export default schema => {
       description: null,
       icon: null,
       default: null,
-      type: null
+      type: null,
+      ui: null
     }) :
     schema.ui == 'progress' ? div({
       style: {
