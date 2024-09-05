@@ -944,6 +944,43 @@ export default ({
           })
         ])
       )
+    }, {
+      title: 'Modal close button',
+      data: [
+        {
+          context: 'secondary',
+          icon: 'times',
+          title: 'Close',
+          bs: {
+            dismiss: 'modal'
+          }
+        }
+      ],
+      html: html(({
+        button,
+        span,
+        i,
+        text
+      }) => 
+        button({
+          class: [
+            'btn',
+            'btn-secondary'
+          ],
+          type: 'button',
+          dataBsDismiss: 'modal'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-solid',
+                'fa-times'
+              ]
+            }),
+            text(' Close')
+          ])
+        ])
+      )
     }
   ]
 })

@@ -72,4 +72,5 @@ export default ({
 
   var isVisible = true
   M.show()
+  return modal
 })

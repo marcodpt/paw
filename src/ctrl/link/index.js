@@ -10,11 +10,15 @@ export default ({
   download,
   mime,
   links,
+  bs,
   ...extra
 }) => {
+  bs = bs || {}
+  const B = Object.keys(bs)
+  
   const hasDrop = links instanceof Array
   const hasLinks = hasDrop && links.length
-  const isDisabled = !href && !hasLinks
+  const isDisabled = !href && !hasLinks && !B.length
   const hasSplit = href && hasDrop
   const isBtn = typeof href != 'string' || (hasDrop && !hasSplit)
 
@@ -107,7 +111,11 @@ export default ({
     href,
     target,
     dataBsToggle: hasDrop && !hasSplit ? 'dropdown' : null,
-    ariaExpanded: hasDrop && !hasSplit ? 'false' : null
+    ariaExpanded: hasDrop && !hasSplit ? 'false' : null,
+    ...B.reduce((Data, k) => ({
+      ...Data,
+      ['data-bs-'+k]: bs[k]
+    }), {})
   }, [
     ctrl(extra),
     ext(target),
@@ -119,7 +127,7 @@ export default ({
         ev.stopPropagation()
       }
     })
-  ])) 
+  ]))
   const trigger = btn.querySelector('a.d-none')
   const icon = btn.querySelector('i')
 

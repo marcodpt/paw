@@ -28,7 +28,7 @@ export default ({
   var ctrl = schema.type == null &&
     schema.default == null &&
     schema.ui == null &&
-    schema.href != null ?
+    schema.href != null || schema.bs != null ?
       link(schema) :
     (schema.type == null || schema.type == 'null') &&
       schema.ui == null &&
