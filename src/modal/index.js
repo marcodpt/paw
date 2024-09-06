@@ -1,6 +1,7 @@
 import {node, form} from '../components.js'
 import {rm} from '../lib.js'
 
+var M = null
 export default ({
   submit,
   ...schema
@@ -29,7 +30,7 @@ export default ({
               Promise.resolve()
                 .then(() => submit(Data, Label))
                 .then(response => {
-                  if (isVisible) {
+                  if (M) {
                     M.hide()
                     result = response
                   } else {
@@ -44,15 +45,16 @@ export default ({
 
   modal.addEventListener('hidden.bs.modal', () => {
     rm(modal)
-    isVisible = false
+    M = null
     resolve(result)
   })
 
+  if (M) {
+    M.hide()
+  }
   document.body.appendChild(modal)
-
-  const M = new bootstrap.Modal(modal)
-
-  var isVisible = true
+  M = new bootstrap.Modal(modal)
   M.show()
+
   return modal
 })

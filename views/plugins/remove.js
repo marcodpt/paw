@@ -18,7 +18,7 @@ export default ({icon, title, context}, {dialog, wait}) => ({
           data.splice(i, 1)
           refresh()
         }
-        dialog({
+        return dialog({
           icon,
           title,
           context: 'success',
