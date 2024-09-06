@@ -1,10 +1,8 @@
 import {node, form} from '../components.js'
 import {rm} from '../lib.js'
-import T from '../lang/index.js'
 
 export default ({
   submit,
-  links,
   ...schema
 }) => new Promise (resolve => {
   var result = null
@@ -37,23 +35,7 @@ export default ({
                   } else {
                     resolve(response)
                   }
-                }),
-            links: [
-              {
-                context: 'secondary',
-                icon: 'times',
-                title: T('close'),
-                href: 'javascript:;',
-                init: el => {
-                  el.setAttribute('data-bs-dismiss', 'modal')
-                }
-              }
-            ]
-              .concat(links || [])
-              .concat(typeof submit != 'function' ? null : {
-                href: 'submit'
-              })
-              .filter(x => x)
+                })
           })
         ])
       ])

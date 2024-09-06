@@ -1,7 +1,7 @@
 import users from './data/users.js'
 import schema from './data/schema.js'
 
-export default ({render, Params, form, modal}) => {
+export default ({render, Params, form, dialog}) => {
   const user = users.filter(({id}) => id == Params.id)[0]
   const s = {
     ...schema.items,
@@ -11,7 +11,7 @@ export default ({render, Params, form, modal}) => {
     title: user.name,
     default: user
   }
-  s.links[0].href = () => modal({
+  s.links[0].href = () => dialog({
     ...s.links[0],
     title: 'Delete: '+user.name,
     description: 'Do you want to delete this row?',
@@ -30,7 +30,7 @@ export default ({render, Params, form, modal}) => {
       icon: s.links[1].icon,
       title: 'Edit: '+user.name
     }
-    modal({
+    dialog({
       ...H,
       properties: P,
       default: user,
@@ -39,7 +39,7 @@ export default ({render, Params, form, modal}) => {
         Object.assign(user, data)
         s.title = user.name
         render(form(s))
-        modal({
+        dialog({
           ...H,
           context: 'success',
           description: `User ${name} was edited!`

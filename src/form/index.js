@@ -1,5 +1,4 @@
 import {node, ctrl} from '../components.js'
-import T from '../lang/index.js'
 
 export default ({
   css,
@@ -24,7 +23,6 @@ export default ({
     l.data = Data
     l.size = schema.size
     if (l.href === 'submit') {
-      l.title = l.title == null ? T('submit') : l.title
       l.link = l.link == null ? 'primary' : l.link
       l.icon = l.icon == null ? 'check' : l.icon
       l.href = typeof submit != 'function' ? null : run

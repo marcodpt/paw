@@ -1,4 +1,4 @@
-export default ({icon, title, context}, {modal, ctrl}) => {
+export default ({icon, title, context}, {dialog, ctrl}) => {
   var btn = null
   return {
     icon,
@@ -18,7 +18,7 @@ export default ({icon, title, context}, {modal, ctrl}) => {
         query.group = null
         refresh()
       } else {
-        modal({
+        dialog({
           icon,
           title,
           properties: {

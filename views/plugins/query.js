@@ -1,4 +1,4 @@
-export default ({icon, title, context}, {modal, ctrl}) => {
+export default ({icon, title, context}, {dialog, ctrl}) => {
   var btn = null
   var X = null
 
@@ -22,7 +22,7 @@ export default ({icon, title, context}, {modal, ctrl}) => {
       S.operator = null
       S.value = null
 
-      modal({
+      dialog({
         icon,
         title,
         properties: {

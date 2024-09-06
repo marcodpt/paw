@@ -1,10 +1,10 @@
-export default ({icon, title, context}, {modal, wait}) => ({
+export default ({icon, title, context}, {dialog, wait}) => ({
   icon,
   title,
   context,
   href: ({query}) => wait(1000).then(() => {
     const msg = `Hello!\n${query.checked.length} user(s) checked!`
-    modal({
+    dialog({
       icon,
       title,
       context: 'success',

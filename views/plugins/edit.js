@@ -1,4 +1,4 @@
-export default ({icon, title, context}, {modal}) => ({
+export default ({icon, title, context}, {dialog}) => ({
   icon,
   title,
   context,
@@ -6,7 +6,7 @@ export default ({icon, title, context}, {modal}) => ({
     title = title.split(':')[0]+': '+row.name
     const P = {...properties}
     delete P.id
-    modal({
+    dialog({
       icon,
       title,
       properties: P,
@@ -14,7 +14,7 @@ export default ({icon, title, context}, {modal}) => ({
       submit: user => {
         Object.assign(row, user)
         refresh()
-        modal({
+        dialog({
           icon,
           title,
           context: 'success',

@@ -1,10 +1,10 @@
-export default ({icon, title, context}, {modal, wait}) => ({
+export default ({icon, title, context}, {dialog, wait}) => ({
   icon,
   title,
   context,
   href: ({row, refresh, data}) => {
     title = title.split(':')[0]+': '+row.name
-    return modal({
+    return dialog({
       icon,
       title,
       context,
@@ -18,7 +18,7 @@ export default ({icon, title, context}, {modal, wait}) => ({
           data.splice(i, 1)
           refresh()
         }
-        modal({
+        dialog({
           icon,
           title,
           context: 'success',

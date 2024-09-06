@@ -3,7 +3,7 @@ import menu from './data/menu.js'
 
 var stylesheet = null
 var script = null
-export default ({sidebar, node}) => {
+export default ({sidebar, node, modal}) => {
   sidebar(menu)
 
   const home = document.body.querySelector('main')
@@ -79,5 +79,23 @@ export default ({sidebar, node}) => {
     }
   }
 
-  return {home, wait, print, highlight}
+  const dialog = schema => {
+    schema.links = [
+      {
+        context: 'secondary',
+        icon: 'times',
+        title: 'Close',
+        bs: {
+          dismiss: 'modal'
+        }
+      }
+    ].concat(schema.links || []).
+      concat(typeof schema.submit != 'function' ? [] : {
+        title: 'Submit',
+        href: 'submit'
+      })
+    return modal(schema)
+  }
+
+  return {home, wait, print, highlight, dialog}
 }

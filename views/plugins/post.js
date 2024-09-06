@@ -1,11 +1,11 @@
-export default ({icon, title, context}, {modal}) => ({
+export default ({icon, title, context}, {dialog}) => ({
   icon,
   title,
   context,
   href: ({data, properties, refresh}) => {
     const P = {...properties}
     delete P.id
-    modal({
+    dialog({
       icon,
       title,
       properties: P,
@@ -17,7 +17,7 @@ export default ({icon, title, context}, {modal}) => ({
           , 0)
         })
         refresh()
-        modal({
+        dialog({
           icon,
           title,
           context: 'success',

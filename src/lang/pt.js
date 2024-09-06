@@ -1,6 +1,4 @@
 export default {
-  close: 'Fechar',
-  submit: 'Enviar',
   loading: 'Carregando...',
   noOption: 'Escolha uma opção...',
   error: 'Erro!',

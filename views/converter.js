@@ -2,7 +2,7 @@ const kebabToCamel = string => string.replace(/-./g, x => x[1].toUpperCase())
 
 export default ({
   form,
-  modal,
+  dialog,
   render,
   node,
   print,
@@ -123,13 +123,13 @@ export default ({
               href: () => {
                 if (navigator && navigator.clipboard) {
                   navigator.clipboard.writeText(fn)
-                  modal({
+                  dialog({
                     title: 'Copied',
                     description: 'Hyperscript copied to clipboard!',
                     context: 'success'
                   })
                 } else {
-                  modal({
+                  dialog({
                     title: 'Error',
                     description: 'Unable to save text to clipboard!',
                     context: 'danger'
