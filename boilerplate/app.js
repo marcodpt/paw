@@ -1,4 +1,4 @@
-import paw from 'https://cdn.jsdelivr.net/gh/marcodpt/paw@0.7.7/index.min.js'
+import paw from 'https://cdn.jsdelivr.net/gh/marcodpt/paw/index.min.js'
 
 paw({
   build: () => {
