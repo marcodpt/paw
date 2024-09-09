@@ -35,7 +35,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'disabled'
               ],
               type: 'button'
@@ -54,7 +54,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'disabled'
               ],
               type: 'button'
@@ -88,7 +88,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'disabled'
               ],
               type: 'button'
@@ -107,7 +107,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'disabled'
               ],
               type: 'button'
@@ -128,7 +128,7 @@ export default ({
         {
           ui: 'pagination',
           description: 'Page',
-          context: 'primary',
+          context: 'secondary',
           default: 1,
           maximum: 1,
           size: 'lg',
@@ -158,7 +158,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-primary',
+                'btn-secondary',
                 'btn-lg'
               ],
               type: 'button',
@@ -178,7 +178,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-primary',
+                'btn-secondary',
                 'btn-lg'
               ],
               type: 'button',
@@ -226,7 +226,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-primary',
+                'btn-secondary',
                 'btn-lg'
               ],
               type: 'button',
@@ -246,7 +246,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-primary',
+                'btn-secondary',
                 'btn-lg'
               ],
               type: 'button',
@@ -296,7 +296,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'btn-sm'
               ],
               type: 'button'
@@ -315,7 +315,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'btn-sm'
               ],
               type: 'button'
@@ -414,7 +414,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'btn-sm'
               ],
               type: 'button'
@@ -433,7 +433,7 @@ export default ({
             button({
               class: [
                 'btn',
-                'btn-secondary',
+                'btn-primary',
                 'btn-sm'
               ],
               type: 'button'

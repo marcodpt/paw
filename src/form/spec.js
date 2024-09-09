@@ -404,7 +404,13 @@ export default ({
           },
           submit: data => {
             console.log(data)
-          }
+          },
+          links: [
+            {
+              title: 'Submit',
+              href: 'submit'
+            }
+          ]
         }
       ],
       html: html(({
@@ -1000,15 +1006,12 @@ export default ({
                 type: 'button',
                 disabled: ''
               }, [
-                span({}, [
-                  i({
-                    class: [
-                      'fa-solid',
-                      'fa-check'
-                    ]
-                  }),
-                  text(' Submit')
-                ])
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-check'
+                  ]
+                })
               ])
             ])
           ])
@@ -1180,15 +1183,12 @@ export default ({
                 type: 'button',
                 disabled: ''
               }, [
-                span({}, [
-                  i({
-                    class: [
-                      'fa-solid',
-                      'fa-check'
-                    ]
-                  }),
-                  text(' Submit')
-                ])
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-check'
+                  ]
+                })
               ])
             ])
           ])

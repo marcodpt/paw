@@ -2717,7 +2717,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button',
                       disabled: ''
@@ -2736,7 +2736,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button',
                       disabled: ''
@@ -2783,7 +2783,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [
@@ -2801,7 +2801,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [
@@ -3082,7 +3082,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [
@@ -3100,7 +3100,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [
@@ -3155,7 +3155,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [
@@ -3173,7 +3173,7 @@ export default ({
                     button({
                       class: [
                         'btn',
-                        'btn-secondary'
+                        'btn-primary'
                       ],
                       type: 'button'
                     }, [

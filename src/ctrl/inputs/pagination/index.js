@@ -8,7 +8,7 @@ export default ({
   context,
   ...schema
 }) => {
-  context = context || 'secondary'
+  context = context || 'primary'
   minimum = minimum == null ? 1 : minimum
   maximum = maximum == null ? 0 : maximum
   description = description || ''
