@@ -176,7 +176,13 @@ export default ({
           ])
         ])))
         highlight()
-      }
+      },
+      links: [
+        {
+          title: 'Submit',
+          href: 'submit'
+        }
+      ]
     }))
   }
   build()
