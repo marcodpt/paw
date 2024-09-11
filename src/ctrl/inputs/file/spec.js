@@ -67,6 +67,84 @@ export default ({
           })
         ])
       )
+    }, {
+      title: 'An object',
+      data: [
+        {
+          type: 'object',
+          ui: 'file',
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input
+      }) => 
+        div({}, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'file'
+          }),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
+    }, {
+      title: 'Raw File',
+      data: [
+        {
+          ui: 'File',
+          type: 'object',
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input
+      }) => 
+        div({}, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'file'
+          }),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
+    }, {
+      title: 'String',
+      data: [
+        {
+          ui: 'file',
+          type: 'string',
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input
+      }) => 
+        div({}, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'file'
+          }),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
     }
   ]
 })

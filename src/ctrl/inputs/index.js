@@ -145,7 +145,9 @@ export default ({
   }
 
   wrapper = (
-    s.ui != 'file' && (s.type == 'object' || s.properties) ? props :
+    s.ui != 'file' && s.ui != 'File' && (
+      s.type == 'object' || s.properties
+    ) ? props :
     s.ui == 'pending' ? pending :
     s.ui == 'pagination' ? pagination :
     s.ui == 'context' ? context :
