@@ -39,7 +39,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
       }
 
       const d = new Date(x)
-      return d.toLocaleDateString(T('lang'))
+      return !isFinite(d) ? '' : d.toLocaleDateString(T('lang'))
     }
   } else if (/^num\.[1-9][0-9]*$/.test(ui)) {
     const precision = parseInt(ui.substr(4))

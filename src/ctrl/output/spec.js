@@ -367,6 +367,15 @@ export default ({
         }, {
           default: 0,
           ui: 'date'
+        }, {
+          default: '0000-00-00',
+          ui: 'date'
+        }, {
+          default: 'foo',
+          ui: 'date'
+        }, {
+          default: '2023-14-30',
+          ui: 'date'
         }
       ],
       html: html(({text}) => 
