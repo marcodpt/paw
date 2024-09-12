@@ -22,8 +22,8 @@ export default ({
   const hasLegend = close || title || icon
   const Data = {...schema.default} || {}
   const Label = {}
-  var Err = K.reduce((E, k) => ({...E, [k]: true}), {})
-  var hasErr = false
+  var Err = K.reduce((E, k) => ({...E, [k]: '...'}), {})
+  var msgErr = '' 
   const ref = {}
 
   const target = node(({
@@ -122,12 +122,14 @@ export default ({
                 label = typeof label != 'string' ? String(v) : label
                 Data[k] = v
                 Label[k] = label
-                Err[k] = !!err
-                hasErr = Object.keys(Err).reduce(
-                  (err, k) => err || Err[k]
-                , false)
+                Err[k] = err
+                msgErr = Object.keys(Err).reduce(
+                  (E, k) => [...E].concat(!Err[k] ? [] :
+                    `${P[k].title || k}: ${Err[k]}`
+                  )
+                , []).join('\n\n')
                 if (typeof update == 'function' && done) {
-                  update(hasErr, Data, Label, target)
+                  update(msgErr, Data, Label, target)
                 }
               }
             })

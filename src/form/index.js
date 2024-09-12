@@ -35,13 +35,27 @@ export default ({
     }
   })
 
+  const hasFields = Object.keys(schema.properties || {}).length
+  const footer = node(({div}) => !links.length ? null : block ? div({
+    class: 'btn-group w-100'
+  }, links) : div({
+    class: 'row g-1 align-items-center justify-content-'+(
+      schema.close == 'modal' ? 'end' :
+        !hasFields ? 'center' : 'start'
+    )
+  }, links.map(L => 
+    div({
+      class: 'col-auto'
+    }, [L])
+  )))
+
   const fields = ctrl({
     type: 'object',
     ...schema,
     update: (err, ...args) => {
-      hasErr = !!err
       if (submitter) {
-        submitter.disabled = hasErr
+        submitter.disabled = !!err
+        submitter.parentNode.title = err
       }
       Data = args[0]
       Label = args[1]
@@ -50,7 +64,6 @@ export default ({
       }
     }
   })
-  const hasFields = fields.nodeType == 1
 
   return node(({
     div,
@@ -69,17 +82,6 @@ export default ({
     !links.length || !hasFields ? null : hr({
       class: 'my-2'
     }),
-    !links.length ? null : block ? div({
-      class: 'btn-group w-100'
-    }, links) : div({
-      class: 'row g-1 align-items-center justify-content-'+(
-        schema.close == 'modal' ? 'end' :
-          !hasFields ? 'center' : 'start'
-      )
-    }, links.map(L => 
-      div({
-        class: 'col-auto'
-      }, [L])
-    ))
+    footer
   ]))
 } 

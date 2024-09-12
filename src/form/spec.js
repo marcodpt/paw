@@ -718,7 +718,8 @@ export default ({
             ]
           }, [
             div({
-              class: 'col-auto'
+              class: 'col-auto',
+              title: 'language: Must be one of the possible options.'
             }, [
               button({
                 class: [
@@ -996,7 +997,8 @@ export default ({
             ]
           }, [
             div({
-              class: 'col-auto'
+              class: 'col-auto',
+              title: 'Value: Must be a minimum of 1 character(s).'
             }, [
               button({
                 class: [
@@ -1173,7 +1175,8 @@ export default ({
             ]
           }, [
             div({
-              class: 'col-auto'
+              class: 'col-auto',
+              title: 'id: ...'
             }, [
               button({
                 class: [
