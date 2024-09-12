@@ -43,10 +43,6 @@ export default ({
       s.default = null
     }
   }
-
-  if (s.readOnly && !s.writeOnly && (s.type != 'object' || s.ui == 'file')) {
-    return output(s)
-  }
   s.value = s.default 
 
   s.options = s.options ? s.options :
@@ -148,6 +144,7 @@ export default ({
     s.ui != 'file' && s.ui != 'File' && (
       s.type == 'object' || s.properties
     ) ? props :
+    s.readOnly && !s.writeOnly ? output :
     s.ui == 'pending' ? pending :
     s.ui == 'pagination' ? pagination :
     s.ui == 'context' ? context :

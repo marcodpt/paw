@@ -1176,15 +1176,14 @@ export default ({
           }, [
             div({
               class: 'col-auto',
-              title: 'id: ...'
+              title: ''
             }, [
               button({
                 class: [
                   'btn',
                   'btn-primary'
                 ],
-                type: 'button',
-                disabled: ''
+                type: 'button'
               }, [
                 i({
                   class: [
