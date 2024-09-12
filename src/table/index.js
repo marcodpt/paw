@@ -324,10 +324,10 @@ export default ({
                 ...L,
                 size: 'sm',
                 title: L.icon ? '' : L.title,
-                data: {
+                data: typeof L.href == 'function' ? {
                   ...state,
                   row
-                }
+                } : row
               })
             ])
           )).concat(K.filter(k => H.indexOf(k) < 0).map(k =>

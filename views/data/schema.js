@@ -84,6 +84,11 @@ export default {
         context: 'warning',
         icon: 'edit',
         title: 'Edit'
+      }, {
+        context: 'info',
+        icon: 'circle-info',
+        title: 'Info',
+        href: '#/users/{id}'
       }
     ]
   }
