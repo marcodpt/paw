@@ -214,6 +214,555 @@ export default ({
         ])
       )
     }, {
+      title: 'Header with close bs dismiss.',
+      data: [
+        {
+          title: 'A header',
+          description: 'Associated description',
+          icon: 'exclamation-circle',
+          close: 'modal'
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        button,
+        hr
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'Associated description'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-exclamation-circle'
+                  ]
+                }),
+                text(' A header')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ],
+                dataBsDismiss: 'modal'
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            })
+          ])
+        ])
+      )
+    }, {
+      title: 'Header with close function.',
+      data: [
+        {
+          title: 'A header',
+          description: 'Associated description',
+          icon: 'exclamation-circle',
+          close: () => {window.alert('close')}
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        button,
+        hr
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'Associated description'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-exclamation-circle'
+                  ]
+                }),
+                text(' A header')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ]
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            })
+          ])
+        ])
+      )
+    }, {
+      title: 'Header with close',
+      data: [
+        {
+          title: 'A header',
+          description: 'Associated description',
+          icon: 'exclamation-circle',
+          close: 'modal',
+          links: [
+            {
+              icon: 'times',
+              href: 'modal',
+              title: 'Close',
+              context: 'secondary'
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        button,
+        hr,
+        div,
+        a
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'Associated description'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-exclamation-circle'
+                  ]
+                }),
+                text(' A header')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ],
+                dataBsDismiss: 'modal'
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            })
+          ]),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-end'
+            ]
+          }, [
+            div({
+              class: 'col-auto'
+            }, [
+              a({
+                class: [
+                  'btn',
+                  'btn-secondary'
+                ],
+                href: 'modal'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' Close')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Header with confirm',
+      data: [
+        {
+          title: 'A header',
+          description: 'Associated description',
+          icon: 'exclamation-circle',
+          links: [
+            {
+              icon: 'check',
+              href: () => {window.alert('submit')},
+              title: 'Submit'
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        hr,
+        div,
+        button
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'Associated description'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-exclamation-circle'
+                  ]
+                }),
+                text(' A header')
+              ])
+            ]),
+            hr({
+              class: 'my-2'
+            })
+          ]),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-center'
+            ]
+          }, [
+            div({
+              class: 'col-auto'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary'
+                ],
+                type: 'button'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  }),
+                  text(' Submit')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'An alert message',
+      data: [
+        {
+          icon: 'info-circle',
+          title: 'Alert',
+          description: 'This is an example of an alert modal.\n\nWith a message to the user.',
+          context: 'warning',
+          close: 'modal',
+          links: [
+            {
+              icon: 'times',
+              href: 'modal',
+              title: 'Close',
+              context: 'secondary'
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        button,
+        hr,
+        div,
+        a
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'This is an example of an alert modal.\n\nWith a message to the user.'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-info-circle'
+                  ]
+                }),
+                text(' Alert')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ],
+                dataBsDismiss: 'modal'
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            }),
+            div({
+              class: [
+                'alert',
+                'alert-warning',
+                'my-0'
+              ],
+              role: 'alert'
+            }, [
+              span({
+                style: {
+                  whiteSpace: 'pre-wrap'
+                }
+              }, [
+                text('This is an example of an alert modal.\n\nWith a message to the user.')
+              ])
+            ])
+          ]),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-end'
+            ]
+          }, [
+            div({
+              class: 'col-auto'
+            }, [
+              a({
+                class: [
+                  'btn',
+                  'btn-secondary'
+                ],
+                href: 'modal'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' Close')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'A confirm action',
+      data: [
+        {
+          icon: 'circle-question',
+          title: 'Confirm',
+          description: 'This is an example of a confirmation dialog.',
+          context: 'info',
+          close: 'modal',
+          links: [
+            {
+              icon: 'times',
+              href: 'modal',
+              title: 'Close',
+              context: 'secondary'
+            }, {
+              icon: 'check',
+              href: () => {window.alert('submit')},
+              title: 'Submit'
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        button,
+        hr,
+        div,
+        a
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'This is an example of a confirmation dialog.'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-circle-question'
+                  ]
+                }),
+                text(' Confirm')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ],
+                dataBsDismiss: 'modal'
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            }),
+            div({
+              class: [
+                'alert',
+                'alert-info',
+                'my-0'
+              ],
+              role: 'alert'
+            }, [
+              span({
+                style: {
+                  whiteSpace: 'pre-wrap'
+                }
+              }, [
+                text('This is an example of a confirmation dialog.')
+              ])
+            ])
+          ]),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-end'
+            ]
+          }, [
+            div({
+              class: 'col-auto'
+            }, [
+              a({
+                class: [
+                  'btn',
+                  'btn-secondary'
+                ],
+                href: 'modal'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-times'
+                    ]
+                  }),
+                  text(' Close')
+                ])
+              ])
+            ]),
+            div({
+              class: 'col-auto'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary'
+                ],
+                type: 'button'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  }),
+                  text(' Submit')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
       title: 'Login',
       data: [
         {
@@ -1184,6 +1733,189 @@ export default ({
                   'btn-primary'
                 ],
                 type: 'button'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-check'
+                  ]
+                })
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Edit form with error',
+      data: [
+        {
+          properties: {
+            id: {
+              default: 27,
+              readOnly: true,
+              minimum: 30
+            }, 
+            name: {
+              default: 'Josh',
+              minLength: 2
+            }, 
+            age: {
+              default: 30,
+              readOnly: true,
+              writeOnly: true,
+              maximum: 29
+            }
+          },
+          submit: data => {
+            console.log(data)
+          }
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        div,
+        label,
+        text,
+        input,
+        hr,
+        button,
+        i
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('id:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('27')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('name:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    type: 'text',
+                    name: 'name',
+                    value: 'Josh'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('age:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'is-invalid'
+                    ],
+                    type: 'number',
+                    name: 'age',
+                    value: '30',
+                    max: '29',
+                    step: '1',
+                    disabled: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  }, [
+                    text('Must be at most: 29')
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          hr({
+            class: 'my-2'
+          }),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-start'
+            ]
+          }, [
+            div({
+              class: 'col-auto',
+              title: 'id: Must be at least: 30\n\nage: Must be at most: 29'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary'
+                ],
+                type: 'button',
+                disabled: ''
               }, [
                 i({
                   class: [
