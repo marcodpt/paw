@@ -50,7 +50,7 @@ export default ({
         dataBsDismiss: typeof close != 'string' ? null : close 
       })
     ]),
-    !hasLegend ? null : hr({
+    !hasLegend || (!hasAlert && !K.length) ? null : hr({
       class: 'my-2'
     }),
     !hasAlert ? null : ctrl({

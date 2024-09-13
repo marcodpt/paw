@@ -181,8 +181,7 @@ export default ({
         legend,
         span,
         i,
-        text,
-        hr
+        text
       }) => 
         form({
           novalidate: ''
@@ -206,10 +205,7 @@ export default ({
                 }),
                 text(' A header')
               ])
-            ]),
-            hr({
-              class: 'my-2'
-            })
+            ])
           ])
         ])
       )
@@ -230,8 +226,7 @@ export default ({
         span,
         i,
         text,
-        button,
-        hr
+        button
       }) => 
         form({
           novalidate: ''
@@ -263,10 +258,7 @@ export default ({
                 ],
                 dataBsDismiss: 'modal'
               })
-            ]),
-            hr({
-              class: 'my-2'
-            })
+            ])
           ])
         ])
       )
@@ -287,8 +279,7 @@ export default ({
         span,
         i,
         text,
-        button,
-        hr
+        button
       }) => 
         form({
           novalidate: ''
@@ -319,10 +310,7 @@ export default ({
                   'float-end'
                 ]
               })
-            ]),
-            hr({
-              class: 'my-2'
-            })
+            ])
           ])
         ])
       )
@@ -386,11 +374,11 @@ export default ({
                 ],
                 dataBsDismiss: 'modal'
               })
-            ]),
-            hr({
-              class: 'my-2'
-            })
+            ])
           ]),
+          hr({
+            class: 'my-2'
+          }),
           div({
             class: [
               'row',
@@ -472,11 +460,11 @@ export default ({
                 }),
                 text(' A header')
               ])
-            ]),
-            hr({
-              class: 'my-2'
-            })
+            ])
           ]),
+          hr({
+            class: 'my-2'
+          }),
           div({
             class: [
               'row',
@@ -591,6 +579,9 @@ export default ({
               ])
             ])
           ]),
+          hr({
+            class: 'my-2'
+          }),
           div({
             class: [
               'row',
@@ -709,6 +700,9 @@ export default ({
               ])
             ])
           ]),
+          hr({
+            class: 'my-2'
+          }),
           div({
             class: [
               'row',
