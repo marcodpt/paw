@@ -1975,6 +1975,222 @@ export default ({
             name: 'Mathews Mcgowan',
             age: 24,
             balance: 3072.78
+          }
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        text,
+        button,
+        hr,
+        div,
+        label,
+        a,
+        i
+      }) => 
+        form({
+          class: [
+            'container',
+            'card',
+            'my-5',
+            'p-3'
+          ],
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({
+                title: 'Single user entry'
+              }, [
+                text('User: Mathews Mcgowan')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ]
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            }),
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ],
+                    title: 'User id'
+                  }, [
+                    text('Id:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  a({
+                    href: '#/users/1'
+                  }, [
+                    text('1')
+                  ])
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ],
+                    title: 'User name'
+                  }, [
+                    text('Name:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('Mathews Mcgowan')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-6',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ],
+                    title: 'User age'
+                  }, [
+                    text('Age (Y):')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('24')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-6',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('Balance ($):')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('3,072.78')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Static with actions',
+      data: [
+        {
+          css: 'container card my-5 p-3',
+          title: 'User: Mathews Mcgowan',
+          description: 'Single user entry',
+          readOnly: true,
+          close: () => {window.alert('close')},
+          col: 6,
+          properties: {
+            id: {
+              type: 'integer',
+              title: 'Id',
+              description: 'User id',
+              default: 0,
+              href: '#/users/{id}',
+              totals: 'count',
+              col: 12
+            },
+            name: {
+              type: 'string',
+              title: 'Name',
+              description: 'User name',
+              default: '',
+              minLength: 1,
+              maxLength: 255,
+              col: 12
+            }, 
+            age: {
+              type: 'integer',
+              title: 'Age (Y)',
+              description: 'User age',
+              default: 18,
+              minimum: 18,
+              maximum: 99,
+              totals: 'avg'
+            }, 
+            balance: {
+              type: 'number',
+              title: 'Balance ($)',
+              default: 0,
+              minimum: 1000,
+              maximum: 4000,
+              ui: 'num.2',
+              totals: 'sum'
+            }
+          },
+          default: {
+            id: 1,
+            name: 'Mathews Mcgowan',
+            age: 24,
+            balance: 3072.78
           },
           links: [
             {

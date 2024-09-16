@@ -79,7 +79,7 @@ export default ({
     }
   }, [
     fields,
-    !links.length && !hasFields ? null : hr({
+    !links.length ? null : hr({
       class: 'my-2'
     }),
     footer
