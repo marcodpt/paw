@@ -46,7 +46,9 @@ export default ({
       multiple: type == 'array',
       oninput: ev => {
         if (ui == 'File') {
-          update(type != 'array' ? ev.target.files[0] : ev.target.files)
+          update(type != 'array' ?
+            ev.target.files[0] : Array.from(ev.target.files)
+          )
         } else {
           read(ev.target.files).then(files => {
             const names = files.map(({name}) => name)
