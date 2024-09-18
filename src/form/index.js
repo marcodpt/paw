@@ -65,7 +65,6 @@ export default ({
     }
   })
 
-  console.log(fields)
   return node(({
     div,
     form,
