@@ -65,6 +65,7 @@ export default ({
     }
   })
 
+  console.log(fields)
   return node(({
     div,
     form,
@@ -79,7 +80,7 @@ export default ({
     }
   }, [
     fields,
-    !links.length ? null : hr({
+    !links.length || !fields || fields.nodeType != 1 ? null : hr({
       class: 'my-2'
     }),
     footer
