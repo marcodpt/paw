@@ -2669,6 +2669,461 @@ export default ({
         ])
       )
     }, {
+      title: 'A table with search bar.',
+      data: [
+        {
+          search: 'Search',
+          items: {
+            properties: prop1
+          },
+          default: data1
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        input,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    type: 'text',
+                    name: 'search',
+                    value: '',
+                    placeholder: 'Search'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('20')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('33')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('34')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('36')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'A table with a default value in the search bar.',
+      data: [
+        {
+          search: 'Search',
+          items: {
+            properties: prop1
+          },
+          query: {
+            search: 'At'
+          },
+          default: data1
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        th,
+        div,
+        input,
+        span,
+        text,
+        tbody,
+        td
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              th({
+                class: 'text-center',
+                colspan: '100%'
+              }, [
+                div({}, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    type: 'text',
+                    name: 'search',
+                    value: 'At',
+                    placeholder: 'Search'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User age',
+                  dataCtx: 'field:age'
+                }, [
+                  text('Age (Y)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('24')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('30')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('29')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
       title: 'Table with pagination',
       data: [
         {

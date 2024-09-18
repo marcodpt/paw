@@ -41,7 +41,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
       const d = new Date(x)
       return !isFinite(d) ? '' : d.toLocaleDateString(T('lang'))
     }
-  } else if (/^num\.[1-9][0-9]*$/.test(ui)) {
+  } else if (/^num\.[0-9]+$/.test(ui)) {
     const precision = parseInt(ui.substr(4))
     const pow = 10 ** precision
 
@@ -52,7 +52,7 @@ const formatter = ({type, ui, maximum, minimum}) => {
         ) {
           x = parseFloat(x)
         } else {
-          x = parseInt(x) / pow
+          x = parseInt(Math.round(x)) / pow
         }
         return x.toLocaleString(T('lang'), {
           minimumFractionDigits: precision,
@@ -88,8 +88,8 @@ const formatter = ({type, ui, maximum, minimum}) => {
     }
   } else if (type == 'integer' || type == 'number') {
     return x => !isNum(x) ? x == null ? '' : x :
-      (type == 'integer' ? Math.round(x) : parseFloat(x))
-        .toLocaleString(T('lang'))
+      type == 'integer' ? String(Math.round(x)) :
+        parseFloat(x).toLocaleString(T('lang'))
   } else if (type != 'string') {
     return x => JSON.stringify(x, undefined, 2)
   } else {

@@ -29,8 +29,9 @@ const query = filters => data => filters.reduce(
 
 const find = (match, format) => data => {
   if (match) {
+    match = match.toLowerCase()
     data = data.filter(row => Object.keys(format).reduce((pass, k) =>
-      pass || format[k](row[k]).toLowerCase().indexOf(match.toLowerCase()) >= 0
+      pass || format[k](row[k]).toLowerCase().indexOf(match) >= 0
     , false))
   }
   return data

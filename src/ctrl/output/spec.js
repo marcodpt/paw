@@ -141,6 +141,45 @@ export default ({
         }
       ],
       html: html(({text}) => 
+        text('1234')
+      )
+    }, {
+      title: 'Integer with formatting',
+      data: [
+        {
+          default: 1234,
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: 1234,
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: '1234',
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: 1233.6,
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: 1233.5,
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: 1234.4,
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: '1233.5',
+          ui: 'num.0'
+        }, {
+          type: 'integer',
+          default: '1234.4',
+          ui: 'num.0'
+        }
+      ],
+      html: html(({text}) => 
         text('1,234')
       )
     }, {
