@@ -125,7 +125,7 @@ export default ({
                 Err[k] = err
                 msgErr = Object.keys(Err).reduce(
                   (E, k) => [...E].concat(!Err[k] ? [] :
-                    `${P[k].title || k}: ${Err[k]}`
+                    `${P[k] && P[k].title ? P[k].title : k}: ${Err[k]}`
                   )
                 , []).join('\n\n')
                 if (typeof update == 'function' && done) {
