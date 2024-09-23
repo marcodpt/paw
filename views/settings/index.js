@@ -212,7 +212,14 @@ export default ({render, form, home, html}) => {
     },
     download: 'index.html',
     mime: 'text/html',
-    submit: fullPage
+    submit: fullPage,
+    links: [
+      {
+        icon: 'download',
+        href: 'submit',
+        title: 'Save HTML'
+      }
+    ]
   }))
 
   return setView()

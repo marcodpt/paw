@@ -8,7 +8,7 @@
 
 ## ❤️ Features
  - Theme [builder](https://marcodpt.github.io/paw/#/settings) optimized for SEO
- - Built-in SPA router
+ - Built-in [SPA router](https://github.com/marcodpt/wand).
  - No build steps, no vDom, no need to rewrite any JS library!
  - JSON Schema based [forms](https://marcodpt.github.io/paw/#/example/form/4)
  - HTML to Hyperscript [converter](https://marcodpt.github.io/paw/#/converter)
@@ -166,7 +166,6 @@ so I created it.
  - remove non bootstrap options support, minimize options and review settings
  - separate outputs
  - better array ctrl support (minimize, up, down, remove, add)
- - deep router param is an array (?, +, \*) support at the end of var
  - finish documentation
  - finish static tests
  - finish dynamic tests
@@ -185,6 +184,7 @@ This work would not be possible if it were not for these related projects:
  - [Bootstrap](https://getbootstrap.com/)
  - [Bootswatch](https://bootswatch.com/)
  - [JSON Schema](https://json-schema.org/)
+ - [Wand](https://github.com/marcodpt/wand)
  - [HTML5 Boilerplate](https://html5boilerplate.com/)
  - [highlight.js](https://highlightjs.org/)
  - [Cytoscape.js](https://js.cytoscape.org/)

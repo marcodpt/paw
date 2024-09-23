@@ -1,5 +1,4 @@
 import paw from './spec.js'
-import router from './router/spec.js'
 import node from './hyperscript/spec.js'
 import render from './render/spec.js'
 import spinner from './spinner/spec.js'
@@ -16,7 +15,6 @@ import map from './map/spec.js'
 
 export default [
   paw,
-  router,
   node,
   render,
   spinner,

@@ -1,4 +1,4 @@
-import plugin from '../../src/router/plugins/active/index.js'
+import plugin from '../../src/plugins/active/index.js'
 
 const getCss = nav => nav?.getAttribute('class')
   .split(' ')
