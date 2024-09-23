@@ -1,5 +1,4 @@
-import html from './hyperscript/html.js'
-import node from './hyperscript/node.js'
+import node from './node/index.js'
 import render from './render/index.js'
 import spinner from './spinner/index.js'
 import ctrl from './ctrl/index.js'
@@ -14,7 +13,6 @@ import carousel from './carousel/index.js'
 import map from './map/index.js'
 
 export {
-  html,
   node,
   render,
   spinner,

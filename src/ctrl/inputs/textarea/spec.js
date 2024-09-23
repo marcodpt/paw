@@ -1,4 +1,4 @@
-import html from '../../../hyperscript/html.js'
+import html from '../../../node/html.js'
 
 const update = (err, v) => {
   console.log(err)

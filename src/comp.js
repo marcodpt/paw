@@ -1,5 +1,5 @@
 import paw from './spec.js'
-import node from './hyperscript/spec.js'
+import node from './node/spec.js'
 import render from './render/spec.js'
 import spinner from './spinner/spec.js'
 import ctrl from './ctrl/spec.js'

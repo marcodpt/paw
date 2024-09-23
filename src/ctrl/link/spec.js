@@ -1,4 +1,4 @@
-import {html} from '../../components.js'
+import html from '../../node/html.js'
 import opt from '../options.js'
 import tag from '../tag/spec.js'
 import {wait} from '../../lib.js'

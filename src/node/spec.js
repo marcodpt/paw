@@ -1,10 +1,10 @@
-import node from './node.js'
+import node from './index.js'
 import {tags} from './tags.js'
-import html from '../hyperscript/html.js'
+import html from './html.js'
 
 export default ({
   icon: 'code',
-  title: 'hyperscript',
+  title: 'node',
   description: 'Hyperscript function on steroids.',
   component: node,
   type: 'function',
@@ -12,7 +12,7 @@ export default ({
     {
       type: 'function',
       title: 'builder',
-      returns: 'hyperscript',
+      returns: 'DOM Node',
       args: [
         {
           type: 'object',
@@ -28,7 +28,7 @@ export default ({
     }
   ],
   returns: {
-    type: 'string/node'
+    type: 'DOM Node'
   },
   examples: [
     {

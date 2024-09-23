@@ -148,7 +148,6 @@ so I created it.
 ## 🔧 TODO
  - sidebar auto open with current route
  - completely remove functions assign to DOM, fieldset.setProp
- - html should not be exposed to client
  - dynamic tests implementation
  - highlightjs as a component (js/html)
  - tests as a route and qunit as a component

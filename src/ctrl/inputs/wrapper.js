@@ -1,4 +1,4 @@
-import node from '../../hyperscript/node.js'
+import {node} from '../../components.js'
 
 export default (target, noFeedback) => node(({div}) =>
   div({

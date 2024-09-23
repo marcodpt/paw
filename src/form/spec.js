@@ -1,4 +1,5 @@
-import {form, html} from '../components.js'
+import html from '../node/html.js'
+import {form} from '../components.js'
 import schema from '../../views/data/schema.js'
 import users from '../../views/data/users.js'
 

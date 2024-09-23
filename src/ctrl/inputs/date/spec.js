@@ -1,4 +1,4 @@
-import html from '../../../hyperscript/html.js'
+import html from '../../../node/html.js'
 
 const d = new Date()
 const iso = d.toISOString().substr(0, 10)

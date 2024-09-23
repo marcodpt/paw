@@ -1,4 +1,4 @@
-import {html} from '../../components.js'
+import html from '../../node/html.js'
 
 export default ({
   icon: 'tag',

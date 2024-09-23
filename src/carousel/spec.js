@@ -1,4 +1,5 @@
-import {html, carousel} from '../components.js'
+import html from '../node/html.js'
+import {carousel} from '../components.js'
 
 export default ({
   icon: 'images',

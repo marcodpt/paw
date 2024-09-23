@@ -1,4 +1,5 @@
-import {html, table} from '../components.js'
+import html from '../node/html.js'
+import {table} from '../components.js'
 import {prop0, data0, prop1, data1, prop2, data2} from './data.js'
 
 var btn = null

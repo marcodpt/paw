@@ -1,3 +1,4 @@
+import html from '../../src/node/html.js'
 import deps from '../../dependencies.js' 
 
 const getIcon = icon => 'fa-'+
@@ -8,7 +9,7 @@ const getIcon = icon => 'fa-'+
 const getTarget = href => !href || href.indexOf('://') < 0 ? null :
   '_blank'
 
-export default html => {
+export default () => {
   const getExt = target => !target ? '' : html(({sup, i}) => sup({}, [
     i({
       class: [
