@@ -42,7 +42,7 @@ export default ({
   }
   const setTarget = href =>
     typeof href == 'string' && href.indexOf('://') > 0 ? '_blank' : null
-  const ext = target => !target || !extra.title ? '' : node(({
+  const ext = (target, ctx) => !target || !extra.title || ctx ? '' : node(({
     sup, i, text
   }) =>
     sup({}, [
@@ -118,7 +118,7 @@ export default ({
     }), {})
   }, [
     ctrl(extra),
-    ext(target),
+    ext(target, context),
     !download || !mime ? null : a({
       class: 'd-none',
       href: `data:${mime},`,

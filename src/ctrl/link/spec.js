@@ -122,6 +122,39 @@ export default ({
         ])
       )
     }, {
+      title: 'A external link with target _blank and context',
+      data: [
+        {
+          icon: '@github',
+          title: 'Repository',
+          context: 'info',
+          href: 'https://github.com/marcodpt/paw'
+        }
+      ],
+      html: html(({
+        a,
+        span,
+        i,
+        sup,
+        text
+      }) => 
+        a({
+          class: 'btn btn-info',
+          href: 'https://github.com/marcodpt/paw',
+          target: '_blank'
+        }, [
+          span({}, [
+            i({
+              class: [
+                'fa-brands',
+                'fa-github'
+              ]
+            }),
+            text(' Repository')
+          ])
+        ])
+      )
+    }, {
       title: 'A external link with target _blank and no title',
       data: [
         {
