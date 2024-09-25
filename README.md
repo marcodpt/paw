@@ -1,7 +1,7 @@
 # ![](favicon.ico) Paw
   A low-code, vdom-free hyperscript framework.
 
-  [![bundlejs](https://deno.bundlejs.com/badge?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)](https://bundlejs.com/?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[*]&text=%22export+default+paw%22)
+  [![bundlejs](https://deno.bundlejs.com/badge?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[{default}])](https://bundlejs.com/?q=https://raw.githubusercontent.com/marcodpt/paw/main/index.js&treeshake=[{default}])
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
   [Demo](https://marcodpt.github.io/paw/)
@@ -146,7 +146,6 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
- - sizing not working on field label and static form.
  - sidebar auto open with current route
  - completely remove functions assign to DOM, fieldset.setProp
  - dynamic tests implementation
