@@ -1014,7 +1014,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('name:')
@@ -1053,7 +1054,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('email:')
@@ -1092,7 +1094,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('age:')
@@ -1132,7 +1135,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('language:')
@@ -1151,10 +1155,10 @@ export default ({
                     type: 'text',
                     name: 'language',
                     value: '',
-                    list: 'app_list_000000'
+                    list: 'app_list_000005'
                   }),
                   datalist({
-                    id: 'app_list_000000'
+                    id: 'app_list_000005'
                   }, [
                     option({}, [
                       text('English')
@@ -1187,7 +1191,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('news:')
@@ -1224,7 +1229,8 @@ export default ({
                   label({
                     class: [
                       'form-label',
-                      'fw-bold'
+                      'fw-bold',
+                      'small'
                     ]
                   }, [
                     text('bio:')
@@ -1726,6 +1732,378 @@ export default ({
                 class: [
                   'btn',
                   'btn-primary'
+                ],
+                type: 'button'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-check'
+                  ]
+                })
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Edit form small',
+      data: [
+        {
+          size: 'sm',
+          properties: {
+            id: {
+              default: 27,
+              readOnly: true
+            }, 
+            name: {
+              default: 'Josh',
+              minLength: 2
+            }, 
+            age: {
+              default: 30,
+              readOnly: true,
+              writeOnly: true
+            }
+          },
+          submit: data => {
+            console.log(data)
+          }
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        div,
+        label,
+        text,
+        input,
+        hr,
+        button,
+        i
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-1',
+                  'row',
+                  'small'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'small'
+                    ]
+                  }, [
+                    text('id:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('27')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-1',
+                  'row',
+                  'small'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'small'
+                    ]
+                  }, [
+                    text('name:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'form-control-sm'
+                    ],
+                    type: 'text',
+                    name: 'name',
+                    value: 'Josh'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-1',
+                  'row',
+                  'small'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'small'
+                    ]
+                  }, [
+                    text('age:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'form-control-sm'
+                    ],
+                    type: 'number',
+                    name: 'age',
+                    value: '30',
+                    step: '1',
+                    disabled: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ])
+            ])
+          ]),
+          hr({
+            class: 'my-2'
+          }),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-start'
+            ]
+          }, [
+            div({
+              class: 'col-auto',
+              title: ''
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary',
+                  'btn-sm'
+                ],
+                type: 'button'
+              }, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-check'
+                  ]
+                })
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Edit form large',
+      data: [
+        {
+          size: 'lg',
+          properties: {
+            id: {
+              default: 27,
+              readOnly: true
+            }, 
+            name: {
+              default: 'Josh',
+              minLength: 2
+            }, 
+            age: {
+              default: 30,
+              readOnly: true,
+              writeOnly: true
+            }
+          },
+          submit: data => {
+            console.log(data)
+          }
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        div,
+        label,
+        text,
+        input,
+        hr,
+        button,
+        i
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ]
+                  }, [
+                    text('id:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  text('27')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ]
+                  }, [
+                    text('name:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'form-control-lg'
+                    ],
+                    type: 'text',
+                    name: 'name',
+                    value: 'Josh'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-md-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ]
+                  }, [
+                    text('age:')
+                  ])
+                ]),
+                div({
+                  class: 'col-md-9'
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'form-control-lg'
+                    ],
+                    type: 'number',
+                    name: 'age',
+                    value: '30',
+                    step: '1',
+                    disabled: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ])
+            ])
+          ]),
+          hr({
+            class: 'my-2'
+          }),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-start'
+            ]
+          }, [
+            div({
+              class: 'col-auto',
+              title: ''
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary',
+                  'btn-lg'
                 ],
                 type: 'button'
               }, [

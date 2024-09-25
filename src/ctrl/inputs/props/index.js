@@ -107,7 +107,11 @@ export default ({
               class: 'col-md-3'
             }, [
               label({
-                class: 'form-label fw-bold',
+                class: [
+                  'form-label',
+                  'fw-bold',
+                  (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
+                ],
                 title: description
               }, [
                 text(title+':')

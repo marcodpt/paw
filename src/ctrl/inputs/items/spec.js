@@ -249,7 +249,8 @@ export default ({
                     label({
                       class: [
                         'form-label',
-                        'fw-bold'
+                        'fw-bold',
+                        'small'
                       ]
                     }, [
                       text('name:')
@@ -287,7 +288,8 @@ export default ({
                     label({
                       class: [
                         'form-label',
-                        'fw-bold'
+                        'fw-bold',
+                        'small'
                       ]
                     }, [
                       text('age:')

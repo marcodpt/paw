@@ -146,6 +146,7 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
+ - sizing not working on field label and static form.
  - sidebar auto open with current route
  - completely remove functions assign to DOM, fieldset.setProp
  - dynamic tests implementation
