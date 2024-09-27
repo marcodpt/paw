@@ -76,9 +76,9 @@ export default ({
           return
         }
 
-        /*if (P[k].default !== undefined && Data[k] !== undefined) {
+        if (P[k].default !== undefined && P[k].readOnly) {
           delete Data[k]
-        }*/
+        }
 
         const {title, description, ...schema} = {
           delay,
