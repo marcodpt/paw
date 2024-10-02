@@ -15,7 +15,7 @@ export default ({
       div({
         class: [
           'modal-dialog',
-          Object.keys(schema.properties || {}).length ? 'modal-lg' : 'modal-sm'
+          Object.keys(schema.properties || {}).length ? 'modal-xl' : 'modal-sm'
         ].join(' ')
       }, [
         div({
