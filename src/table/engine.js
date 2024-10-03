@@ -28,11 +28,12 @@ const query = filters => data => filters.reduce(
 , data)
 
 const find = (match, format) => data => {
+  const formatter = x => x != null ? String(x) : ''
   if (match) {
     match = match.toLowerCase()
-    data = data.filter(row => Object.keys(format).
+    data = data.filter(row => Object.keys(row).
       map(k => {
-        const value = format[k](row[k])
+        const value = (format[k] || formatter)(row[k])
         return (typeof value == 'string' ? value : '').toLowerCase()
       }).
       reduce((pass, value) =>
