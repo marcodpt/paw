@@ -10,7 +10,8 @@ export default ({
   const modal = node(({div}) => 
     div({
       class: 'modal fade',
-      tabindex: '-1'
+      tabindex: '-1',
+      dataBsFocus: 'false'
     }, [
       div({
         class: [
