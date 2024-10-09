@@ -48,7 +48,8 @@ export default ({links, title, description, icon}) => {
               ...meta
             }),
             !children ? null : div({
-              class: 'mt-2 d-none'
+              class: 'mt-2',
+              dataPawInactive: 'd-none'
             }, [
               tree({children})
             ])

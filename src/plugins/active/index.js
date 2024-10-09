@@ -30,8 +30,14 @@ export default ({url}) => {
     var l = link
     while (l = l.closest('[data-paw-path]')) {
       Current.push(l.getAttribute('data-paw-path'))
-      const p = l.getAttribute('data-paw-active') ? l :
+      let p = l.getAttribute('data-paw-active') ? l :
         l.querySelector('[data-paw-active]')
+      if (p) {
+        setClass(p, 'active', 'add')
+        setClass(p, 'inactive', 'remove')
+      }
+      p = l.getAttribute('data-paw-inactive') ? l :
+        l.querySelector('[data-paw-inactive]')
       if (p) {
         setClass(p, 'active', 'add')
         setClass(p, 'inactive', 'remove')
