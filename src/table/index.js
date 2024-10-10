@@ -288,6 +288,7 @@ export default ({
         }
       })
 
+      x.innerHTML = ''
       view.forEach(row => {
         x.appendChild(node(({tr, td, a, text}) =>
           tr({
@@ -356,6 +357,7 @@ export default ({
         const v = totals[k]
         t.textContent = v != null ? v : '' 
       })
+      x.innerHTML = ''
       x.appendChild(node(({tr, td}) =>
         tr({}, [
           td({

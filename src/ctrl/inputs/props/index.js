@@ -104,7 +104,7 @@ export default ({
               (size == 'lg' ? ' fs-5' : size == 'sm' ? ' small' : '')
           }, [
             !title ? null : div({
-              class: 'col-md-3'
+              class: 'col-sm-3'
             }, [
               label({
                 class: [
@@ -121,7 +121,7 @@ export default ({
               ...schema,
               title: schema.properties ? null : k,
               description: !title || schema.properties ? description : null,
-              css: !title ? null : 'col-md-9',
+              css: !title ? null : 'col-sm-9',
               update: (err, v, label) => {
                 label = typeof label != 'string' ? String(v) : label
                 Data[k] = v

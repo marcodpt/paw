@@ -244,7 +244,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -257,7 +257,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -283,7 +283,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -296,7 +296,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -448,7 +448,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -460,7 +460,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     div({
                       class: 'input-group'
@@ -498,7 +498,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -510,7 +510,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -534,7 +534,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -546,7 +546,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -570,7 +570,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -582,7 +582,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     div({
                       class: [
@@ -644,7 +644,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -656,7 +656,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               div({
                                 class: 'input-group'
@@ -694,7 +694,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -706,7 +706,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               input({
                                 class: [
@@ -730,7 +730,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -742,7 +742,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               input({
                                 class: [
@@ -776,7 +776,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -788,7 +788,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               div({
                                 class: 'input-group'
@@ -826,7 +826,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -838,7 +838,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               input({
                                 class: [
@@ -862,7 +862,7 @@ export default ({
                             ]
                           }, [
                             div({
-                              class: 'col-md-3'
+                              class: 'col-sm-3'
                             }, [
                               label({
                                 class: [
@@ -874,7 +874,7 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-md-9'
+                              class: 'col-sm-9'
                             }, [
                               input({
                                 class: [
@@ -913,7 +913,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -925,7 +925,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     div({
                       class: 'input-group'
@@ -963,7 +963,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -975,7 +975,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -999,7 +999,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -1011,7 +1011,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     input({
                       class: [
@@ -1035,7 +1035,7 @@ export default ({
                   ]
                 }, [
                   div({
-                    class: 'col-md-3'
+                    class: 'col-sm-3'
                   }, [
                     label({
                       class: [
@@ -1047,7 +1047,7 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-md-9'
+                    class: 'col-sm-9'
                   }, [
                     div({
                       class: [

@@ -1009,7 +1009,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1022,7 +1022,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1049,7 +1049,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1062,7 +1062,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1089,7 +1089,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1102,7 +1102,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1130,7 +1130,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1143,7 +1143,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1186,7 +1186,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1199,7 +1199,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1224,7 +1224,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1237,7 +1237,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   textarea({
                     class: [
@@ -1400,7 +1400,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1412,7 +1412,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1454,7 +1454,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1466,7 +1466,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1502,7 +1502,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1514,7 +1514,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1620,7 +1620,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1632,7 +1632,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('27')
                 ])
@@ -1645,7 +1645,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1657,7 +1657,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1681,7 +1681,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1693,7 +1693,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1798,7 +1798,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1811,7 +1811,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('27')
                 ])
@@ -1825,7 +1825,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1838,7 +1838,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1864,7 +1864,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1877,7 +1877,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -1984,7 +1984,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -1997,7 +1997,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('27')
                 ])
@@ -2011,7 +2011,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2024,7 +2024,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -2050,7 +2050,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2063,7 +2063,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -2170,7 +2170,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2182,7 +2182,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('27')
                 ])
@@ -2195,7 +2195,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2207,7 +2207,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -2231,7 +2231,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2243,7 +2243,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   input({
                     class: [
@@ -2414,7 +2414,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2427,7 +2427,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   a({
                     href: '#/users/1'
@@ -2444,7 +2444,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2457,7 +2457,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('Mathews Mcgowan')
                 ])
@@ -2470,7 +2470,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2483,7 +2483,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('24')
                 ])
@@ -2496,7 +2496,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2508,7 +2508,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('3,072.78')
                 ])
@@ -2643,7 +2643,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2656,7 +2656,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   a({
                     href: '#/users/1'
@@ -2673,7 +2673,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2686,7 +2686,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('Mathews Mcgowan')
                 ])
@@ -2699,7 +2699,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2712,7 +2712,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('24')
                 ])
@@ -2725,7 +2725,7 @@ export default ({
                 ]
               }, [
                 div({
-                  class: 'col-md-3'
+                  class: 'col-sm-3'
                 }, [
                   label({
                     class: [
@@ -2737,7 +2737,7 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-md-9'
+                  class: 'col-sm-9'
                 }, [
                   text('3,072.78')
                 ])
