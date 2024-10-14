@@ -20,7 +20,9 @@ export default ({
         div,
         input
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'form-control',

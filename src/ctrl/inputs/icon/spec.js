@@ -26,7 +26,9 @@ export default ({
         i,
         input
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'input-group'
           }, [

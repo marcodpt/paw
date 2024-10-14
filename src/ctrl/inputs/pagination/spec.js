@@ -70,7 +70,9 @@ export default ({
           div({
             class: 'col-auto'
           }, [
-            div({}, [
+            div({
+              class: 'position-relative'
+            }, [
               input({
                 class: [
                   'form-control',
@@ -141,8 +143,6 @@ export default ({
         button,
         i,
         input,
-        datalist,
-        option,
         text
       }) => 
         div({
@@ -195,7 +195,9 @@ export default ({
           div({
             class: 'col-auto'
           }, [
-            div({}, [
+            div({
+              class: 'position-relative'
+            }, [
               input({
                 class: [
                   'validate',
@@ -205,13 +207,24 @@ export default ({
                 ],
                 type: 'text',
                 value: 'Page (1 / 1)',
-                list: 'app_list_000001',
                 disabled: ''
               }),
-              datalist({
-                id: 'app_list_000001'
+              div({
+                class: [
+                  'list-group',
+                  'd-none',
+                  'w-100',
+                  'position-absolute',
+                  'z-3'
+                ]
               }, [
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action',
+                    'active'
+                  ]
+                }, [
                   text('Page (1 / 1)')
                 ])
               ]),
@@ -279,8 +292,6 @@ export default ({
         button,
         i,
         input,
-        datalist,
-        option,
         text
       }) => 
         div({
@@ -331,7 +342,9 @@ export default ({
           div({
             class: 'col-auto'
           }, [
-            div({}, [
+            div({
+              class: 'position-relative'
+            }, [
               input({
                 class: [
                   'validate',
@@ -339,67 +352,168 @@ export default ({
                   'form-control-sm'
                 ],
                 type: 'text',
-                value: '(7 / 15)',
-                list: 'app_list_000001'
+                value: '(7 / 15)'
               }),
-              datalist({
-                id: 'app_list_000001'
+              div({
+                class: [
+                  'list-group',
+                  'd-none',
+                  'w-100',
+                  'position-absolute',
+                  'z-3'
+                ]
               }, [
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(-3 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(-2 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(-1 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(0 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(1 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(2 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(3 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(4 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(5 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(6 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action',
+                    'active'
+                  ]
+                }, [
                   text('(7 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(8 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(9 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(10 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(11 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(12 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(13 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(14 / 15)')
                 ]),
-                option({}, [
+                button({
+                  class: [
+                    'list-group-item',
+                    'list-group-item-action'
+                  ]
+                }, [
                   text('(15 / 15)')
                 ])
               ]),

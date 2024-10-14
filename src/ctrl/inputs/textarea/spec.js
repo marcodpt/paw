@@ -33,7 +33,9 @@ export default ({
         textarea,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           textarea({
             class: [
               'validate',

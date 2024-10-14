@@ -43,7 +43,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [
@@ -185,7 +187,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [
@@ -305,7 +309,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [
@@ -415,7 +421,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [
@@ -483,7 +491,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [
@@ -537,7 +547,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: 'form-check'
           }, [

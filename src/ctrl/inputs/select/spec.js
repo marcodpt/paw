@@ -42,7 +42,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',
@@ -117,7 +119,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',
@@ -184,7 +188,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',
@@ -242,7 +248,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',
@@ -287,7 +295,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',
@@ -334,7 +344,9 @@ export default ({
         option,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           select({
             class: [
               'validate',

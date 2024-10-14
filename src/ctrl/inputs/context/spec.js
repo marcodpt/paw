@@ -26,7 +26,9 @@ export default ({
         label,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             type: 'radio',
             class: 'btn-check',

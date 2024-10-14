@@ -33,7 +33,9 @@ export default ({
         i,
         input
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: [
               'row',
@@ -84,7 +86,9 @@ export default ({
           div({
             class: 'my-3'
           }, [
-            div({}, [
+            div({
+              class: 'position-relative'
+            }, [
               input({
                 class: [
                   'validate',
@@ -103,7 +107,9 @@ export default ({
           div({
             class: 'my-3'
           }, [
-            div({}, [
+            div({
+              class: 'position-relative'
+            }, [
               input({
                 class: [
                   'validate',
@@ -160,7 +166,9 @@ export default ({
         label,
         input
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: [
               'row',
@@ -387,7 +395,9 @@ export default ({
         span,
         input
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           div({
             class: [
               'row',
