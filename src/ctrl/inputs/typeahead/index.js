@@ -143,11 +143,13 @@ export default ({
         'd-none',
         'w-100',
         'position-absolute',
-        'z-3'
+        'z-3',
+        size == 'sm' ? 'small' : size == 'lg' ? 'fs-5' : ''
       ]
     }, options.map((o, i) => 
       button({
         class: [
+          'py-1',
           'list-group-item',
           'list-group-item-action',
           i == active ? 'active' : ''
