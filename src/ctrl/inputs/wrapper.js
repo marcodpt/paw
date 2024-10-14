@@ -2,6 +2,7 @@ import {node} from '../../components.js'
 
 export default (target, noFeedback) => node(({div}) =>
   div({
+    class: 'position-relative',
     validate: (el, error) => {
       el.querySelectorAll('.invalid-feedback').forEach(feedback => {
         feedback.textContent = ''
