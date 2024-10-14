@@ -215,11 +215,13 @@ export default ({
                   'd-none',
                   'w-100',
                   'position-absolute',
-                  'z-3'
+                  'z-3',
+                  'fs-5'
                 ]
               }, [
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action',
                     'active'
@@ -360,11 +362,13 @@ export default ({
                   'd-none',
                   'w-100',
                   'position-absolute',
-                  'z-3'
+                  'z-3',
+                  'small'
                 ]
               }, [
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -373,6 +377,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -381,6 +386,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -389,6 +395,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -397,6 +404,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -405,6 +413,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -413,6 +422,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -421,6 +431,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -429,6 +440,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -437,6 +449,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -445,6 +458,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action',
                     'active'
@@ -454,6 +468,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -462,6 +477,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -470,6 +486,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -478,6 +495,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -486,6 +504,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -494,6 +513,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -502,6 +522,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]
@@ -510,6 +531,7 @@ export default ({
                 ]),
                 button({
                   class: [
+                    'py-1',
                     'list-group-item',
                     'list-group-item-action'
                   ]

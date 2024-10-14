@@ -23,11 +23,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -35,16 +36,34 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'Yes',
-            list: 'app_list_000000'
+            value: 'Yes'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3'
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('No')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('Yes')
             ])
           ]),
@@ -67,11 +86,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -79,79 +99,223 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'ui',
-            list: 'app_list_000000'
+            value: 'ui'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('_')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('date')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('bool')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('text')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('info')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('num.1')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('num.2')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('num.3')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:2')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:3')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:4')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:5')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:6')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:7')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:8')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('len:9')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('password')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('file')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('color')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('progress')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('context')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('icon')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('ui')
             ])
           ]),
@@ -160,7 +324,7 @@ export default ({
           })
         ])
       )
-    },{
+    }, {
       title: 'Wrong sm',
       data: [
         {
@@ -188,11 +352,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -201,22 +366,52 @@ export default ({
               'is-invalid'
             ],
             type: 'text',
-            value: '0',
-            list: 'app_list_000000'
+            value: '0'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+              'small',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Dog')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Cat')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Bird')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Horse')
             ])
           ]),
@@ -254,33 +449,64 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
               'form-control'
             ],
             type: 'text',
-            value: 'Dog',
-            list: 'app_list_000000'
+            value: 'Dog'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('Dog')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Cat')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Bird')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Horse')
             ])
           ]),
@@ -318,11 +544,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -331,22 +558,53 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'Cat',
-            list: 'app_list_000000'
+            value: 'Cat'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+              'fs-5',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Dog')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('Cat')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Bird')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Horse')
             ])
           ]),
@@ -373,11 +631,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -385,13 +644,24 @@ export default ({
               'is-invalid'
             ],
             type: 'text',
-            value: '0',
-            list: 'app_list_000000'
+            value: '0'
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Dog')
             ])
           ]),
@@ -415,10 +685,11 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -427,11 +698,16 @@ export default ({
             ],
             type: 'text',
             value: '0',
-            list: 'app_list_000000',
             disabled: ''
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3'
+            ]
           }),
           div({
             class: 'invalid-feedback'
@@ -459,11 +735,12 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
@@ -472,13 +749,25 @@ export default ({
             ],
             type: 'text',
             value: 'Dog',
-            list: 'app_list_000000',
             disabled: ''
           }),
-          datalist({
-            id: 'app_list_000000'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3'
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('Dog')
             ])
           ]),
@@ -508,27 +797,46 @@ export default ({
       html: html(({
         div,
         input,
-        datalist,
-        option,
+        button,
         text
       }) => 
-        div({}, [
+        div({
+          class: 'position-relative'
+        }, [
           input({
             class: [
               'validate',
               'form-control'
             ],
             type: 'text',
-            value: 'Dog Cat',
-            list: 'app_list_000001'
+            value: 'Dog Cat'
           }),
-          datalist({
-            id: 'app_list_000001'
+          div({
+            class: [
+              'list-group',
+              'd-none',
+              'w-100',
+              'position-absolute',
+              'z-3',
+            ]
           }, [
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action',
+                'active'
+              ]
+            }, [
               text('Dog Cat')
             ]),
-            option({}, [
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('Horse Bird')
             ])
           ]),
