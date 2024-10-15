@@ -36,7 +36,8 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'Yes'
+            value: 'Yes',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -99,7 +100,8 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'ui'
+            value: 'ui',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -366,7 +368,8 @@ export default ({
               'is-invalid'
             ],
             type: 'text',
-            value: '0'
+            value: '0',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -461,7 +464,8 @@ export default ({
               'form-control'
             ],
             type: 'text',
-            value: 'Dog'
+            value: 'Dog',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -558,7 +562,8 @@ export default ({
               'is-valid'
             ],
             type: 'text',
-            value: 'Cat'
+            value: 'Cat',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -644,7 +649,8 @@ export default ({
               'is-invalid'
             ],
             type: 'text',
-            value: '0'
+            value: '0',
+            autocomplete: 'off'
           }),
           div({
             class: [
@@ -698,6 +704,7 @@ export default ({
             ],
             type: 'text',
             value: '0',
+            autocomplete: 'off',
             disabled: ''
           }),
           div({
@@ -749,6 +756,7 @@ export default ({
             ],
             type: 'text',
             value: 'Dog',
+            autocomplete: 'off',
             disabled: ''
           }),
           div({
@@ -809,7 +817,8 @@ export default ({
               'form-control'
             ],
             type: 'text',
-            value: 'Dog Cat'
+            value: 'Dog Cat',
+            autocomplete: 'off'
           }),
           div({
             class: [

@@ -1168,7 +1168,8 @@ export default ({
                     ],
                     type: 'text',
                     name: 'language',
-                    value: ''
+                    value: '',
+                    autocomplete: 'off'
                   }),
                   div({
                     class: [
@@ -1466,7 +1467,8 @@ export default ({
                     ],
                     type: 'text',
                     name: 'field',
-                    value: 'Id'
+                    value: 'Id',
+                    autocomplete: 'off'
                   }),
                   div({
                     class: [
@@ -1553,7 +1555,8 @@ export default ({
                     ],
                     type: 'text',
                     name: 'operator',
-                    value: 'Contains'
+                    value: 'Contains',
+                    autocomplete: 'off'
                   }),
                   div({
                     class: [

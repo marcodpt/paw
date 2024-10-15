@@ -207,6 +207,7 @@ export default ({
                 ],
                 type: 'text',
                 value: 'Page (1 / 1)',
+                autocomplete: 'off',
                 disabled: ''
               }),
               div({
@@ -354,7 +355,8 @@ export default ({
                   'form-control-sm'
                 ],
                 type: 'text',
-                value: '(7 / 15)'
+                value: '(7 / 15)',
+                autocomplete: 'off'
               }),
               div({
                 class: [

@@ -3219,7 +3219,8 @@ export default ({
                           'form-control'
                         ],
                         type: 'text',
-                        value: '📖 (1 / 2)'
+                        value: '📖 (1 / 2)',
+                        autocomplete: 'off'
                       }),
                       div({
                         class: [
@@ -3600,7 +3601,8 @@ export default ({
                           'form-control'
                         ],
                         type: 'text',
-                        value: '📖 (2 / 5)'
+                        value: '📖 (2 / 5)',
+                        autocomplete: 'off'
                       }),
                       div({
                         class: [
