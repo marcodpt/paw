@@ -56,6 +56,4 @@ export default ({
   document.body.appendChild(modal)
   M = new bootstrap.Modal(modal)
   M.show()
-
-  return modal
 })

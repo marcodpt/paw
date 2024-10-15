@@ -105,7 +105,12 @@ export default ({
         (options.length == 1 && options[0].value == value),
       oninput: () => {
         list.classList.remove('d-none')
-        search(field.value)
+        var old = field.value
+        setTimeout(() => {
+          if (old == field.value) {
+            search(field.value)
+          }
+        }, 500)
       },
       onfocus: () => open(),
       onmousedown: () => list.classList.contains('d-none') ? open() : close(),
@@ -130,6 +135,7 @@ export default ({
               select()
             } else if (key(['Escape'])) {
               close()
+              ev.stopPropagation()
             }
           }
         }
@@ -154,7 +160,10 @@ export default ({
           'list-group-item-action',
           i == active ? 'active' : ''
         ],
-        onclick: () => select(i)
+        onclick: ev => {
+          ev.preventDefault()
+          select(i)
+        }
       }, [
         text(o.label)
       ])

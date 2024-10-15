@@ -10,6 +10,7 @@ export default X => {
     const {title, description, data, html} = mod.default.examples[Params.index]
     const desc = normalizeDesc(description)
     highlight()
+    const component = (mod.default.component || X[P[0]])(data[0])
     return node(({div, h5, p, hr, text, pre, code}) => div({
       class: 'container my-5 mx-auto'
     }, [
@@ -34,7 +35,7 @@ export default X => {
           ]),
           hr(),
           div({}, [
-            (mod.default.component || X[P[0]])(data[0])
+            component
           ]),
           hr(),
           p({
