@@ -101,6 +101,7 @@ export default ({
       name: title,
       value: label,
       placeholder: description,
+      autocomplete: 'off',
       disabled: readOnly || !options.length ||
         (options.length == 1 && options[0].value == value),
       oninput: () => {
