@@ -33,9 +33,7 @@ export default ({
         i,
         input
       }) => 
-        div({
-          class: 'position-relative'
-        }, [
+        div({}, [
           div({
             class: [
               'row',
@@ -166,9 +164,7 @@ export default ({
         label,
         input
       }) => 
-        div({
-          class: 'position-relative'
-        }, [
+        div({}, [
           div({
             class: [
               'row',
@@ -265,7 +261,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [
@@ -304,7 +303,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [
@@ -395,9 +397,7 @@ export default ({
         span,
         input
       }) => 
-        div({
-          class: 'position-relative'
-        }, [
+        div({}, [
           div({
             class: [
               'row',
@@ -470,7 +470,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     div({
                       class: 'input-group'
@@ -520,7 +523,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [
@@ -556,7 +562,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [
@@ -666,7 +675,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               div({
                                 class: 'input-group'
@@ -716,7 +728,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               input({
                                 class: [
@@ -752,7 +767,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               input({
                                 class: [
@@ -798,7 +816,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               div({
                                 class: 'input-group'
@@ -848,7 +869,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               input({
                                 class: [
@@ -884,7 +908,10 @@ export default ({
                               ])
                             ]),
                             div({
-                              class: 'col-sm-9'
+                              class: [
+                                'position-relative',
+                                'col-sm-9'
+                              ]
                             }, [
                               input({
                                 class: [
@@ -935,7 +962,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     div({
                       class: 'input-group'
@@ -985,7 +1015,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [
@@ -1021,7 +1054,10 @@ export default ({
                     ])
                   ]),
                   div({
-                    class: 'col-sm-9'
+                    class: [
+                      'position-relative',
+                      'col-sm-9'
+                    ]
                   }, [
                     input({
                       class: [

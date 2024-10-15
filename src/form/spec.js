@@ -837,7 +837,9 @@ export default ({
                   'fs-5'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -862,7 +864,9 @@ export default ({
                   'fs-5'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -968,10 +972,8 @@ export default ({
         div,
         label,
         input,
-        datalist,
-        option,
-        textarea,
-        button
+        button,
+        textarea
       }) => 
         form({
           novalidate: ''
@@ -1022,7 +1024,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1062,7 +1067,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1102,7 +1110,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1143,7 +1154,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1154,19 +1168,43 @@ export default ({
                     ],
                     type: 'text',
                     name: 'language',
-                    value: '',
-                    list: 'app_list_000005'
+                    value: ''
                   }),
-                  datalist({
-                    id: 'app_list_000005'
+                  div({
+                    class: [
+                      'list-group',
+                      'd-none',
+                      'w-100',
+                      'position-absolute',
+                      'z-3',
+                      'small'
+                    ]
                   }, [
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('English')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Spanish')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Chinese')
                     ])
                   ]),
@@ -1199,7 +1237,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1237,7 +1278,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   textarea({
                     class: [
@@ -1378,11 +1422,8 @@ export default ({
         label,
         text,
         input,
-        datalist,
-        option,
-        hr,
         button,
-        span,
+        hr,
         i
       }) => 
         form({
@@ -1412,7 +1453,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1422,22 +1466,52 @@ export default ({
                     ],
                     type: 'text',
                     name: 'field',
-                    value: 'Id',
-                    list: 'app_list_000000'
+                    value: 'Id'
                   }),
-                  datalist({
-                    id: 'app_list_000000'
+                  div({
+                    class: [
+                      'list-group',
+                      'd-none',
+                      'w-100',
+                      'position-absolute',
+                      'z-3'
+                    ]
                   }, [
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action',
+                        'active'
+                      ]
+                    }, [
                       text('Id')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Name')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Age (Y)')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Balance ($)')
                     ])
                   ]),
@@ -1466,7 +1540,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1476,16 +1553,34 @@ export default ({
                     ],
                     type: 'text',
                     name: 'operator',
-                    value: 'Contains',
-                    list: 'app_list_000000'
+                    value: 'Contains'
                   }),
-                  datalist({
-                    id: 'app_list_000000'
+                  div({
+                    class: [
+                      'list-group',
+                      'd-none',
+                      'w-100',
+                      'position-absolute',
+                      'z-3'
+                    ]
                   }, [
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action',
+                        'active'
+                      ]
+                    }, [
                       text('Contains')
                     ]),
-                    option({}, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
                       text('Equals')
                     ])
                   ]),
@@ -1514,7 +1609,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1602,7 +1700,6 @@ export default ({
         input,
         hr,
         button,
-        span,
         i
       }) => 
         form({
@@ -1657,7 +1754,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1693,7 +1793,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1838,7 +1941,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -1877,7 +1983,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -2024,7 +2133,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -2063,7 +2175,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -2207,7 +2322,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [
@@ -2243,7 +2361,10 @@ export default ({
                   ])
                 ]),
                 div({
-                  class: 'col-sm-9'
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
                 }, [
                   input({
                     class: [

@@ -2701,7 +2701,9 @@ export default ({
                 class: 'text-center',
                 colspan: '100%'
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3020,7 +3022,9 @@ export default ({
                 class: 'text-center',
                 colspan: '100%'
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3144,8 +3148,6 @@ export default ({
         button,
         i,
         input,
-        datalist,
-        option,
         text,
         th,
         span,
@@ -3208,23 +3210,43 @@ export default ({
                   div({
                     class: 'col-auto'
                   }, [
-                    div({}, [
+                    div({
+                      class: 'position-relative'
+                    }, [
                       input({
                         class: [
                           'validate',
                           'form-control'
                         ],
                         type: 'text',
-                        value: '📖 (1 / 2)',
-                        list: 'app_list_000001'
+                        value: '📖 (1 / 2)'
                       }),
-                      datalist({
-                        id: 'app_list_000001'
+                      div({
+                        class: [
+                          'list-group',
+                          'd-none',
+                          'w-100',
+                          'position-absolute',
+                          'z-3'
+                        ]
                       }, [
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action',
+                            'active'
+                          ]
+                        }, [
                           text('📖 (1 / 2)')
                         ]),
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action'
+                          ]
+                        }, [
                           text('📖 (2 / 2)')
                         ])
                       ]),
@@ -3509,8 +3531,6 @@ export default ({
         button,
         i,
         input,
-        datalist,
-        option,
         text,
         th,
         span,
@@ -3571,32 +3591,70 @@ export default ({
                   div({
                     class: 'col-auto'
                   }, [
-                    div({}, [
+                    div({
+                      class: 'position-relative'
+                    }, [
                       input({
                         class: [
                           'validate',
                           'form-control'
                         ],
                         type: 'text',
-                        value: '📖 (2 / 5)',
-                        list: 'app_list_000002'
+                        value: '📖 (2 / 5)'
                       }),
-                      datalist({
-                        id: 'app_list_000002'
+                      div({
+                        class: [
+                          'list-group',
+                          'd-none',
+                          'w-100',
+                          'position-absolute',
+                          'z-3'
+                        ]
                       }, [
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action'
+                          ]
+                        }, [
                           text('📖 (1 / 5)')
                         ]),
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action',
+                            'active'
+                          ]
+                        }, [
                           text('📖 (2 / 5)')
                         ]),
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action'
+                          ]
+                        }, [
                           text('📖 (3 / 5)')
                         ]),
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action'
+                          ]
+                        }, [
                           text('📖 (4 / 5)')
                         ]),
-                        option({}, [
+                        button({
+                          class: [
+                            'py-1',
+                            'list-group-item',
+                            'list-group-item-action'
+                          ]
+                        }, [
                           text('📖 (5 / 5)')
                         ])
                       ]),
@@ -3820,7 +3878,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3857,7 +3917,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3894,7 +3956,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3931,7 +3995,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -3968,7 +4034,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4005,7 +4073,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4042,7 +4112,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4079,7 +4151,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4116,7 +4190,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4153,7 +4229,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4190,7 +4268,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4227,7 +4307,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4264,7 +4346,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4389,7 +4473,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4426,7 +4512,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4464,7 +4552,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4501,7 +4591,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4539,7 +4631,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4576,7 +4670,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4613,7 +4709,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4650,7 +4748,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4688,7 +4788,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4725,7 +4827,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4762,7 +4866,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4799,7 +4905,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -4836,7 +4944,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5441,7 +5551,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5486,7 +5598,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5532,7 +5646,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5577,7 +5693,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5623,7 +5741,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5668,7 +5788,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5713,7 +5835,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5758,7 +5882,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5804,7 +5930,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5849,7 +5977,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5894,7 +6024,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5939,7 +6071,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -5984,7 +6118,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6161,7 +6297,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6198,7 +6336,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6235,7 +6375,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6272,7 +6414,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6309,7 +6453,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6346,7 +6492,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6383,7 +6531,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6420,7 +6570,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6457,7 +6609,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6494,7 +6648,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6531,7 +6687,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6568,7 +6726,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
@@ -6605,7 +6765,9 @@ export default ({
                   'align-middle'
                 ]
               }, [
-                div({}, [
+                div({
+                  class: 'position-relative'
+                }, [
                   input({
                     class: [
                       'validate',
