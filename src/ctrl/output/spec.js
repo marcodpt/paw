@@ -609,11 +609,6 @@ export default ({
         text
       }) => 
         a({
-          class: [
-            'btn',
-            'btn-link',
-            'btn-sm'
-          ],
           href: 'javascript:;'
         }, [
           text('other')

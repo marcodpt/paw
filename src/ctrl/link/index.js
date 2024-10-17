@@ -22,10 +22,10 @@ export default ({
   const hasSplit = href && hasDrop
   const isBtn = typeof href != 'string' || (hasDrop && !hasSplit)
 
-  size = ['lg', 'sm'].indexOf(size) < 0 ? '' : size
   context = opt('context', true).indexOf(context) >= 0 ? context :
     isBtn ? 'primary' :
-      size || isDisabled ? 'link' : ''
+      isDisabled ? 'link' : ''
+  size = !context || ['lg', 'sm'].indexOf(size) < 0 ? '' : size
 
   const run = typeof href == 'function' ? href : null
   const resolve = () => typeof data == 'function' ? data() : data

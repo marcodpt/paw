@@ -304,11 +304,6 @@ export default ({
         text
       }) => 
         a({
-          class: [
-            'btn',
-            'btn-link',
-            'btn-sm'
-          ],
           href: '#/?user=josh&id=34'
         }, [
           span({}, [
