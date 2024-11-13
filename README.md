@@ -146,7 +146,15 @@ I didn't find anything on github or google that went this route,
 so I created it.
 
 ## 🔧 TODO
- - completely remove functions assign to DOM, fieldset.setProp
+ - dashboard presentation
+ - hidden interface
+ - manual align buttons in forms
+ - datalist as tip options
+ - sidebar open bug and caret unsync
+ - title bug when route title is not present
+ - add body edit functions
+ - table engine based on api 
+ - completely remove functions assign to DOM, fieldset.setProp with resolver
  - dynamic tests implementation
  - highlightjs as a component (js/html)
  - tests as a route and qunit as a component
