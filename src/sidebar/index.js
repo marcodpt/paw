@@ -28,15 +28,18 @@ export default ({links, title, description, icon}) => {
                 el.setAttribute('data-paw-active', 'fw-bold')
                 if (children) {
                   el.prepend(text(' '))
-                  el.prepend(ctrl({icon: isClosed}))
+                  const i = ctrl({icon: isClosed})
+                  i.setAttribute('data-paw-active', 'fa-'+isOpen)
+                  i.setAttribute('data-paw-inactive', 'fa-'+isClosed)
+                  el.prepend(i)
                   el.addEventListener('click', () => {
                     const l = el.closest('.list-group-item')
                       .querySelector('div')
                     l.classList.toggle('d-none')
                     const i = el.querySelector('i')
-                    i.replaceWith(ctrl({
-                      icon: l.classList.contains('d-none') ? isClosed : isOpen
-                    }))
+                    i.setAttribute('class', 'fa-solid fa-'+
+                      (l.classList.contains('d-none') ? isClosed : isOpen)
+                    )
                   })
                 } else if (typeof href == 'function') {
                   el.addEventListener('click', href)

@@ -11,6 +11,7 @@ export default ({url}) => {
     '[data-paw-active]',
     '[data-paw-inactive]'
   ].join(', ')).forEach(p => {
+    const x = p.closest('[data-paw-path]')
     setClass(p, 'active', 'remove')
     setClass(p, 'inactive', 'add')
   })
@@ -27,22 +28,21 @@ export default ({url}) => {
   const T = document.body.querySelectorAll('[data-paw-text="current"]')
   const delim = ' | '
   if (href && link) {
+    const walk = el => {
+      setClass(el, 'active', 'add')
+      setClass(el, 'inactive', 'remove')
+      Array.from(el.children).forEach(child => {
+        if (!child.getAttribute('data-paw-path')) {
+          walk(child)
+        }
+      })
+    }
+
     const Current = []
     var l = link
     while (l = l.closest('[data-paw-path]')) {
       Current.push(l.getAttribute('data-paw-path'))
-      let p = l.getAttribute('data-paw-active') ? l :
-        l.querySelector('[data-paw-active]')
-      if (p) {
-        setClass(p, 'active', 'add')
-        setClass(p, 'inactive', 'remove')
-      }
-      p = l.getAttribute('data-paw-inactive') ? l :
-        l.querySelector('[data-paw-inactive]')
-      if (p) {
-        setClass(p, 'active', 'add')
-        setClass(p, 'inactive', 'remove')
-      }
+      walk(l)
       l = l.parentNode
     }
     document.title = Current.concat(
