@@ -151,7 +151,6 @@ so I created it.
  - manual align buttons in forms
  - datalist as tip options
  - sidebar open bug and caret unsync
- - title bug when route title is not present
  - add body edit functions
  - table engine based on api 
  - completely remove functions assign to DOM, fieldset.setProp with resolver

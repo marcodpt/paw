@@ -25,6 +25,7 @@ export default ({url}) => {
   const link = document.body
     .querySelector('[data-paw-path] > a[href="'+href+'"]')
   const T = document.body.querySelectorAll('[data-paw-text="current"]')
+  const delim = ' | '
   if (href && link) {
     const Current = []
     var l = link
@@ -44,14 +45,16 @@ export default ({url}) => {
       }
       l = l.parentNode
     }
-    const d = ' | '
-    document.title = Current.concat(document.title.split(d).pop()).join(d)
+    document.title = Current.concat(
+      document.title.split(delim).pop()
+    ).filter(item => item).join(delim)
     Current.reverse()
     const current = Current.join(' / ')
     T.forEach(t => {
       t.textContent = current
     })
   } else {
+    document.title = document.title.split(delim).pop()
     T.forEach(t => {
       t.textContent = ''
     })
