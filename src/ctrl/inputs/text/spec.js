@@ -76,6 +76,112 @@ export default ({
           })
         ])
       )
-    } 
+    }, {
+      title: 'Text with suggestion',
+      data: [
+        {
+          type: 'string',
+          list: ['dog', 'cat', 'bird', 'horse'],
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input,
+        datalist,
+        option,
+        text
+      }) => 
+        div({
+          class: 'position-relative'
+        }, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'text',
+            value: '',
+            list: 'app_list_000002'
+          }),
+          datalist({
+            id: 'app_list_000002'
+          }, [
+            option({}, [
+              text('dog')
+            ]),
+            option({}, [
+              text('cat')
+            ]),
+            option({}, [
+              text('bird')
+            ]),
+            option({}, [
+              text('horse')
+            ])
+          ]),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
+    }, {
+      title: 'Text with suggestion and options',
+      data: [
+        {
+          type: 'string',
+          default: 'en',
+          list: [
+            {value: 'en', label: 'English'},
+            {value: 'fr', label: 'French'},
+            {value: 'es', label: 'Spanish'},
+          ],
+          update
+        }
+      ],
+      html: html(({
+        div,
+        input,
+        datalist,
+        option,
+        text
+      }) => 
+        div({
+          class: 'position-relative'
+        }, [
+          input({
+            class: [
+              'validate',
+              'form-control'
+            ],
+            type: 'text',
+            value: 'en',
+            list: 'app_list_000001'
+          }),
+          datalist({
+            id: 'app_list_000001'
+          }, [
+            option({
+              value: 'en'
+            }, [
+              text('English')
+            ]),
+            option({
+              value: 'fr'
+            }, [
+              text('French')
+            ]),
+            option({
+              value: 'es'
+            }, [
+              text('Spanish')
+            ])
+          ]),
+          div({
+            class: 'invalid-feedback'
+          })
+        ])
+      )
+    }
   ]
 })

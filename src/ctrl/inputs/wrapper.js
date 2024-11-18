@@ -1,7 +1,22 @@
 import {node} from '../../components.js'
+import {uid} from '../../lib.js'
 
-export default (target, noFeedback) => node(({div}) =>
-  div({
+export default (target, noFeedback, list) => node(({
+  div, datalist, option, text
+}) => {
+  let id = null
+  let value = null
+  const clear = ev => {
+    value = ev.target.value
+    ev.target.value = ''
+  }
+  const blur = ev => {
+    if (!ev.target.value && value != null) {
+      ev.target.value = value
+    }
+  }
+
+  return div({
     class: 'position-relative',
     validate: (el, error) => {
       el.querySelectorAll('.invalid-feedback').forEach(feedback => {
@@ -22,9 +37,32 @@ export default (target, noFeedback) => node(({div}) =>
         }
       })
     }
-  }, [].concat(node(target)).concat(noFeedback ? [] : [
+  }, [].concat(node(target)).map((el, i) => {
+    if (!i) {
+      id = list ? uid('list') : null
+      if (id) {
+        el.setAttribute('list', id)
+        el.addEventListener('focus', clear)
+        el.addEventListener('blur', blur)
+      }
+    }
+    return el
+  }).concat(!list || !id ? [] : 
+    datalist({
+      id
+    }, list.map(o => typeof o == 'object' && o.value != null ? 
+      option({
+        value: o.value
+      }, [
+        text(o.label)
+      ]) :
+      option({}, [
+        text(o)
+      ])
+    ))
+  ).concat(noFeedback ? [] : [
     div({
       class: 'invalid-feedback'
     })
   ]))
-)
+})

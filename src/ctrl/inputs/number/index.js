@@ -10,7 +10,8 @@ export default ({
   readOnly,
   update,
   size,
-  value
+  value,
+  list
 }) => {
   var step = type == 'integer' ? 1 : null
   var fixed = 0
@@ -60,5 +61,5 @@ export default ({
         update(x)
       }
     })
-  )
+  , false, list)
 }

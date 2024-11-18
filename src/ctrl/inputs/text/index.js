@@ -7,7 +7,8 @@ export default ({
   readOnly,
   update,
   size,
-  value
+  value,
+  list
 }) => wrapper(({input}) => 
   input({
     class: [
@@ -24,4 +25,4 @@ export default ({
       update(ev.target.value)
     }
   })
-)
+, false, list)
