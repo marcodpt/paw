@@ -5,7 +5,7 @@ export default ({
   update,
   submit,
   links,
-  block,
+  align,
   download,
   mime,
   ...schema
@@ -36,13 +36,12 @@ export default ({
   })
 
   const hasFields = Object.keys(schema.properties || {}).length
-  const footer = node(({div}) => !links.length ? null : block ? div({
+  const footer = node(({
+    div
+  }) => !links.length ? null : align == 'block' ? div({
     class: 'btn-group w-100'
   }, links) : div({
-    class: 'row g-1 align-items-center justify-content-'+(
-      schema.close == 'modal' ? 'end' :
-        !hasFields ? 'center' : 'start'
-    )
+    class: 'row g-1 align-items-center justify-content-'+(align || 'start')
   }, links.map(L => 
     div({
       class: 'col-auto'

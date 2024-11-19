@@ -98,7 +98,7 @@ export default ({
         }
       },
       showValid: false,
-      block: true,
+      align: 'block',
       submit: ({html, template}) => {
         var target
         if (template) {
@@ -115,6 +115,7 @@ export default ({
         )
         const fn = `html(({\n  ${Tags.join(',\n  ')}\n}) => \n${jsCode}\n)`
         const ctrls = () => form({
+          align: 'center',
           links: [
             {
               icon: 'clipboard',

@@ -23,6 +23,7 @@ export default ({
           class: 'modal-content'
         }, [
           form({
+            align: 'end',
             ...schema,
             css: 'modal-body',
             ui: schema.ui || 'info',

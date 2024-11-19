@@ -13,7 +13,7 @@ export default ({render, form, home, html}) => {
     title: 'Settings',
     description: 'Setup your preferences!',
     type: 'object',
-    block: true,
+    align: 'block',
     properties: {
       file: {
         title: 'Import HTML',

@@ -90,12 +90,21 @@ export default ({
             Use href: 'submit' to create a submit button.
           `
         },
-        block: {
-          type: 'boolean',
-          default: false,
+        align: {
+          type: 'string',
+          default: 'start',
+          enum: [
+            'block',
+            'start',
+            'center',
+            'end'
+          ],
           description: `
-            Whether links should occupy the entire width.
-            And whether they should be displayed as a group.
+            The layout of the links on the screen:
+             - block: occupy everything without leaving empty spaces.
+             - start: align at the beginning.
+             - center: align in the center.
+             - end: align at the end.
           `
         },
         download: {
@@ -323,6 +332,7 @@ export default ({
           description: 'Associated description',
           icon: 'exclamation-circle',
           close: 'modal',
+          align: 'end',
           links: [
             {
               icon: 'times',
@@ -419,6 +429,7 @@ export default ({
           title: 'A header',
           description: 'Associated description',
           icon: 'exclamation-circle',
+          align: 'center',
           links: [
             {
               icon: 'check',
@@ -507,6 +518,7 @@ export default ({
           description: 'This is an example of an alert modal.\n\nWith a message to the user.',
           context: 'warning',
           close: 'modal',
+          align: 'end',
           links: [
             {
               icon: 'times',
@@ -624,6 +636,7 @@ export default ({
           description: 'This is an example of a confirmation dialog.',
           context: 'info',
           close: 'modal',
+          align: 'end',
           links: [
             {
               icon: 'times',
@@ -778,7 +791,7 @@ export default ({
               description: 'Password'
             }
           },
-          block: true,
+          align: 'block',
           links: [
             {
               icon: 'sign-in',
@@ -3516,6 +3529,7 @@ export default ({
       title: 'Form with links only',
       data: [
         {
+          align: 'center',
           links: [
             {
               context: 'warning',
