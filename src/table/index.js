@@ -157,14 +157,18 @@ export default ({
               }
             })
           ])
-        ].concat(rowLinks.map(({icon, title}) =>
+        ].concat(rowLinks.map(({icon, title, description}) =>
           th({
             class: 'text-center align-middle',
             dataCtx: 'groupHide'
           }, [
             ctrl({
               icon,
-              title: icon ? '' : title
+              title: icon ? '' : title,
+              description: [
+                icon ? title : '',
+                description
+              ].filter(t => t).join('\n')
             })
           ])
         )).concat(K.map(k =>
@@ -325,6 +329,10 @@ export default ({
                 ...L,
                 size: 'sm',
                 title: L.icon ? '' : L.title,
+                description: [
+                  L.icon ? L.title : '',
+                  L.description
+                ].filter(t => t).join('\n'),
                 data: typeof L.href == 'function' ? {
                   ...state,
                   row
