@@ -175,7 +175,8 @@ export default ({
             min: '0',
             max: '20',
             step: '1',
-            list: 'app_list_000002'
+            list: 'app_list_000002',
+            autocomplete: 'off'
           }),
           datalist({
             id: 'app_list_000002'
@@ -238,7 +239,8 @@ export default ({
             min: '0',
             max: '20',
             step: '1',
-            list: 'app_list_000001'
+            list: 'app_list_000001',
+            autocomplete: 'off'
           }),
           datalist({
             id: 'app_list_000001'

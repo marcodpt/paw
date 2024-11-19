@@ -29,7 +29,6 @@ export default ({icon, title, context}, {dialog, ctrl}) => {
           field: {
             type: 'string',
             title: 'Field',
-            default: K[0],
             options: K.map(k => ({
               value: k,
               label: P[k].title || k
@@ -69,7 +68,6 @@ export default ({icon, title, context}, {dialog, ctrl}) => {
           },
           value: {
             type: 'string',
-            minLength: 1,
             title: 'Value'
           }
         },
@@ -77,25 +75,24 @@ export default ({icon, title, context}, {dialog, ctrl}) => {
           const {field, operator, value} = Data
           const isFixed = op => ['ct', 'nc'].indexOf(op) < 0
           const fixed = isFixed(operator)
-          const changed = (S.field !== field && fixed) || 
+          const changed = S.field !== field ||
             fixed !== isFixed(S.operator)
           S.field = field
           S.operator = operator
-          if (changed) {
+          if (changed && field) {
+            const values = data.reduce((V, row) => {
+              if (V.indexOf(row[field]) < 0) {
+                V.push(row[field])
+              }
+              return V
+            }, [])
+            values.sort()
             if (fixed) {
-              const values = data.reduce((V, row) => {
-                if (V.indexOf(row[field]) < 0) {
-                  V.push(row[field])
-                }
-                return V
-              }, [])
-              values.sort()
-
               form.setProp({
                 value: {
                   type: P[field].type,
                   title: 'Value',
-                  options: values.map(v => ({
+                  list: values.map(v => ({
                     value: v,
                     label: format[field](v)
                   }))
@@ -106,7 +103,9 @@ export default ({icon, title, context}, {dialog, ctrl}) => {
                 value: {
                   type: 'string',
                   title: 'Value',
-                  minLength: 1
+                  minLength: 1,
+                  default: '',
+                  list: values.map(v => format[field](v))
                 }
               })
             }

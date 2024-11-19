@@ -42,6 +42,7 @@ export default (target, noFeedback, list) => node(({
       id = list ? uid('list') : null
       if (id) {
         el.setAttribute('list', id)
+        el.setAttribute('autocomplete', 'off')
         el.addEventListener('focus', clear)
         el.addEventListener('blur', blur)
       }

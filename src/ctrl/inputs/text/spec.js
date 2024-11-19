@@ -102,7 +102,8 @@ export default ({
             ],
             type: 'text',
             value: '',
-            list: 'app_list_000002'
+            list: 'app_list_000002',
+            autocomplete: 'off'
           }),
           datalist({
             id: 'app_list_000002'
@@ -156,7 +157,8 @@ export default ({
             ],
             type: 'text',
             value: 'en',
-            list: 'app_list_000001'
+            list: 'app_list_000001',
+            autocomplete: 'off'
           }),
           datalist({
             id: 'app_list_000001'
