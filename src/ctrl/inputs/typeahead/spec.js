@@ -164,6 +164,15 @@ export default ({
                 'list-group-item-action'
               ]
             }, [
+              text('hide')
+            ]),
+            button({
+              class: [
+                'py-1',
+                'list-group-item',
+                'list-group-item-action'
+              ]
+            }, [
               text('num.1')
             ]),
             button({

@@ -150,5 +150,26 @@ const data2 = [
     balance: 3906.51
   }
 ]
+const prop3 = {
+  name: {
+    type: 'string',
+    title: 'Name',
+    description: 'User name',
+    totals: 'count'
+  }, 
+  age: {
+    type: 'integer',
+    title: 'Age (Y)',
+    description: 'User age',
+    totals: 'avg',
+    ui: 'hide'
+  }, 
+  balance: {
+    type: 'number',
+    title: 'Balance ($)',
+    ui: 'num.2',
+    totals: 'sum'
+  }
+}
 
-export {prop0, data0, prop1, data1, prop2, data2}
+export {prop0, data0, prop1, data1, prop2, data2, prop3}

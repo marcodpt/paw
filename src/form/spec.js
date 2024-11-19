@@ -1340,6 +1340,329 @@ export default ({
         ])
       )
     }, {
+      title: 'Register with hidden fields',
+      data: [
+        {
+          title: 'Register',
+          icon: 'user',
+          properties: {
+            name: {
+              type: 'string'
+            },
+            email: {
+              type: 'string'
+            },
+            age: {
+              type: 'integer',
+              default: 30,
+              ui: 'hide'
+            },
+            language: {
+              type: 'string',
+              enum: [
+                'English',
+                'Spanish',
+                'Chinese'
+              ]
+            },
+            news: {
+              type: 'boolean',
+              default: true,
+              ui: 'hide'
+            },
+            bio: {
+              type: 'string',
+              ui: 'text'
+            }
+          },
+          submit: data => {
+            console.log(data)
+          },
+          links: [
+            {
+              title: 'Submit',
+              href: 'submit'
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        i,
+        text,
+        hr,
+        div,
+        label,
+        input,
+        button,
+        textarea
+      }) => 
+        form({
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-5'
+              ]
+            }, [
+              span({}, [
+                i({
+                  class: [
+                    'fa-solid',
+                    'fa-user'
+                  ]
+                }),
+                text(' Register')
+              ])
+            ]),
+            hr({
+              class: 'my-2'
+            }),
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('name:')
+                  ])
+                ]),
+                div({
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    type: 'text',
+                    name: 'name',
+                    value: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('email:')
+                  ])
+                ]),
+                div({
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    type: 'text',
+                    name: 'email',
+                    value: ''
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('language:')
+                  ])
+                ]),
+                div({
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
+                }, [
+                  input({
+                    class: [
+                      'validate',
+                      'form-control',
+                      'is-invalid'
+                    ],
+                    type: 'text',
+                    name: 'language',
+                    value: '',
+                    autocomplete: 'off'
+                  }),
+                  div({
+                    class: [
+                      'list-group',
+                      'd-none',
+                      'w-100',
+                      'position-absolute',
+                      'z-3'
+                    ]
+                  }, [
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
+                      text('English')
+                    ]),
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
+                      text('Spanish')
+                    ]),
+                    button({
+                      class: [
+                        'py-1',
+                        'list-group-item',
+                        'list-group-item-action'
+                      ]
+                    }, [
+                      text('Chinese')
+                    ])
+                  ]),
+                  div({
+                    class: 'invalid-feedback'
+                  }, [
+                    text('Must be one of the possible options.')
+                  ])
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-2',
+                  'row'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold'
+                    ]
+                  }, [
+                    text('bio:')
+                  ])
+                ]),
+                div({
+                  class: [
+                    'position-relative',
+                    'col-sm-9'
+                  ]
+                }, [
+                  textarea({
+                    class: [
+                      'validate',
+                      'form-control'
+                    ],
+                    name: 'bio',
+                    rows: '6'
+                  }),
+                  div({
+                    class: 'invalid-feedback'
+                  })
+                ])
+              ])
+            ])
+          ]),
+          hr({
+            class: 'my-2'
+          }),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-start'
+            ]
+          }, [
+            div({
+              class: 'col-auto',
+              title: 'language: Must be one of the possible options.'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-primary'
+                ],
+                type: 'button',
+                disabled: ''
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-check'
+                    ]
+                  }),
+                  text(' Submit')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
       title: 'Filter',
       data: [
         {
@@ -2907,6 +3230,271 @@ export default ({
                 class: [
                   'btn',
                   'btn-warning'
+                ],
+                type: 'button'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-edit'
+                    ]
+                  }),
+                  text(' Edit')
+                ])
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Static with actions and hidden field',
+      data: [
+        {
+          css: 'container card my-5 p-3',
+          title: 'User: Mathews Mcgowan',
+          description: 'Single user entry',
+          readOnly: true,
+          close: () => {window.alert('close')},
+          size: 'lg',
+          properties: {
+            id: {
+              type: 'integer',
+              title: 'Id',
+              description: 'User id',
+              default: 0,
+              href: '#/users/{id}',
+              totals: 'count'
+            },
+            name: {
+              type: 'string',
+              title: 'Name',
+              description: 'User name',
+              default: '',
+              minLength: 1,
+              maxLength: 255,
+              col: 12
+            }, 
+            age: {
+              type: 'integer',
+              title: 'Age (Y)',
+              description: 'User age',
+              default: 18,
+              minimum: 18,
+              maximum: 99,
+              totals: 'avg',
+              ui: 'hide'
+            }, 
+            balance: {
+              type: 'number',
+              title: 'Balance ($)',
+              default: 0,
+              minimum: 1000,
+              maximum: 4000,
+              ui: 'num.2',
+              totals: 'sum'
+            }
+          },
+          default: {
+            id: 1,
+            name: 'Mathews Mcgowan',
+            age: 24,
+            balance: 3072.78
+          },
+          links: [
+            {
+              context: 'danger',
+              icon: 'trash',
+              title: 'Delete',
+              href: () => {window.alert('delete')}
+            }, {
+              context: 'warning',
+              icon: 'edit',
+              title: 'Edit',
+              href: () => {window.alert('edit')}
+            }
+          ]
+        }
+      ],
+      html: html(({
+        form,
+        fieldset,
+        legend,
+        span,
+        text,
+        button,
+        hr,
+        div,
+        label,
+        a,
+        i
+      }) => 
+        form({
+          class: [
+            'container',
+            'card',
+            'my-5',
+            'p-3'
+          ],
+          novalidate: ''
+        }, [
+          fieldset({}, [
+            legend({
+              class: [
+                'fw-bold',
+                'clearfix',
+                'fs-4'
+              ]
+            }, [
+              span({
+                title: 'Single user entry'
+              }, [
+                text('User: Mathews Mcgowan')
+              ]),
+              button({
+                type: 'button',
+                class: [
+                  'btn-close',
+                  'float-end'
+                ]
+              })
+            ]),
+            hr({
+              class: 'my-2'
+            }),
+            div({
+              class: 'row'
+            }, [
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ],
+                    title: 'User id'
+                  }, [
+                    text('Id:')
+                  ])
+                ]),
+                div({
+                  class: 'col-sm-9'
+                }, [
+                  a({
+                    href: '#/users/1'
+                  }, [
+                    text('1')
+                  ])
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ],
+                    title: 'User name'
+                  }, [
+                    text('Name:')
+                  ])
+                ]),
+                div({
+                  class: 'col-sm-9'
+                }, [
+                  text('Mathews Mcgowan')
+                ])
+              ]),
+              div({
+                class: [
+                  'col-12',
+                  'my-3',
+                  'row',
+                  'fs-5'
+                ]
+              }, [
+                div({
+                  class: 'col-sm-3'
+                }, [
+                  label({
+                    class: [
+                      'form-label',
+                      'fw-bold',
+                      'fs-5'
+                    ]
+                  }, [
+                    text('Balance ($):')
+                  ])
+                ]),
+                div({
+                  class: 'col-sm-9'
+                }, [
+                  text('3,072.78')
+                ])
+              ])
+            ])
+          ]),
+          hr({
+            class: 'my-2'
+          }),
+          div({
+            class: [
+              'row',
+              'g-1',
+              'align-items-center',
+              'justify-content-start'
+            ]
+          }, [
+            div({
+              class: 'col-auto'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-danger',
+                  'btn-lg'
+                ],
+                type: 'button'
+              }, [
+                span({}, [
+                  i({
+                    class: [
+                      'fa-solid',
+                      'fa-trash'
+                    ]
+                  }),
+                  text(' Delete')
+                ])
+              ])
+            ]),
+            div({
+              class: 'col-auto'
+            }, [
+              button({
+                class: [
+                  'btn',
+                  'btn-warning',
+                  'btn-lg'
                 ],
                 type: 'button'
               }, [

@@ -1,6 +1,6 @@
 import html from '../node/html.js'
 import {table} from '../components.js'
-import {prop0, data0, prop1, data1, prop2, data2} from './data.js'
+import {prop0, data0, prop1, data1, prop2, data2, prop3} from './data.js'
 
 var btn = null
 export default ({
@@ -5404,6 +5404,316 @@ export default ({
                 ]
               }, [
                 text('36')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,906.51')
+              ])
+            ])
+          ])
+        ])
+      )
+    }, {
+      title: 'Table with totals and hidden field',
+      data: [
+        {
+          items: {
+            properties: prop3
+          },
+          default: data2
+        }
+      ],
+      html: html(({
+        table,
+        thead,
+        tr,
+        td,
+        text,
+        th,
+        span,
+        tbody
+      }) => 
+        table({
+          class: 'table'
+        }, [
+          thead({}, [
+            tr({}, [
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:name'
+              }, [
+                text('13')
+              ]),
+              td({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ],
+                dataCtx: 'totals:balance'
+              }, [
+                text('33,979.24')
+              ])
+            ]),
+            tr({}, [
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  title: 'User name',
+                  dataCtx: 'field:name'
+                }, [
+                  text('Name')
+                ])
+              ]),
+              th({
+                class: [
+                  'text-center',
+                  'align-middle'
+                ]
+              }, [
+                span({
+                  dataCtx: 'field:balance'
+                }, [
+                  text('Balance ($)')
+                ])
+              ])
+            ])
+          ]),
+          tbody({}, [
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('June Kirk')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,260.38')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Mathews Mcgowan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,072.78')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tyson Hatfield')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,326.09')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Stacey Gentry')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,318.59')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Olive Huff')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,747.45')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Harriet Benton')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('1,146.87')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Tran Heath')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,510.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Christie Sloan')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,022.48')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Diaz Williams')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,410.05')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Kelley Tyson')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('3,973.95')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Eve Snider')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,823.23')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Baird Lynch')
+              ]),
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('2,459.93')
+              ])
+            ]),
+            tr({}, [
+              td({
+                class: [
+                  'align-middle',
+                  'text-center'
+                ]
+              }, [
+                text('Arline Chang')
               ]),
               td({
                 class: [

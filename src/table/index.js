@@ -19,7 +19,7 @@ export default ({
   items = items || {}
   const rowLinks = items.links || []
   const P = items.properties || {}
-  const K = Object.keys(P)
+  const K = Object.keys(P).filter(k => P[k].ui != 'hide')
   const format = K.reduce((F, k) => ({
     ...F,
     [k]: formatter(P[k])

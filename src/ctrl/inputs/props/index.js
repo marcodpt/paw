@@ -17,7 +17,7 @@ export default ({
   ...schema
 }) => {
   const P = properties || {}
-  const K = Object.keys(P)
+  const K = Object.keys(P).filter(k => P[k].ui != 'hide')
   const hasAlert = context && description
   const hasLegend = close || title || icon
   const Data = {...schema.default} || {}
@@ -65,7 +65,7 @@ export default ({
   if (K.length) {
     target.setProp = P => {
       var done = false
-      const K = Object.keys(P)
+      const K = Object.keys(P).filter(k => P[k].ui != 'hide')
       K.forEach((k, index) => {
         done = K.length - 1 == index
         if (P[k] == null) {

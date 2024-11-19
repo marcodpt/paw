@@ -147,9 +147,7 @@ so I created it.
 
 ## 🔧 TODO
  - dashboard presentation
- - hidden interface
  - manual align buttons in forms
- - datalist as tip options
  - add body edit functions
  - table engine based on api 
  - completely remove functions assign to DOM, fieldset.setProp with resolver
